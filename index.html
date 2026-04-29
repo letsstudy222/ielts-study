@@ -1,0 +1,3021 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Reading Master — 0 → 9.0</title>
+<meta name="description" content="Ứng dụng học IELTS Reading toàn diện từ cơ bản đến Band 9.0">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   IELTS READING MASTER — Design System
+   ═══════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:        #07090f;
+  --bg2:       #0d1117;
+  --surface:   #111827;
+  --surface2:  #1a2235;
+  --surface3:  #1f2d44;
+  --border:    #1e2d45;
+  --border2:   #2a3f5f;
+
+  --accent:    #2563eb;
+  --accent2:   #3b82f6;
+  --accent3:   #60a5fa;
+  --gold:      #d97706;
+  --gold2:     #f59e0b;
+  --gold3:     #fbbf24;
+  --green:     #059669;
+  --green2:    #10b981;
+  --red:       #dc2626;
+  --red2:      #ef4444;
+  --purple:    #7c3aed;
+  --purple2:   #8b5cf6;
+  --cyan:      #0891b2;
+  --cyan2:     #06b6d4;
+  --pink:      #be185d;
+  --pink2:     #ec4899;
+
+  --text:      #e2e8f0;
+  --text2:     #94a3b8;
+  --text3:     #64748b;
+
+  --reading:   #2563eb;
+  --band7:     #10b981;
+  --band8:     #3b82f6;
+  --band9:     #8b5cf6;
+
+  --r: 8px;
+  --r2: 12px;
+  --r3: 16px;
+  --r4: 20px;
+  --r5: 24px;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow:    0 4px 20px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+  --shadow-xl: 0 16px 64px rgba(0,0,0,0.6);
+
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent2); }
+
+/* ── TYPOGRAPHY ── */
+h1, h2, h3 { font-family: 'Crimson Pro', serif; line-height: 1.2; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 600; }
+h4 { font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text2); }
+p { line-height: 1.75; color: var(--text2); }
+code, .mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── LAYOUT ── */
+.app-layout { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform var(--transition);
+}
+
+.sidebar-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(135deg, #0d1f3c, #0a1628);
+}
+.logo {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent3), var(--gold3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.logo-sub { font-size: 0.68rem; color: var(--text3); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+
+.band-tracker {
+  margin: 14px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.15), rgba(124,58,237,0.1));
+  border: 1px solid rgba(37,99,235,0.25);
+  border-radius: var(--r2);
+  padding: 14px;
+  text-align: center;
+}
+.band-display {
+  font-family: 'Crimson Pro', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold2), var(--gold3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.band-label { font-size: 0.68rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.band-target { font-size: 0.72rem; color: var(--text3); margin-top: 4px; }
+.progress-bar { background: var(--border); border-radius: 4px; height: 4px; margin-top: 10px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent2), var(--gold2)); transition: width 0.8s ease; }
+
+.nav-group-label {
+  padding: 14px 16px 6px;
+  font-size: 0.62rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 1px 8px;
+  border-radius: var(--r);
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text3);
+  transition: all var(--transition);
+  border: none;
+  background: none;
+  width: calc(100% - 16px);
+  text-align: left;
+  text-decoration: none;
+}
+.nav-item:hover { background: var(--surface2); color: var(--text); }
+.nav-item.active {
+  background: rgba(37,99,235,0.15);
+  color: var(--accent3);
+  border-left: 2px solid var(--accent2);
+  padding-left: 12px;
+}
+.nav-icon { width: 18px; text-align: center; font-size: 0.95rem; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto;
+  font-size: 0.6rem;
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.badge-blue { background: rgba(37,99,235,0.2); color: var(--accent3); }
+.badge-gold { background: rgba(245,158,11,0.2); color: var(--gold2); }
+.badge-green { background: rgba(16,185,129,0.2); color: var(--green2); }
+.badge-purple { background: rgba(139,92,246,0.2); color: var(--purple2); }
+.badge-new { background: var(--red2); color: #fff; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 14px;
+  border-top: 1px solid var(--border);
+}
+.xp-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+.xp-value { color: var(--gold2); font-weight: 700; font-size: 1rem; }
+
+/* MAIN */
+.main {
+  margin-left: 280px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 12px; }
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px;
+}
+.topbar-title { font-family: 'Crimson Pro', serif; font-size: 1.25rem; font-weight: 600; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(220,38,38,0.15);
+  border: 1px solid rgba(220,38,38,0.3);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #f87171;
+}
+.xp-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold2);
+}
+
+.content { padding: 28px 32px 48px; flex: 1; max-width: 1200px; }
+
+/* ── SCREENS ── */
+.screen { display: none; animation: fadeUp 0.3s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-sm { padding: 16px; border-radius: var(--r2); }
+.card-hover { transition: all var(--transition); cursor: pointer; }
+.card-hover:hover { transform: translateY(-2px); border-color: var(--border2); box-shadow: var(--shadow); }
+
+.card-accent { border-top: 3px solid var(--accent2); }
+.card-gold { border-top: 3px solid var(--gold2); }
+.card-green { border-top: 3px solid var(--green2); }
+.card-purple { border-top: 3px solid var(--purple2); }
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.grid4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  border-radius: var(--r);
+  padding: 10px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+.btn-primary { background: var(--accent2); color: #fff; }
+.btn-primary:hover { background: var(--accent); }
+.btn-gold { background: var(--gold2); color: #000; }
+.btn-gold:hover { background: var(--gold); }
+.btn-green { background: var(--green2); color: #fff; }
+.btn-green:hover { background: var(--green); }
+.btn-purple { background: var(--purple2); color: #fff; }
+.btn-purple:hover { background: var(--purple); }
+.btn-outline { background: none; border: 1.5px solid var(--border2); color: var(--text); }
+.btn-outline:hover { border-color: var(--accent2); color: var(--accent3); }
+.btn-ghost { background: var(--surface2); color: var(--text2); }
+.btn-ghost:hover { background: var(--surface3); color: var(--text); }
+.btn-danger { background: var(--red2); color: #fff; }
+.btn-sm { padding: 7px 14px; font-size: 0.78rem; border-radius: 6px; }
+.btn-lg { padding: 13px 28px; font-size: 0.95rem; border-radius: var(--r2); }
+.btn-xl { padding: 16px 36px; font-size: 1.05rem; border-radius: var(--r3); }
+
+/* ── TABS ── */
+.tabs-bar {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent3); border-bottom-color: var(--accent2); }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; animation: fadeUp 0.25s ease; }
+
+/* ── TAGS ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tag-reading  { background: rgba(37,99,235,0.15);  color: var(--accent3); }
+.tag-band7    { background: rgba(16,185,129,0.15);  color: var(--green2); }
+.tag-band8    { background: rgba(59,130,246,0.15);  color: var(--accent3); }
+.tag-band9    { background: rgba(139,92,246,0.15);  color: var(--purple2); }
+.tag-easy     { background: rgba(16,185,129,0.15);  color: var(--green2); }
+.tag-medium   { background: rgba(245,158,11,0.15);  color: var(--gold2); }
+.tag-hard     { background: rgba(220,38,38,0.15);   color: var(--red2); }
+.tag-new      { background: rgba(236,72,153,0.15);  color: var(--pink2); }
+
+/* ── LESSON BLOCKS ── */
+.lesson-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+.lesson-block h4 {
+  color: var(--accent3);
+  margin-bottom: 12px;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+}
+.lesson-body { font-size: 0.9rem; line-height: 1.85; color: var(--text); }
+.lesson-body strong { color: var(--gold2); font-weight: 600; }
+.lesson-body em { color: var(--green2); font-style: normal; font-weight: 600; }
+
+.example-box {
+  background: rgba(37,99,235,0.06);
+  border-left: 3px solid var(--accent2);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 0.87rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+.tip-box {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+.tip-box::before { content: '💡 '; }
+.warning-box {
+  background: rgba(220,38,38,0.08);
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.87rem;
+  line-height: 1.7;
+}
+.warning-box::before { content: '⚠️ '; }
+.pro-box {
+  background: rgba(139,92,246,0.08);
+  border: 1px solid rgba(139,92,246,0.2);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 0.87rem;
+  line-height: 1.7;
+}
+.pro-box::before { content: '⭐ Band 8-9: '; color: var(--purple2); font-weight: 600; }
+
+/* ── QUIZ COMPONENTS ── */
+.quiz-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r4);
+  overflow: hidden;
+}
+.quiz-header {
+  background: var(--surface2);
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.quiz-body { padding: 28px; }
+.quiz-passage {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 20px;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  margin-bottom: 24px;
+  max-height: 280px;
+  overflow-y: auto;
+  color: var(--text);
+}
+.quiz-passage .highlight { background: rgba(245,158,11,0.2); border-radius: 2px; }
+.quiz-q { font-size: 1rem; font-weight: 600; line-height: 1.5; margin-bottom: 16px; color: var(--text); }
+.quiz-opts { display: grid; gap: 10px; }
+.quiz-opt {
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: var(--r2);
+  padding: 14px 18px;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  transition: all var(--transition);
+  line-height: 1.5;
+}
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent2); background: rgba(37,99,235,0.08); }
+.quiz-opt.correct { border-color: var(--green2); background: rgba(16,185,129,0.1); color: var(--green2); }
+.quiz-opt.wrong { border-color: var(--red2); background: rgba(220,38,38,0.08); color: var(--red2); }
+.quiz-opt.reveal { border-color: var(--green2); background: rgba(16,185,129,0.08); }
+
+.fill-input {
+  background: var(--surface2);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  width: 100%;
+  transition: border-color var(--transition);
+}
+.fill-input:focus { outline: none; border-color: var(--accent2); }
+.fill-input.correct { border-color: var(--green2); }
+.fill-input.wrong { border-color: var(--red2); }
+
+.progress-dots { display: flex; gap: 5px; margin-bottom: 20px; }
+.progress-dot { height: 4px; flex: 1; border-radius: 2px; background: var(--border); transition: all 0.3s; }
+.progress-dot.done { background: var(--green2); }
+.progress-dot.current { background: var(--accent2); }
+
+.explanation {
+  background: rgba(16,185,129,0.06);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: var(--r2);
+  padding: 16px;
+  margin-top: 16px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  display: none;
+}
+
+/* ── AI INPUT ── */
+.ai-textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r2);
+  padding: 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color var(--transition);
+  line-height: 1.7;
+}
+.ai-textarea:focus { outline: none; border-color: var(--accent2); }
+.ai-response {
+  background: var(--surface2);
+  border: 1px solid rgba(37,99,235,0.25);
+  border-radius: var(--r2);
+  padding: 20px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  display: none;
+  color: var(--text);
+}
+.ai-loading {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--text3);
+  font-size: 0.85rem;
+  padding: 12px 0;
+}
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--accent2);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── TABLES ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+thead th {
+  background: var(--surface2);
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text3);
+  border-bottom: 1px solid var(--border);
+}
+tbody td { padding: 11px 16px; border-bottom: 1px solid rgba(30,45,69,0.6); line-height: 1.5; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: rgba(26,34,53,0.5); }
+
+/* ── BAND SCORE TABLE ── */
+.band-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: var(--r); transition: background var(--transition); }
+.band-row:hover { background: var(--surface2); }
+.band-num { font-family: 'Crimson Pro', serif; font-size: 1.6rem; font-weight: 700; min-width: 48px; }
+.band-bar-mini { flex: 1; height: 8px; border-radius: 4px; }
+.band-info { flex: 3; font-size: 0.83rem; line-height: 1.5; }
+
+/* ── VOCAB CARD ── */
+.vocab-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 16px;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.vocab-card:hover { border-color: var(--accent2); box-shadow: var(--shadow-sm); }
+.vocab-word { font-family: 'Crimson Pro', serif; font-size: 1.3rem; font-weight: 700; color: var(--accent3); }
+.vocab-phonetic { font-size: 0.77rem; color: var(--text3); font-style: italic; margin: 2px 0 8px; font-family: 'JetBrains Mono', monospace; }
+.vocab-meaning { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.vocab-example { font-size: 0.8rem; color: var(--text2); font-style: italic; margin-top: 6px; line-height: 1.6; }
+.vocab-tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ── ROADMAP ── */
+.roadmap { position: relative; padding-left: 36px; }
+.roadmap::before { content:''; position:absolute; left:16px; top:8px; bottom:8px; width:2px; background: linear-gradient(180deg, var(--accent2), var(--purple2), var(--gold2)); border-radius: 1px; }
+.roadmap-week {
+  position: relative;
+  margin-bottom: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 18px 20px;
+  transition: border-color var(--transition);
+}
+.roadmap-week::before {
+  content: '';
+  position: absolute;
+  left: -26px; top: 18px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--accent2);
+  background: var(--bg);
+  z-index: 1;
+}
+.roadmap-week.done::before { background: var(--green2); border-color: var(--green2); }
+.roadmap-week.active-week { border-color: var(--accent2); }
+.roadmap-week.active-week::before { background: var(--accent2); box-shadow: 0 0 0 4px rgba(37,99,235,0.2); }
+.week-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.week-label { font-size: 0.68rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+.week-title { font-weight: 700; font-size: 1rem; color: var(--text); }
+.week-tasks { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.week-task { display: flex; align-items: flex-start; gap: 8px; font-size: 0.83rem; color: var(--text2); }
+.week-task::before { content: '→'; color: var(--accent3); flex-shrink: 0; }
+
+/* ── QUESTION TYPE CARD ── */
+.qtype-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.qtype-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--border2); }
+.qtype-icon { font-size: 1.8rem; margin-bottom: 10px; }
+.qtype-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
+.qtype-freq { font-size: 0.75rem; color: var(--text3); }
+.qtype-difficulty { margin-top: 10px; }
+.difficulty-bar { background: var(--border); border-radius: 3px; height: 4px; margin-top: 5px; }
+.diff-fill { height: 4px; border-radius: 3px; }
+
+/* ── STAT CARD ── */
+.stat-card { text-align: center; }
+.stat-number { font-family: 'Crimson Pro', serif; font-size: 2.2rem; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 0.76rem; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ── MODAL OVERLAY ── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r5);
+  padding: 28px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from { opacity:0; transform: scale(0.95); } to { opacity:1; transform:none; } }
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.close-btn { background: var(--surface2); border: none; color: var(--text2); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.close-btn:hover { background: var(--surface3); color: var(--text); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-width: 320px;
+}
+.toast.show { transform: none; opacity: 1; }
+.toast.success { border-color: var(--green2); }
+.toast.error { border-color: var(--red2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .grid4 { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-280px); }
+  .sidebar.open { transform: none; box-shadow: var(--shadow-xl); }
+  .main { margin-left: 0; }
+  .hamburger { display: block; }
+  .content { padding: 20px 16px 40px; }
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .quiz-opts { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+
+<div class="app-layout">
+
+<!-- ════════════════════════════════
+     SIDEBAR
+════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">IELTS Reading</div>
+    <div class="logo-sub">Master — 0 to 9.0</div>
+  </div>
+
+  <div class="band-tracker">
+    <div class="band-label">Band hiện tại</div>
+    <div class="band-display" id="band-display">0.0</div>
+    <div class="band-target">Mục tiêu: 7.0 → 9.0</div>
+    <div class="progress-bar"><div class="progress-fill" id="band-bar" style="width:0%"></div></div>
+  </div>
+
+  <nav>
+    <div class="nav-group-label">Tổng quan</div>
+    <button class="nav-item active" data-screen="dashboard" onclick="showScreen('dashboard')">
+      <span class="nav-icon">🏠</span> Dashboard
+    </button>
+    <button class="nav-item" data-screen="roadmap" onclick="showScreen('roadmap')">
+      <span class="nav-icon">🗺️</span> Lộ trình 8 tuần
+      <span class="nav-badge badge-gold">New</span>
+    </button>
+    <button class="nav-item" data-screen="overview" onclick="showScreen('overview')">
+      <span class="nav-icon">📊</span> Tổng quan Reading
+    </button>
+
+    <div class="nav-group-label">Kỹ năng cốt lõi</div>
+    <button class="nav-item" data-screen="strategies" onclick="showScreen('strategies')">
+      <span class="nav-icon">👁️</span> Kỹ năng đọc
+    </button>
+    <button class="nav-item" data-screen="qtypes" onclick="showScreen('qtypes')">
+      <span class="nav-icon">📋</span> 14 Dạng câu hỏi
+      <span class="nav-badge badge-blue">14</span>
+    </button>
+    <button class="nav-item" data-screen="grammar" onclick="showScreen('grammar')">
+      <span class="nav-icon">📐</span> Cấu trúc ngữ pháp
+    </button>
+    <button class="nav-item" data-screen="vocab" onclick="showScreen('vocab')">
+      <span class="nav-icon">📚</span> Từ vựng học thuật
+      <span class="nav-badge badge-green">30+</span>
+    </button>
+
+    <div class="nav-group-label">Luyện thi</div>
+    <button class="nav-item" data-screen="practice" onclick="showScreen('practice')">
+      <span class="nav-icon">🎯</span> Luyện theo dạng
+    </button>
+    <button class="nav-item" data-screen="passages" onclick="showScreen('passages')">
+      <span class="nav-icon">📄</span> Đề thi mẫu
+      <span class="nav-badge badge-purple">3 đề</span>
+    </button>
+    <button class="nav-item" data-screen="tips" onclick="showScreen('tips')">
+      <span class="nav-icon">💡</span> Tips & Mẹo
+    </button>
+    <button class="nav-item" data-screen="bandguide" onclick="showScreen('bandguide')">
+      <span class="nav-icon">🏆</span> Band Guide 5→9
+    </button>
+
+    <div class="nav-group-label">AI & Tài nguyên</div>
+    <button class="nav-item" data-screen="aitutor" onclick="showScreen('aitutor')">
+      <span class="nav-icon">🤖</span> AI Tutor
+      <span class="nav-badge badge-new">AI</span>
+    </button>
+    <button class="nav-item" data-screen="aianalyzer" onclick="showScreen('aianalyzer')">
+      <span class="nav-icon">🔬</span> AI Phân tích bài
+    </button>
+    <button class="nav-item" data-screen="resources" onclick="showScreen('resources')">
+      <span class="nav-icon">🔗</span> Tài liệu & Links
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="xp-display">
+      <span style="color:var(--text3);font-size:0.78rem;">Total XP</span>
+      <span class="xp-value">⚡ <span class="xp-count">0</span></span>
+    </div>
+  </div>
+</aside>
+
+<!-- ════════════════════════════════
+     MAIN
+════════════════════════════════ -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 <span class="streak-count">1</span> ngày</div>
+      <div class="xp-badge">⚡ <span class="xp-count">0</span> XP</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══════════════════════════════
+         DASHBOARD
+    ══════════════════════════════ -->
+    <div id="dashboard" class="screen active">
+      <div style="margin-bottom:28px;">
+        <h1 style="margin-bottom:6px;">IELTS Reading Master 📖</h1>
+        <p>Hệ thống học Reading toàn diện nhất — từ Band 5 đến Band 9.0. Đầy đủ lý thuyết, chiến thuật, đề mẫu và AI hỗ trợ 24/7.</p>
+      </div>
+
+      <!-- Score Calculator -->
+      <div class="card card-gold" style="margin-bottom:20px;">
+        <h3 style="margin-bottom:16px;">🎯 Tính Band Score Reading</h3>
+        <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Số câu đúng (0-40)</label>
+            <input type="number" id="raw-score" min="0" max="40" value="30" oninput="calcBand()"
+              style="background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 16px;color:var(--text);font-size:1.1rem;width:100px;font-weight:700;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Loại bài thi</label>
+            <select id="test-type" onchange="calcBand()" style="background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:0.9rem;">
+              <option value="academic">Academic</option>
+              <option value="gt">General Training</option>
+            </select>
+          </div>
+          <div style="margin-top:18px;">
+            <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Band Score</div>
+            <div id="band-result" style="font-family:'Crimson Pro',serif;font-size:3rem;font-weight:700;line-height:1;color:var(--green2)">7.0</div>
+          </div>
+          <div style="margin-top:18px;flex:1;min-width:200px;">
+            <div id="band-feedback" style="font-size:0.85rem;line-height:1.6;color:var(--text2);"></div>
+          </div>
+        </div>
+        <!-- Score table -->
+        <div style="margin-top:20px;overflow-x:auto;">
+          <table>
+            <thead><tr><th>Band</th><th>Academic (đúng/40)</th><th>GT (đúng/40)</th><th>Mức độ</th></tr></thead>
+            <tbody id="score-table"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4 Quick Access -->
+      <div class="grid4" style="margin-bottom:20px;" id="quick-cards"></div>
+
+      <!-- Stats Row -->
+      <div class="grid3" style="margin-bottom:20px;">
+        <div class="card card-sm stat-card">
+          <div class="stat-number" style="color:var(--accent3)" id="stat-lessons">0</div>
+          <div class="stat-label">Bài đã học</div>
+        </div>
+        <div class="card card-sm stat-card">
+          <div class="stat-number" style="color:var(--gold2)" id="stat-accuracy">—</div>
+          <div class="stat-label">Độ chính xác Quiz</div>
+        </div>
+        <div class="card card-sm stat-card">
+          <div class="stat-number" style="color:var(--green2)" id="stat-vocab">30</div>
+          <div class="stat-label">Từ vựng đã có</div>
+        </div>
+      </div>
+
+      <!-- Today's study plan -->
+      <div class="card">
+        <h3 style="margin-bottom:16px;">📅 Kế hoạch học hôm nay</h3>
+        <div id="today-plan"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         ROADMAP
+    ══════════════════════════════ -->
+    <div id="roadmap" class="screen">
+      <h1 style="margin-bottom:8px;">🗺️ Lộ trình 8 tuần</h1>
+      <p style="margin-bottom:28px;">Kế hoạch học có cấu trúc từ Band 5 → 7.0 → 9.0. Mỗi tuần tập trung vào kỹ năng và chiến thuật cụ thể.</p>
+
+      <div class="grid2" id="roadmap-grid"></div>
+
+      <div class="card" style="margin-top:4px;">
+        <h3 style="margin-bottom:16px;">⏰ Lịch học mỗi ngày (2–3 giờ)</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Thứ</th><th>Hoạt động chính</th><th>Thời gian</th><th>Bổ sung</th></tr></thead>
+            <tbody>
+              <tr><td>Thứ 2</td><td>📖 Luyện Reading — Passage 1 (dễ)</td><td>45 phút</td><td>Vocab 20 phút</td></tr>
+              <tr><td>Thứ 3</td><td>📋 Luyện dạng câu hỏi trọng điểm</td><td>50 phút</td><td>Grammar 20 phút</td></tr>
+              <tr><td>Thứ 4</td><td>📄 Full Passage (timed: 20 phút)</td><td>20 phút</td><td>Review + AI feedback</td></tr>
+              <tr><td>Thứ 5</td><td>📚 Từ vựng theo chủ đề + Reading báo</td><td>45 phút</td><td>Đọc The Guardian/BBC</td></tr>
+              <tr><td>Thứ 6</td><td>📋 Luyện 2 dạng câu hỏi khó</td><td>50 phút</td><td>Vocab review</td></tr>
+              <tr><td>Thứ 7</td><td>📄 Full Mock Test (60 phút, timed)</td><td>60 phút</td><td>Phân tích sai lầm</td></tr>
+              <tr><td>Chủ nhật</td><td>🔁 Review tuần + AI Tutor</td><td>30 phút</td><td>Nghỉ ngơi</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         OVERVIEW
+    ══════════════════════════════ -->
+    <div id="overview" class="screen">
+      <h1 style="margin-bottom:8px;">📊 Tổng quan IELTS Reading</h1>
+      <p style="margin-bottom:28px;">Hiểu rõ cấu trúc bài thi là bước đầu tiên để chiến lược hóa việc học.</p>
+
+      <div class="grid2" style="margin-bottom:20px;">
+        <div class="card card-accent">
+          <h3 style="margin-bottom:16px;">📋 Academic Reading</h3>
+          <div class="lesson-body">
+            <strong>Nguồn bài:</strong> Sách, tạp chí khoa học, báo học thuật<br><br>
+            <strong>Chủ đề:</strong> Lịch sử, khoa học, kinh tế, xã hội, công nghệ, môi trường<br><br>
+            <strong>Cấu trúc:</strong> 3 passages, mỗi passage dài 6–10 đoạn<br><br>
+            <strong>Độ khó:</strong> Passage 1 (dễ) → Passage 3 (rất khó)<br><br>
+            <strong>Mục đích:</strong> Đi du học, xin học bổng, làm việc tại nước ngoài
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--gold2);">
+          <h3 style="margin-bottom:16px;">📰 General Training Reading</h3>
+          <div class="lesson-body">
+            <strong>Nguồn bài:</strong> Quảng cáo, tờ rơi, sổ tay công ty, báo thường ngày<br><br>
+            <strong>Chủ đề:</strong> Cuộc sống hàng ngày, công việc, thông báo<br><br>
+            <strong>Cấu trúc:</strong> Section 1 (2-3 bài ngắn), Section 2 (2 bài), Section 3 (1 bài dài)<br><br>
+            <strong>Độ khó:</strong> Nhẹ hơn Academic — nhưng cần nhiều câu đúng hơn cho cùng Band<br><br>
+            <strong>Mục đích:</strong> Định cư, xin việc, du học không cần Band cao
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <h3 style="margin-bottom:16px;">⏱️ Thông tin bài thi quan trọng</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Thông tin</th><th>Chi tiết</th></tr></thead>
+            <tbody>
+              <tr><td>⏰ Thời gian</td><td>60 phút (KHÔNG có thêm giờ để chuyển đáp án)</td></tr>
+              <tr><td>📝 Số câu hỏi</td><td>40 câu — mỗi câu đúng = 1 điểm</td></tr>
+              <tr><td>🏆 Điểm tối đa</td><td>40/40 = Band 9</td></tr>
+              <tr><td>❌ Điểm âm</td><td>KHÔNG có — hãy đoán nếu không biết!</td></tr>
+              <tr><td>📑 Số passage</td><td>3 passages (mỗi passage khoảng 700-900 từ)</td></tr>
+              <tr><td>💻 Hình thức</td><td>Paper-based HOẶC Computer-based (CBT)</td></tr>
+              <tr><td>✏️ Chuyển đáp án</td><td>Viết thẳng vào booklet / CBT: gõ trực tiếp</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:16px;">📊 Bảng chuyển điểm Academic</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Band Score</th><th>Số câu đúng (Academic)</th><th>Số câu đúng (GT)</th><th>Mô tả</th></tr></thead>
+            <tbody>
+              <tr><td><span style="color:var(--purple2);font-weight:700">9.0</span></td><td>39–40</td><td>40</td><td>Expert User</td></tr>
+              <tr><td><span style="color:var(--purple2);font-weight:700">8.5</span></td><td>38</td><td>39</td><td>Very Good User</td></tr>
+              <tr><td><span style="color:var(--accent3);font-weight:700">8.0</span></td><td>36–37</td><td>37–38</td><td>Very Good User</td></tr>
+              <tr><td><span style="color:var(--accent3);font-weight:700">7.5</span></td><td>35</td><td>36</td><td>Good User</td></tr>
+              <tr><td><span style="color:var(--green2);font-weight:700">7.0</span></td><td>33–34</td><td>34–35</td><td>Good User ⭐ Mục tiêu phổ biến</td></tr>
+              <tr><td><span style="color:var(--green2);font-weight:700">6.5</span></td><td>31–32</td><td>32–33</td><td>Competent User</td></tr>
+              <tr><td><span style="color:var(--gold2);font-weight:700">6.0</span></td><td>29–30</td><td>30–31</td><td>Competent User</td></tr>
+              <tr><td><span style="color:var(--gold2);font-weight:700">5.5</span></td><td>27–28</td><td>27–29</td><td>Modest User</td></tr>
+              <tr><td><span style="color:var(--red2);font-weight:700">5.0</span></td><td>24–26</td><td>24–26</td><td>Modest User</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         STRATEGIES
+    ══════════════════════════════ -->
+    <div id="strategies" class="screen">
+      <h1 style="margin-bottom:8px;">👁️ Kỹ năng đọc cốt lõi</h1>
+      <p style="margin-bottom:28px;">5 kỹ năng phân biệt Band 6 và Band 7+. Luyện tập hàng ngày bằng cách đọc báo tiếng Anh.</p>
+
+      <div class="tabs-bar" data-tabs>
+        <button class="tab-btn active" onclick="switchTab(this,'str-skim')">👁️ Skimming</button>
+        <button class="tab-btn" onclick="switchTab(this,'str-scan')">🔍 Scanning</button>
+        <button class="tab-btn" onclick="switchTab(this,'str-predict')">🧠 Predicting</button>
+        <button class="tab-btn" onclick="switchTab(this,'str-infer')">💡 Inferring</button>
+        <button class="tab-btn" onclick="switchTab(this,'str-para')">🔄 Paraphrasing</button>
+        <button class="tab-btn" onclick="switchTab(this,'str-time')">⏱️ Time Mgmt</button>
+      </div>
+
+      <div id="str-skim" class="tab-pane active" data-tabs>
+        <div class="lesson-block"><h4>Skimming — Đọc lướt để nắm ý chính</h4>
+          <div class="lesson-body">
+            <strong>Mục đích:</strong> Hiểu cấu trúc và chủ đề tổng thể của passage trong <em>90 giây</em><br><br>
+            <strong>Kỹ thuật từng bước:</strong>
+          </div>
+          <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+            <div class="example-box">1️⃣ <strong>Đọc tiêu đề + subheadings</strong> → biết chủ đề và structure ngay</div>
+            <div class="example-box">2️⃣ <strong>Đọc câu đầu tiên mỗi đoạn</strong> → câu topic thường chứa main idea</div>
+            <div class="example-box">3️⃣ <strong>Đọc câu cuối mỗi đoạn</strong> → thường là kết luận hoặc chuyển tiếp</div>
+            <div class="example-box">4️⃣ <strong>Chú ý: số liệu, tên riêng, từ in đậm</strong> → đây là thông tin quan trọng</div>
+            <div class="example-box">5️⃣ <strong>Bỏ qua chi tiết</strong> → sẽ quay lại khi làm câu hỏi</div>
+          </div>
+          <div class="tip-box">Mục tiêu: Sau khi skim, bạn có thể trả lời "Bài này nói về gì? Có bao nhiêu ý chính?" mà không cần đọc toàn bộ.</div>
+          <div class="pro-box">Skim rồi đọc câu hỏi → bạn biết CHÍNH XÁC paragraph nào chứa câu trả lời → tiết kiệm 8-12 phút!</div>
+        </div>
+        <div class="lesson-block"><h4>Luyện tập Skimming</h4>
+          <div class="lesson-body">Thực hành với bài này — bạn có <strong>90 giây</strong>. Skim rồi trả lời câu hỏi:</div>
+          <div class="quiz-passage" style="max-height:200px;">
+            <strong>Urbanisation and Mental Health</strong><br><br>
+            The global trend towards urbanisation has transformed the social landscape in ways that have profound implications for mental health. As of 2023, more than 56% of the world's population lives in urban areas, a figure projected to reach 68% by 2050. While cities offer economic opportunities and cultural amenities, researchers have increasingly documented a range of psychological costs associated with urban living.<br><br>
+            Studies consistently show that urban residents have a 21% higher risk of anxiety disorders and a 39% higher risk of mood disorders compared to those in rural areas. Several mechanisms have been proposed to explain this association. Urban environments expose residents to chronic low-level stressors such as noise, overcrowding, and air pollution. The pace of urban life — characterised by time pressure, social comparison, and reduced contact with nature — may also contribute to psychological strain.<br><br>
+            Paradoxically, despite the density of human populations in cities, urban living is often associated with social isolation. The anonymity of city life can reduce social cohesion and community bonds. Research by the London School of Economics found that individuals in cities with populations exceeding one million reported significantly lower levels of social trust and community belonging than those in smaller settlements.
+          </div>
+          <div style="margin-top:14px;">
+            <div class="lesson-body" style="margin-bottom:10px;"><strong>Không nhìn lại bài — trả lời từ memory:</strong></div>
+            <button class="btn btn-outline btn-sm" onclick="document.getElementById('skim-q1').style.display='block'">Câu 1: Bài chủ đề gì?</button>
+            <div id="skim-q1" style="display:none;" class="tip-box" style="margin-top:8px;">✅ Đô thị hóa và sức khỏe tâm thần — tác động tiêu cực của sống ở thành phố.</div>
+            <button class="btn btn-outline btn-sm" style="margin-left:8px;" onclick="document.getElementById('skim-q2').style.display='block'">Câu 2: Có mấy ý chính?</button>
+            <div id="skim-q2" style="display:none;" class="tip-box">✅ 3 ý: (1) Xu hướng đô thị hóa, (2) Nguy cơ lo âu/trầm cảm cao hơn, (3) Cô đơn xã hội trong thành phố.</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="str-scan" class="tab-pane">
+        <div class="lesson-block"><h4>Scanning — Tìm kiếm thông tin cụ thể</h4>
+          <div class="lesson-body">
+            Scanning = "search engine" của mắt. Di chuyển nhanh qua text để tìm MỘT loại thông tin cụ thể.<br><br>
+            <strong>Khi nào dùng:</strong> Trả lời câu hỏi về số liệu, tên, ngày, địa điểm, thuật ngữ cụ thể.
+          </div>
+          <div class="example-box">
+            <strong>Bước 1:</strong> Xác định TARGET — bạn đang tìm gì? (số? tên người? địa điểm?)<br>
+            <strong>Bước 2:</strong> Tạo "search image" — tên riêng thường viết hoa, số thường kèm đơn vị<br>
+            <strong>Bước 3:</strong> Mắt di chuyển theo pattern Z hoặc S — KHÔNG đọc từng từ<br>
+            <strong>Bước 4:</strong> Khi THẤY target → dừng lại, đọc câu đó cẩn thận<br>
+            <strong>Bước 5:</strong> Check: đây có phải thông tin câu hỏi hỏi không?
+          </div>
+          <div class="tip-box">Synonyms! Câu hỏi hỏi "decrease" → passage dùng "decline", "fall", "drop", "plummet". Scan cho CONCEPT, không chỉ cho từ đó.</div>
+          <div class="pro-box">Kỹ thuật nâng cao: Đọc câu hỏi → underline keyword → tạo danh sách synonyms → scan. Cách này tiết kiệm thời gian đáng kể ở Band 8+.</div>
+        </div>
+      </div>
+
+      <div id="str-predict" class="tab-pane">
+        <div class="lesson-block"><h4>Predicting — Dự đoán nội dung</h4>
+          <div class="lesson-body">
+            Trước khi đọc, dự đoán nội dung giúp não "chuẩn bị" tiếp nhận thông tin — tăng tốc độ đọc đáng kể.
+          </div>
+          <div class="example-box">
+            <strong>Từ tiêu đề → dự đoán:</strong><br>
+            "The Impact of Social Media on Adolescent Mental Health"<br>
+            → Có thể có: số liệu nghiên cứu, tác hại cụ thể, ý kiến chuyên gia, giải pháp<br>
+            → Từ vựng dự đoán: anxiety, depression, self-esteem, comparison, addiction<br><br>
+            <strong>Từ câu hỏi → dự đoán:</strong><br>
+            Q: "According to the author, what is the main cause of deforestation?"<br>
+            → Passage sẽ có đoạn về NGUYÊN NHÂN phá rừng → scan for cause language: "led to", "resulted in", "because of"
+          </div>
+          <div class="tip-box">Prediction giúp bạn "đọc có mục đích" thay vì đọc bị động — tốc độ tăng 20-30%!</div>
+        </div>
+      </div>
+
+      <div id="str-infer" class="tab-pane">
+        <div class="lesson-block"><h4>Inferring — Suy luận ngầm định</h4>
+          <div class="lesson-body">
+            Band 7+ yêu cầu đọc HIỂU hơn là chỉ đọc THẤY. Nhiều câu hỏi kiểm tra khả năng suy luận ý không được nói trực tiếp.
+          </div>
+          <div class="example-box">
+            <strong>Ví dụ:</strong><br>
+            Passage: "Despite extensive research, scientists have yet to reach a consensus on the causes of Colony Collapse Disorder."<br><br>
+            Câu hỏi: "Scientists fully understand why bee colonies are collapsing." → FALSE<br>
+            → Suy luận: "yet to reach consensus" = chưa đồng thuận → chưa hiểu đầy đủ → FALSE<br><br>
+            <strong>Ngôn ngữ gợi ý inference:</strong><br>
+            "yet to" = chưa làm được | "despite" = mặc dù | "however" = thế nhưng | "ironically" = trớ trêu thay
+          </div>
+          <div class="tip-box">Inference questions thường dùng: "imply", "suggest", "indicate", "infer". Khi thấy những từ này trong câu hỏi → đọc KỸ hơn, suy luận thêm.</div>
+          <div class="pro-box">Band 9 đọc "between the lines" — hiểu writer's attitude từ word choice. "Merely", "only", "supposedly" thể hiện sự hoài nghi của tác giả.</div>
+        </div>
+      </div>
+
+      <div id="str-para" class="tab-pane">
+        <div class="lesson-block"><h4>Paraphrasing — Nhận diện đồng nghĩa</h4>
+          <div class="lesson-body">
+            Kỹ năng quan trọng nhất trong IELTS Reading — IELTS LUÔN paraphrase câu hỏi so với passage!
+          </div>
+          <div style="margin-top:12px;display:grid;gap:10px;">
+            <div class="example-box"><strong>Câu hỏi dùng:</strong> "increase" → <strong>Passage dùng:</strong> rise, grow, climb, surge, soar, jump, expand</div>
+            <div class="example-box"><strong>Câu hỏi dùng:</strong> "important" → <strong>Passage dùng:</strong> crucial, vital, significant, paramount, essential, critical</div>
+            <div class="example-box"><strong>Câu hỏi dùng:</strong> "difficult" → <strong>Passage dùng:</strong> challenging, complex, problematic, arduous, demanding</div>
+            <div class="example-box"><strong>Câu hỏi dùng:</strong> "many people" → <strong>Passage dùng:</strong> a significant proportion, numerous individuals, the majority, a large number</div>
+          </div>
+          <div class="tip-box">Luyện paraphrasing bằng cách: khi học từ mới → học ngay 3 synonyms và cách IELTS dùng từ đó.</div>
+          <div class="pro-box">Distractor alert: IELTS dùng SAME WORDS từ passage nhưng với ý nghĩa KHÁC để đánh bẫy. Luôn đọc CONTEXT, không chỉ match keywords.</div>
+        </div>
+      </div>
+
+      <div id="str-time" class="tab-pane">
+        <div class="lesson-block"><h4>⏱️ Time Management — Quản lý thời gian</h4>
+          <div class="lesson-body">
+            <em>70% candidates mất điểm vì hết giờ</em>, không phải vì không biết tiếng Anh. Đây là kỹ năng quan trọng nhất!
+          </div>
+          <div class="example-box">
+            <strong>Phân bổ 60 phút:</strong><br>
+            🟢 Passage 1 (dễ nhất): <strong>15-17 phút</strong> — làm nhanh, lấy điểm sạch<br>
+            🟡 Passage 2 (trung bình): <strong>20 phút</strong> — bình thường<br>
+            🔴 Passage 3 (khó nhất): <strong>23-25 phút</strong> — dành nhiều thời gian nhất<br>
+            ✅ Chuyển và kiểm tra đáp án: trong 60 phút (không có thêm giờ!)
+          </div>
+          <div class="tip-box">Quy tắc 90 giây: Nếu kẹt ở một câu quá 90 giây → ĐÁNH DẤU và BỎ QUA. Quay lại nếu còn thời gian.</div>
+          <div class="tip-box">KHÔNG để trống! Không có điểm âm — hãy đoán nếu không biết. Xác suất đúng còn hơn chắc chắn sai (0 điểm).</div>
+          <div class="pro-box">Chiến thuật Band 8+: Đọc TẤT CẢ câu hỏi của cả 3 passages trong 3 phút đầu. Sau đó đọc passage với MỤC TIÊU rõ ràng. Tiết kiệm 10 phút!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         14 QUESTION TYPES
+    ══════════════════════════════ -->
+    <div id="qtypes" class="screen">
+      <h1 style="margin-bottom:8px;">📋 14 Dạng câu hỏi IELTS Reading</h1>
+      <p style="margin-bottom:28px;">Tất cả 14 dạng câu hỏi — lý thuyết, chiến thuật và bài luyện tập có đáp án giải thích chi tiết.</p>
+      <div class="grid-auto" id="qtypes-grid"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         PRACTICE
+    ══════════════════════════════ -->
+    <div id="practice" class="screen">
+      <h1 style="margin-bottom:8px;">🎯 Luyện tập theo dạng câu hỏi</h1>
+      <p style="margin-bottom:20px;">Chọn dạng câu hỏi muốn luyện và làm bài với đáp án giải thích chi tiết.</p>
+
+      <div style="margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;" id="practice-filters"></div>
+      <div id="practice-container"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         PASSAGES (MOCK TESTS)
+    ══════════════════════════════ -->
+    <div id="passages" class="screen">
+      <h1 style="margin-bottom:8px;">📄 Đề thi mẫu</h1>
+      <p style="margin-bottom:20px;">3 đề mẫu theo chuẩn IELTS Academic — từ Band 6 đến Band 8+. Làm có tính giờ để phản ánh điều kiện thi thật.</p>
+
+      <div id="passage-list"></div>
+      <div id="passage-test" style="display:none;"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         VOCABULARY
+    ══════════════════════════════ -->
+    <div id="vocab" class="screen">
+      <h1 style="margin-bottom:8px;">📚 Từ vựng học thuật IELTS</h1>
+      <p style="margin-bottom:16px;">30+ từ vựng học thuật thiết yếu — từ Band 5 đến Band 9. Học kèm phonetic, nghĩa, ví dụ, và synonyms.</p>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;" id="vocab-filters"></div>
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="startVocabQuiz()">🎯 Quiz từ vựng</button>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('vocab-quiz-wrap').style.display='none';renderVocab()">📚 Xem tất cả</button>
+      </div>
+
+      <div id="vocab-quiz-wrap" style="display:none;" class="card" style="margin-bottom:20px;"></div>
+      <div id="vocab-grid" class="grid3"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         GRAMMAR
+    ══════════════════════════════ -->
+    <div id="grammar" class="screen">
+      <h1 style="margin-bottom:8px;">📐 Cấu trúc ngữ pháp cho Reading</h1>
+      <p style="margin-bottom:28px;">Nhận diện và hiểu các cấu trúc ngữ pháp phức tạp trong văn bản học thuật — chìa khóa để đạt Band 7+.</p>
+      <div id="grammar-list"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         TIPS
+    ══════════════════════════════ -->
+    <div id="tips" class="screen">
+      <h1 style="margin-bottom:8px;">💡 Mẹo & Chiến thuật thi</h1>
+      <p style="margin-bottom:28px;">Tổng hợp từ kinh nghiệm của hàng nghìn thí sinh và giáo viên IELTS chuyên nghiệp.</p>
+
+      <div class="tabs-bar" data-tabs>
+        <button class="tab-btn active" onclick="switchTab(this,'tips-before')">📋 Trước khi thi</button>
+        <button class="tab-btn" onclick="switchTab(this,'tips-during')">⏰ Trong khi thi</button>
+        <button class="tab-btn" onclick="switchTab(this,'tips-common')">❌ Lỗi phổ biến</button>
+        <button class="tab-btn" onclick="switchTab(this,'tips-daily')">📅 Luyện hàng ngày</button>
+        <button class="tab-btn" onclick="switchTab(this,'tips-band9')">🏆 Chiến thuật Band 8-9</button>
+      </div>
+
+      <div id="tips-before" class="tab-pane active">
+        <div class="lesson-block"><h4>Chuẩn bị trước kỳ thi</h4>
+          <div class="lesson-body">
+            <strong>1-2 tháng trước:</strong><br>
+            • Làm quen với TẤT CẢ 14 dạng câu hỏi<br>
+            • Làm ít nhất 2 full mock test mỗi tuần với đồng hồ<br>
+            • Xây dựng vocab theo 6-8 chủ đề IELTS phổ biến<br>
+            • Đọc The Economist, National Geographic, Scientific American hàng ngày<br><br>
+            <strong>1 tuần trước:</strong><br>
+            • Làm 1 full test mỗi ngày, tính giờ nghiêm ngặt<br>
+            • Review lại các dạng câu mình hay sai<br>
+            • KHÔNG học từ mới — củng cố từ đã biết<br><br>
+            <strong>Ngày hôm trước:</strong><br>
+            • KHÔNG làm thêm bài tập — nghỉ ngơi<br>
+            • Chuẩn bị đồ dùng: bút chì, tẩy (paper-based)<br>
+            • Ngủ đủ giấc — não cần 7-8 tiếng để hoạt động tốt nhất
+          </div>
+          <div class="tip-box">Cambridge IELTS Books 13-18 là nguồn luyện tập chính thức tốt nhất. Mỗi cuốn có 4 bài test đầy đủ.</div>
+        </div>
+      </div>
+
+      <div id="tips-during" class="tab-pane">
+        <div class="lesson-block"><h4>Chiến thuật trong phòng thi</h4>
+          <div class="lesson-body">
+            <strong>Những phút đầu:</strong><br>
+            • Đọc nhanh câu hỏi của TẤT CẢ 3 passages (3-4 phút)<br>
+            • Xác định dạng câu hỏi của từng section<br>
+            • Underline keywords trong câu hỏi<br><br>
+            <strong>Khi làm từng passage:</strong><br>
+            • Skim passage: 60-90 giây để map structure<br>
+            • Trả lời câu hỏi theo thứ tự passage (không theo thứ tự câu hỏi đối với Matching Info)<br>
+            • Viết đáp án NGAY vào booklet/máy tính<br>
+            • Không để trống — đoán tất cả câu chưa làm khi hết giờ<br><br>
+            <strong>True/False/NG — quy trình 3 bước:</strong><br>
+            1. Tìm đoạn văn chứa thông tin liên quan<br>
+            2. Đọc KỸ đoạn đó và câu trước/sau<br>
+            3. So sánh CHÍNH XÁC với statement
+          </div>
+        </div>
+      </div>
+
+      <div id="tips-common" class="tab-pane">
+        <div class="lesson-block"><h4>❌ 10 lỗi phổ biến nhất</h4>
+          <div class="lesson-body">
+            <strong>1. Đọc toàn bộ passage trước khi xem câu hỏi</strong><br>
+            ✅ Fix: Luôn xem câu hỏi trước, đọc có mục tiêu<br><br>
+            <strong>2. Bỏ quá nhiều thời gian vào 1 câu khó</strong><br>
+            ✅ Fix: 90 giây → bỏ qua, đánh dấu, quay lại sau<br><br>
+            <strong>3. Dùng kiến thức bên ngoài để trả lời</strong><br>
+            ✅ Fix: CHỈ dùng thông tin trong passage — không dùng kiến thức cá nhân<br><br>
+            <strong>4. Nhầm FALSE và NOT GIVEN</strong><br>
+            ✅ Fix: Hỏi "Passage có nói NGƯỢC LẠI không?" — Có = FALSE, Không đề cập = NG<br><br>
+            <strong>5. Vượt quá word limit trong sentence completion</strong><br>
+            ✅ Fix: Đếm từ TRƯỚC khi viết. Số = 1 từ. A/an/the = 1 từ.<br><br>
+            <strong>6. Dùng SAME WORDS từ câu hỏi để scan (bỏ qua synonyms)</strong><br>
+            ✅ Fix: Tạo danh sách synonyms trước khi scan<br><br>
+            <strong>7. Bỏ trống câu hỏi</strong><br>
+            ✅ Fix: Không có điểm âm — luôn đoán!<br><br>
+            <strong>8. Không kiểm tra singular/plural trong điền từ</strong><br>
+            ✅ Fix: Đọc lại câu hoàn chỉnh sau khi điền<br><br>
+            <strong>9. Mất tập trung ở Passage 3 vì mệt</strong><br>
+            ✅ Fix: Dành thêm 5 phút cho Passage 3 trong kế hoạch<br><br>
+            <strong>10. Đọc heading options sau khi đọc paragraph (không đọc trước)</strong><br>
+            ✅ Fix: Đọc TẤT CẢ headings TRƯỚC, loại bỏ impossible options
+          </div>
+        </div>
+      </div>
+
+      <div id="tips-daily" class="tab-pane">
+        <div class="lesson-block"><h4>📅 Lịch luyện tập hàng ngày hiệu quả</h4>
+          <div class="lesson-body">
+            <strong>🌅 Sáng (15-20 phút):</strong><br>
+            • Đọc 1 bài báo từ The Guardian, BBC, The Economist<br>
+            • Ghi chú 5-10 từ mới + context<br>
+            • Chú ý cấu trúc câu phức tạp<br><br>
+            <strong>🌞 Buổi trưa (30-45 phút):</strong><br>
+            • Luyện 1 dạng câu hỏi cụ thể<br>
+            • Làm bài tập từ Cambridge IELTS Books<br>
+            • Review lỗi sai của hôm qua<br><br>
+            <strong>🌆 Chiều/Tối (45-60 phút):</strong><br>
+            • Thứ 7: Full mock test (60 phút)<br>
+            • Ngày thường: Luyện 1 passage (20 phút) + review<br>
+            • Xem video giải thích dạng câu hỏi (IELTS Liz/Advantage)<br><br>
+            <strong>📚 Nguồn đọc tiếng Anh học thuật:</strong><br>
+            • The Guardian (theguardian.com) — chính trị, khoa học<br>
+            • BBC Science Focus — khoa học phổ thông<br>
+            • National Geographic — thiên nhiên, khám phá<br>
+            • The Economist — kinh tế, xã hội (Band 7-9)<br>
+            • Scientific American — khoa học chuyên sâu (Band 8-9)
+          </div>
+        </div>
+      </div>
+
+      <div id="tips-band9" class="tab-pane">
+        <div class="lesson-block"><h4>🏆 Chiến thuật đặc biệt cho Band 8-9</h4>
+          <div class="lesson-body">
+            <strong>Mindset khác biệt:</strong><br>
+            Band 8-9 không chỉ "tìm đúng từ" — họ HIỂU lập luận của tác giả.<br><br>
+            <strong>1. Attitude/Opinion Reading:</strong><br>
+            • Phát hiện writer's tone: nghi ngờ (sceptical), hỗ trợ (supportive), trung lập (neutral)<br>
+            • Nhận biết hedging (may, might, arguably) vs. certainty (clearly, undoubtedly)<br>
+            • Distancing language: "Some argue that..." ≠ writer agrees<br><br>
+            <strong>2. Argument Structure:</strong><br>
+            • Nhận biết: claim → evidence → counter-argument → conclusion<br>
+            • Matching Headings: heading = main argument, NOT main topic<br>
+            • "The benefits of X" ≠ "X exists and has been studied"<br><br>
+            <strong>3. Complex Syntax:</strong><br>
+            • Unpack nominalization: "The implementation of..." = "Implementing..."<br>
+            • Passive chains: "It has been argued that Y is believed to be..."<br>
+            • Find the main S-V-O even in 50-word sentences<br><br>
+            <strong>4. Vocabulary precision:</strong><br>
+            • "Substantial" ≠ "significant" ≠ "considerable" — subtle differences matter<br>
+            • Prefix/suffix clues: "unprecedented" = never happened before<br>
+            • Academic verb families: substantiate, corroborate, elucidate
+          </div>
+          <div class="pro-box">Đọc full academic papers (journals.plos.org — free) để quen với cấu trúc và từ vựng học thuật cực khó. Band 9 thường đọc loại này thường xuyên.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         BAND GUIDE
+    ══════════════════════════════ -->
+    <div id="bandguide" class="screen">
+      <h1 style="margin-bottom:8px;">🏆 Hướng dẫn từng Band Score</h1>
+      <p style="margin-bottom:28px;">Biết bạn đang ở đâu và cần làm gì để lên Band tiếp theo.</p>
+      <div id="band-guide-content"></div>
+    </div>
+
+    <!-- ══════════════════════════════
+         AI TUTOR
+    ══════════════════════════════ -->
+    <div id="aitutor" class="screen">
+      <h1 style="margin-bottom:8px;">🤖 AI Tutor</h1>
+      <p style="margin-bottom:20px;">Hỏi bất kỳ câu hỏi nào về IELTS Reading. AI trả lời như một giáo viên chuyên nghiệp 24/7.</p>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h4 style="margin-bottom:12px;">💬 Gợi ý câu hỏi nhanh</h4>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="quick-questions"></div>
+      </div>
+
+      <div id="chat-history" style="margin-bottom:16px;max-height:450px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;"></div>
+
+      <div style="position:sticky;bottom:0;background:var(--bg);padding:12px 0;">
+        <textarea class="ai-textarea" id="tutor-input" placeholder="Hỏi bất kỳ điều gì về IELTS Reading..." style="min-height:80px;margin-bottom:10px;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();askTutorChat()}"></textarea>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-primary" onclick="askTutorChat()">⚡ Hỏi (Enter)</button>
+          <button class="btn btn-ghost" onclick="clearChat()">🗑️ Xóa chat</button>
+        </div>
+        <div class="ai-loading" id="tutor-loading"><div class="spinner"></div> AI đang trả lời...</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         AI ANALYZER
+    ══════════════════════════════ -->
+    <div id="aianalyzer" class="screen">
+      <h1 style="margin-bottom:8px;">🔬 AI Phân tích bài làm</h1>
+      <p style="margin-bottom:20px;">Paste bài làm Reading của bạn — AI sẽ phân tích lỗi sai, điểm yếu và gợi ý cải thiện cụ thể.</p>
+
+      <div class="card" style="margin-bottom:20px;">
+        <h3 style="margin-bottom:14px;">📝 Nhập thông tin bài làm</h3>
+        <div class="grid2" style="margin-bottom:14px;">
+          <div>
+            <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Số câu đúng</label>
+            <input type="number" id="ana-correct" min="0" max="40" placeholder="VD: 28"
+              style="background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px;color:var(--text);width:100%;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Tổng câu hỏi</label>
+            <input type="number" id="ana-total" value="40" min="1" max="40"
+              style="background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px;color:var(--text);width:100%;">
+          </div>
+        </div>
+        <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Dạng câu hỏi nào bạn hay sai nhất?</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;" id="weakness-checkboxes"></div>
+        <label style="font-size:0.8rem;color:var(--text3);display:block;margin-bottom:6px;">Mô tả vấn đề của bạn (tùy chọn)</label>
+        <textarea class="ai-textarea" id="ana-notes" placeholder="VD: Tôi hay sai TFNG vì không phân biệt được False và Not Given. Tôi đọc rất chậm và hay hết giờ ở Passage 3..." style="min-height:100px;margin-bottom:14px;"></textarea>
+        <button class="btn btn-primary btn-lg" onclick="analyzePerformance()">🔬 Phân tích ngay</button>
+        <div class="ai-loading" id="ana-loading" style="margin-top:12px;"><div class="spinner"></div> AI đang phân tích...</div>
+        <div class="ai-response" id="ana-response" style="margin-top:12px;"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         RESOURCES
+    ══════════════════════════════ -->
+    <div id="resources" class="screen">
+      <h1 style="margin-bottom:8px;">🔗 Tài liệu & Resources</h1>
+      <p style="margin-bottom:20px;">Tổng hợp tài nguyên học IELTS Reading chất lượng cao nhất — miễn phí và có phí.</p>
+
+      <div class="tabs-bar" data-tabs>
+        <button class="tab-btn active" onclick="switchTab(this,'res-official')">🏛️ Chính thức</button>
+        <button class="tab-btn" onclick="switchTab(this,'res-web')">🌐 Websites</button>
+        <button class="tab-btn" onclick="switchTab(this,'res-video')">▶️ YouTube</button>
+        <button class="tab-btn" onclick="switchTab(this,'res-app')">📱 Apps</button>
+      </div>
+
+      <div id="res-official" class="tab-pane active" data-tabs></div>
+      <div id="res-web" class="tab-pane" data-tabs></div>
+      <div id="res-video" class="tab-pane" data-tabs></div>
+      <div id="res-app" class="tab-pane" data-tabs></div>
+    </div>
+
+  </div><!-- end .content -->
+</div><!-- end .main -->
+</div><!-- end .app-layout -->
+
+<!-- Modal -->
+<div class="overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal-content"></div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+
+
+<script>
+/* ═══════════════════════════════════════════
+   IELTS READING MASTER — Data & Logic
+   ═══════════════════════════════════════════ */
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+const State = {
+  xp: parseInt(localStorage.getItem('ielts_xp') || '0'),
+  band: parseFloat(localStorage.getItem('ielts_band') || '0'),
+  streak: parseInt(localStorage.getItem('ielts_streak') || '1'),
+  lessonsComplete: JSON.parse(localStorage.getItem('ielts_lessons') || '[]'),
+  quizStats: JSON.parse(localStorage.getItem('ielts_quiz') || '{"total":0,"correct":0}'),
+  chatHistory: [],
+
+  save() {
+    localStorage.setItem('ielts_xp', this.xp);
+    localStorage.setItem('ielts_band', this.band);
+    localStorage.setItem('ielts_streak', this.streak);
+    localStorage.setItem('ielts_lessons', JSON.stringify(this.lessonsComplete));
+    localStorage.setItem('ielts_quiz', JSON.stringify(this.quizStats));
+  },
+
+  addXP(n) {
+    this.xp += n;
+    this.band = Math.min(9, (this.xp / 800) * 9);
+    this.save();
+    updateUI();
+    showToast(`+${n} XP`, 'success');
+  },
+
+  markLesson(id) {
+    if (!this.lessonsComplete.includes(id)) {
+      this.lessonsComplete.push(id);
+      this.addXP(25);
+    }
+  }
+};
+
+// ══════════════════════════════════════
+// VOCABULARY DATA
+// ══════════════════════════════════════
+const VOCAB = [
+  // Environment
+  { w:'deteriorate', ph:'/dɪˈtɪərɪəreɪt/', m:'Trở nên tệ hơn, xuống cấp', ex:'Air quality has deteriorated in urban areas.', t:'Environment', band:6, synonyms:'worsen, decline, degrade' },
+  { w:'biodiversity', ph:'/ˌbaɪəʊdaɪˈvɜːsɪti/', m:'Đa dạng sinh học', ex:'Deforestation threatens biodiversity.', t:'Environment', band:6, synonyms:'ecological variety, species richness' },
+  { w:'mitigate', ph:'/ˈmɪtɪɡeɪt/', m:'Giảm thiểu, làm nhẹ bớt', ex:'Trees help mitigate the urban heat island effect.', t:'Environment', band:7, synonyms:'alleviate, reduce, lessen' },
+  { w:'proliferate', ph:'/prəˈlɪfəreɪt/', m:'Sinh sôi nhanh, lan rộng', ex:'Plastic waste has proliferated globally.', t:'Environment', band:7, synonyms:'multiply, spread, burgeon' },
+  { w:'precipitate', ph:'/prɪˈsɪpɪteɪt/', m:'Gây ra đột ngột, thúc đẩy', ex:'Climate change could precipitate food shortages.', t:'Environment', band:8, synonyms:'trigger, cause, hasten' },
+  // Society
+  { w:'inequality', ph:'/ˌɪnɪˈkwɒlɪti/', m:'Sự bất bình đẳng', ex:'Income inequality remains a pressing social issue.', t:'Society', band:5, synonyms:'disparity, imbalance, unfairness' },
+  { w:'alleviate', ph:'/əˈliːvɪeɪt/', m:'Giảm nhẹ, làm dịu bớt', ex:'Government policies should alleviate poverty.', t:'Society', band:6, synonyms:'ease, relieve, reduce' },
+  { w:'disparity', ph:'/dɪˈspærɪti/', m:'Sự chênh lệch rõ ràng', ex:'There is a marked disparity in wages between genders.', t:'Society', band:6, synonyms:'gap, difference, inequality' },
+  { w:'bureaucracy', ph:'/bjʊˈrɒkrəsi/', m:'Hệ thống quan liêu', ex:'Bureaucracy often slows down business processes.', t:'Society', band:7, synonyms:'red tape, administration, officialdom' },
+  { w:'meritocracy', ph:'/ˌmerɪˈtɒkrəsi/', m:'Chế độ trọng dụng nhân tài', ex:'A true meritocracy rewards effort over privilege.', t:'Society', band:7, synonyms:'ability-based system' },
+  // Education
+  { w:'curriculum', ph:'/kəˈrɪkjʊləm/', m:'Chương trình giảng dạy', ex:'The curriculum should be regularly updated.', t:'Education', band:5, synonyms:'syllabus, course of study, programme' },
+  { w:'paramount', ph:'/ˈpærəmaʊnt/', m:'Quan trọng nhất, tối cao', ex:'Education is of paramount importance.', t:'Education', band:7, synonyms:'supreme, foremost, cardinal' },
+  { w:'pedagogy', ph:'/ˈpedəɡɒdʒi/', m:'Phương pháp giảng dạy', ex:'Modern pedagogy emphasises student-centred learning.', t:'Education', band:8, synonyms:'teaching method, didactics, instruction' },
+  { w:'assimilate', ph:'/əˈsɪmɪleɪt/', m:'Tiếp thu, đồng hoá', ex:'Children assimilate language rapidly.', t:'Education', band:7, synonyms:'absorb, learn, integrate' },
+  // Technology
+  { w:'innovation', ph:'/ˌɪnəˈveɪʃn/', m:'Sự đổi mới, sáng tạo', ex:'Technological innovation drives economic growth.', t:'Technology', band:5, synonyms:'invention, novelty, breakthrough' },
+  { w:'automation', ph:'/ˌɔːtəˈmeɪʃn/', m:'Tự động hóa', ex:'Automation threatens many traditional jobs.', t:'Technology', band:6, synonyms:'mechanization, computerisation' },
+  { w:'obsolete', ph:'/ˈɒbsəliːt/', m:'Lỗi thời, không còn dùng', ex:'Paper maps have become largely obsolete.', t:'Technology', band:6, synonyms:'outdated, archaic, outmoded' },
+  { w:'ubiquitous', ph:'/juːˈbɪkwɪtəs/', m:'Có mặt khắp nơi, phổ biến', ex:'Smartphones have become ubiquitous in modern life.', t:'Technology', band:8, synonyms:'omnipresent, pervasive, universal' },
+  // Health
+  { w:'exacerbate', ph:'/ɪɡˈzæsəbeɪt/', m:'Làm trầm trọng thêm', ex:'Pollution exacerbates respiratory diseases.', t:'Health', band:7, synonyms:'worsen, aggravate, intensify' },
+  { w:'sedentary', ph:'/ˈsedntri/', m:'Ít vận động, ngồi nhiều', ex:'Sedentary lifestyles contribute to obesity.', t:'Health', band:7, synonyms:'inactive, stationary, desk-bound' },
+  { w:'susceptible', ph:'/səˈseptɪbl/', m:'Dễ bị ảnh hưởng, nhạy cảm', ex:'Elderly people are more susceptible to infections.', t:'Health', band:7, synonyms:'vulnerable, prone, exposed' },
+  { w:'debilitating', ph:'/dɪˈbɪlɪteɪtɪŋ/', m:'Làm suy yếu, gây mệt mỏi nặng', ex:'Chronic pain can be debilitating for patients.', t:'Health', band:8, synonyms:'weakening, exhausting, incapacitating' },
+  // Economy
+  { w:'expenditure', ph:'/ɪkˈspendɪtʃər/', m:'Chi tiêu, khoản chi', ex:'Government expenditure on education has risen.', t:'Economy', band:6, synonyms:'spending, outlay, cost' },
+  { w:'fiscal', ph:'/ˈfɪskl/', m:'Thuộc về tài chính/ngân sách', ex:'The government announced new fiscal policies.', t:'Economy', band:7, synonyms:'financial, budgetary, monetary' },
+  { w:'remuneration', ph:'/rɪˌmjuːnəˈreɪʃn/', m:'Tiền lương, thù lao', ex:'Fair remuneration is essential to retain talent.', t:'Economy', band:7, synonyms:'salary, pay, compensation' },
+  { w:'leverage', ph:'/ˈliːvərɪdʒ/', m:'Đòn bẩy; tận dụng', ex:'Companies leverage data to reduce costs.', t:'Economy', band:6, synonyms:'exploit, use, utilise' },
+  // Academic verbs
+  { w:'substantiate', ph:'/səbˈstænʃɪeɪt/', m:'Chứng minh, xác nhận bằng bằng chứng', ex:'The study substantiates earlier findings.', t:'Academic', band:7, synonyms:'prove, confirm, validate' },
+  { w:'corroborate', ph:'/kəˈrɒbəreɪt/', m:'Xác nhận, củng cố (bằng chứng)', ex:'New evidence corroborates the original theory.', t:'Academic', band:8, synonyms:'confirm, support, verify' },
+  { w:'juxtapose', ph:'/ˌdʒʌkstəˈpəʊz/', m:'Đặt cạnh nhau để so sánh', ex:'The author juxtaposes wealth and poverty.', t:'Academic', band:8, synonyms:'compare, contrast, place side by side' },
+  { w:'extrapolate', ph:'/ɪkˈstræpəleɪt/', m:'Suy rộng, ngoại suy từ dữ liệu', ex:'We can extrapolate future trends from this data.', t:'Academic', band:8, synonyms:'infer, project, extend' },
+  { w:'elucidate', ph:'/ɪˈluːsɪdeɪt/', m:'Làm rõ, giải thích cặn kẽ', ex:'The professor elucidated the complex theory.', t:'Academic', band:9, synonyms:'clarify, explain, illuminate' },
+];
+
+// ══════════════════════════════════════
+// QUESTION TYPES DATA
+// ══════════════════════════════════════
+const QUESTION_TYPES = [
+  {
+    id:'tfng', name:'True / False / Not Given', icon:'✅',
+    difficulty:4, freq:'Very High', tag:'hard',
+    desc:'Identify if statements AGREE (True), CONTRADICT (False), or CANNOT be determined (Not Given) from the passage.',
+    strategy:[
+      'Read each statement carefully — find the EXACT section in passage',
+      'FALSE = the passage says the OPPOSITE. NOT GIVEN = topic not mentioned at all',
+      'Never use outside knowledge — only what is in the text',
+      'Beware of "distractors" — related words that lead to wrong answers',
+      'If unsure between FALSE/NG: ask yourself "Does the passage say the OPPOSITE?" If no → NG'
+    ],
+    band8tip:'At Band 8+, paraphrase detector: IELTS uses synonyms/paraphrases. Train yourself to spot: "use" → "employ", "rise" → "increase", "show" → "demonstrate".',
+    practice: [
+      {
+        passage:'The ancient city of Çatalhöyük, located in modern-day Turkey, was inhabited from approximately 7500 BCE to 5700 BCE. Unlike many ancient settlements, Çatalhöyük had no streets or footpaths. Residents accessed their homes through holes in the roofs, using ladders. All buildings were constructed of mud-brick and were of roughly equal size, suggesting an egalitarian social structure.',
+        questions:[
+          {q:'Çatalhöyük was occupied for approximately 1,800 years.', ans:'T', exp:'7500 BCE to 5700 BCE = 1800 years. TRUE.'},
+          {q:'The city had a sophisticated road network.', ans:'F', exp:'The passage says the city had NO streets or footpaths. FALSE.'},
+          {q:'Residents used doors and windows to enter their homes.', ans:'F', exp:'They accessed homes through ROOF HOLES, not doors/windows. FALSE.'},
+          {q:'The population of Çatalhöyük reached 10,000 people.', ans:'NG', exp:'Population numbers are not mentioned. NOT GIVEN.'},
+          {q:'The uniform building size implies social equality.', ans:'T', exp:'"roughly equal size, suggesting an egalitarian social structure" — TRUE.'},
+        ]
+      },
+      {
+        passage:'Biomimicry is the practice of designing products and systems inspired by nature. One of the most famous examples is Velcro, invented by Swiss engineer George de Mestral in 1941 after he noticed how burdock burrs clung to his dog\'s fur. More recently, engineers have studied the structure of shark skin to design faster swimsuits, reducing drag by mimicking the shark\'s dermal denticles.',
+        questions:[
+          {q:'Biomimicry involves copying designs from natural organisms.', ans:'T', exp:'Designing systems "inspired by nature" = copying from organisms. TRUE.'},
+          {q:'Velcro was invented in the 1950s.', ans:'F', exp:'Velcro was invented in 1941, not the 1950s. FALSE.'},
+          {q:'George de Mestral was inspired by watching birds.', ans:'F', exp:'He was inspired by burdock burrs on his dog\'s fur, not birds. FALSE.'},
+          {q:'Shark skin swimsuits are banned from competitive swimming.', ans:'NG', exp:'Banning swimsuits is not mentioned in the passage. NOT GIVEN.'},
+        ]
+      }
+    ]
+  },
+  {
+    id:'ynnng', name:'Yes / No / Not Given', icon:'💬',
+    difficulty:4, freq:'High', tag:'hard',
+    desc:'Similar to TFNG but tests whether statements agree with the WRITER\'S VIEWS or CLAIMS (not factual information).',
+    strategy:[
+      'YES = agrees with writer\'s opinion/claim. NO = contradicts writer\'s view. NG = writer does not express a view',
+      'Key difference from TFNG: focus on OPINIONS, not facts',
+      'Look for opinion markers: "believes", "argues", "suggests", "claims", "feels"',
+      'If the passage presents a fact but not the writer\'s opinion → NG',
+      'Common trap: passage mentions a topic but writer doesn\'t explicitly agree/disagree → NG'
+    ],
+    band8tip:'Writers use hedging language (may, might, could, arguably). These signal opinions, not facts. "Research suggests X may be beneficial" = writer\'s claim that X might be good.',
+    practice:[
+      {
+        passage:'The decline of print journalism is a matter of deep concern to this writer. While some commentators argue that digital media offers greater accessibility, I believe the loss of trusted local newspapers represents a fundamental threat to democratic accountability. Social media algorithms, in my view, prioritise engagement over accuracy, creating echo chambers that divide rather than inform.',
+        questions:[
+          {q:'The writer thinks digital media is entirely positive.', ans:'N', exp:'Writer believes digital media creates "echo chambers" and is negative for democracy. NO.'},
+          {q:'The decline of local newspapers is problematic for democracy.', ans:'Y', exp:'"fundamental threat to democratic accountability" — writer\'s view. YES.'},
+          {q:'Print newspaper circulation has declined by 50% globally.', ans:'NG', exp:'No statistics are given. The writer doesn\'t make this specific claim. NG.'},
+          {q:'Social media lacks accuracy compared to print media.', ans:'Y', exp:'Writer states algorithms "prioritise engagement over accuracy". YES.'},
+        ]
+      }
+    ]
+  },
+  {
+    id:'matching-headings', name:'Matching Headings', icon:'🏷️',
+    difficulty:4, freq:'Very High', tag:'hard',
+    desc:'Match Roman numeral headings to lettered paragraphs. Tests ability to identify the MAIN IDEA of each paragraph.',
+    strategy:[
+      'Read ALL headings first — predict what each paragraph might be about',
+      'Skim each paragraph: read first sentence + last sentence only',
+      'Focus on MAIN IDEA — not just a detail mentioned in the paragraph',
+      'Eliminate clearly wrong options first (cross them out)',
+      'Warning: If heading uses same words as paragraph → SUSPECT it\'s a trap (distractor)',
+      'One heading per paragraph. Some headings will NOT be used.'
+    ],
+    band8tip:'Ask yourself: "What is this paragraph FUNDAMENTALLY about?" not "What does it mention?" A paragraph about "the dangers of pesticides for bees" has the main idea of danger/harm, not agriculture.',
+    practice:[
+      {
+        passage:'A. The ancient Romans were remarkable engineers. They constructed an extensive network of roads spanning over 400,000 kilometres across their empire, connecting distant provinces to the capital. These roads, built with layers of gravel, concrete, and paving stones, were designed to drain water efficiently.\n\nB. Roman roads served a dual purpose. While they primarily facilitated the rapid movement of legions across the empire, they also stimulated trade and commerce. Merchants could transport goods more efficiently, and Roman citizens could travel with unprecedented ease.\n\nC. Despite the passage of two millennia, many Roman roads remain remarkably intact. Some sections are still used today, buried beneath modern asphalt. The durability of these structures demonstrates the advanced construction techniques employed by Roman engineers.\n\nD. The legacy of Roman road building extends beyond their physical remnants. Many modern European road systems follow routes established by the Romans. The very concept of a planned road network — optimised for speed and commerce — traces its origins to Roman engineering principles.',
+        headings:['i. A system built to endure','ii. Roads as instruments of military and economic power','iii. The Roman Empire\'s political structure','iv. The engineering marvel of ancient road construction','v. Roman influence on modern infrastructure','vi. The commercial benefits of ancient roads'],
+        answers:{A:'iv',B:'ii',C:'i',D:'v'},
+        explanations:{A:'Paragraph A is about the engineering of Roman roads — construction techniques.',B:'Paragraph B covers both military AND commercial purposes — dual purpose = instruments of military and economic power.',C:'Paragraph C focuses on durability/survival — "built to endure".',D:'Paragraph D is about lasting influence on modern systems.'}
+      }
+    ]
+  },
+  {
+    id:'matching-info', name:'Matching Information', icon:'🔗',
+    difficulty:3, freq:'High', tag:'medium',
+    desc:'Match statements to the paragraph (A, B, C...) where the information is found. A paragraph may be used more than once.',
+    strategy:[
+      'Read all questions first to know what information you\'re looking for',
+      'Scan each paragraph for specific information types: examples, reasons, descriptions, comparisons',
+      'Paragraphs can be used MORE THAN ONCE — this is stated in instructions',
+      'Questions do NOT follow passage order — you may jump around',
+      'Use keyword scanning: find the paragraph that discusses that specific subtopic'
+    ],
+    band8tip:'Questions are often paraphrased. "A reference to a surprising discovery" → look for words like "unexpectedly", "surprisingly", "contrary to expectations". Map the concept, not the words.',
+    practice:[]
+  },
+  {
+    id:'matching-features', name:'Matching Features', icon:'🗂️',
+    difficulty:3, freq:'Medium', tag:'medium',
+    desc:'Match a list of items (people, dates, places, theories) to a list of features/descriptions from the passage.',
+    strategy:[
+      'Common with: scientists and their discoveries, countries and statistics, historical periods and events',
+      'Some options may be used MORE THAN ONCE or NOT AT ALL',
+      'Scan for proper nouns (names, places) — easier to locate in passage',
+      'Read surrounding context of each name/item to find its associated feature'
+    ],
+    band8tip:'Watch out for multiple mentions of the same person/place — information may be scattered across the passage. Don\'t stop after finding the first mention.',
+    practice:[]
+  },
+  {
+    id:'matching-sentence-endings', name:'Matching Sentence Endings', icon:'✂️',
+    difficulty:3, freq:'Medium', tag:'medium',
+    desc:'Complete sentence beginnings by selecting the correct endings from a list. Tests grammar AND comprehension.',
+    strategy:[
+      'Questions FOLLOW passage order — easier to locate information',
+      'Read beginning sentence carefully — predict the grammatical structure needed',
+      'Test grammar: subject-verb agreement, tense consistency, noun/pronoun reference',
+      'Eliminate grammatically incorrect endings first',
+      'There are MORE endings than questions — not all will be used'
+    ],
+    band8tip:'Use grammar as a filter: if the sentence beginning ends in "which", the ending must be a clause, not a noun phrase. Eliminate grammatically impossible options immediately.',
+    practice:[]
+  },
+  {
+    id:'sentence-completion', name:'Sentence Completion', icon:'📝',
+    difficulty:3, freq:'High', tag:'medium',
+    desc:'Complete sentences using words FROM THE PASSAGE. Word limit is strictly enforced (usually NO MORE THAN TWO WORDS).',
+    strategy:[
+      'Identify the WORD TYPE needed: noun, verb, adjective, number?',
+      'Questions follow passage order — scan sequentially',
+      'COPY words exactly from passage — do not change word form',
+      'Strictly observe word limits (1 word / 2 words / number)',
+      'Singular/plural matters — check grammatical fit with the sentence'
+    ],
+    band8tip:'Numbers count as ONE word. Hyphenated words (well-known) count as ONE word. "A" and "the" DO count toward the word limit.',
+    practice:[
+      {
+        passage:'Coffee cultivation began in Ethiopia, where the coffee plant (Coffea arabica) grows wild in the forest undergrowth. According to legend, a goat herder named Kaldi first noticed the energising effects of coffee around 850 CE when his goats became unusually active after eating berries from a particular tree. Coffee was first cultivated as a crop in Yemen in the 15th century. By the 16th century, coffeehouses had spread throughout the Arab world, becoming important centres for social interaction and intellectual exchange.',
+        questions:[
+          {stem:'The coffee plant originally grew wild in the _____ of Ethiopia.', answer:'forest undergrowth', alt:'forests', exp:'Direct quote: "grows wild in the forest undergrowth"'},
+          {stem:'According to legend, _____ was the first person to observe coffee\'s stimulating properties.', answer:'Kaldi', alt:'a goat herder', exp:'"a goat herder named Kaldi first noticed"'},
+          {stem:'Coffee began to be farmed as a _____ in Yemen.', answer:'crop', alt:'', exp:'"first cultivated as a crop in Yemen"'},
+          {stem:'Coffeehouses became centres for _____ interaction in the Arab world.', answer:'social', alt:'', exp:'"centres for social interaction and intellectual exchange"'},
+        ]
+      }
+    ]
+  },
+  {
+    id:'note-completion', name:'Note / Table / Summary Completion', icon:'📋',
+    difficulty:2, freq:'High', tag:'easy',
+    desc:'Fill in gaps in notes, tables, or summaries. Words come either from the passage or from a box of options.',
+    strategy:[
+      'Two variants: (a) words from passage — copy exactly; (b) words from box — choose best fit',
+      'Understand the structure: what category does each gap belong to? (cause, effect, example...)',
+      'Gaps in tables follow a logical structure — use surrounding cells as context',
+      'Summary completion: read the whole summary first to understand the topic and flow'
+    ],
+    band8tip:'For summaries, the paraphrasing can be heavy. "Scientists found that..." in summary = "researchers discovered..." in passage. Build a strong synonym database.',
+    practice:[]
+  },
+  {
+    id:'flowchart', name:'Flow-chart Completion', icon:'🔄',
+    difficulty:3, freq:'Low', tag:'medium',
+    desc:'Complete gaps in a flow chart showing a process or sequence. Tests understanding of process/sequence order.',
+    strategy:[
+      'Read flow chart structure BEFORE reading passage — understand the process sequence',
+      'Answers appear in PASSAGE ORDER following the flow chart direction',
+      'Focus on process language: first, then, following this, subsequently, as a result',
+      'Word limit strictly applies — copy exactly'
+    ],
+    band8tip:'Flow charts often test your understanding of CAUSAL RELATIONSHIPS. "X leads to Y which causes Z" — make sure you trace the cause-effect chain correctly.',
+    practice:[]
+  },
+  {
+    id:'diagram', name:'Diagram Label Completion', icon:'🗺️',
+    difficulty:3, freq:'Low', tag:'medium',
+    desc:'Label parts of a diagram using words from the passage. Common with scientific diagrams, maps, and technical processes.',
+    strategy:[
+      'Study the diagram carefully before reading — understand what it shows',
+      'Labels are specific: technical terms, materials, measurements',
+      'Find the section of passage that describes the diagram',
+      'Cross-reference visual position with text description (clockwise, top, central...)'
+    ],
+    band8tip:'Spatial vocabulary: adjacent to, beneath, the outermost layer, the central component. The passage may describe the diagram differently from how you\'d expect — read carefully.',
+    practice:[]
+  },
+  {
+    id:'mcq', name:'Multiple Choice Questions', icon:'🎯',
+    difficulty:3, freq:'High', tag:'medium',
+    desc:'Choose ONE correct answer (A, B, C, D) or sometimes MULTIPLE correct answers. Tests detailed comprehension.',
+    strategy:[
+      'Read the question stem carefully — find the key concept/location in passage',
+      'ALL options contain passage words — read surrounding context, not just keywords',
+      'Process of elimination: identify clearly WRONG options first',
+      'Distractors are partly true but incomplete or misleading',
+      'For "multiple answers" questions — read the instruction carefully (usually "choose TWO")'
+    ],
+    band8tip:'IELTS MCQ wrong answers are "attractive distractors" — they mention topics from the passage but misrepresent details. After finding what seems right, actively try to DISPROVE it.',
+    practice:[
+      {
+        passage:'The development of photography in the 19th century transformed how people understood and recorded the world. Before photography, portrait painting was the exclusive preserve of the wealthy, as commissioning a portrait required significant financial resources. Photography democratised image-making, enabling ordinary citizens to have their likenesses preserved for the first time. However, early critics argued that photography was merely a mechanical process, lacking the creative vision that defined true art. This debate about photography\'s artistic merit continued for decades and contributed to the broader question of what constitutes art in the modern era.',
+        questions:[
+          {
+            q:'What is said about portrait painting before photography?',
+            opts:['A. It was a popular hobby among ordinary people.','B. Only wealthy individuals could afford it.','C. It was more accurate than photography.','D. It declined rapidly after 1800.'],
+            ans:1,
+            exp:'"commissioned a portrait required significant financial resources" → only wealthy could afford. Answer: B.'
+          },
+          {
+            q:'What was the main concern of early critics of photography?',
+            opts:['A. The cost of developing photographs was too high.','B. Photographs were not permanent enough.','C. Photography lacked artistic creativity.','D. The technology was too difficult to learn.'],
+            ans:2,
+            exp:'"merely a mechanical process, lacking the creative vision" — critics questioned its creativity. Answer: C.'
+          },
+        ]
+      }
+    ]
+  },
+  {
+    id:'short-answer', name:'Short-Answer Questions', icon:'💬',
+    difficulty:2, freq:'Medium', tag:'easy',
+    desc:'Answer questions using words FROM THE PASSAGE. Strict word limit applies. Usually factual, specific information.',
+    strategy:[
+      'Questions follow passage order — scan sequentially',
+      'Look for specific facts: numbers, dates, names, places, measurements',
+      'Copy words EXACTLY from passage — do not paraphrase',
+      'Word limit is strict — usually NO MORE THAN THREE WORDS AND/OR A NUMBER',
+      'Check: Is the answer a noun, verb, phrase? Match grammatical requirements'
+    ],
+    band8tip:'Sometimes the answer is a number + unit ("30 kilometres"). Sometimes it\'s a compound noun ("urban heat island"). Know which grammatical form the question demands.',
+    practice:[]
+  },
+];
+
+// ══════════════════════════════════════
+// READING PASSAGES (Full mock tests)
+// ══════════════════════════════════════
+const PASSAGES = [
+  {
+    id:'p001', level:'band6', title:'The Migration of Monarch Butterflies',
+    topic:'Nature & Science', wordCount:580, timeMin:18,
+    text:`Every autumn, one of nature's most extraordinary spectacles unfolds across North America. Millions of monarch butterflies (Danaus plexippus) undertake a remarkable journey of up to 4,500 kilometres, migrating from their summer breeding grounds in Canada and the northern United States to their overwintering sites in the oyamel fir forests of central Mexico. What makes this migration particularly astonishing is that no individual butterfly has made the journey before — each generation completes only one leg of the multi-generational cycle.
+
+Scientists have long puzzled over how monarchs navigate so precisely. Research has revealed that monarchs possess a time-compensated sun compass, using the position of the sun combined with an internal circadian clock to maintain a consistent south-westerly direction. On overcast days, monarchs can also detect the polarisation patterns of sunlight through clouds, providing an alternative navigational cue.
+
+The monarch's life cycle is intimately tied to milkweed plants. Female monarchs lay their eggs exclusively on milkweed, and the caterpillars feed solely on its leaves. As the caterpillar consumes milkweed, it accumulates toxic cardenolides from the plant — chemicals that make monarchs unpalatable to most predators. This chemical defence is signalled by the butterfly's vivid orange and black colouring, a phenomenon known as aposematism.
+
+Conservation concerns have grown in recent decades. The monarch population has declined dramatically, with some estimates suggesting a reduction of over 80% since the 1990s. Three main threats have been identified: the widespread use of herbicides in agricultural areas, which has decimated milkweed populations; illegal logging in the Mexican wintering grounds; and increasingly unpredictable weather patterns associated with climate change. In 2022, the International Union for Conservation of Nature (IUCN) classified the migratory monarch butterfly as Endangered.
+
+However, conservation efforts are underway. Citizen science programmes encourage the public to plant milkweed in gardens and report butterfly sightings. Several US states have introduced policies to protect milkweed along roadsides, and the Mexican government has strengthened enforcement against illegal logging in the Monarch Butterfly Biosphere Reserve. Whether these measures will be sufficient to reverse the monarch's decline remains to be seen.`,
+    questions:[
+      {type:'tfng', q:'Individual monarch butterflies make the return migration journey.', ans:'F', exp:'No individual makes the full journey — it is multi-generational.'},
+      {type:'tfng', q:'Monarchs use the sun to help determine direction during migration.', ans:'T', exp:'"time-compensated sun compass" confirms they use the sun.'},
+      {type:'tfng', q:'Monarchs can navigate even when the sky is overcast.', ans:'T', exp:'They detect polarisation patterns through clouds.'},
+      {type:'tfng', q:'Monarch caterpillars feed on a wide variety of plant species.', ans:'F', exp:'They feed SOLELY on milkweed — not a wide variety.'},
+      {type:'mcq', q:'According to the passage, why are monarchs unpleasant to eat?', opts:['A. Their wings contain poisonous chemicals.','B. They absorb toxins from milkweed plants.','C. Predators dislike their bright colouring.','D. They release chemicals when attacked.'], ans:1, exp:'"accumulates toxic cardenolides from the plant... make monarchs unpalatable". Answer: B.'},
+      {type:'sentence', stem:'The monarch butterfly was listed as _____ by the IUCN in 2022.', answer:'Endangered', exp:'"classified the migratory monarch butterfly as Endangered"'},
+      {type:'sentence', stem:'Herbicide use has destroyed _____ populations that monarchs depend on.', answer:'milkweed', exp:'"decimated milkweed populations"'},
+    ]
+  },
+  {
+    id:'p002', level:'band7', title:'The Psychology of Decision-Making',
+    topic:'Psychology & Behaviour', wordCount:650, timeMin:20,
+    text:`For much of the 20th century, economists operated on the assumption that humans are rational actors who consistently make decisions that maximise their own self-interest. This model, known as Homo economicus, portrayed people as cold, calculating agents who weigh all available information before selecting the optimal course of action. However, decades of psychological research have comprehensively dismantled this tidy fiction.
+
+The pioneering work of Daniel Kahneman and Amos Tversky demonstrated that human decision-making is systematically irrational. Their research identified numerous cognitive biases — consistent patterns of deviation from rational judgement. Among the most influential of their discoveries was the concept of loss aversion: the finding that people feel losses approximately twice as intensely as equivalent gains. A person who loses £100 experiences far greater psychological discomfort than the pleasure derived from gaining £100.
+
+This asymmetry has profound practical implications. Investors, for instance, are prone to holding onto loss-making shares far longer than rational analysis would justify, hoping to avoid the psychological pain of realising a loss. Marketing professionals exploit loss aversion by framing offers as "limited time" or "don't miss out" — activating the fear of loss rather than the promise of gain.
+
+Kahneman later synthesised this research into a broader framework in his influential book Thinking, Fast and Slow (2011). He proposed that human cognition operates via two systems: System 1, which is fast, automatic, and emotional; and System 2, which is slow, deliberate, and analytical. Most everyday decisions are dominated by System 1, which relies on heuristics — mental shortcuts that work well in most situations but can lead to systematic errors.
+
+The anchoring effect illustrates System 1's influence well. When people are exposed to an arbitrary number before making an estimate, their final answer tends to be disproportionately influenced by that initial number — even when it is obviously irrelevant. In one classic experiment, participants who first spun a wheel of fortune landing on a high number estimated that African countries constituted a higher percentage of the United Nations than those who had spun a low number.
+
+Understanding these biases has given rise to the field of behavioural economics, which seeks to incorporate psychological realism into economic models. Governments have applied these insights through "nudge" policies — designing choice environments in such a way as to guide people towards better decisions without restricting freedom. Automatically enrolling workers in pension schemes, for example, exploits the power of inertia (people tend to stick with the default option) to increase retirement savings.`,
+    questions:[
+      {type:'tfng', q:'The Homo economicus model assumed people always make rational choices.', ans:'T', exp:'"rational actors who consistently make decisions that maximise their own self-interest"'},
+      {type:'tfng', q:'Kahneman and Tversky proved that humans are completely irrational.', ans:'F', exp:'They showed decisions are "systematically irrational" — consistently biased, not completely irrational.'},
+      {type:'tfng', q:'Loss aversion means people react more strongly to gains than losses.', ans:'F', exp:'The OPPOSITE — losses are felt ~twice as intensely as equivalent gains.'},
+      {type:'mcq', q:'Why do investors sometimes keep unprofitable shares?', opts:['A. They hope the shares will recover eventually.','B. They want to avoid the painful feeling of accepting a loss.','C. Tax rules make selling shares disadvantageous.','D. They follow advice from financial experts.'], ans:1, exp:'"holding onto loss-making shares... hoping to avoid the psychological pain of realising a loss". Answer: B.'},
+      {type:'mcq', q:'What does the anchoring effect demonstrate?', opts:['A. People make better decisions with more time to think.','B. Irrelevant numbers can influence people\'s estimates.','C. People are better at estimating large quantities.','D. System 2 thinking is easily manipulated.'], ans:1, exp:'"disproportionately influenced by that initial number — even when it is obviously irrelevant". Answer: B.'},
+      {type:'sentence', stem:'System 1 uses _____ — mental shortcuts — in everyday decisions.', answer:'heuristics', exp:'"relies on heuristics — mental shortcuts"'},
+      {type:'tfng', q:'Nudge policies force people to make better choices.', ans:'F', exp:'"without restricting freedom" — nudges guide, not force. FALSE.'},
+    ]
+  },
+  {
+    id:'p003', level:'band8', title:'The Contested Origins of Writing',
+    topic:'History & Archaeology', wordCount:720, timeMin:22,
+    text:`The emergence of writing systems represents one of the most transformative developments in human history, enabling the accumulation and transmission of knowledge across generations and facilitating the administrative complexities of early urban civilisations. Yet the question of where and why writing first developed remains the subject of sustained scholarly debate, complicated by ongoing archaeological discoveries that periodically overturn established consensus.
+
+For much of the 20th century, the prevailing view held that writing was invented once, in Mesopotamia around 3200 BCE, and subsequently diffused outward to influence the development of other writing systems. The Sumerian cuneiform script, initially a system of pictographic symbols pressed into clay tablets, gradually evolved into a sophisticated representation of spoken language. The driving force behind this development, scholars argued, was primarily administrative: the need to record economic transactions, such as grain allocations and livestock ownership, in the growing urban centres of southern Mesopotamia.
+
+However, this unilinear "invention and diffusion" model has faced increasing challenge. Evidence from ancient China, the Indus Valley, and Mesoamerica suggests that writing may have developed independently in multiple locations. The Chinese script, for which evidence dates to the Shang Dynasty around 1200 BCE, shows no apparent borrowing from Mesopotamian traditions. Similarly, the Olmec civilisation of Mexico appears to have developed a distinct writing system several centuries before the arrival of any external cultural influence.
+
+The Indus Valley script presents perhaps the most tantalising and frustrating case. Thousands of artefacts bearing the script have been recovered from sites such as Mohenjo-daro and Harappa, yet despite decades of scholarly effort, the script remains undeciphered. Without understanding the language encoded in these symbols, it is impossible to determine whether the Indus Valley script represents a fully developed writing system or a simpler system of symbolic notation.
+
+Complicating matters further is the question of what qualifies as "writing" in the first instance. Some scholars adopt a narrow definition, limiting the term to systems capable of representing the full range of a spoken language — what linguists call full writing. Under this definition, many early symbol systems, including the disputed Vinča symbols of prehistoric Europe (c.5500 BCE) and the Jiahu symbols of ancient China (c.6600 BCE), would be excluded. Proponents of broader definitions argue that this approach undervalues the communicative and mnemonic functions of pre-linguistic symbol systems.
+
+Recent scholarship has increasingly emphasised a developmental model, suggesting that the transition from symbolic notation to full writing was a gradual process rather than a sudden invention. This perspective, grounded in cognitive archaeology, proposes that writing emerged from a constellation of pre-existing symbolic practices — including tokens, tallies, and pictorial art — as social and economic complexity grew. Rather than a single moment of invention, writing may best be understood as an extended cognitive and cultural evolution.`,
+    questions:[
+      {type:'ynnng', q:'The author believes the "invention and diffusion" model is now completely discredited.', ans:'NG', exp:'Author says it has "faced increasing challenge" — does not state it is completely discredited. NG.'},
+      {type:'tfng', q:'Sumerian cuneiform was originally an economic record-keeping tool.', ans:'T', exp:'"record economic transactions, such as grain allocations" — administrative/economic. TRUE.'},
+      {type:'tfng', q:'The Chinese writing system borrowed elements from Mesopotamian cuneiform.', ans:'F', exp:'"shows no apparent borrowing from Mesopotamian traditions". FALSE.'},
+      {type:'tfng', q:'The Indus Valley script has been fully decoded by researchers.', ans:'F', exp:'"the script remains undeciphered". FALSE.'},
+      {type:'mcq', q:'Why is the Indus Valley script particularly problematic for researchers?', opts:['A. Very few examples of the script have been discovered.','B. The script was deliberately destroyed by later civilisations.','C. Scholars cannot determine what the symbols mean.','D. The materials used have not survived well over time.'], ans:2, exp:'"the script remains undeciphered" — cannot determine meaning. Answer: C.'},
+      {type:'mcq', q:'Which of the following best describes the "developmental model" mentioned in the final paragraph?', opts:['A. Writing was invented by a single civilisation and spread globally.','B. Writing emerged slowly from earlier symbolic practices.','C. Writing was invented simultaneously in several locations.','D. Writing developed as a result of increased military conflict.'], ans:1, exp:'"gradual process rather than sudden invention... emerged from a constellation of pre-existing symbolic practices". Answer: B.'},
+      {type:'sentence', stem:'The Vinča symbols of prehistoric Europe date to approximately _____ BCE.', answer:'5500', exp:'"the disputed Vinča symbols of prehistoric Europe (c.5500 BCE)"'},
+    ]
+  },
+];
+
+// ══════════════════════════════════════
+// READING STRATEGIES DATA
+// ══════════════════════════════════════
+const STRATEGIES = {
+  skimming:{
+    name:'Skimming', icon:'👁️',
+    steps:[
+      {title:'Read the title + any headings', detail:'These tell you the topic and structure immediately.'},
+      {title:'Read the first sentence of each paragraph', detail:'Topic sentences usually contain the main idea.'},
+      {title:'Read the last sentence of each paragraph', detail:'Often contains the conclusion or key point.'},
+      {title:'Notice any bold, italics, numbers, dates', detail:'These signal important information.'},
+      {title:'Time yourself: max 90 seconds per passage', detail:'You are mapping, not reading every word.'},
+    ],
+    timeTarget:'1.5 min per passage',
+    bandTarget:'Essential for Band 6+',
+  },
+  scanning:{
+    name:'Scanning', icon:'🔍',
+    steps:[
+      {title:'Identify the TARGET: What type of information?', detail:'Name? Number? Date? Place? Specific phrase?'},
+      {title:'Create a "search image" in your mind', detail:'If looking for a date, your eyes hunt for number patterns.'},
+      {title:'Move eyes in Z or S patterns down the text', detail:'Never read every word — only look for the target shape.'},
+      {title:'When you spot the target, READ that sentence carefully', detail:'The answer is usually within 1-2 sentences of your target.'},
+      {title:'Check: does it answer the question EXACTLY?', detail:'Synonyms count — passage often paraphrases the question.'},
+    ],
+    timeTarget:'30–60 seconds per question',
+    bandTarget:'Essential for Band 6+',
+  },
+};
+
+// ══════════════════════════════════════
+// RESOURCES DATA
+// ══════════════════════════════════════
+const RESOURCES = {
+  official:[
+    {name:'Cambridge IELTS Books (1-18)', url:'https://www.cambridge.org', desc:'Official practice tests — the gold standard. Start with books 13-18.', type:'book', rating:5},
+    {name:'British Council — Take IELTS', url:'https://www.britishcouncil.org/exam/ielts', desc:'Official sample tests and preparation materials.', type:'website', rating:5},
+    {name:'IELTS.org — Sample Tests', url:'https://ielts.org/take-a-test/preparation-resources/sample-test-questions', desc:'Free official sample questions for all question types.', type:'website', rating:5},
+    {name:'IDP IELTS Practice', url:'https://ielts.idp.com', desc:'Official IDP preparation resources and test registration.', type:'website', rating:5},
+  ],
+  websites:[
+    {name:'IELTS Liz', url:'https://ieltsliz.com/ielts-reading-question-types/', desc:'Comprehensive free lessons for all 14 question types. Best free resource online.', type:'website', rating:5},
+    {name:'IELTS Advantage', url:'https://www.ieltsadvantage.com', desc:'Strategy-focused lessons. Especially strong for Reading and Writing.', type:'website', rating:5},
+    {name:'IELTS Zone', url:'https://ieltszone.org', desc:'Band score guides and targeted strategy for 7-9.', type:'website', rating:4},
+    {name:'IELTS International', url:'https://www.ielts.international', desc:'Advanced strategy guides for Band 7-9 candidates.', type:'website', rating:4},
+  ],
+  youtube:[
+    {name:'IELTS Liz YouTube', url:'https://youtube.com/@ieltsliz', desc:'Video lessons for every question type. Free and extremely practical.', type:'video', rating:5},
+    {name:'IELTS Advantage YouTube', url:'https://youtube.com/@ieltsadvantage', desc:'Strategy tutorials with real test examples. Band 7-9 focus.', type:'video', rating:5},
+    {name:'E2 IELTS', url:'https://youtube.com/@E2IELTS', desc:'Full mock tests with band score predictions and analysis.', type:'video', rating:4},
+    {name:'IELTS Daily', url:'https://youtube.com/@ielts_daily', desc:'Daily practice videos. Speaking and Reading especially good.', type:'video', rating:4},
+  ],
+  apps:[
+    {name:'IELTS Practice & Exam Prep (British Council)', url:'https://apps.apple.com/gb/app/ielts-practice-exam-prep', desc:'Official British Council app with practice tests.', type:'app', rating:4},
+    {name:'Magoosh IELTS Prep', url:'https://magoosh.com/ielts/', desc:'Structured course with video lessons and practice questions.', type:'app', rating:4},
+    {name:'IELTS Prep App by IDP', url:'https://ielts.idp.com/prepare/ielts-prep-app', desc:'Official IDP app with full mock tests and band prediction.', type:'app', rating:5},
+  ],
+};
+
+// ══════════════════════════════════════
+// GRAMMAR STRUCTURES FOR READING
+// ══════════════════════════════════════
+const GRAMMAR_STRUCTURES = [
+  {
+    id:'g1', title:'Passive Voice in Academic Texts', band:'Band 6+',
+    explanation:'Academic writing uses passive voice frequently. Recognising it helps you identify WHO did WHAT.',
+    examples:[
+      {text:'The study was conducted by researchers at Oxford.', note:'Subject receives action — "the study" didn\'t conduct itself.'},
+      {text:'It has been argued that technology reduces creativity.', note:'"It + passive" — removes the subject; means "someone/people argue..."'},
+      {text:'These findings are believed to support the hypothesis.', note:'Passive + infinitive = "scientists believe these findings support..."'},
+    ],
+    readingTip:'In TFNG questions, watch for passive voice — the WHO may be different from what you expect.',
+  },
+  {
+    id:'g2', title:'Hedging Language', band:'Band 7+',
+    explanation:'Academic writers rarely make absolute claims. Hedging language = uncertainty/caution. Critical for YNNNG questions.',
+    examples:[
+      {text:'This may suggest that early humans were capable of symbolic thought.', note:'"may suggest" = uncertain claim, not definite fact.'},
+      {text:'It could be argued that the results are inconclusive.', note:'"could be argued" = possible interpretation, not established truth.'},
+      {text:'The evidence appears to indicate a correlation.', note:'"appears to indicate" = cautious observation, not confirmed fact.'},
+    ],
+    readingTip:'Strong hedges → NG (writer is uncertain). No hedge → T/Y (writer is definite).',
+  },
+  {
+    id:'g3', title:'Contrast Connectors', band:'Band 6+',
+    explanation:'Contrast connectors signal a change in direction — crucial for TRUE/FALSE/NOT GIVEN and Matching Headings.',
+    examples:[
+      {text:'Although the drug reduced inflammation, it caused severe side effects.', note:'"Although" = but, however — two contrasting ideas.'},
+      {text:'While some experts support this view, others remain sceptical.', note:'"While" connecting two opposing opinions.'},
+      {text:'Despite the evidence, many scientists remain unconvinced.', note:'"Despite" = even though — contrast between evidence and reaction.'},
+    ],
+    words:['however','nevertheless','nonetheless','despite','although','even though','while','whereas','yet','on the other hand','in contrast'],
+    readingTip:'A statement before a contrast connector may be TRUE, but the MAIN point (after) is often what questions test.',
+  },
+  {
+    id:'g4', title:'Cause & Effect Language', band:'Band 6+',
+    explanation:'Essential for flow-chart completion, sentence completion, and understanding argument structure.',
+    examples:[
+      {text:'Increased CO₂ levels led to a rise in global temperatures.', note:'"led to" = cause → effect'},
+      {text:'The economic crisis resulted in widespread unemployment.', note:'"resulted in" = cause → effect'},
+      {text:'Due to funding cuts, several research programmes were abandoned.', note:'"Due to" = because of — introducing the CAUSE'},
+    ],
+    causeWords:['led to','resulted in','caused','triggered','brought about','gave rise to'],
+    effectWords:['consequently','as a result','therefore','thus','hence','so'],
+    readingTip:'Match the CAUSE in the question to the EFFECT in the passage (or vice versa). IELTS often tests this relationship.',
+  },
+  {
+    id:'g5', title:'Complex Noun Phrases (Academic)', band:'Band 8+',
+    explanation:'Academic English packs information into complex noun phrases. Unpacking them is key to Band 8+ reading speed.',
+    examples:[
+      {text:'The rapid industrialisation of previously agrarian societies...', note:'Subject = industrialisation; modifier = rapid; context = agrarian societies'},
+      {text:'The government\'s long-standing policy of non-intervention in private enterprise...', note:'Core noun = policy; modifiers = long-standing, non-intervention, private enterprise'},
+      {text:'A recently published longitudinal study of cardiovascular risk factors...', note:'Core noun = study; modifiers = recently published, longitudinal, cardiovascular risk factors'},
+    ],
+    readingTip:'Find the HEAD NOUN first (the main noun), then process the modifiers. Don\'t get lost in the details before finding the main subject.',
+  },
+];
+
+// ══════════════════════════════════════
+// UI FUNCTIONS
+// ══════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const scr = document.getElementById(id);
+  if (scr) scr.classList.add('active');
+  // Active nav
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.dataset.screen === id) n.classList.add('active');
+  });
+  // Update topbar title
+  const titles = {
+    dashboard:'Dashboard', roadmap:'Lộ trình học', overview:'Tổng quan IELTS Reading',
+    strategies:'Kỹ năng đọc', qtypes:'14 Dạng câu hỏi', practice:'Luyện tập theo dạng',
+    passages:'Đề thi mẫu', vocab:'Từ vựng học thuật', grammar:'Cấu trúc ngữ pháp',
+    tips:'Mẹo & Chiến thuật', bandguide:'Hướng dẫn Band Score', resources:'Tài liệu & Resources',
+    aitutor:'AI Tutor', aianalyzer:'AI Phân tích bài làm'
+  };
+  const topTitle = document.getElementById('topbar-title');
+  if (topTitle) topTitle.textContent = titles[id] || id;
+  document.getElementById('sidebar')?.classList.remove('open');
+  // Close sidebar on mobile
+}
+
+function switchTab(btn, paneId) {
+  const parent = btn.closest('[data-tabs]') || btn.closest('.card') || btn.closest('.screen');
+  parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  parent.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+function updateUI() {
+  const band = State.band;
+  const el = {
+    band: document.getElementById('band-display'),
+    bar: document.getElementById('band-bar'),
+    xp: document.querySelectorAll('.xp-count'),
+    streak: document.querySelectorAll('.streak-count'),
+  };
+  if (el.band) el.band.textContent = band.toFixed(1);
+  if (el.bar) el.bar.style.width = (band / 9 * 100) + '%';
+  el.xp.forEach(e => e.textContent = State.xp);
+  el.streak.forEach(e => e.textContent = State.streak);
+}
+
+function showToast(msg, type = '') {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.className = `toast ${type}`;
+  setTimeout(() => toast.classList.add('show'), 10);
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function showModal(content) {
+  const overlay = document.getElementById('modal-overlay');
+  const modal = document.getElementById('modal-content');
+  if (!overlay || !modal) return;
+  modal.innerHTML = content;
+  overlay.classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay')?.classList.remove('open');
+}
+
+// ══════════════════════════════════════
+// AI FUNCTIONS
+// ══════════════════════════════════════
+async function callAI(prompt, systemPrompt = '') {
+  const system = systemPrompt || `You are an expert IELTS Reading teacher with 15+ years of experience. You help Vietnamese students achieve Band 7-9. Always answer in Vietnamese for explanations, but use English for IELTS examples and content. Be specific, practical, and encouraging.`;
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await response.json();
+  return data.content?.map(c => c.text || '').join('') || 'Có lỗi xảy ra.';
+}
+
+async function runAI(promptId, loadingId, responseId, prompt, system = '') {
+  const loading = document.getElementById(loadingId);
+  const resp = document.getElementById(responseId);
+  if (loading) loading.style.display = 'flex';
+  if (resp) resp.style.display = 'none';
+  try {
+    const text = await callAI(prompt, system);
+    if (resp) { resp.textContent = text; resp.style.display = 'block'; }
+  } catch (e) {
+    if (resp) { resp.textContent = '⚠️ Không thể kết nối. Kiểm tra kết nối mạng và thử lại.'; resp.style.display = 'block'; }
+  }
+  if (loading) loading.style.display = 'none';
+}
+
+// ══════════════════════════════════════
+// QUIZ ENGINE
+// ══════════════════════════════════════
+class QuizEngine {
+  constructor(questions, containerId) {
+    this.questions = questions;
+    this.idx = 0;
+    this.score = 0;
+    this.answered = false;
+    this.containerId = containerId;
+    this.render();
+  }
+
+  render() {
+    const container = document.getElementById(this.containerId);
+    if (!container) return;
+    if (this.idx >= this.questions.length) { this.renderResult(container); return; }
+
+    const q = this.questions[this.idx];
+    const progress = this.questions.map((_, i) => `<div class="progress-dot ${i < this.idx ? 'done' : i === this.idx ? 'current' : ''}"></div>`).join('');
+
+    let qHTML = '';
+    if (q.type === 'tfng' || q.type === 'ynnng') {
+      const opts = q.type === 'tfng' ? ['True','False','Not Given'] : ['Yes','No','Not Given'];
+      qHTML = `
+        <div class="quiz-q">${q.q}</div>
+        <div class="quiz-opts" style="grid-template-columns:repeat(3,1fr)">
+          ${opts.map(o => `<button class="quiz-opt" onclick="this.closest('.quiz-engine').quizEngine.answer(this,'${o.charAt(0)}')">${o}</button>`).join('')}
+        </div>`;
+    } else if (q.type === 'mcq') {
+      qHTML = `
+        <div class="quiz-q">${q.q}</div>
+        <div class="quiz-opts">
+          ${q.opts.map((o,i) => `<button class="quiz-opt" onclick="this.closest('.quiz-engine').quizEngine.answer(this,${i})">${o}</button>`).join('')}
+        </div>`;
+    } else if (q.type === 'sentence') {
+      qHTML = `
+        <div class="quiz-q" style="margin-bottom:12px;">${q.stem.replace('_____', '<strong>[?????]</strong>')}</div>
+        <input class="fill-input" id="fill-ans-${this.idx}" placeholder="Type your answer (words from passage)..." style="margin-bottom:12px;">
+        <button class="btn btn-primary" onclick="this.closest('.quiz-engine').quizEngine.checkFill()">Check Answer</button>`;
+    }
+
+    container.innerHTML = `
+      <div class="quiz-engine" style="display:contents">
+        <div class="progress-dots">${progress}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;">Question ${this.idx+1} / ${this.questions.length}</span>
+          <span style="font-size:0.72rem;color:var(--gold2);font-weight:600">Score: ${this.score}/${this.idx}</span>
+        </div>
+        ${qHTML}
+        <div class="explanation" id="quiz-exp-${this.idx}"></div>
+        <div style="text-align:right;margin-top:16px;">
+          <button class="btn btn-primary" id="next-btn-${this.idx}" onclick="this.closest('.quiz-engine').quizEngine.next()" style="display:none;">Next →</button>
+        </div>
+      </div>`;
+    container.querySelector('.quiz-engine').quizEngine = this;
+    this.answered = false;
+  }
+
+  answer(btn, chosen) {
+    if (this.answered) return;
+    this.answered = true;
+    const q = this.questions[this.idx];
+    const isCorrect = String(chosen).toLowerCase() === String(q.ans).toLowerCase().charAt(0);
+    if (isCorrect) { btn.classList.add('correct'); this.score++; State.addXP(15); }
+    else { btn.classList.add('wrong'); }
+    // Show correct on wrong answer
+    btn.closest('.quiz-opts').querySelectorAll('.quiz-opt').forEach(b => {
+      b.disabled = true;
+      const bval = b.textContent.charAt(0).toLowerCase();
+      if (bval === String(q.ans).toLowerCase()) b.classList.add('reveal');
+    });
+    const expEl = document.getElementById(`quiz-exp-${this.idx}`);
+    if (expEl) { expEl.textContent = '📖 ' + q.exp; expEl.style.display = 'block'; }
+    document.getElementById(`next-btn-${this.idx}`).style.display = 'inline-flex';
+  }
+
+  checkFill() {
+    if (this.answered) return;
+    this.answered = true;
+    const q = this.questions[this.idx];
+    const inputEl = document.getElementById(`fill-ans-${this.idx}`);
+    const userAns = inputEl?.value?.trim().toLowerCase();
+    const isCorrect = userAns === q.answer.toLowerCase() || (q.alt && userAns === q.alt.toLowerCase());
+    inputEl.classList.add(isCorrect ? 'correct' : 'wrong');
+    if (isCorrect) { this.score++; State.addXP(15); showToast('Correct! +15 XP', 'success'); }
+    const expEl = document.getElementById(`quiz-exp-${this.idx}`);
+    if (expEl) { expEl.textContent = `✅ Answer: "${q.answer}" — ${q.exp}`; expEl.style.display = 'block'; }
+    document.getElementById(`next-btn-${this.idx}`).style.display = 'inline-flex';
+  }
+
+  next() { this.idx++; this.render(); }
+
+  renderResult(container) {
+    const pct = Math.round(this.score / this.questions.length * 100);
+    const grade = pct >= 90 ? { label:'Band 8-9 Level! 🏆', color:'var(--purple2)' }
+                : pct >= 75 ? { label:'Band 7 Level! ⭐', color:'var(--green2)' }
+                : pct >= 60 ? { label:'Band 6 Level 👍', color:'var(--accent3)' }
+                : { label:'Cần ôn thêm 💪', color:'var(--gold2)' };
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px 20px;">
+        <div style="font-family:'Crimson Pro',serif;font-size:4rem;font-weight:700;color:${grade.color};line-height:1">${this.score}/${this.questions.length}</div>
+        <div style="font-size:1.1rem;margin:8px 0 6px;font-weight:600;color:${grade.color}">${grade.label}</div>
+        <div style="font-size:0.88rem;color:var(--text3);margin-bottom:28px">${pct}% chính xác</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="this.closest('.quiz-engine-wrap').restart()">🔄 Làm lại</button>
+          <button class="btn btn-outline" onclick="showScreen('aitutor')">🤖 Hỏi AI về phần sai</button>
+        </div>
+      </div>`;
+    State.quizStats.total += this.questions.length;
+    State.quizStats.correct += this.score;
+    State.save();
+  }
+}
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function bandColor(band) {
+  if (band >= 9) return 'var(--purple2)';
+  if (band >= 8) return 'var(--accent2)';
+  if (band >= 7) return 'var(--green2)';
+  if (band >= 6) return 'var(--gold2)';
+  return 'var(--red2)';
+}
+
+function rawToband(raw, type='academic') {
+  const academic = {40:9,39:9,38:8.5,37:8,36:8,35:7.5,34:7,33:7,32:6.5,31:6.5,30:6,29:6,28:5.5,27:5.5,26:5,25:5,24:5,23:4.5,22:4.5,21:4,20:4,19:3.5};
+  const gt = {40:9,39:8.5,38:8,37:7.5,36:7,35:6.5,34:6,33:5.5,32:5,31:4.5,30:4};
+  const table = type === 'academic' ? academic : gt;
+  return table[raw] || (raw >= 27 ? 5.5 : raw >= 23 ? 5 : 4);
+}
+
+</script>
+<script>
+/* ═══════════════════════════════════════════
+   IELTS READING MASTER — App Logic
+   ═══════════════════════════════════════════ */
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  updateUI();
+  renderDashboard();
+  renderRoadmap();
+  renderQTypes();
+  renderPracticeFilters();
+  renderPassageList();
+  renderVocabFilters();
+  renderVocab();
+  renderGrammar();
+  renderBandGuide();
+  renderResources();
+  renderQuickQuestions();
+  renderWeaknessCheckboxes();
+  calcBand();
+});
+
+// ══════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════
+function renderDashboard() {
+  // Score table
+  const scoreData = [
+    {band:'9.0',ac:'39-40',gt:'40',color:'var(--purple2)'},
+    {band:'8.5',ac:'38',gt:'39',color:'var(--purple2)'},
+    {band:'8.0',ac:'36-37',gt:'37-38',color:'var(--accent3)'},
+    {band:'7.5',ac:'35',gt:'36',color:'var(--accent3)'},
+    {band:'7.0',ac:'33-34',gt:'34-35',color:'var(--green2)'},
+    {band:'6.5',ac:'31-32',gt:'32-33',color:'var(--green2)'},
+    {band:'6.0',ac:'29-30',gt:'30-31',color:'var(--gold2)'},
+    {band:'5.5',ac:'27-28',gt:'27-29',color:'var(--gold2)'},
+    {band:'5.0',ac:'24-26',gt:'24-26',color:'var(--red2)'},
+  ];
+  const stEl = document.getElementById('score-table');
+  if (stEl) stEl.innerHTML = scoreData.map(r => `
+    <tr>
+      <td><span style="color:${r.color};font-weight:700;font-size:1rem;">${r.band}</span></td>
+      <td>${r.ac}</td><td>${r.gt}</td>
+      <td><span class="tag ${parseFloat(r.band)>=7?'tag-band7':parseFloat(r.band)>=6?'tag-medium':'tag-hard'}">${
+        parseFloat(r.band)>=8?'Band 8+ — Expert':parseFloat(r.band)>=7?'Band 7 — Target ⭐':parseFloat(r.band)>=6?'Band 6 — Competent':'Band 5 — Foundation'}</span></td>
+    </tr>`).join('');
+
+  // Quick cards
+  const cards = [
+    {icon:'📋',title:'14 Dạng câu hỏi',desc:'Lý thuyết & chiến thuật đầy đủ',color:'var(--accent2)',screen:'qtypes'},
+    {icon:'📄',title:'Đề thi mẫu',desc:'3 đề chuẩn IELTS Academic',color:'var(--green2)',screen:'passages'},
+    {icon:'🤖',title:'AI Tutor',desc:'Hỏi đáp 24/7 về IELTS Reading',color:'var(--purple2)',screen:'aitutor'},
+    {icon:'💡',title:'Tips & Mẹo',desc:'Chiến thuật Band 7→9',color:'var(--gold2)',screen:'tips'},
+  ];
+  const qcEl = document.getElementById('quick-cards');
+  if (qcEl) qcEl.innerHTML = cards.map(c => `
+    <div class="card card-hover" onclick="showScreen('${c.screen}')" style="border-top:3px solid ${c.color};">
+      <div style="font-size:2rem;margin-bottom:10px;">${c.icon}</div>
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">${c.title}</div>
+      <div style="font-size:0.8rem;color:var(--text3);">${c.desc}</div>
+    </div>`).join('');
+
+  // Stats
+  const acc = State.quizStats.total > 0 ? Math.round(State.quizStats.correct / State.quizStats.total * 100) + '%' : '—';
+  const slEl = document.getElementById('stat-lessons');
+  const saEl = document.getElementById('stat-accuracy');
+  if (slEl) slEl.textContent = State.lessonsComplete.length;
+  if (saEl) saEl.textContent = acc;
+
+  // Today's plan
+  const days = ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
+  const plans = [
+    {act:'🔁 Review tuần + AI Tutor',time:'30 phút',tip:'Nghỉ ngơi sau khi review'},
+    {act:'📖 Luyện Reading — Passage 1',time:'45 phút',tip:'Thêm 20 phút vocab học thuật'},
+    {act:'📋 Luyện dạng câu hỏi (TFNG)',time:'50 phút',tip:'Thêm 20 phút grammar'},
+    {act:'📄 Full Passage timed (20 phút)',time:'20 phút',tip:'Review với AI sau khi làm'},
+    {act:'📚 Từ vựng + Đọc báo',time:'45 phút',tip:'The Guardian hoặc BBC'},
+    {act:'📋 Luyện Matching Headings + MCQ',time:'50 phút',tip:'Review vocab cũ'},
+    {act:'📄 Full Mock Test (60 phút)',time:'60 phút',tip:'Phân tích sai lầm sau khi thi'},
+  ];
+  const day = new Date().getDay();
+  const plan = plans[day];
+  const tpEl = document.getElementById('today-plan');
+  if (tpEl) tpEl.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div style="background:var(--accent)22;border:1px solid var(--accent)33;border-radius:10px;padding:8px 14px;font-size:0.78rem;color:var(--accent3);font-weight:700;">${days[day]}</div>
+      <div style="font-weight:600;">${plan.act}</div>
+    </div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;">
+      <div class="tip-box" style="flex:1;margin:0;">⏰ Thời gian: <strong>${plan.time}</strong></div>
+      <div class="tip-box" style="flex:1;margin:0;">💡 ${plan.tip}</div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary btn-sm" onclick="showScreen('practice')">🎯 Bắt đầu luyện tập</button>
+      <button class="btn btn-ghost btn-sm" onclick="showScreen('passages')">📄 Làm đề mẫu</button>
+      <button class="btn btn-ghost btn-sm" onclick="showScreen('aitutor')">🤖 Hỏi AI Tutor</button>
+    </div>`;
+}
+
+function calcBand() {
+  const raw = parseInt(document.getElementById('raw-score')?.value) || 0;
+  const type = document.getElementById('test-type')?.value || 'academic';
+  const band = rawToband(Math.min(40, Math.max(0, raw)), type);
+  const el = document.getElementById('band-result');
+  const fb = document.getElementById('band-feedback');
+  if (!el) return;
+  el.textContent = band.toFixed(1);
+  el.style.color = bandColor(band);
+  const needed = type === 'academic'
+    ? {7:[33,34],8:[36,37],9:[39,40]}
+    : {7:[34,35],8:[37,38],9:[40,40]};
+  const msgs = {
+    9:'🏆 Band 9 — Expert User! Hoàn toàn thành thạo.',
+    8:'⭐ Band 8 — Very Good! Chỉ có lỗi nhỏ không đáng kể.',
+    7:'✅ Band 7 — Good User! Phù hợp với hầu hết các trường đại học.',
+    6:'📈 Band 6 — Competent. Cần cải thiện để đạt Band 7. Thêm khoảng ' + (needed[7][0]-raw) + ' câu đúng nữa là Band 7.',
+    5:'💪 Band 5 — Cần nỗ lực thêm. Cần thêm ' + (needed[7][0]-raw) + ' câu để đạt Band 7.',
+    4:'🏗️ Band 4 — Foundation level. Tập trung vào nền tảng ngữ pháp và từ vựng trước.',
+  };
+  if (fb) fb.textContent = msgs[Math.floor(band)] || msgs[4];
+}
+
+// ══════════════════════════════════════
+// ROADMAP
+// ══════════════════════════════════════
+function renderRoadmap() {
+  const weeks = [
+    {n:1,title:'Nền tảng & Cấu trúc bài thi',tag:'Band 5',done:true,color:'var(--green2)',tasks:['Hiểu format IELTS Reading Academic vs GT','Làm quen với 14 dạng câu hỏi (overview)','Luyện Skimming & Scanning cơ bản','Xây dựng vocab 50 từ học thuật cơ bản (Band 5)','Đọc 1 passage/ngày không tính giờ']},
+    {n:2,title:'True/False/NG + Matching Headings',tag:'Band 5→6',done:true,color:'var(--green2)',tasks:['Chiến thuật TFNG — phân biệt F vs NG','Chiến thuật YNNNG (Writer\'s views)','Kỹ năng Matching Headings — main idea vs detail','Làm 20 câu TFNG mỗi ngày','Đọc báo: The Guardian, 1 bài/ngày']},
+    {n:3,title:'Sentence Completion + Note Completion',tag:'Band 6',done:false,color:'var(--accent2)',tasks:['Sentence completion — word limit rules','Note/Table/Summary completion','Flowchart & Diagram completion','Luyện paraphrasing: câu hỏi vs passage','Từ vựng Band 6: 30 từ học thuật mới']},
+    {n:4,title:'Multiple Choice + Matching Features',tag:'Band 6',done:false,color:'var(--accent2)',tasks:['MCQ — chiến thuật loại trừ distractors','Matching Features — proper nouns & scanning','Matching Sentence Endings — grammar filter','Full timed passage: Passage 1 (15 phút)','Vocabulary: synonyms & collocations']},
+    {n:5,title:'Full Mock Tests — Band 6.5 Target',tag:'Band 6.5',done:false,color:'var(--gold2)',tasks:['Full mock test × 2 (Cambridge Book 14-15)','Phân tích lỗi sai — điền vào error log','Cải thiện time management','Luyện đặc biệt dạng hay sai nhất','Đọc báo có timing: 1 bài = 10 phút']},
+    {n:6,title:'Advanced Vocabulary & Inference',tag:'Band 7',done:false,color:'var(--gold2)',tasks:['Từ vựng Band 7: 50 từ học thuật nâng cao','Inference & implied meaning questions','Identifying writer\'s attitude & opinion','Hedging language recognition','Đọc The Economist: 2 bài/tuần']},
+    {n:7,title:'Band 7-8 Speed & Accuracy',tag:'Band 7-8',done:false,color:'var(--purple2)',tasks:['Tăng tốc đọc: target 200 wpm+','Complex syntax: unpacking noun phrases','Full mock test × 3 (Cambridge Book 16-17)','Error analysis với AI Tutor','Đọc academic journals: 1 bài/tuần']},
+    {n:8,title:'Final Polish — Mock Exam Conditions',tag:'Band 8+',done:false,color:'var(--purple2)',tasks:['Full test × 3 — strict exam conditions','Identify remaining weaknesses','Review tất cả dạng câu đã học','Chiến thuật ngày thi (sleep, timing, mindset)','Band 8-9: attitude/argument reading practice']},
+  ];
+
+  const el = document.getElementById('roadmap-grid');
+  if (!el) return;
+  el.innerHTML = weeks.map(w => `
+    <div class="roadmap-week ${w.done?'done':w.n===3?'active-week':''}">
+      <div class="week-header">
+        <span class="week-label">Tuần ${w.n}</span>
+        <span class="tag" style="background:${w.color}22;color:${w.color}">${w.tag}</span>
+        ${w.done ? '<span class="tag tag-easy">✓ Xong</span>' : w.n===3 ? '<span class="tag tag-new">▶ Đang học</span>' : ''}
+      </div>
+      <div class="week-title">${w.title}</div>
+      <div class="week-tasks">${w.tasks.map(t => `<div class="week-task">${t}</div>`).join('')}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════
+// QUESTION TYPES
+// ══════════════════════════════════════
+function renderQTypes() {
+  const el = document.getElementById('qtypes-grid');
+  if (!el) return;
+  el.innerHTML = QUESTION_TYPES.map(qt => `
+    <div class="qtype-card" onclick="openQType('${qt.id}')">
+      <div class="qtype-icon">${qt.icon}</div>
+      <div class="qtype-name">${qt.name}</div>
+      <div class="qtype-freq" style="margin-bottom:8px;">Tần suất: ${qt.freq}</div>
+      <span class="tag tag-${qt.tag}">${qt.tag==='hard'?'Khó':qt.tag==='medium'?'Trung bình':'Dễ'}</span>
+      <div class="qtype-difficulty">
+        <div style="font-size:0.7rem;color:var(--text3);margin-top:8px;margin-bottom:4px;">Độ khó</div>
+        <div class="difficulty-bar"><div class="diff-fill" style="width:${qt.difficulty*20}%;background:${qt.difficulty>=4?'var(--red2)':qt.difficulty>=3?'var(--gold2)':'var(--green2)'}"></div></div>
+      </div>
+      ${qt.practice.length > 0 ? '<div style="margin-top:10px;font-size:0.72rem;color:var(--green2);">✓ Có bài luyện tập</div>' : ''}
+    </div>`).join('');
+}
+
+function openQType(id) {
+  const qt = QUESTION_TYPES.find(q => q.id === id);
+  if (!qt) return;
+  const stratHtml = qt.strategy.map((s,i) => `
+    <div class="example-box" style="margin:6px 0;">
+      <strong>Bước ${i+1}:</strong> ${s}
+    </div>`).join('');
+  const practiceHtml = qt.practice.length > 0 ? `
+    <div style="margin-top:20px;text-align:center;">
+      <button class="btn btn-primary" onclick="closeModal();showScreen('practice');loadQTypePractice('${id}')">
+        🎯 Luyện tập dạng này ngay
+      </button>
+    </div>` : `<div class="tip-box" style="margin-top:16px;">Chọn "Luyện tập theo dạng" để luyện dạng này với AI-generated exercises.</div>`;
+
+  showModal(`
+    <div class="modal-header">
+      <div>
+        <div style="font-size:0.7rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${qt.freq} · <span class="tag tag-${qt.tag}">${qt.tag==='hard'?'Khó':qt.tag==='medium'?'Trung bình':'Dễ'}</span></div>
+        <h2>${qt.icon} ${qt.name}</h2>
+      </div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <p style="margin-bottom:16px;">${qt.desc}</p>
+    <h4 style="margin-bottom:10px;">Chiến thuật từng bước</h4>
+    ${stratHtml}
+    ${qt.band8tip ? `<div class="pro-box" style="margin-top:12px;">${qt.band8tip}</div>` : ''}
+    ${practiceHtml}
+  `);
+}
+
+// ══════════════════════════════════════
+// PRACTICE
+// ══════════════════════════════════════
+let currentPracticeQType = 'tfng';
+
+function renderPracticeFilters() {
+  const el = document.getElementById('practice-filters');
+  if (!el) return;
+  const filters = [
+    {id:'tfng',label:'✅ True/False/NG'},
+    {id:'ynnng',label:'💬 Yes/No/NG'},
+    {id:'matching-headings',label:'🏷️ Matching Headings'},
+    {id:'sentence-completion',label:'📝 Sentence Completion'},
+    {id:'mcq',label:'🎯 Multiple Choice'},
+    {id:'mixed',label:'🔀 Tổng hợp'},
+  ];
+  el.innerHTML = filters.map(f => `
+    <button class="btn ${f.id===currentPracticeQType?'btn-primary':'btn-outline'} btn-sm"
+      onclick="loadQTypePractice('${f.id}')">${f.label}</button>`).join('');
+}
+
+function loadQTypePractice(id) {
+  currentPracticeQType = id;
+  renderPracticeFilters();
+  const el = document.getElementById('practice-container');
+  if (!el) return;
+
+  let questions = [];
+  if (id === 'mixed') {
+    // Mix questions from different types with passages
+    PASSAGES.forEach(p => { questions = questions.concat(p.questions.slice(0,3)); });
+  } else {
+    // Find questions from practice data
+    QUESTION_TYPES.filter(qt => qt.id === id || (id==='sentence-completion' && qt.id==='sentence')).forEach(qt => {
+      qt.practice.forEach(prac => {
+        const p = prac;
+        if (p.questions) {
+          p.questions.forEach(q => {
+            questions.push({...q, passage:p.passage, passageTitle:p.passageTitle});
+          });
+        }
+        if (p.questions === undefined && p.stem) {
+          questions.push({type:'sentence', stem:p.stem, answer:p.answer, alt:p.alt, exp:p.exp, passage:p.passage || ''});
+        }
+      });
+    });
+    // Also pull from passages
+    PASSAGES.forEach(p => {
+      p.questions.filter(q => {
+        if (id==='tfng') return q.type==='tfng';
+        if (id==='ynnng') return q.type==='ynnng';
+        if (id==='mcq') return q.type==='mcq';
+        if (id==='sentence-completion') return q.type==='sentence';
+        return false;
+      }).forEach(q => questions.push({...q, passage: p.text.slice(0,600)+'...', passageTitle:p.title}));
+    });
+  }
+
+  if (questions.length === 0) {
+    el.innerHTML = `
+      <div class="card" style="text-align:center;padding:40px;">
+        <div style="font-size:2rem;margin-bottom:12px;">🤖</div>
+        <h3 style="margin-bottom:8px;">Tạo bài tập với AI</h3>
+        <p style="margin-bottom:20px;">Dạng câu hỏi này chưa có bài tập tĩnh. Hãy để AI tạo bài tập cho bạn!</p>
+        <button class="btn btn-primary" onclick="generateAIPractice('${id}')">⚡ AI tạo bài tập ngay</button>
+        <div class="ai-loading" id="ai-practice-loading" style="justify-content:center;margin-top:12px;"><div class="spinner"></div> AI đang tạo...</div>
+        <div class="ai-response" id="ai-practice-response" style="text-align:left;margin-top:12px;"></div>
+      </div>`;
+    return;
+  }
+
+  // Build quiz with passage
+  const passageHtml = questions[0].passage ? `
+    <div style="margin-bottom:16px;">
+      ${questions[0].passageTitle ? `<h4 style="margin-bottom:8px;">${questions[0].passageTitle}</h4>` : ''}
+      <div class="quiz-passage">${questions[0].passage}</div>
+    </div>` : '';
+
+  el.innerHTML = `
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <div>
+          <span class="tag tag-reading" style="margin-right:8px;">Reading Practice</span>
+          <span style="font-size:0.88rem;color:var(--text3)">${questions.length} câu hỏi</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="loadQTypePractice('${id}')">🔄 Reset</button>
+      </div>
+      <div class="quiz-body">
+        ${passageHtml}
+        <div id="practice-quiz-inner" class="quiz-engine-wrap"></div>
+      </div>
+    </div>`;
+
+  // Ensure all have type
+  const typed = questions.map(q => ({...q, type: q.type || (id==='sentence-completion'?'sentence':'tfng')}));
+  const engine = new QuizEngine(typed, 'practice-quiz-inner');
+  document.querySelector('.quiz-engine-wrap').restart = () => loadQTypePractice(id);
+}
+
+async function generateAIPractice(qtype) {
+  const qt = QUESTION_TYPES.find(q => q.id === qtype);
+  const qtName = qt ? qt.name : qtype;
+  const prompt = `Create an IELTS Reading practice exercise for the question type: ${qtName}.
+
+Include:
+1. A short academic passage (200-250 words) on an interesting topic
+2. 4-5 practice questions of the ${qtName} type with answers
+3. Explain the answer for each question
+
+Format clearly. Write the passage first, then questions with answers and explanations.
+Use Vietnamese for explanations but English for the passage and questions.`;
+
+  await runAI('', 'ai-practice-loading', 'ai-practice-response', prompt);
+}
+
+// ══════════════════════════════════════
+// PASSAGES (MOCK TESTS)
+// ══════════════════════════════════════
+function renderPassageList() {
+  const el = document.getElementById('passage-list');
+  if (!el) return;
+
+  const levelColors = {band6:'var(--green2)', band7:'var(--accent2)', band8:'var(--purple2)'};
+  const levelLabels = {band6:'Band 6 Level', band7:'Band 7 Level', band8:'Band 8+ Level'};
+
+  el.innerHTML = `
+    <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+      <div class="card" style="flex:1;min-width:180px;text-align:center;padding:16px;">
+        <div style="font-size:1.8rem;font-weight:700;color:var(--green2);">${PASSAGES.length}</div>
+        <div style="font-size:0.78rem;color:var(--text3);">Đề mẫu</div>
+      </div>
+      <div class="card" style="flex:1;min-width:180px;text-align:center;padding:16px;">
+        <div style="font-size:1.8rem;font-weight:700;color:var(--accent2);">40+</div>
+        <div style="font-size:0.78rem;color:var(--text3);">Câu hỏi</div>
+      </div>
+      <div class="card" style="flex:1;min-width:180px;text-align:center;padding:16px;">
+        <div style="font-size:1.8rem;font-weight:700;color:var(--gold2);">3</div>
+        <div style="font-size:0.78rem;color:var(--text3);">Dạng câu hỏi</div>
+      </div>
+    </div>
+    <div class="grid-auto">
+    ${PASSAGES.map(p => `
+      <div class="card card-hover" onclick="startPassageTest('${p.id}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+          <span class="tag" style="background:${levelColors[p.level]}22;color:${levelColors[p.level]}">${levelLabels[p.level]}</span>
+          <span style="font-size:0.72rem;color:var(--text3);">~${p.timeMin} phút</span>
+        </div>
+        <div style="font-family:'Crimson Pro',serif;font-size:1.2rem;font-weight:600;margin-bottom:6px;line-height:1.3;">${p.title}</div>
+        <div style="font-size:0.8rem;color:var(--text3);margin-bottom:14px;">${p.topic} · ${p.wordCount} từ · ${p.questions.length} câu hỏi</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+          ${[...new Set(p.questions.map(q=>q.type))].map(t => {
+            const labels={tfng:'T/F/NG',ynnng:'Y/N/NG',mcq:'MCQ',sentence:'Sentence Fill'};
+            return `<span class="tag tag-reading" style="font-size:0.65rem;">${labels[t]||t}</span>`;
+          }).join('')}
+        </div>
+        <button class="btn btn-primary btn-sm" style="width:100%;">▶ Bắt đầu làm bài</button>
+      </div>`).join('')}
+    </div>`;
+}
+
+let passageTimer = null;
+let passageSeconds = 0;
+
+function startPassageTest(id) {
+  const passage = PASSAGES.find(p => p.id === id);
+  if (!passage) return;
+
+  const listEl = document.getElementById('passage-list');
+  const testEl = document.getElementById('passage-test');
+  if (listEl) listEl.style.display = 'none';
+  if (testEl) testEl.style.display = 'block';
+
+  passageSeconds = passage.timeMin * 60;
+
+  testEl.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+      <button class="btn btn-ghost btn-sm" onclick="exitPassageTest()">← Quay lại</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div id="passage-timer" style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--gold2);font-weight:700;">${formatTime(passageSeconds)}</div>
+        <button class="btn btn-outline btn-sm" id="timer-toggle" onclick="toggleTimer()">⏸ Pause</button>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+        <h2 style="margin:0;">${passage.title}</h2>
+        <span class="tag tag-reading">${passage.topic}</span>
+      </div>
+      <div class="quiz-passage" style="max-height:none;font-size:0.92rem;line-height:1.9;">${passage.text.replace(/\n\n/g, '</p><p style="margin-top:12px;">').replace(/^/, '<p>').replace(/$/, '</p>')}</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-bottom:20px;">Câu hỏi (${passage.questions.length} câu)</h3>
+      <div id="passage-quiz-inner" class="quiz-engine-wrap"></div>
+    </div>`;
+
+  startTimer();
+
+  const engine = new QuizEngine(
+    passage.questions.map(q => ({...q})),
+    'passage-quiz-inner'
+  );
+  document.querySelector('#passage-test .quiz-engine-wrap').restart = () => startPassageTest(id);
+}
+
+function exitPassageTest() {
+  clearInterval(passageTimer);
+  const listEl = document.getElementById('passage-list');
+  const testEl = document.getElementById('passage-test');
+  if (listEl) listEl.style.display = 'block';
+  if (testEl) testEl.style.display = 'none';
+}
+
+function startTimer() {
+  clearInterval(passageTimer);
+  let running = true;
+  const toggle = document.getElementById('timer-toggle');
+  passageTimer = setInterval(() => {
+    if (!running) return;
+    passageSeconds--;
+    const el = document.getElementById('passage-timer');
+    if (el) {
+      el.textContent = formatTime(passageSeconds);
+      if (passageSeconds <= 300) el.style.color = 'var(--red2)';
+      if (passageSeconds <= 0) { clearInterval(passageTimer); el.textContent = '⏰ Hết giờ!'; }
+    }
+  }, 1000);
+  if (toggle) {
+    toggle.onclick = () => {
+      running = !running;
+      toggle.textContent = running ? '⏸ Pause' : '▶ Resume';
+    };
+  }
+}
+
+function toggleTimer() {} // handled above
+
+function formatTime(s) {
+  const m = Math.floor(Math.abs(s) / 60);
+  const sec = Math.abs(s) % 60;
+  return (s < 0 ? '-' : '') + String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+// ══════════════════════════════════════
+// VOCABULARY
+// ══════════════════════════════════════
+let currentVocabFilter = 'all';
+let vocabQuizEngine = null;
+
+function renderVocabFilters() {
+  const el = document.getElementById('vocab-filters');
+  if (!el) return;
+  const topics = ['all', ...new Set(VOCAB.map(v => v.t))];
+  el.innerHTML = topics.map(t => `
+    <button class="btn btn-sm ${t===currentVocabFilter?'btn-primary':'btn-outline'}"
+      onclick="currentVocabFilter='${t}';renderVocabFilters();renderVocab()">
+      ${t==='all'?'🌐 Tất cả':t}
+    </button>`).join('');
+}
+
+function renderVocab(filter) {
+  if (filter) currentVocabFilter = filter;
+  const el = document.getElementById('vocab-grid');
+  if (!el) return;
+  const filtered = currentVocabFilter === 'all' ? VOCAB : VOCAB.filter(v => v.t === currentVocabFilter);
+  el.innerHTML = filtered.map(v => `
+    <div class="vocab-card" onclick="showVocabDetail('${v.w}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="vocab-word">${v.w}</div>
+        <span class="tag" style="background:${bandColor(v.band)}22;color:${bandColor(v.band)};font-size:0.62rem;">Band ${v.band}+</span>
+      </div>
+      <div class="vocab-phonetic">${v.ph}</div>
+      <div class="vocab-meaning">${v.m}</div>
+      <div class="vocab-example">"${v.ex}"</div>
+      <div class="vocab-tags">
+        <span class="tag" style="background:var(--surface3);color:var(--text3);font-size:0.65rem;">${v.t}</span>
+        <span class="tag" style="background:var(--surface3);color:var(--text3);font-size:0.65rem;">≈ ${v.synonyms.split(',')[0].trim()}</span>
+      </div>
+    </div>`).join('');
+}
+
+function showVocabDetail(word) {
+  const v = VOCAB.find(x => x.w === word);
+  if (!v) return;
+  showModal(`
+    <div class="modal-header">
+      <div>
+        <div class="vocab-word" style="font-size:2rem;">${v.w}</div>
+        <div class="vocab-phonetic" style="font-size:0.9rem;">${v.ph}</div>
+      </div>
+      <button class="close-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div style="margin-bottom:16px;">
+      <span class="tag tag-reading" style="margin-right:6px;">${v.t}</span>
+      <span class="tag" style="background:${bandColor(v.band)}22;color:${bandColor(v.band)};">Band ${v.band}+</span>
+    </div>
+    <div class="lesson-block">
+      <h4>Nghĩa</h4>
+      <div style="font-size:1.05rem;font-weight:600;margin-bottom:8px;">${v.m}</div>
+      <div class="example-box">"${v.ex}"</div>
+    </div>
+    <div class="lesson-block">
+      <h4>Synonyms (Từ đồng nghĩa)</h4>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        ${v.synonyms.split(',').map(s => `<span class="tag" style="background:var(--accent)22;color:var(--accent3);">${s.trim()}</span>`).join('')}
+      </div>
+    </div>
+    <div style="margin-top:16px;text-align:center;">
+      <button class="btn btn-primary btn-sm" onclick="closeModal();startVocabQuizSingle('${v.w}')">🎯 Luyện từ này</button>
+    </div>`);
+}
+
+function startVocabQuiz() {
+  const wrap = document.getElementById('vocab-quiz-wrap');
+  if (!wrap) return;
+  wrap.style.display = 'block';
+  wrap.innerHTML = '<h3 style="margin-bottom:16px;">🎯 Vocab Quiz</h3><div id="vocab-quiz-inner"></div>';
+  const qs = shuffle(VOCAB).slice(0, 10).map(v => ({
+    type: 'mcq',
+    q: `Nghĩa của "<strong>${v.w}</strong>" ${v.ph} là gì?`,
+    opts: ['A. '+v.m, 'B. '+shuffle(VOCAB.filter(x=>x.w!==v.w)).slice(0,3).map(x=>x.m).join('\nC. ').replace('\nC. ','</div><div class="quiz-opt">C. ').replace('\n','')].join('</div><div class="quiz-opt">'),
+    ans: 0,
+    exp: `"${v.w}" = ${v.m}. Synonyms: ${v.synonyms}`,
+    passage: '',
+  }));
+  // Build cleaner quiz
+  const vocabQs = shuffle(VOCAB).slice(0, 8).map(v => {
+    const wrongs = shuffle(VOCAB.filter(x => x.w !== v.w)).slice(0, 3);
+    const options = shuffle([v, ...wrongs]);
+    return {
+      type: 'mcq',
+      q: `Từ "<strong style="font-size:1.2rem;color:var(--gold2)">${v.w}</strong>" ${v.ph}<br><em style="color:var(--text3);font-size:0.85rem;">Chọn nghĩa đúng:</em>`,
+      opts: options.map((o,i) => String.fromCharCode(65+i)+'. '+o.m),
+      ans: options.findIndex(o => o.w === v.w),
+      exp: `"${v.w}" = ${v.m}. Synonyms: ${v.synonyms}. Ví dụ: "${v.ex}"`,
+      passage: '',
+    };
+  });
+  const engine = new QuizEngine(vocabQs, 'vocab-quiz-inner');
+  document.getElementById('vocab-quiz-inner').closest('.quiz-engine-wrap').restart = startVocabQuiz;
+}
+
+// ══════════════════════════════════════
+// GRAMMAR
+// ══════════════════════════════════════
+function renderGrammar() {
+  const el = document.getElementById('grammar-list');
+  if (!el) return;
+  el.innerHTML = GRAMMAR_STRUCTURES.map(g => `
+    <div class="card card-accent" style="margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <h3 style="margin:0;">${g.title}</h3>
+        <span class="tag tag-band7">${g.band}</span>
+      </div>
+      <p style="margin-bottom:16px;">${g.explanation}</p>
+      ${g.examples.map(ex => `
+        <div class="example-box" style="margin-bottom:10px;">
+          <div style="font-style:italic;margin-bottom:4px;">${ex.text}</div>
+          <div style="font-size:0.8rem;color:var(--text3);">→ ${ex.note}</div>
+        </div>`).join('')}
+      ${g.words ? `
+        <div style="margin-top:12px;">
+          <h4 style="margin-bottom:8px;">Từ quan trọng</h4>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            ${g.words.map(w => `<span class="tag" style="background:var(--accent)22;color:var(--accent3);">${w}</span>`).join('')}
+          </div>
+        </div>` : ''}
+      ${g.causeWords ? `
+        <div class="grid2" style="margin-top:12px;gap:10px;">
+          <div>
+            <h4 style="margin-bottom:6px;">Cause (Nguyên nhân)</h4>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">${g.causeWords.map(w=>`<span class="tag" style="background:var(--red2)22;color:var(--red2);">${w}</span>`).join('')}</div>
+          </div>
+          <div>
+            <h4 style="margin-bottom:6px;">Effect (Kết quả)</h4>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">${g.effectWords.map(w=>`<span class="tag" style="background:var(--green2)22;color:var(--green2);">${w}</span>`).join('')}</div>
+          </div>
+        </div>` : ''}
+      <div class="tip-box" style="margin-top:14px;">📖 Reading tip: ${g.readingTip}</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════
+// BAND GUIDE
+// ══════════════════════════════════════
+function renderBandGuide() {
+  const el = document.getElementById('band-guide-content');
+  if (!el) return;
+  const bands = [
+    {
+      range:'Band 5.0–5.5', color:'var(--red2)', icon:'🏗️',
+      desc:'Foundation level — hiểu ý chính nhưng hay sai chi tiết và dạng câu khó.',
+      strengths:['Hiểu general topic của passage','Trả lời được câu hỏi factual đơn giản','Note/Form completion cơ bản'],
+      weaknesses:['Hay sai True/False/Not Given (nhầm NG với F)','Không đủ thời gian ở Passage 3','Từ vựng học thuật hạn chế','Matching Headings: chọn theo từ khóa thay vì main idea'],
+      actions:['Luyện TFNG mỗi ngày — 20 câu/ngày trong 2 tuần','Học 10 từ vựng học thuật/ngày theo chủ đề','Đọc 1 bài báo tiếng Anh/ngày và tóm tắt ý chính','Luyện skimming: mỗi paragraph chỉ đọc câu đầu và cuối'],
+    },
+    {
+      range:'Band 6.0–6.5', color:'var(--gold2)', icon:'📈',
+      desc:'Competent level — hiểu được hầu hết nội dung nhưng mắc lỗi về chi tiết và thời gian.',
+      strengths:['Skimming và scanning cơ bản','Note/sentence completion tốt','MCQ đơn giản'],
+      weaknesses:['Matching Headings vẫn còn sai','Không phân biệt được F vs NG nhất quán','Hết giờ ở Passage 3','Inference questions — chưa đọc "between the lines"'],
+      actions:['Luyện Matching Headings: focus on main idea vs detail','Tăng tốc đọc: đặt target 200 words/phút','Full mock test 2 lần/tuần có tính giờ','Học thêm 200 từ vựng học thuật Band 6-7'],
+    },
+    {
+      range:'Band 7.0–7.5', color:'var(--green2)', icon:'⭐',
+      desc:'Good User — phần lớn câu hỏi đúng, xử lý được văn bản phức tạp, quản lý thời gian tốt.',
+      strengths:['Chiến thuật tốt cho hầu hết dạng câu','Từ vựng học thuật phong phú','Time management ổn định','TFNG và Matching Headings chính xác >80%'],
+      weaknesses:['Inference và implied meaning khó','Writer\'s attitude/opinion questions','Câu complex với nhiều subordinate clauses','Passage 3 academic texts còn chậm'],
+      actions:['Đọc The Economist và academic journals hàng tuần','Luyện nhận biết writer\'s attitude (sceptical, supportive, neutral)','Học hedging language và academic discourse markers','Tăng vocabulary đến 3000+ từ học thuật'],
+    },
+    {
+      range:'Band 8.0–8.5', color:'var(--accent3)', icon:'🎯',
+      desc:'Very Good User — xử lý thành thạo văn bản phức tạp, chỉ sai ở câu cực khó.',
+      strengths:['Tất cả dạng câu đều thành thạo','Đọc nhanh và chính xác','Inference tốt','Nhận biết được writer\'s attitude'],
+      weaknesses:['Câu hỏi về implicit meaning (nghĩa ngầm)','Distractor rất tinh vi ở MCQ','Argument structure questions','Vocabulary: từ hiếm và chuyên ngành'],
+      actions:['Đọc academic papers (PLOS, Nature summaries)','Luyện argument mapping — vẽ sơ đồ lập luận','Vocabulary: word families và collocations nâng cao','Phân tích đáp án sai của Cambridge tests từ Book 1-18'],
+    },
+    {
+      range:'Band 9.0', color:'var(--purple2)', icon:'🏆',
+      desc:'Expert User — hoàn toàn thành thạo, đọc academic texts như người bản ngữ có học vấn cao.',
+      strengths:['Tất cả câu hỏi đều xử lý được','Đọc nhanh, chính xác, hiểu sâu','Nắm bắt được subtlety và nuance'],
+      weaknesses:['Đây là đỉnh cao — rất ít người đạt Band 9 trong Reading'],
+      actions:['Đọc Oxford/Cambridge academic journals thường xuyên','Phân tích argument structure của học giả','Làm Cambridge IELTS tests từ 1-18 và phân tích từng câu sai','Đạt 39-40/40 trong ít nhất 5 mock tests liên tiếp'],
+    },
+  ];
+
+  el.innerHTML = bands.map(b => `
+    <div class="card" style="border-left:4px solid ${b.color};margin-bottom:20px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <span style="font-size:1.8rem;">${b.icon}</span>
+        <div>
+          <h3 style="color:${b.color};margin:0;">${b.range}</h3>
+          <p style="margin:4px 0 0;font-size:0.85rem;">${b.desc}</p>
+        </div>
+      </div>
+      <div class="grid2" style="margin-bottom:16px;">
+        <div>
+          <h4 style="color:var(--green2);margin-bottom:8px;">✅ Điểm mạnh</h4>
+          ${b.strengths.map(s=>`<div style="font-size:0.83rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)33;">• ${s}</div>`).join('')}
+        </div>
+        <div>
+          <h4 style="color:var(--red2);margin-bottom:8px;">❌ Điểm yếu thường gặp</h4>
+          ${b.weaknesses.map(s=>`<div style="font-size:0.83rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)33;">• ${s}</div>`).join('')}
+        </div>
+      </div>
+      <h4 style="margin-bottom:8px;">🎯 Hành động cần làm để lên Band cao hơn</h4>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        ${b.actions.map((a,i)=>`<div class="example-box" style="margin:0;padding:10px 14px;">
+          <strong>${i+1}.</strong> ${a}
+        </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════
+// RESOURCES
+// ══════════════════════════════════════
+function renderResources() {
+  const typeIcons = {book:'📚',website:'🌐',video:'▶️',app:'📱'};
+  const typeLabels = {book:'Sách','website':'Website',video:'YouTube',app:'App'};
+
+  const renderList = (items, elId) => {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = `<div class="grid-auto">${items.map(r => `
+      <div class="card card-hover" onclick="window.open('${r.url}','_blank')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+          <span style="font-size:1.4rem;">${typeIcons[r.type]||'🔗'}</span>
+          <div style="display:flex;gap:2px;">${'⭐'.repeat(r.rating)}</div>
+        </div>
+        <div style="font-weight:700;margin-bottom:6px;">${r.name}</div>
+        <div style="font-size:0.82rem;color:var(--text3);line-height:1.5;margin-bottom:12px;">${r.desc}</div>
+        <span class="tag tag-reading">${typeLabels[r.type]||r.type}</span>
+      </div>`).join('')}</div>`;
+  };
+
+  renderList(RESOURCES.official, 'res-official');
+  renderList(RESOURCES.websites, 'res-web');
+  renderList(RESOURCES.youtube, 'res-video');
+  renderList(RESOURCES.apps, 'res-app');
+}
+
+// ══════════════════════════════════════
+// AI TUTOR
+// ══════════════════════════════════════
+const QUICK_QUESTIONS = [
+  'Giải thích sự khác biệt giữa False và Not Given với ví dụ cụ thể',
+  'Cách làm Matching Headings hiệu quả nhất?',
+  'Cho tôi 10 từ vựng học thuật Band 7+ về chủ đề Environment',
+  'Chiến thuật Time Management cho 60 phút IELTS Reading',
+  'Cách nhận biết distractors trong Multiple Choice questions?',
+  'Hedging language là gì? Tại sao quan trọng trong YNNG?',
+  'Tôi đang ở Band 6 — cần làm gì để lên Band 7 trong 2 tháng?',
+  'Giải thích các cấu trúc ngữ pháp phức tạp trong academic texts',
+];
+
+function renderQuickQuestions() {
+  const el = document.getElementById('quick-questions');
+  if (!el) return;
+  el.innerHTML = QUICK_QUESTIONS.map(q => `
+    <button class="btn btn-ghost btn-sm" onclick="quickAsk(${JSON.stringify(q)})">${q.slice(0,40)}${q.length>40?'...':''}</button>`).join('');
+}
+
+let chatHistory = [];
+
+function quickAsk(q) {
+  document.getElementById('tutor-input').value = q;
+  askTutorChat();
+}
+
+async function askTutorChat() {
+  const input = document.getElementById('tutor-input');
+  const msg = input?.value?.trim();
+  if (!msg) return;
+  input.value = '';
+
+  chatHistory.push({role:'user', content:msg});
+  renderChatHistory();
+
+  const loading = document.getElementById('tutor-loading');
+  if (loading) loading.style.display = 'flex';
+
+  const system = `You are an expert IELTS Reading teacher with 15+ years of experience coaching Vietnamese students to Band 7-9. 
+You know all 14 question types deeply, common traps, and effective strategies. 
+Always answer in Vietnamese (use English only for IELTS content, examples, and key terms).
+Be specific, give concrete examples, use ✅ ❌ bullet points when helpful.
+Format your answer clearly. When explaining a concept, always give at least one concrete IELTS Reading example.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system,
+        messages: chatHistory,
+      })
+    });
+    const data = await resp.json();
+    const reply = data.content?.map(c=>c.text||'').join('') || 'Xin lỗi, có lỗi xảy ra.';
+    chatHistory.push({role:'assistant', content:reply});
+    State.addXP(5);
+  } catch(e) {
+    chatHistory.push({role:'assistant', content:'⚠️ Không thể kết nối AI. Kiểm tra kết nối mạng và thử lại.'});
+  }
+
+  if (loading) loading.style.display = 'none';
+  renderChatHistory();
+}
+
+function renderChatHistory() {
+  const el = document.getElementById('chat-history');
+  if (!el) return;
+  el.innerHTML = chatHistory.map(m => `
+    <div style="display:flex;${m.role==='user'?'justify-content:flex-end':''}">
+      <div style="max-width:85%;${m.role==='assistant'?'display:flex;gap:10px;align-items:flex-start':''}">
+        ${m.role==='assistant'?'<div style="font-size:1.3rem;flex-shrink:0;margin-top:2px;">🤖</div>':''}
+        <div style="background:${m.role==='user'?'var(--accent2)':'var(--surface2)'};border:1px solid ${m.role==='user'?'transparent':'var(--border)'};border-radius:${m.role==='user'?'16px 4px 16px 16px':'4px 16px 16px 16px'};padding:14px 18px;font-size:0.88rem;line-height:1.75;white-space:pre-wrap;">
+          ${m.content}
+        </div>
+      </div>
+    </div>`).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function clearChat() {
+  chatHistory = [];
+  const el = document.getElementById('chat-history');
+  if (el) el.innerHTML = '';
+}
+
+// ══════════════════════════════════════
+// AI ANALYZER
+// ══════════════════════════════════════
+function renderWeaknessCheckboxes() {
+  const el = document.getElementById('weakness-checkboxes');
+  if (!el) return;
+  const types = ['True/False/NG','Matching Headings','MCQ','Sentence Completion','Matching Features','Note Completion','Short Answer','Matching Info'];
+  el.innerHTML = types.map(t => `
+    <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.84rem;">
+      <input type="checkbox" value="${t}" style="accent-color:var(--accent2);">
+      ${t}
+    </label>`).join('');
+}
+
+async function analyzePerformance() {
+  const correct = document.getElementById('ana-correct')?.value;
+  const total = document.getElementById('ana-total')?.value || 40;
+  const notes = document.getElementById('ana-notes')?.value || '';
+  const weaknesses = [...document.querySelectorAll('#weakness-checkboxes input:checked')].map(i=>i.value);
+
+  if (!correct) { showToast('Vui lòng nhập số câu đúng', 'error'); return; }
+
+  const band = rawToband(parseInt(correct), 'academic');
+  const prompt = `I am an IELTS Reading student. Please analyze my performance and give specific advice.
+
+My results:
+- Correct answers: ${correct}/${total}
+- Estimated Band Score: ${band}
+- Question types I struggle with most: ${weaknesses.length > 0 ? weaknesses.join(', ') : 'Not specified'}
+- Additional notes: ${notes || 'None'}
+
+Please provide in Vietnamese:
+1. Assessment of my current level (what I'm doing well, what needs work)
+2. Top 3 specific weaknesses to fix first (prioritized)
+3. A 4-week targeted study plan addressing my specific weaknesses
+4. Daily practice recommendations (what to do each day)
+5. Resources and exercises specifically for my weak areas
+6. Realistic timeline to reach Band 7.0
+
+Be very specific and actionable. Avoid generic advice.`;
+
+  await runAI('', 'ana-loading', 'ana-response', prompt,
+    'You are an expert IELTS teacher specializing in Reading. Analyze student performance and give highly specific, personalized advice in Vietnamese. Be encouraging but realistic.');
+  State.addXP(20);
+}
+
+// ══════════════════════════════════════
+// CLOSE OVERLAY ON CLICK
+// ══════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+</script>
+</body>
+</html>
