@@ -6,844 +6,713 @@
 <title>IELTS Pro — Luyện thi thông minh</title>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f5f3ff;--surface:#ffffff;--surface2:#f8f7fe;
-  --border:#e8e4f8;--border2:#d4ccf5;
-  --text:#1e1b3a;--text2:#5a5578;--text3:#9490b0;
-  --cl:#e8f5e9;--cl-d:#1b5e20;--cl-m:#43a047;
-  --cr:#e3f2fd;--cr-d:#0d47a1;--cr-m:#1976d2;
-  --cw:#fff8e1;--cw-d:#e65100;--cw-m:#f57c00;
-  --cs:#fce4ec;--cs-d:#880e4f;--cs-m:#e91e63;
-  --cv:#ede7f6;--cv-d:#311b92;--cv-m:#673ab7;
-  --sh:0 1px 6px rgba(60,40,120,.07);
-  --sh2:0 4px 20px rgba(60,40,120,.10);
-  --sh3:0 8px 40px rgba(60,40,120,.14);
-  --r:8px;--r2:14px;--r3:20px;
-  --tr:.35s cubic-bezier(.4,0,.2,1);
+:root {
+  --bg:#f5f3ff; --surface:#fff; --sf2:#f8f7fe; --sf3:#f0edfb;
+  --bd:#e8e4f8; --bd2:#d4ccf5;
+  --tx:#1e1b3a; --tx2:#5a5578; --tx3:#9490b0;
+  --cl:#e8f5e9; --cl-d:#1b5e20; --cl-m:#43a047;
+  --cr:#e3f2fd; --cr-d:#0d47a1; --cr-m:#1976d2;
+  --cw:#fff8e1; --cw-d:#e65100; --cw-m:#f57c00;
+  --cs:#fce4ec; --cs-d:#880e4f; --cs-m:#e91e63;
+  --cv:#ede7f6; --cv-d:#311b92; --cv-m:#673ab7;
+  --sh:0 2px 8px rgba(60,40,120,.08);
+  --sh2:0 4px 24px rgba(60,40,120,.12);
+  --r:8px; --r2:14px; --dur:.36s; --ease:cubic-bezier(.4,0,.2,1);
 }
 *,::before,::after{margin:0;padding:0;box-sizing:border-box}
 html{font-size:16px;scroll-behavior:smooth}
-body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 input,select,textarea{font-family:inherit}
 
 /* NAV */
-.topnav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 max(20px,calc(50% - 540px))}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
-.nav-logo{display:flex;align-items:center;gap:8px;font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--text)}
-.logo-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:.9rem}
-.nav-r{display:flex;align-items:center;gap:8px}
-.chip-band{background:var(--cv);color:var(--cv-d);border-radius:20px;padding:4px 12px;font-size:.74rem;font-weight:700}
-.chip-xp{background:var(--cw);color:var(--cw-d);border-radius:20px;padding:4px 12px;font-size:.74rem;font-weight:700}
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--bd);padding:0 clamp(14px,5vw,56px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:54px;max-width:1000px;margin:0 auto;gap:10px}
+.nav-logo{display:flex;align-items:center;gap:9px;font-family:'Lora',serif;font-size:1.18rem;font-weight:700;color:var(--tx);user-select:none;text-decoration:none}
+.logo-ico{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.nav-right{display:flex;align-items:center;gap:7px}
+.chip{border-radius:20px;padding:4px 12px;font-size:.73rem;font-weight:700;white-space:nowrap}
+.chip-b{background:var(--cv);color:var(--cv-d)}
+.chip-x{background:var(--cw);color:var(--cw-d)}
 
 /* HERO */
-.hero{text-align:center;padding:48px max(20px,calc(50% - 420px)) 32px}
-.hero-pill{display:inline-flex;align-items:center;gap:6px;background:var(--cv);color:var(--cv-d);border-radius:20px;padding:4px 14px;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:16px}
-.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--cv-m)}
-.hero h1{font-family:'Lora',serif;font-size:clamp(1.75rem,5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:12px;letter-spacing:-.4px}
+.hero{text-align:center;padding:48px clamp(14px,8vw,60px) 34px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cv);color:var(--cv-d);border-radius:20px;padding:4px 13px;font-size:.7rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:17px}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--cv-m);flex-shrink:0}
+.hero h1{font-family:'Lora',serif;font-size:clamp(1.7rem,5vw,2.55rem);font-weight:700;line-height:1.2;margin-bottom:13px;letter-spacing:-.4px}
 .hero h1 em{font-style:italic;background:linear-gradient(135deg,#7c3aed,#4f46e5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:.95rem;color:var(--text2);line-height:1.7;max-width:420px;margin:0 auto 24px}
-.hero-stats{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
-.hstat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:7px 14px;font-size:.78rem;font-weight:600;color:var(--text2)}
-.hstat strong{font-weight:800;color:var(--text);margin-right:3px}
+.hero-sub{font-size:.94rem;color:var(--tx2);line-height:1.75;max-width:400px;margin:0 auto 24px}
+.stats{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.stat{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);padding:7px 14px;font-size:.78rem;font-weight:600;color:var(--tx2);display:flex;align-items:center;gap:4px}
+.stat strong{font-weight:800;color:var(--tx)}
 
 /* WRAP */
-.wrap{max-width:840px;margin:0 auto;padding:0 max(16px,calc(50% - 420px)) 80px}
+.wrap{max-width:840px;margin:0 auto;padding:0 clamp(13px,4vw,30px) 80px}
 
-/* LABEL */
-.sec-lbl{font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin:28px 0 10px;display:flex;align-items:center;gap:10px}
-.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+/* SECTION LABEL */
+.slbl{font-size:.63rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin:26px 0 11px;display:flex;align-items:center;gap:10px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--bd)}
 
 /* BAND CALC */
-.calc-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:18px 20px;margin-bottom:4px}
+.calc{background:var(--surface);border:1.5px solid var(--bd);border-radius:var(--r2);padding:18px 20px;margin-bottom:6px}
 .calc-row{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .calc-g{display:flex;flex-direction:column;gap:5px}
-.calc-lbl{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
-.calc-in{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:1.1rem;font-weight:800;color:var(--text);width:90px;transition:border-color var(--tr)}
-.calc-in:focus{outline:none;border-color:#7c3aed}
-.calc-sel{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:.86rem;font-weight:600;color:var(--text);transition:border-color var(--tr)}
-.calc-sel:focus{outline:none;border-color:#7c3aed}
-.calc-res{flex:1;min-width:140px}
-.band-big{font-family:'Lora',serif;font-size:2.8rem;font-weight:700;line-height:1}
-.band-hint{font-size:.78rem;color:var(--text2);margin-top:3px;line-height:1.5}
+.clbl{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--tx3)}
+.cin{background:var(--sf2);border:1.5px solid var(--bd);border-radius:var(--r);padding:9px 12px;font-size:1.1rem;font-weight:800;color:var(--tx);width:88px;appearance:textfield;transition:border-color var(--dur)}
+.cin::-webkit-inner-spin-button{appearance:none}
+.cin:focus{outline:none;border-color:#7c3aed}
+.csel{background:var(--sf2);border:1.5px solid var(--bd);border-radius:var(--r);padding:9px 12px;font-size:.86rem;font-weight:600;color:var(--tx);transition:border-color var(--dur)}
+.csel:focus{outline:none;border-color:#7c3aed}
+.cres{flex:1;min-width:150px}
+.band-n{font-family:'Lora',serif;font-size:2.7rem;font-weight:700;line-height:1;transition:color .3s}
+.band-h{font-size:.77rem;color:var(--tx2);margin-top:5px;line-height:1.55}
 
-/* ACCORDION */
-.acc{display:flex;flex-direction:column;gap:10px}
-.ai{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:border-color var(--tr),box-shadow var(--tr)}
-.ai:hover{border-color:var(--border2)}
-.ai.open{box-shadow:var(--sh2)}
+/* ═══ ACCORDION ═══ */
+/* FIX 1: renamed .ai -> .aitem (was conflicting semantically) */
+/* FIX 2: accordion body uses CSS grid trick for smooth animation (no JS height calc needed) */
+.acc-list{display:flex;flex-direction:column;gap:10px}
+.aitem{background:var(--surface);border:1.5px solid var(--bd);border-radius:var(--r2);overflow:hidden;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.aitem:hover{border-color:var(--bd2)}
+.aitem.open{border-color:var(--bd2);box-shadow:var(--sh2)}
 
-/* head */
-.ah{display:flex;align-items:center;gap:13px;padding:16px 18px;cursor:pointer;user-select:none;transition:background var(--tr)}
-.ah:hover{background:var(--surface2)}
-.a-ico{width:40px;height:40px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;transition:transform var(--tr)}
-.ai.open .a-ico{transform:scale(1.06)}
-.a-txt{flex:1;min-width:0}
-.a-title{font-size:.95rem;font-weight:700;color:var(--text);letter-spacing:-.15px}
-.a-sub{font-size:.73rem;color:var(--text3);margin-top:2px}
-.a-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.a-badge{font-size:.62rem;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:3px 9px;border-radius:20px}
-.a-arr{width:18px;height:18px;color:var(--text3);transition:transform var(--tr);flex-shrink:0}
-.ai.open .a-arr{transform:rotate(180deg)}
-.a-arr svg{display:block}
+/* Header */
+.ahead{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;user-select:none;transition:background var(--dur) var(--ease);-webkit-tap-highlight-color:transparent}
+.ahead:hover{background:var(--sf2)}
+.aitem.open .ahead{background:var(--sf3)}
+.aico{width:40px;height:40px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;transition:transform var(--dur) var(--ease)}
+.aitem.open .aico{transform:scale(1.07)}
+.atxt{flex:1;min-width:0;overflow:hidden}
+.atitle{font-size:.94rem;font-weight:700;color:var(--tx);letter-spacing:-.15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.asub{font-size:.71rem;color:var(--tx3);margin-top:3px}
+.ameta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.abadge{font-size:.61rem;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.arr{width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:var(--tx3);flex-shrink:0;transition:transform var(--dur) var(--ease)}
+.aitem.open .arr{transform:rotate(180deg)}
+.arr svg{display:block;width:18px;height:18px}
 
-/* body */
-.ab{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
-.ai.open .ab{max-height:3000px}
-.ab-inner{border-top:1px solid var(--border);padding:18px 20px;animation:fadeUp .3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Body — FIX 3: grid-rows trick gives smooth open/close without JS height measurement */
+.abody{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--dur) var(--ease)}
+.aitem.open .abody{grid-template-rows:1fr}
+.abody-inner{overflow:hidden;border-top:1px solid var(--bd)}
+.acontent{padding:19px 20px 22px;animation:fadeUp .32s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
 /* PROGRESS */
-.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.prog-lbl{font-size:.7rem;font-weight:600;color:var(--text3);min-width:62px}
-.prog-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
-.prog-fill{height:5px;border-radius:3px;transition:width .8s ease .1s}
-.prog-pct{font-size:.7rem;font-weight:700;min-width:30px;text-align:right}
+.prow{display:flex;align-items:center;gap:10px;margin-bottom:17px}
+.plbl{font-size:.7rem;font-weight:600;color:var(--tx3);min-width:58px;flex-shrink:0}
+.ptrack{flex:1;height:5px;background:var(--bd);border-radius:3px;overflow:hidden}
+.pfill{height:5px;border-radius:3px;transition:width .9s ease .1s}
+.ppct{font-size:.7rem;font-weight:700;min-width:28px;text-align:right;flex-shrink:0}
 
-/* SUB GRID */
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;margin-bottom:14px}
-.sc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;cursor:pointer;transition:all var(--tr);display:flex;flex-direction:column;gap:3px}
-.sc:hover{background:var(--surface);border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--sh)}
-.sc-title{font-size:.84rem;font-weight:700;color:var(--text)}
-.sc-desc{font-size:.72rem;color:var(--text3);line-height:1.5}
-.sc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:7px}
-.stag{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:10px}
-.sarr{color:var(--text3);font-size:.78rem}
+/* SUB-CARDS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:9px;margin-bottom:13px}
+.scard{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;cursor:pointer;user-select:none;transition:all var(--dur) var(--ease);display:flex;flex-direction:column;gap:3px}
+.scard:hover{background:var(--surface);border-color:var(--bd2);transform:translateY(-2px);box-shadow:var(--sh)}
+.scard.act{background:var(--surface);border-color:var(--bd2);box-shadow:var(--sh)}
+.stitle{font-size:.83rem;font-weight:700;color:var(--tx)}
+.sdesc{font-size:.71rem;color:var(--tx3);line-height:1.5}
+.sfoot{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.stag{font-size:.59rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:10px}
+.sarr{color:var(--tx3);font-size:.78rem}
 
-/* TIP */
-.tip{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;font-size:.8rem;color:var(--text2);line-height:1.7;display:flex;gap:9px;align-items:flex-start;margin-bottom:10px}
-.tip-ico{font-size:.95rem;flex-shrink:0;margin-top:1px}
+/* TIP PANELS — FIX 4: use .visible class + display:flex (not toggle between none/flex directly) */
+.tip{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;font-size:.8rem;color:var(--tx2);line-height:1.75;display:none;gap:9px;align-items:flex-start;margin-bottom:10px}
+.tip.visible{display:flex}
+.tico{font-size:.95rem;flex-shrink:0;margin-top:2px}
 
 /* VOCAB */
-.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:14px}
-.vc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:11px 10px;text-align:center;cursor:pointer;transition:all var(--tr)}
-.vc:hover{background:var(--surface);border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--sh)}
-.vc-ico{font-size:1.3rem;margin-bottom:5px}
-.vc-n{font-size:.74rem;font-weight:700;color:var(--text)}
-.vc-c{font-size:.64rem;color:var(--text3);margin-top:2px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-bottom:14px}
+.vtop{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:11px 9px;text-align:center;cursor:pointer;user-select:none;transition:all var(--dur) var(--ease)}
+.vtop:hover{background:var(--surface);border-color:var(--bd2);transform:translateY(-2px);box-shadow:var(--sh)}
+.vico{font-size:1.3rem;margin-bottom:5px}
+.vname{font-size:.73rem;font-weight:700;color:var(--tx)}
+.vcnt{font-size:.63rem;color:var(--tx3);margin-top:2px}
 
 /* LEVELS */
-.lv-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.lv{display:flex;align-items:center;gap:7px;border:1px solid var(--border);border-radius:var(--r);padding:9px 13px;cursor:pointer;background:var(--surface2);transition:all var(--tr);flex:1;min-width:110px}
-.lv:hover{background:var(--surface);border-color:var(--border2);box-shadow:var(--sh)}
-.lv-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.lv-n{font-size:.8rem;font-weight:700;color:var(--text)}
-.lv-r{font-size:.66rem;color:var(--text3);margin-top:1px}
+.lvrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.lvpill{display:flex;align-items:center;gap:7px;border:1px solid var(--bd);border-radius:var(--r);padding:9px 13px;cursor:pointer;background:var(--sf2);transition:all var(--dur) var(--ease);flex:1;min-width:110px;user-select:none}
+.lvpill:hover{background:var(--surface);border-color:var(--bd2);box-shadow:var(--sh)}
+.lvdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.lvname{font-size:.8rem;font-weight:700;color:var(--tx)}
+.lvr{font-size:.65rem;color:var(--tx3);margin-top:1px}
 
 /* AI BOX */
-.aib{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid var(--border2);border-radius:var(--r2);padding:16px 18px;margin-top:6px}
-.aib-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.aib-dot{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
-.aib-t{font-size:.86rem;font-weight:700;color:var(--cv-d)}
-.aib-s{font-size:.7rem;color:var(--text3);margin-top:1px}
+.aibox{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid var(--bd2);border-radius:var(--r2);padding:16px 18px;margin-top:8px}
+.aihead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.aidot{width:29px;height:29px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.ait{font-size:.86rem;font-weight:700;color:var(--cv-d)}
+.ais{font-size:.69rem;color:var(--tx3);margin-top:1px}
 .qchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.qchip{background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:.72rem;font-weight:600;color:var(--cv-d);cursor:pointer;transition:all var(--tr)}
+.qchip{background:var(--surface);border:1px solid var(--bd2);border-radius:20px;padding:4px 12px;font-size:.71rem;font-weight:600;color:var(--cv-d);cursor:pointer;transition:all var(--dur) var(--ease)}
 .qchip:hover{background:var(--cv);border-color:var(--cv-m);transform:translateY(-1px)}
-.ai-ta{width:100%;background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--r);padding:11px 13px;font-size:.84rem;color:var(--text);line-height:1.6;resize:vertical;min-height:76px;transition:border-color var(--tr)}
-.ai-ta:focus{outline:none;border-color:#7c3aed}
-.ai-ta::placeholder{color:var(--text3)}
-.ai-btns{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
-.ai-btn{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border-radius:var(--r);padding:8px 16px;font-size:.8rem;font-weight:700;transition:all var(--tr)}
-.ai-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(124,58,237,.3)}
-.ai-btn2{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border2);color:var(--cv-d);border-radius:var(--r);padding:8px 14px;font-size:.8rem;font-weight:600;transition:all var(--tr)}
-.ai-btn2:hover{background:var(--cv);transform:translateY(-1px)}
-.ai-load{display:none;align-items:center;gap:9px;color:var(--text3);font-size:.8rem;padding:9px 0}
-.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--border2);border-top-color:#7c3aed;animation:spin .7s linear infinite;flex-shrink:0}
+.aita{width:100%;background:var(--surface);border:1.5px solid var(--bd2);border-radius:var(--r);padding:11px 13px;font-size:.84rem;color:var(--tx);line-height:1.65;resize:vertical;min-height:76px;transition:border-color var(--dur)}
+.aita:focus{outline:none;border-color:#7c3aed}
+.aita::placeholder{color:var(--tx3)}
+.airow{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.aibtn{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;border-radius:var(--r);padding:8px 17px;font-size:.8rem;font-weight:700;transition:all var(--dur) var(--ease)}
+.aibtn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(124,58,237,.3)}
+.aibtn2{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--bd2);color:var(--cv-d);border-radius:var(--r);padding:8px 14px;font-size:.8rem;font-weight:600;transition:all var(--dur) var(--ease)}
+.aibtn2:hover{background:var(--cv);transform:translateY(-1px)}
+.aiload{display:none;align-items:center;gap:9px;color:var(--tx3);font-size:.79rem;padding:9px 0}
+.aiload.on{display:flex}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid var(--bd2);border-top-color:#7c3aed;animation:spin .75s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ai-resp{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;margin-top:10px;font-size:.84rem;line-height:1.85;white-space:pre-wrap;color:var(--text);display:none}
+.airesp{background:var(--surface);border:1px solid var(--bd2);border-radius:var(--r);padding:13px 16px;margin-top:10px;font-size:.84rem;line-height:1.88;white-space:pre-wrap;color:var(--tx);display:none}
 
 /* QUIZ */
-.qwrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.qhd{background:var(--surface2);padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
-.qbd{padding:18px}
-.passage{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-size:.84rem;line-height:1.9;max-height:220px;overflow-y:auto;margin-bottom:18px;color:var(--text)}
+.qwrap{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden}
+.qhead{background:var(--sf2);padding:12px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.qhtitle{font-size:.81rem;font-weight:700;color:var(--tx)}
+.qreset{font-size:.71rem;font-weight:700;color:var(--tx3);background:var(--bd);border-radius:var(--r);padding:5px 12px;transition:all .2s}
+.qreset:hover{background:var(--bd2);color:var(--tx)}
+.qbody{padding:19px}
+.passage{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;font-size:.84rem;line-height:1.9;max-height:200px;overflow-y:auto;margin-bottom:18px;color:var(--tx)}
 .passage p{margin-bottom:9px}
-.q-txt{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:13px;line-height:1.45}
-.q-opts{display:flex;flex-direction:column;gap:7px}
-.q-opt{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);padding:11px 14px;font-size:.84rem;font-weight:600;color:var(--text);cursor:pointer;text-align:left;transition:all var(--tr);line-height:1.4}
-.q-opt:hover:not(:disabled){border-color:var(--cv-m);background:var(--cv)}
-.q-opt.ok{border-color:#43a047;background:#e8f5e9;color:#1b5e20}
-.q-opt.no{border-color:#e91e63;background:#fce4ec;color:#880e4f}
-.q-opt.rv{border-color:#43a047;background:#f1f8e9}
-.fill-in{background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);padding:9px 13px;font-size:.86rem;color:var(--text);width:100%;transition:border-color var(--tr)}
-.fill-in:focus{outline:none;border-color:#7c3aed}
-.fill-in.ok{border-color:#43a047;background:#e8f5e9}
-.fill-in.no{border-color:#e91e63;background:#fce4ec}
-.pdots{display:flex;gap:4px;margin-bottom:14px}
-.pd{height:4px;flex:1;border-radius:2px;background:var(--border);transition:all .3s}
-.pd.done{background:#43a047}.pd.cur{background:#7c3aed}
-.exp{background:#f1f8e9;border:1px solid #a5d6a7;border-radius:var(--r);padding:12px 14px;margin-top:12px;font-size:.8rem;line-height:1.7;display:none}
-.q-nxt{display:none;margin-top:11px;background:var(--text);color:#fff;border-radius:var(--r);padding:8px 16px;font-size:.8rem;font-weight:700;transition:all var(--tr)}
-.q-nxt:hover{background:var(--text2)}
-.res-box{text-align:center;padding:28px 16px}
-.res-n{font-family:'Lora',serif;font-size:3.2rem;font-weight:700;color:#7c3aed;line-height:1}
-.res-l{font-size:.95rem;font-weight:700;color:var(--text);margin:6px 0 3px}
-.res-s{font-size:.78rem;color:var(--text3);margin-bottom:18px}
+.qtxt{font-size:.91rem;font-weight:700;color:var(--tx);margin-bottom:13px;line-height:1.45}
+.qopts{display:flex;flex-direction:column;gap:7px}
+.qopt{background:var(--sf2);border:1.5px solid var(--bd);border-radius:var(--r);padding:11px 14px;font-size:.84rem;font-weight:600;color:var(--tx);cursor:pointer;text-align:left;transition:all var(--dur) var(--ease);line-height:1.4}
+.qopt:hover:not(:disabled){border-color:var(--cv-m);background:var(--cv)}
+.qopt.ok{border-color:#43a047;background:#e8f5e9;color:#1b5e20}
+.qopt.no{border-color:#e91e63;background:#fce4ec;color:#880e4f}
+.qopt.rv{border-color:#43a047;background:#f1f8e9}
+.qopt:disabled{cursor:default}
+.pdots{display:flex;gap:4px;margin-bottom:15px}
+.pdot{height:4px;flex:1;border-radius:2px;background:var(--bd);transition:all .3s}
+.pdot.done{background:#43a047}
+.pdot.cur{background:#7c3aed}
+.expbox{background:#f1f8e9;border:1px solid #a5d6a7;border-radius:var(--r);padding:12px 14px;margin-top:12px;font-size:.8rem;line-height:1.7;display:none}
+.qnxt{display:none;margin-top:11px;background:var(--tx);color:#fff;border-radius:var(--r);padding:8px 17px;font-size:.8rem;font-weight:700;transition:background .2s}
+.qnxt:hover{background:var(--tx2)}
+.resbox{text-align:center;padding:28px 16px}
+.resn{font-family:'Lora',serif;font-size:3.3rem;font-weight:700;color:#7c3aed;line-height:1}
+.resl{font-size:.94rem;font-weight:700;color:var(--tx);margin:7px 0 3px}
+.ress{font-size:.77rem;color:var(--tx3);margin-bottom:19px}
 
 /* WRITING SAMPLE */
-.scores{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
-.score-c{display:flex;flex-direction:column;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;flex:1;min-width:70px}
-.sc-n{font-family:'Lora',serif;font-size:1.4rem;font-weight:700}
-.sc-l{font-size:.62rem;font-weight:700;color:var(--text3);text-align:center;margin-top:2px;line-height:1.3}
-.essay{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-size:.84rem;line-height:1.9;max-height:240px;overflow-y:auto;color:var(--text)}
-.essay p{margin-bottom:9px}
+.wscores{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0 13px}
+.wscore{display:flex;flex-direction:column;align-items:center;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:9px 12px;flex:1;min-width:68px}
+.wsn{font-family:'Lora',serif;font-size:1.42rem;font-weight:700;line-height:1}
+.wsl{font-size:.6rem;font-weight:700;color:var(--tx3);text-align:center;margin-top:4px;line-height:1.3}
+.essaybox{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;font-size:.83rem;line-height:1.9;max-height:235px;overflow-y:auto;color:var(--tx)}
+.essaybox p{margin-bottom:9px}
 
 /* FOOTER */
-footer{text-align:center;padding:28px 16px;font-size:.72rem;color:var(--text3);border-top:1px solid var(--border)}
+footer{text-align:center;padding:26px 16px;font-size:.71rem;color:var(--tx3);border-top:1px solid var(--bd)}
 
 /* TOAST */
-.toast-el{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(70px);opacity:0;background:#1e1b3a;color:#fff;border-radius:10px;padding:9px 18px;font-size:.82rem;font-weight:600;z-index:9999;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.toast-el.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(72px);opacity:0;background:#1e1b3a;color:#fff;border-radius:10px;padding:9px 20px;font-size:.82rem;font-weight:600;z-index:9000;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.22);transition:transform .3s var(--ease),opacity .3s}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 /* RESPONSIVE */
-@media(max-width:600px){
-  .hero{padding-top:32px}.hero h1{font-size:1.65rem}
-  .chip-xp{display:none}
-  .sg{grid-template-columns:1fr}
-  .vg{grid-template-columns:repeat(3,1fr)}
+@media(max-width:768px){
+  .atitle{font-size:.88rem}
+  .sgrid{grid-template-columns:1fr 1fr}
+  .vgrid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:540px){
+  .chip-x,.abadge{display:none}
+  .sgrid{grid-template-columns:1fr}
+  .vgrid{grid-template-columns:repeat(2,1fr)}
+  .lvrow{flex-direction:column}
   .calc-row{flex-direction:column;align-items:stretch}
-  .scores{gap:5px}
-  .lv-row{flex-direction:column}
+  .wscores{gap:5px}
+  .hero{padding-top:34px}
+  .hero h1{font-size:1.68rem}
 }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="topnav">
-  <div class="nav-inner">
-    <div class="nav-logo">
-      <div class="logo-dot">🎓</div>
+<nav class="nav">
+  <div class="nav-in">
+    <a class="nav-logo" href="#">
+      <div class="logo-ico">&#x1F393;</div>
       IELTS Pro
-    </div>
-    <div class="nav-r">
-      <div class="chip-band">Band <span id="nb">0.0</span></div>
-      <div class="chip-xp">⚡ <span id="nx">0</span> XP</div>
+    </a>
+    <div class="nav-right">
+      <div class="chip chip-b">Band <span id="js-band">0.0</span></div>
+      <div class="chip chip-x">&#x26A1; <span id="js-xp">0</span> XP</div>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="hero-pill"><div class="pill-dot"></div>Dành cho người mới bắt đầu</div>
-  <h1>Luyện IELTS <em>thông minh</em><br>từ con số 0</h1>
-  <p class="hero-sub">Chọn kỹ năng bên dưới để bắt đầu. Giao diện tối giản, lộ trình rõ ràng — không rối mắt.</p>
-  <div class="hero-stats">
-    <div class="hstat"><strong>5</strong>Kỹ năng</div>
-    <div class="hstat"><strong>40+</strong>Bài luyện</div>
-    <div class="hstat"><strong>100+</strong>Từ vựng</div>
-    <div class="hstat"><strong>3</strong>Đề mẫu</div>
+  <div class="pill"><div class="pill-dot"></div>D&#xE0;nh cho ng&#x01B0;&#x1EDD;i m&#x1EDB;i b&#x1EAF;t &#x111;&#x1EA7;u</div>
+  <h1>Luy&#x1EC7;n IELTS <em>th&#xF4;ng minh</em><br>t&#x1EEB; con s&#x1ED1; 0</h1>
+  <p class="hero-sub">Ch&#x1ECD;n k&#x1EF9; n&#x0103;ng b&#xEA;n d&#x01B0;&#x1EDB;i &#x111;&#x1EC3; b&#x1EAF;t &#x111;&#x1EA7;u. Giao di&#x1EC7;n t&#x1ED1;i gi&#x1EA3;n, l&#x1ED9; tr&#xEC;nh r&#xF5; r&#xE0;ng &#x2014; kh&#xF4;ng r&#x1ED1;i m&#x1EAF;t.</p>
+  <div class="stats">
+    <div class="stat"><strong>5</strong> K&#x1EF9; n&#x0103;ng</div>
+    <div class="stat"><strong>40+</strong> B&#xE0;i luy&#x1EC7;n</div>
+    <div class="stat"><strong>100+</strong> T&#x1EEB; v&#x1EF1;ng</div>
+    <div class="stat"><strong>3</strong> &#x110;&#x1EC1; m&#x1EAB;u</div>
   </div>
 </header>
 
 <div class="wrap">
 
-<!-- BAND CALC -->
-<div class="sec-lbl">Tính điểm của bạn</div>
-<div class="calc-card">
+<!-- BAND CALCULATOR -->
+<div class="slbl">T&#xED;nh &#x111;i&#x1EC3;m c&#x1EE7;a b&#x1EA1;n</div>
+<div class="calc">
   <div class="calc-row">
     <div class="calc-g">
-      <span class="calc-lbl">Số câu đúng (0–40)</span>
-      <input class="calc-in" type="number" id="raw" min="0" max="40" value="30" oninput="calcBand()">
+      <span class="clbl">S&#x1ED1; c&#xE2;u &#x111;&#xFA;ng (0&#x2013;40)</span>
+      <input class="cin" type="number" id="raw" min="0" max="40" value="30" oninput="calcBand()">
     </div>
     <div class="calc-g">
-      <span class="calc-lbl">Loại bài</span>
-      <select class="calc-sel" id="btype" onchange="calcBand()">
+      <span class="clbl">Lo&#x1EA1;i b&#xE0;i thi</span>
+      <select class="csel" id="btype" onchange="calcBand()">
         <option value="ac">Academic</option>
         <option value="gt">General Training</option>
       </select>
     </div>
-    <div class="calc-res">
-      <div class="calc-lbl" style="margin-bottom:4px">Band Score</div>
-      <div class="band-big" id="bout" style="color:#7c3aed">7.0</div>
-      <div class="band-hint" id="bfb"></div>
+    <div class="cres">
+      <div class="clbl" style="margin-bottom:5px">Band Score</div>
+      <div class="band-n" id="band-out" style="color:#7c3aed">7.0</div>
+      <div class="band-h" id="band-fb"></div>
     </div>
   </div>
 </div>
 
 <!-- ACCORDION -->
-<div class="sec-lbl">Chọn kỹ năng để học</div>
-<div class="acc">
+<div class="slbl">Ch&#x1ECD;n k&#x1EF9; n&#x0103;ng &#x111;&#x1EC3; h&#x1ECD;c</div>
+<div class="acc-list">
 
-<!-- ── LISTENING ── -->
-<div class="ai" id="a-listening">
-  <div class="ah" onclick="tog('listening')">
-    <div class="a-ico" style="background:var(--cl)">🎧</div>
-    <div class="a-txt">
-      <div class="a-title">Listening — Nghe hiểu</div>
-      <div class="a-sub">4 sections · 40 câu · 30 phút · Nghe 1 lần duy nhất</div>
+<!-- LISTENING -->
+<div class="aitem" id="ac-listening">
+  <div class="ahead" onclick="openAcc('listening')">
+    <div class="aico" style="background:var(--cl)">&#x1F3A7;</div>
+    <div class="atxt">
+      <div class="atitle">Listening &#x2014; Nghe hi&#x1EC3;u</div>
+      <div class="asub">4 sections &middot; 40 c&#xE2;u &middot; 30 ph&#xFA;t &middot; Nghe 1 l&#x1EA7;n duy nh&#x1EA5;t</div>
     </div>
-    <div class="a-meta">
-      <span class="a-badge" style="background:var(--cl);color:var(--cl-d)">Band 5→7</span>
-      <div class="a-arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
+    <div class="ameta">
+      <span class="abadge" style="background:var(--cl);color:var(--cl-d)">Band 5&#x2192;7</span>
+      <div class="arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
     </div>
   </div>
-  <div class="ab">
-    <div class="ab-inner">
-      <div class="prog-row">
-        <span class="prog-lbl">Tiến độ</span>
-        <div class="prog-track"><div class="prog-fill" style="width:25%;background:var(--cl-m)"></div></div>
-        <span class="prog-pct" style="color:var(--cl-d)">25%</span>
-      </div>
-      <div class="sg">
-        <div class="sc" onclick="tgl('ll1','ll2,ll3,ll4')">
-          <div class="sc-title">📋 Cấu trúc 4 sections</div>
-          <div class="sc-desc">Section 1→4 tăng dần độ khó. Biết trước để không bị bất ngờ.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">Cơ bản</span><span class="sarr">→</span></div>
+  <div class="abody">
+    <div class="abody-inner">
+      <div class="acontent">
+        <div class="prow"><span class="plbl">Ti&#x1EBF;n &#x111;&#x1ED9;</span><div class="ptrack"><div class="pfill" style="width:25%;background:var(--cl-m)"></div></div><span class="ppct" style="color:var(--cl-d)">25%</span></div>
+        <div class="sgrid">
+          <div class="scard" onclick="openTip('l1',this,'l')"><div class="stitle">&#x1F4CB; C&#x1EA5;u tr&#xFA;c 4 sections</div><div class="sdesc">Section 1&#x2192;4 t&#x0103;ng d&#x1EA7;n &#x111;&#x1ED9; kh&#xF3;. Bi&#x1EBF;t tr&#x01B0;&#x1EDB;c &#x111;&#x1EC3; kh&#xF4;ng b&#x1ECB; b&#x1EA5;t ng&#x1EDD;.</div><div class="sfoot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">C&#x01A1; b&#x1EA3;n</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('l2',this,'l')"><div class="stitle">&#x1F4DD; C&#xE1;c d&#x1EA1;ng c&#xE2;u h&#x1ECF;i</div><div class="sdesc">MCQ, Note completion, Map labelling &#x2014; chi&#x1EBF;n thu&#x1EAD;t t&#x1EEB;ng d&#x1EA1;ng.</div><div class="sfoot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">C&#x01A1; b&#x1EA3;n</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('l3',this,'l')"><div class="stitle">&#x1F3AF; Chi&#x1EBF;n thu&#x1EAD;t thi</div><div class="sdesc">C&#xE1;ch nghe hi&#x1EC7;u qu&#x1EA3;, tr&#xE1;nh b&#x1EAB;y distractors, qu&#x1EA3;n l&#xFD; th&#x1EDD;i gian.</div><div class="sfoot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung b&#xEC;nh</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('l4',this,'l')"><div class="stitle">&#x1F3B5; Ngu&#x1ED3;n luy&#x1EC7;n nghe</div><div class="sdesc">BBC, TED, IELTS podcast &#x2014; mi&#x1EC5;n ph&#xED; v&#xE0; hi&#x1EC7;u qu&#x1EA3;.</div><div class="sfoot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">T&#xE0;i nguy&#xEA;n</span><span class="sarr">&#x2192;</span></div></div>
         </div>
-        <div class="sc" onclick="tgl('ll2','ll1,ll3,ll4')">
-          <div class="sc-title">📝 Các dạng câu hỏi</div>
-          <div class="sc-desc">MCQ, Note completion, Map labelling — chiến thuật từng dạng.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">Cơ bản</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('ll3','ll1,ll2,ll4')">
-          <div class="sc-title">🎯 Chiến thuật thi</div>
-          <div class="sc-desc">Cách nghe hiệu quả, tránh bẫy distractors, quản lý thời gian.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung bình</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('ll4','ll1,ll2,ll3')">
-          <div class="sc-title">🎵 Nguồn luyện nghe</div>
-          <div class="sc-desc">BBC, TED, IELTS podcast — miễn phí và hiệu quả.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">Tài nguyên</span><span class="sarr">→</span></div>
-        </div>
-      </div>
-      <div id="ll1" class="tip" style="display:none"><span class="tip-ico">🎧</span><div><strong>Section 1:</strong> Hội thoại đời thường (đặt phòng, đăng ký). Dễ nhất — phải đúng gần hết.<br><strong>Section 2:</strong> Monologue (hướng dẫn tham quan, thông báo). Chú ý Map labelling.<br><strong>Section 3:</strong> 2–4 người thảo luận học thuật. Distractors xuất hiện nhiều nhất.<br><strong>Section 4:</strong> Bài giảng học thuật 1 chiều. Khó nhất — từ chuyên ngành, tốc độ nhanh.</div></div>
-      <div id="ll2" class="tip" style="display:none"><span class="tip-ico">📝</span><div><strong>Note completion:</strong> Chú ý spelling, giới hạn từ, đọc câu hỏi trước khi nghe.<br><strong>Multiple choice:</strong> Đọc options trước, loại 2 cái sai — cẩn thận distractors.<br><strong>Map labelling:</strong> Học từ: opposite · adjacent to · next to · heading north/south.<br><strong>Matching:</strong> Options có thể lặp lại — đừng nghĩ mỗi cái chỉ dùng 1 lần.</div></div>
-      <div id="ll3" class="tip" style="display:none"><span class="tip-ico">🎯</span><div>✅ Đọc câu hỏi TRƯỚC khi nghe (30 giây/section) — dự đoán loại thông tin cần tìm.<br>✅ Chú ý corrections: <em>"Actually it's Thursday, not Friday"</em> → đáp án là Thursday.<br>✅ Không để trống — không có điểm âm, hãy đoán tất cả câu chưa làm.<br>✅ Distractors: người nói thường đề cập rồi phủ nhận ngay sau đó.</div></div>
-      <div id="ll4" class="tip" style="display:none"><span class="tip-ico">🎵</span><div>📻 <strong>BBC 6 Minute English</strong> — ngắn gọn, chủ đề học thuật nhẹ nhàng.<br>🎙 <strong>IELTS Energy Podcast</strong> — chiến thuật + luyện nghe thực tế.<br>📺 <strong>TED Talks</strong> — accent đa dạng, tốc độ tự nhiên như thi thật.<br>🎬 <strong>Netflix phụ đề Anh</strong> — luyện connected speech và intonation.</div></div>
-      <div class="aib">
-        <div class="aib-head">
-          <div class="aib-dot">🤖</div>
-          <div><div class="aib-t">AI Tutor Listening</div><div class="aib-s">Hỏi bất kỳ điều gì về kỹ năng Listening</div></div>
-        </div>
-        <div class="qchips">
-          <button class="qchip" onclick="qk('l','Giải thích chi tiết cách làm Note Completion trong IELTS Listening với ví dụ và chiến thuật bằng tiếng Việt')">Note Completion</button>
-          <button class="qchip" onclick="qk('l','Tạo 1 bài luyện Listening Section 1 dạng form completion với transcript 150 từ và 5 câu hỏi kèm đáp án bằng tiếng Việt')">Tạo bài luyện</button>
-          <button class="qchip" onclick="qk('l','Liệt kê từ vựng chỉ hướng dùng trong Map Labelling IELTS Listening với ví dụ câu bằng tiếng Việt')">Map Vocabulary</button>
-        </div>
-        <textarea class="ai-ta" id="ti-l" placeholder="Hỏi về Listening... (VD: Tại sao tôi hay sai Section 3?)"></textarea>
-        <div class="ai-btns"><button class="ai-btn" onclick="ask('l')">⚡ Hỏi ngay</button></div>
-        <div class="ai-load" id="tl-l"><div class="spin"></div>AI đang trả lời...</div>
-        <div class="ai-resp" id="tr-l"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ── READING ── -->
-<div class="ai" id="a-reading">
-  <div class="ah" onclick="tog('reading')">
-    <div class="a-ico" style="background:var(--cr)">📖</div>
-    <div class="a-txt">
-      <div class="a-title">Reading — Đọc hiểu</div>
-      <div class="a-sub">3 passages · 40 câu · 60 phút · 14 dạng câu hỏi</div>
-    </div>
-    <div class="a-meta">
-      <span class="a-badge" style="background:var(--cr);color:var(--cr-d)">Band 5→7</span>
-      <div class="a-arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
-    </div>
-  </div>
-  <div class="ab">
-    <div class="ab-inner">
-      <div class="prog-row">
-        <span class="prog-lbl">Tiến độ</span>
-        <div class="prog-track"><div class="prog-fill" style="width:40%;background:var(--cr-m)"></div></div>
-        <span class="prog-pct" style="color:var(--cr-d)">40%</span>
-      </div>
-      <div class="sec-lbl" style="margin-top:0">Dạng câu hỏi phổ biến</div>
-      <div class="sg">
-        <div class="sc" onclick="tgl('rt1','rt2,rt3,rt4')">
-          <div class="sc-title">✅ True / False / Not Given</div>
-          <div class="sc-desc">Dạng khó nhất — dễ nhầm FALSE và NOT GIVEN.</div>
-          <div class="sc-foot"><span class="stag" style="background:#fce4ec;color:#880e4f">Khó</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('rt2','rt1,rt3,rt4')">
-          <div class="sc-title">🏷️ Matching Headings</div>
-          <div class="sc-desc">Nối tiêu đề với đoạn văn — tìm main idea.</div>
-          <div class="sc-foot"><span class="stag" style="background:#fce4ec;color:#880e4f">Khó</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('rt3','rt1,rt2,rt4')">
-          <div class="sc-title">🎯 Multiple Choice</div>
-          <div class="sc-desc">Chọn 1/4 đáp án — cẩn thận distractors.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung bình</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('rt4','rt1,rt2,rt3')">
-          <div class="sc-title">📝 Sentence Completion</div>
-          <div class="sc-desc">Điền từ từ passage — tuân thủ word limit.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cr);color:var(--cr-d)">Cơ bản</span><span class="sarr">→</span></div>
-        </div>
-      </div>
-      <div id="rt1" class="tip" style="display:none"><span class="tip-ico">💡</span><div><strong>TRUE:</strong> Passage nói Y HỆT statement (có thể dùng synonyms).<br><strong>FALSE:</strong> Passage nói NGƯỢC LẠI statement.<br><strong>NOT GIVEN:</strong> Passage KHÔNG đề cập chủ đề này.<br>⚠️ Quy tắc: "Passage có nói NGƯỢC không?" → Có = FALSE. Không đề cập = NG.</div></div>
-      <div id="rt2" class="tip" style="display:none"><span class="tip-ico">💡</span><div>Đọc TẤT CẢ headings trước — dự đoán nội dung từng đoạn. Heading = main idea của đoạn, KHÔNG phải 1 chi tiết nhỏ. ⚠️ Cẩn thận: heading dùng từ giống passage → thường là bẫy!</div></div>
-      <div id="rt3" class="tip" style="display:none"><span class="tip-ico">💡</span><div>Đọc câu hỏi stem trước → scan passage → đọc kỹ đoạn đó → loại bỏ sai. Distractors dùng từ từ passage nhưng SAI nghĩa — đọc context xung quanh, không chỉ keyword!</div></div>
-      <div id="rt4" class="tip" style="display:none"><span class="tip-ico">💡</span><div>Copy chính xác từ passage — không thay đổi dạng từ. Đếm từ trước khi viết: số = 1 từ, "a/the" = 1 từ. Questions theo thứ tự passage — scan tuần tự.</div></div>
-
-      <div class="sec-lbl">Luyện tập TFNG</div>
-      <div class="qwrap">
-        <div class="qhd">
-          <span style="font-size:.8rem;font-weight:700;color:var(--text)">📖 True / False / Not Given</span>
-          <button style="font-size:.72rem;font-weight:600;color:var(--text3);background:var(--border);border-radius:var(--r);padding:4px 11px" onclick="initRQ()">🔄 Làm lại</button>
-        </div>
-        <div class="qbd">
-          <div class="passage">
-            <p>The ancient city of Çatalhöyük, located in modern-day Turkey, was inhabited from approximately 7500 BCE to 5700 BCE. Unlike many ancient settlements, Çatalhöyük had no streets or footpaths. Residents accessed their homes through holes in the roofs, using ladders. All buildings were constructed of mud-brick and were of roughly equal size, suggesting an egalitarian social structure without social hierarchy.</p>
+        <div id="l1" class="tip" data-group="l"><span class="tico">&#x1F3A7;</span><div><strong>Section 1:</strong> H&#x1ED9;i tho&#x1EA1;i &#x111;&#x1EDD;i th&#x01B0;&#x1EDD;ng (&#x111;&#x1EB7;t ph&#xF2;ng, &#x111;&#x0103;ng k&#xFD;). D&#x1EC5; nh&#x1EA5;t &#x2014; ph&#x1EA3;i &#x111;&#xFA;ng g&#x1EA7;n h&#x1EBF;t.<br><strong>Section 2:</strong> Monologue (h&#x01B0;&#x1EDB;ng d&#x1EAB;n tham quan, th&#xF4;ng b&#xE1;o). Ch&#xFA; &#xFD; Map labelling.<br><strong>Section 3:</strong> 2&#x2013;4 ng&#x01B0;&#x1EDD;i th&#x1EA3;o lu&#x1EAD;n h&#x1ECD;c thu&#x1EAD;t. Distractors xu&#x1EA5;t hi&#x1EC7;n nhi&#x1EC1;u nh&#x1EA5;t.<br><strong>Section 4:</strong> B&#xE0;i gi&#x1EA3;ng h&#x1ECD;c thu&#x1EAD;t 1 chi&#x1EC1;u. Kh&#xF3; nh&#x1EA5;t &#x2014; t&#x1EEB; chuy&#xEA;n ng&#xE0;nh, t&#x1ED1;c &#x111;&#x1ED9; nhanh.</div></div>
+        <div id="l2" class="tip" data-group="l"><span class="tico">&#x1F4DD;</span><div><strong>Note completion:</strong> Ch&#xFA; &#xFD; spelling, gi&#x1EDB;i h&#x1EA1;n t&#x1EEB;, &#x111;&#x1ECD;c c&#xE2;u h&#x1ECF;i tr&#x01B0;&#x1EDB;c khi nghe.<br><strong>Multiple choice:</strong> &#x110;&#x1ECD;c options tr&#x01B0;&#x1EDB;c, lo&#x1EA1;i 2 c&#xE1;i sai &#x2014; c&#x1EA9;n th&#x1EAD;n distractors.<br><strong>Map labelling:</strong> H&#x1ECD;c t&#x1EEB; ch&#x1EC9; h&#x01B0;&#x1EDB;ng: opposite &middot; adjacent to &middot; next to &middot; heading north/south.<br><strong>Matching:</strong> Options c&#xF3; th&#x1EC3; l&#x1EB7;p l&#x1EA1;i &#x2014; &#x111;&#x1EEB;ng ngh&#x0129; m&#x1ED7;i c&#xE1;i ch&#x1EC9; d&#xF9;ng 1 l&#x1EA7;n.</div></div>
+        <div id="l3" class="tip" data-group="l"><span class="tico">&#x1F3AF;</span><div>&#x2705; &#x110;&#x1ECD;c c&#xE2;u h&#x1ECF;i TR&#x01AF;&#x1ECC;C khi nghe (30 gi&#xE2;y/section) &#x2014; d&#x1EF1; &#x111;o&#xE1;n lo&#x1EA1;i th&#xF4;ng tin c&#x1EA7;n t&#xEC;m.<br>&#x2705; Ch&#xFA; &#xFD; corrections: <em>"Actually it's Thursday, not Friday"</em> &#x2192; &#x111;&#xE1;p &#xE1;n l&#xE0; Thursday.<br>&#x2705; Kh&#xF4;ng &#x111;&#x1EC3; tr&#x1ED1;ng &#x2014; kh&#xF4;ng c&#xF3; &#x111;i&#x1EC3;m &#xE2;m, h&#xE3;y &#x111;o&#xE1;n t&#x1EA5;t c&#x1EA3; c&#xE2;u ch&#x01B0;a l&#xE0;m.<br>&#x2705; Distractors: ng&#x01B0;&#x1EDD;i n&#xF3;i th&#x01B0;&#x1EDD;ng &#x111;&#x1EC1; c&#x1EAD;p r&#x1ED3;i ph&#x1EE7; nh&#x1EAD;n ngay sau &#x111;&#xF3;.</div></div>
+        <div id="l4" class="tip" data-group="l"><span class="tico">&#x1F3B5;</span><div>&#x1F4FB; <strong>BBC 6 Minute English</strong> &#x2014; ng&#x1EAF;n g&#x1ECD;n, ch&#x1EE7; &#x111;&#x1EC1; h&#x1ECD;c thu&#x1EAD;t nh&#x1EB9; nh&#xE0;ng.<br>&#x1F399; <strong>IELTS Energy Podcast</strong> &#x2014; chi&#x1EBF;n thu&#x1EAD;t + luy&#x1EC7;n nghe th&#x1EF1;c t&#x1EBF;.<br>&#x1F4FA; <strong>TED Talks</strong> &#x2014; accent &#x111;a d&#x1EA1;ng, t&#x1ED1;c &#x111;&#x1ED9; t&#x1EF1; nhi&#xEA;n nh&#x01B0; thi th&#x1EAD;t.<br>&#x1F3AC; <strong>Netflix ph&#x1EE5; &#x111;&#x1EC1; Anh</strong> &#x2014; luy&#x1EC7;n connected speech v&#xE0; intonation.</div></div>
+        <div class="aibox">
+          <div class="aihead"><div class="aidot">&#x1F916;</div><div><div class="ait">AI Tutor &#x2014; Listening</div><div class="ais">H&#x1ECF;i b&#x1EA5;t k&#x1EF3; &#x111;i&#x1EC1;u g&#xEC; v&#x1EC1; k&#x1EF9; n&#x0103;ng Listening</div></div></div>
+          <div class="qchips">
+            <button class="qchip" onclick="quickQ('l','Gi&#x1EA3;i th&#xED;ch chi ti&#x1EBF;t c&#xE1;ch l&#xE0;m Note Completion trong IELTS Listening v&#x1EDB;i v&#xED; d&#x1EE5; v&#xE0; chi&#x1EBF;n thu&#x1EAD;t b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Note Completion</button>
+            <button class="qchip" onclick="quickQ('l','T&#x1EA1;o 1 b&#xE0;i luy&#x1EC7;n Listening Section 1 d&#x1EA1;ng form completion v&#x1EDB;i transcript 150 t&#x1EEB; v&#xE0; 5 c&#xE2;u h&#x1ECF;i k&#xE8;m &#x111;&#xE1;p &#xE1;n b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">T&#x1EA1;o b&#xE0;i luy&#x1EC7;n</button>
+            <button class="qchip" onclick="quickQ('l','Li&#x1EC7;t k&#xEA; t&#x1EEB; v&#x1EF1;ng ch&#x1EC9; h&#x01B0;&#x1EDB;ng d&#xF9;ng trong Map Labelling IELTS Listening v&#x1EDB;i v&#xED; d&#x1EE5; c&#xE2;u b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Map Vocabulary</button>
           </div>
-          <div id="rq"></div>
+          <textarea class="aita" id="ai-l" placeholder="H&#x1ECF;i v&#x1EC1; Listening..."></textarea>
+          <div class="airow"><button class="aibtn" onclick="callAI('l')">&#x26A1; H&#x1ECF;i ngay</button></div>
+          <div class="aiload" id="ld-l"><div class="spin"></div>AI &#x111;ang tr&#x1EA3; l&#x1EDD;i...</div>
+          <div class="airesp" id="rs-l"></div>
         </div>
-      </div>
-
-      <div class="aib" style="margin-top:12px">
-        <div class="aib-head">
-          <div class="aib-dot">🤖</div>
-          <div><div class="aib-t">AI Tutor Reading</div><div class="aib-s">Tạo bài đọc mới, hỏi chiến thuật, giải thích đáp án</div></div>
-        </div>
-        <div class="qchips">
-          <button class="qchip" onclick="qk('r','Tạo 1 đoạn đọc IELTS Band 7 về khoa học (250 từ) kèm 5 câu hỏi True/False/NG với đáp án giải thích bằng tiếng Việt')">Đề Reading mới</button>
-          <button class="qchip" onclick="qk('r','Giải thích Skimming và Scanning trong IELTS Reading với ví dụ thực tế bằng tiếng Việt')">Skimming & Scanning</button>
-          <button class="qchip" onclick="qk('r','Hướng dẫn quản lý 60 phút trong IELTS Reading để đạt Band 7 bằng tiếng Việt')">Quản lý thời gian</button>
-        </div>
-        <textarea class="ai-ta" id="ti-r" placeholder="Hỏi về Reading... (VD: Tại sao tôi hay chọn sai TFNG?)"></textarea>
-        <div class="ai-btns"><button class="ai-btn" onclick="ask('r')">⚡ Hỏi ngay</button></div>
-        <div class="ai-load" id="tl-r"><div class="spin"></div>AI đang trả lời...</div>
-        <div class="ai-resp" id="tr-r"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── WRITING ── -->
-<div class="ai" id="a-writing">
-  <div class="ah" onclick="tog('writing')">
-    <div class="a-ico" style="background:var(--cw)">✍️</div>
-    <div class="a-txt">
-      <div class="a-title">Writing — Viết luận</div>
-      <div class="a-sub">Task 1 + Task 2 · 60 phút · 4 tiêu chí chấm điểm</div>
+<!-- READING -->
+<div class="aitem" id="ac-reading">
+  <div class="ahead" onclick="openAcc('reading')">
+    <div class="aico" style="background:var(--cr)">&#x1F4D6;</div>
+    <div class="atxt">
+      <div class="atitle">Reading &#x2014; &#x110;&#x1ECD;c hi&#x1EC3;u</div>
+      <div class="asub">3 passages &middot; 40 c&#xE2;u &middot; 60 ph&#xFA;t &middot; 14 d&#x1EA1;ng c&#xE2;u h&#x1ECF;i</div>
     </div>
-    <div class="a-meta">
-      <span class="a-badge" style="background:var(--cw);color:var(--cw-d)">Band 5→7</span>
-      <div class="a-arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
+    <div class="ameta">
+      <span class="abadge" style="background:var(--cr);color:var(--cr-d)">Band 5&#x2192;7</span>
+      <div class="arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
     </div>
   </div>
-  <div class="ab">
-    <div class="ab-inner">
-      <div class="prog-row">
-        <span class="prog-lbl">Tiến độ</span>
-        <div class="prog-track"><div class="prog-fill" style="width:15%;background:var(--cw-m)"></div></div>
-        <span class="prog-pct" style="color:var(--cw-d)">15%</span>
-      </div>
-
-      <div class="sec-lbl" style="margin-top:0">4 tiêu chí chấm điểm (mỗi tiêu chí 25%)</div>
-      <div class="sg">
-        <div class="sc"><div class="sc-title">🎯 Task Achievement</div><div class="sc-desc">Trả lời đúng yêu cầu đề. Đủ ý, đủ từ, đúng format.</div></div>
-        <div class="sc"><div class="sc-title">🔗 Coherence & Cohesion</div><div class="sc-desc">Bài logic, liền mạch. Linking words đa dạng, tự nhiên.</div></div>
-        <div class="sc"><div class="sc-title">📚 Lexical Resource</div><div class="sc-desc">Từ vựng phong phú, chính xác. Tránh lặp từ nguyên văn.</div></div>
-        <div class="sc"><div class="sc-title">📐 Grammar Range</div><div class="sc-desc">Đa dạng cấu trúc: complex, passive, conditionals, inversion.</div></div>
-      </div>
-
-      <div class="sec-lbl">Task 1 & Task 2</div>
-      <div class="sg">
-        <div class="sc" onclick="tgl('wt1','wt2,wt3')">
-          <div class="sc-title">📊 Task 1 Academic — Biểu đồ</div>
-          <div class="sc-desc">150 từ · 20 phút · mô tả số liệu, quy trình, bản đồ.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Academic</span><span class="sarr">→</span></div>
+  <div class="abody">
+    <div class="abody-inner">
+      <div class="acontent">
+        <div class="prow"><span class="plbl">Ti&#x1EBF;n &#x111;&#x1ED9;</span><div class="ptrack"><div class="pfill" style="width:40%;background:var(--cr-m)"></div></div><span class="ppct" style="color:var(--cr-d)">40%</span></div>
+        <div class="slbl" style="margin-top:0">D&#x1EA1;ng c&#xE2;u h&#x1ECF;i ph&#x1ED5; bi&#x1EBF;n</div>
+        <div class="sgrid">
+          <div class="scard" onclick="openTip('r1',this,'r')"><div class="stitle">&#x2705; True / False / Not Given</div><div class="sdesc">D&#x1EA1;ng kh&#xF3; nh&#x1EA5;t &#x2014; d&#x1EC5; nh&#x1EA7;m FALSE v&#xE0; NOT GIVEN.</div><div class="sfoot"><span class="stag" style="background:#fce4ec;color:#880e4f">Kh&#xF3;</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('r2',this,'r')"><div class="stitle">&#x1F3F7;&#xFE0F; Matching Headings</div><div class="sdesc">N&#x1ED1;i ti&#xEA;u &#x111;&#x1EC1; v&#x1EDB;i &#x111;o&#x1EA1;n v&#x0103;n &#x2014; t&#xEC;m main idea.</div><div class="sfoot"><span class="stag" style="background:#fce4ec;color:#880e4f">Kh&#xF3;</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('r3',this,'r')"><div class="stitle">&#x1F3AF; Multiple Choice</div><div class="sdesc">Ch&#x1ECD;n 1/4 &#x111;&#xE1;p &#xE1;n &#x2014; c&#x1EA9;n th&#x1EAD;n distractors.</div><div class="sfoot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung b&#xEC;nh</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('r4',this,'r')"><div class="stitle">&#x1F4DD; Sentence Completion</div><div class="sdesc">&#x110;i&#x1EC1;n t&#x1EEB; t&#x1EEB; passage &#x2014; tu&#xE2;n th&#x1EE7; word limit.</div><div class="sfoot"><span class="stag" style="background:var(--cr);color:var(--cr-d)">C&#x01A1; b&#x1EA3;n</span><span class="sarr">&#x2192;</span></div></div>
         </div>
-        <div class="sc" onclick="tgl('wt2','wt1,wt3')">
-          <div class="sc-title">✉️ Task 1 GT — Viết thư</div>
-          <div class="sc-desc">150 từ · 20 phút · formal / semi-formal / informal.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">General</span><span class="sarr">→</span></div>
+        <div id="r1" class="tip" data-group="r"><span class="tico">&#x1F4A1;</span><div><strong>TRUE:</strong> Passage n&#xF3;i Y H&#x1EC6;T statement (c&#xF3; th&#x1EC3; d&#xF9;ng synonyms).<br><strong>FALSE:</strong> Passage n&#xF3;i NG&#x01AF;&#x1ECC;C L&#x1EA0;I statement.<br><strong>NOT GIVEN:</strong> Passage KH&#xD4;NG &#x111;&#x1EC1; c&#x1EAD;p ch&#x1EE7; &#x111;&#x1EC1; n&#xE0;y.<br>&#x26A0;&#xFE0F; Quy t&#x1EAF;c: "Passage c&#xF3; n&#xF3;i NG&#x01AF;&#x1ECC;C kh&#xF4;ng?" &#x2192; C&#xF3; = FALSE. Kh&#xF4;ng &#x111;&#x1EC1; c&#x1EAD;p = NG.</div></div>
+        <div id="r2" class="tip" data-group="r"><span class="tico">&#x1F4A1;</span><div>&#x110;&#x1ECD;c T&#x1EA4;T C&#x1EA2; headings tr&#x01B0;&#x1EDB;c &#x2014; d&#x1EF1; &#x111;o&#xE1;n n&#x1ED9;i dung t&#x1EEB;ng &#x111;o&#x1EA1;n. Heading = main idea c&#x1EE7;a &#x111;o&#x1EA1;n, KH&#xD4;NG ph&#x1EA3;i 1 chi ti&#x1EBF;t nh&#x1ECF;. &#x26A0;&#xFE0F; C&#x1EA9;n th&#x1EAD;n: heading d&#xF9;ng t&#x1EEB; gi&#x1ED1;ng passage &#x2192; th&#x01B0;&#x1EDD;ng l&#xE0; b&#x1EAB;y!</div></div>
+        <div id="r3" class="tip" data-group="r"><span class="tico">&#x1F4A1;</span><div>&#x110;&#x1ECD;c c&#xE2;u h&#x1ECF;i stem tr&#x01B0;&#x1EDB;c &#x2192; scan passage &#x2192; &#x111;&#x1ECD;c k&#x1EF9; &#x111;o&#x1EA1;n &#x111;&#xF3; &#x2192; lo&#x1EA1;i b&#x1EEF; sai. Distractors d&#xF9;ng t&#x1EEB; t&#x1EEB; passage nh&#x01B0;ng SAI ngh&#x0129;a &#x2014; &#x111;&#x1ECD;c context xung quanh, kh&#xF4;ng ch&#x1EC9; keyword!</div></div>
+        <div id="r4" class="tip" data-group="r"><span class="tico">&#x1F4A1;</span><div>Copy ch&#xED;nh x&#xE1;c t&#x1EEB; passage &#x2014; kh&#xF4;ng thay &#x111;&#x1ED5;i d&#x1EA1;ng t&#x1EEB;. &#x110;&#x1EBF;m t&#x1EEB; tr&#x01B0;&#x1EDB;c khi vi&#x1EBF;t: s&#x1ED1; = 1 t&#x1EEB;, "a/the" = 1 t&#x1EEB;. Questions theo th&#x1EE9; t&#x1EF1; passage &#x2014; scan tu&#x1EA7;n t&#x1EF1;.</div></div>
+        <div class="slbl">Luy&#x1EC7;n t&#x1EAD;p TFNG</div>
+        <div class="qwrap">
+          <div class="qhead"><span class="qhtitle">&#x1F4D6; True / False / Not Given</span><button class="qreset" onclick="initQuiz()">&#x1F504; L&#xE0;m l&#x1EA1;i</button></div>
+          <div class="qbody">
+            <div class="passage"><p>The ancient city of &#xC7;atalh&#xF6;y&#xFC;k, located in modern-day Turkey, was inhabited from approximately 7500 BCE to 5700 BCE. Unlike many ancient settlements, &#xC7;atalh&#xF6;y&#xFC;k had no streets or footpaths. Residents accessed their homes through holes in the roofs, using ladders. All buildings were constructed of mud-brick and were of roughly equal size, suggesting an egalitarian social structure without social hierarchy.</p></div>
+            <div id="quiz-area"></div>
+          </div>
         </div>
-        <div class="sc" onclick="tgl('wt3','wt1,wt2')">
-          <div class="sc-title">📝 Task 2 — Essay (5 dạng)</div>
-          <div class="sc-desc">250 từ · 40 phút · chiếm 2/3 tổng điểm Writing!</div>
-          <div class="sc-foot"><span class="stag" style="background:#fce4ec;color:#880e4f">Quan trọng nhất</span><span class="sarr">→</span></div>
+        <div class="aibox" style="margin-top:13px">
+          <div class="aihead"><div class="aidot">&#x1F916;</div><div><div class="ait">AI Tutor &#x2014; Reading</div><div class="ais">T&#x1EA1;o b&#xE0;i &#x111;&#x1ECD;c m&#x1EDB;i, h&#x1ECF;i chi&#x1EBF;n thu&#x1EAD;t, gi&#x1EA3;i th&#xED;ch &#x111;&#xE1;p &#xE1;n</div></div></div>
+          <div class="qchips">
+            <button class="qchip" onclick="quickQ('r','T&#x1EA1;o 1 &#x111;o&#x1EA1;n &#x111;&#x1ECD;c IELTS Band 7 v&#x1EC1; khoa h&#x1ECD;c (250 t&#x1EEB;) k&#xE8;m 5 c&#xE2;u h&#x1ECF;i True/False/NG v&#x1EDB;i &#x111;&#xE1;p &#xE1;n gi&#x1EA3;i th&#xED;ch b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">&#x110;&#x1EC1; Reading m&#x1EDB;i</button>
+            <button class="qchip" onclick="quickQ('r','Gi&#x1EA3;i th&#xED;ch Skimming v&#xE0; Scanning trong IELTS Reading v&#x1EDB;i v&#xED; d&#x1EE5; th&#x1EF1;c t&#x1EBF; b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Skimming &amp; Scanning</button>
+            <button class="qchip" onclick="quickQ('r','H&#x01B0;&#x1EDB;ng d&#x1EAB;n qu&#x1EA3;n l&#xFD; 60 ph&#xFA;t trong IELTS Reading &#x111;&#x1EC3; &#x111;&#x1EA1;t Band 7 b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Qu&#x1EA3;n l&#xFD; th&#x1EDD;i gian</button>
+          </div>
+          <textarea class="aita" id="ai-r" placeholder="H&#x1ECF;i v&#x1EC1; Reading..."></textarea>
+          <div class="airow"><button class="aibtn" onclick="callAI('r')">&#x26A1; H&#x1ECF;i ngay</button></div>
+          <div class="aiload" id="ld-r"><div class="spin"></div>AI &#x111;ang tr&#x1EA3; l&#x1EDD;i...</div>
+          <div class="airesp" id="rs-r"></div>
         </div>
-      </div>
-      <div id="wt1" class="tip" style="display:none"><span class="tip-ico">📊</span><div><strong>Cấu trúc:</strong> Intro (paraphrase đề) → Overview (2 đặc điểm nổi bật, KHÔNG có số liệu) → Body 1 → Body 2.<br>⚠️ Overview là phần quan trọng nhất — bỏ qua là mất Band!<br><strong>Từ xu hướng:</strong> rose / fell / surged / plummeted / remained stable · dramatically / significantly / slightly / steadily.</div></div>
-      <div id="wt2" class="tip" style="display:none"><span class="tip-ico">✉️</span><div><strong>Formal:</strong> Dear Sir/Madam → Yours faithfully.<br><strong>Semi-formal:</strong> Dear Mr/Ms [Tên] → Yours sincerely.<br><strong>Informal:</strong> Dear [Tên] → Best wishes.<br>3 bullet points trong đề → 3 đoạn body tương ứng, không bỏ sót!</div></div>
-      <div id="wt3" class="tip" style="display:none"><span class="tip-ico">📝</span><div><strong>5 dạng:</strong> Opinion · Discussion (Both Views) · Problem-Solution · Advantages-Disadvantages · Two-part Question.<br><strong>Cấu trúc chuẩn:</strong> Intro (thesis rõ ràng) → Body 1 → Body 2 → Conclusion.<br>Task 2 chiếm <strong>2/3</strong> tổng điểm Writing — đừng dành quá 25 phút cho Task 1!</div></div>
-
-      <div class="sec-lbl">Bài mẫu Band 7.5</div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;margin-bottom:12px">
-        <div style="font-size:.7rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Đề bài — Task 2</div>
-        <div style="font-size:.82rem;color:var(--text2);line-height:1.6;margin-bottom:12px">Some people believe the internet has made the world a better place. Others disagree. Discuss both views and give your own opinion.</div>
-        <div class="scores">
-          <div class="score-c"><div class="sc-n" style="color:#43a047">7.5</div><div class="sc-l">Task</div></div>
-          <div class="score-c"><div class="sc-n" style="color:#1976d2">7.5</div><div class="sc-l">C&amp;C</div></div>
-          <div class="score-c"><div class="sc-n" style="color:#f57c00">8.0</div><div class="sc-l">Lexical</div></div>
-          <div class="score-c"><div class="sc-n" style="color:#e91e63">7.5</div><div class="sc-l">Grammar</div></div>
-          <div class="score-c"><div class="sc-n" style="color:#7c3aed">7.5</div><div class="sc-l">Overall</div></div>
-        </div>
-        <div class="essay">
-          <p>The internet has undoubtedly transformed every aspect of modern life, yet its net impact on society remains deeply contested. While some celebrate it as the most democratising force in human history, others contend that it has introduced new forms of harm. This essay will examine both perspectives before arguing that, on balance, the internet has been broadly beneficial.</p>
-          <p>Proponents point to its remarkable capacity to democratise access to information. Prior to the digital age, quality education was largely the preserve of the wealthy. Today, a student in a rural village can access the same resources as a scholar at Oxford. Furthermore, the internet has revolutionised global commerce, enabling entrepreneurs in developing nations to reach international markets.</p>
-          <p>Conversely, critics argue that the internet has precipitated significant social harms. The proliferation of misinformation on social media has eroded public trust in institutions. Moreover, the addictive design of many platforms has been linked to rising anxiety, particularly among adolescents.</p>
-          <p>In conclusion, while the internet has created problems that must be urgently addressed, its capacity to democratise knowledge represents a fundamentally positive contribution to human progress.</p>
-        </div>
-      </div>
-
-      <div class="aib">
-        <div class="aib-head">
-          <div class="aib-dot">📊</div>
-          <div><div class="aib-t">AI Chấm bài Writing</div><div class="aib-s">Paste bài viết → nhận điểm 4 tiêu chí + góp ý cụ thể</div></div>
-        </div>
-        <div class="qchips">
-          <button class="qchip" onclick="qk('w','Tạo đề Task 2 về Công nghệ và bài mẫu Band 7.5 kèm phân tích chi tiết bằng tiếng Việt')">Tạo bài mẫu</button>
-          <button class="qchip" onclick="qk('w','Liệt kê 20 linking words đa dạng cho IELTS Writing kèm ví dụ cách dùng bằng tiếng Việt')">Linking Words</button>
-          <button class="qchip" onclick="qk('w','Giải thích 5 dạng essay Task 2 IELTS với cấu trúc và ví dụ thesis statement bằng tiếng Việt')">5 dạng Essay</button>
-        </div>
-        <textarea class="ai-ta" id="ti-w" placeholder="Paste bài viết để AI chấm điểm...&#10;(Task 1: ≥ 150 từ | Task 2: ≥ 250 từ)&#10;Hoặc hỏi bất kỳ điều gì về Writing"></textarea>
-        <div class="ai-btns">
-          <button class="ai-btn" onclick="gradeW()">📊 Chấm bài</button>
-          <button class="ai-btn2" onclick="ask('w')">💬 Hỏi Writing</button>
-        </div>
-        <div class="ai-load" id="tl-w"><div class="spin"></div>AI đang phân tích...</div>
-        <div class="ai-resp" id="tr-w"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── SPEAKING ── -->
-<div class="ai" id="a-speaking">
-  <div class="ah" onclick="tog('speaking')">
-    <div class="a-ico" style="background:var(--cs)">🎤</div>
-    <div class="a-txt">
-      <div class="a-title">Speaking — Nói</div>
-      <div class="a-sub">3 Parts · 11–14 phút · Fluency + Vocab + Grammar + Pronunciation</div>
+<!-- WRITING -->
+<div class="aitem" id="ac-writing">
+  <div class="ahead" onclick="openAcc('writing')">
+    <div class="aico" style="background:var(--cw)">&#x270D;&#xFE0F;</div>
+    <div class="atxt">
+      <div class="atitle">Writing &#x2014; Vi&#x1EBF;t lu&#x1EAD;n</div>
+      <div class="asub">Task 1 + Task 2 &middot; 60 ph&#xFA;t &middot; 4 ti&#xEA;u ch&#xED; ch&#x1EA5;m &#x111;i&#x1EC3;m</div>
     </div>
-    <div class="a-meta">
-      <span class="a-badge" style="background:var(--cs);color:var(--cs-d)">Band 5→7</span>
-      <div class="a-arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
-    </div>
-  </div>
-  <div class="ab">
-    <div class="ab-inner">
-      <div class="prog-row">
-        <span class="prog-lbl">Tiến độ</span>
-        <div class="prog-track"><div class="prog-fill" style="width:10%;background:var(--cs-m)"></div></div>
-        <span class="prog-pct" style="color:var(--cs-d)">10%</span>
-      </div>
-      <div class="sg">
-        <div class="sc" onclick="tgl('sp1','sp2,sp3,spf')">
-          <div class="sc-title">😊 Part 1 — Câu hỏi cá nhân</div>
-          <div class="sc-desc">4–5 phút. Chủ đề hàng ngày: gia đình, sở thích, công việc.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">Dễ nhất</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('sp2','sp1,sp3,spf')">
-          <div class="sc-title">🗣️ Part 2 — Cue Card</div>
-          <div class="sc-desc">1 phút chuẩn bị · nói 1–2 phút. Cấu trúc 4W.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung bình</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('sp3','sp1,sp2,spf')">
-          <div class="sc-title">💬 Part 3 — Thảo luận sâu</div>
-          <div class="sc-desc">4–5 phút. Câu hỏi trừu tượng — phân tích đa chiều.</div>
-          <div class="sc-foot"><span class="stag" style="background:#fce4ec;color:#880e4f">Khó nhất</span><span class="sarr">→</span></div>
-        </div>
-        <div class="sc" onclick="tgl('spf','sp1,sp2,sp3')">
-          <div class="sc-title">🗨️ Fillers tự nhiên</div>
-          <div class="sc-desc">Thay thế "ummm" — giữ điểm Fluency không bị trừ.</div>
-          <div class="sc-foot"><span class="stag" style="background:var(--cs);color:var(--cs-d)">Fluency</span><span class="sarr">→</span></div>
-        </div>
-      </div>
-      <div id="sp1" class="tip" style="display:none"><span class="tip-ico">😊</span><div>Trả lời 2-3 câu + lý do + ví dụ cụ thể. Đừng quá ngắn hoặc quá dài.<br>❌ Band 5: <em>"Yes, I like cooking."</em><br>✅ Band 7: <em>"Yes, I'm quite passionate about cooking — I find it a great way to unwind after a stressful day. My signature dish is pho, which takes about 6 hours to make properly!"</em></div></div>
-      <div id="sp2" class="tip" style="display:none"><span class="tip-ico">🗣️</span><div>Cấu trúc 4W: <strong>What</strong> (mô tả) → <strong>When/Where</strong> (bối cảnh) → <strong>Who</strong> (ai liên quan) → <strong>Why</strong> (tại sao đáng nhớ/quan trọng).<br>Dùng hết 2 phút! Kết thúc bằng: <em>"That's why this experience was so memorable for me."</em></div></div>
-      <div id="sp3" class="tip" style="display:none"><span class="tip-ico">💬</span><div>Đưa ra nhiều góc nhìn: <em>"On one hand... On the other hand..."</em><br>Dùng hedging: <em>"It could be argued that... / Some might say... / There's a growing concern that..."</em><br>Band 7: Phân tích 2 chiều, không chỉ đồng ý hoặc không đồng ý đơn thuần!</div></div>
-      <div id="spf" class="tip" style="display:none"><span class="tip-ico">🗨️</span><div>✅ <em>"That's an interesting question..."</em><br>✅ <em>"Let me think about that for a moment..."</em><br>✅ <em>"Off the top of my head, I'd say..."</em><br>✅ <em>"I've never really thought about it, but..."</em><br>✅ <em>"That's a tricky one, but I suppose..."</em></div></div>
-
-      <div class="aib">
-        <div class="aib-head">
-          <div class="aib-dot">🎤</div>
-          <div><div class="aib-t">AI Luyện Speaking</div><div class="aib-s">Câu hỏi ngẫu nhiên + model answer Band 7</div></div>
-        </div>
-        <div class="qchips">
-          <button class="qchip" onclick="qk('s','Tạo 5 câu hỏi Speaking Part 1 về chủ đề Gia đình và model answer Band 7 cho từng câu bằng tiếng Việt')">Part 1 — Gia đình</button>
-          <button class="qchip" onclick="qk('s','Tạo Cue Card Speaking Part 2 về Du lịch và model answer Band 7 chi tiết bằng tiếng Việt')">Part 2 — Cue Card</button>
-          <button class="qchip" onclick="qk('s','Tạo 3 câu hỏi Speaking Part 3 về Công nghệ và model answer Band 7 phân tích đa chiều bằng tiếng Việt')">Part 3 — Thảo luận</button>
-        </div>
-        <textarea class="ai-ta" id="ti-s" placeholder="Viết câu trả lời Speaking để AI feedback...&#10;Hoặc hỏi bất kỳ điều gì về Speaking"></textarea>
-        <div class="ai-btns">
-          <button class="ai-btn" onclick="ask('s')">📝 Nhận feedback</button>
-          <button class="ai-btn2" onclick="spModel()">🌟 Model Answer</button>
-        </div>
-        <div class="ai-load" id="tl-s"><div class="spin"></div>AI đang tạo...</div>
-        <div class="ai-resp" id="tr-s"></div>
-      </div>
+    <div class="ameta">
+      <span class="abadge" style="background:var(--cw);color:var(--cw-d)">Band 5&#x2192;7</span>
+      <div class="arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
     </div>
   </div>
-</div>
-
-<!-- ── VOCABULARY ── -->
-<div class="ai" id="a-vocab">
-  <div class="ah" onclick="tog('vocab')">
-    <div class="a-ico" style="background:var(--cv)">📚</div>
-    <div class="a-txt">
-      <div class="a-title">Vocabulary — Từ vựng học thuật</div>
-      <div class="a-sub">Theo chủ đề · theo độ khó · flashcard + quiz tương tác</div>
-    </div>
-    <div class="a-meta">
-      <span class="a-badge" style="background:var(--cv);color:var(--cv-d)">30+ từ</span>
-      <div class="a-arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
-    </div>
-  </div>
-  <div class="ab">
-    <div class="ab-inner">
-      <div class="sec-lbl" style="margin-top:0">Học theo độ khó</div>
-      <div class="lv-row">
-        <div class="lv" onclick="qk('v','Cho tôi 15 từ vựng IELTS Band 5-6 phổ biến nhất kèm nghĩa tiếng Việt, phiên âm IPA, ví dụ câu và synonyms')">
-          <div class="lv-dot" style="background:#43a047"></div>
-          <div><div class="lv-n">🟢 Nền tảng</div><div class="lv-r">Band 5 · Bắt đầu đây</div></div>
+  <div class="abody">
+    <div class="abody-inner">
+      <div class="acontent">
+        <div class="prow"><span class="plbl">Ti&#x1EBF;n &#x111;&#x1ED9;</span><div class="ptrack"><div class="pfill" style="width:15%;background:var(--cw-m)"></div></div><span class="ppct" style="color:var(--cw-d)">15%</span></div>
+        <div class="slbl" style="margin-top:0">4 ti&#xEA;u ch&#xED; ch&#x1EA5;m &#x111;i&#x1EC3;m (m&#x1ED7;i ti&#xEA;u ch&#xED; 25%)</div>
+        <div class="sgrid">
+          <div class="scard"><div class="stitle">&#x1F3AF; Task Achievement</div><div class="sdesc">Tr&#x1EA3; l&#x1EDD;i &#x111;&#xFA;ng y&#xEA;u c&#x1EA7;u &#x111;&#x1EC1;. &#x110;&#x1EE7; &#xFD;, &#x111;&#x1EE7; t&#x1EEB;, &#x111;&#xFA;ng format.</div></div>
+          <div class="scard"><div class="stitle">&#x1F517; Coherence &amp; Cohesion</div><div class="sdesc">B&#xE0;i logic, li&#x1EC1;n m&#x1EA1;ch. Linking words &#x111;a d&#x1EA1;ng, t&#x1EF1; nhi&#xEA;n.</div></div>
+          <div class="scard"><div class="stitle">&#x1F4DA; Lexical Resource</div><div class="sdesc">T&#x1EEB; v&#x1EF1;ng phong ph&#xFA;, ch&#xED;nh x&#xE1;c. Tr&#xE1;nh l&#x1EB7;p t&#x1EEB; nguy&#xEA;n v&#x0103;n.</div></div>
+          <div class="scard"><div class="stitle">&#x1F4D0; Grammar Range</div><div class="sdesc">&#x110;a d&#x1EA1;ng c&#x1EA5;u tr&#xFA;c: complex, passive, conditionals, inversion.</div></div>
         </div>
-        <div class="lv" onclick="qk('v','Cho tôi 15 từ vựng học thuật IELTS Band 6-7 quan trọng kèm nghĩa tiếng Việt, phiên âm IPA, ví dụ câu và synonyms')">
-          <div class="lv-dot" style="background:#7c3aed"></div>
-          <div><div class="lv-n">🟣 Nâng cao</div><div class="lv-r">Band 6-7 · Trung bình</div></div>
+        <div class="slbl">Task 1 &amp; Task 2</div>
+        <div class="sgrid">
+          <div class="scard" onclick="openTip('w1',this,'w')"><div class="stitle">&#x1F4CA; Task 1 Academic &#x2014; Bi&#x1EC3;u &#x111;&#x1ED3;</div><div class="sdesc">150 t&#x1EEB; &middot; 20 ph&#xFA;t &middot; m&#xF4; t&#x1EA3; s&#x1ED1; li&#x1EC7;u, quy tr&#xEC;nh, b&#x1EA3;n &#x111;&#x1ED3;.</div><div class="sfoot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Academic</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('w2',this,'w')"><div class="stitle">&#x2709;&#xFE0F; Task 1 GT &#x2014; Vi&#x1EBF;t th&#x01B0;</div><div class="sdesc">150 t&#x1EEB; &middot; 20 ph&#xFA;t &middot; formal / semi-formal / informal.</div><div class="sfoot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">General</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('w3',this,'w')"><div class="stitle">&#x1F4DD; Task 2 &#x2014; Essay (5 d&#x1EA1;ng)</div><div class="sdesc">250 t&#x1EEB; &middot; 40 ph&#xFA;t &middot; chi&#x1EBF;m 2/3 t&#x1ED5;ng &#x111;i&#x1EC3;m Writing!</div><div class="sfoot"><span class="stag" style="background:#fce4ec;color:#880e4f">Quan tr&#x1ECD;ng nh&#x1EA5;t</span><span class="sarr">&#x2192;</span></div></div>
         </div>
-        <div class="lv" onclick="qk('v','Cho tôi 15 từ vựng học thuật IELTS Band 8-9 nâng cao kèm nghĩa tiếng Việt, phiên âm IPA, ví dụ câu và cách dùng')">
-          <div class="lv-dot" style="background:#f57c00"></div>
-          <div><div class="lv-n">🟠 Chuyên sâu</div><div class="lv-r">Band 8+ · Nâng cao</div></div>
+        <div id="w1" class="tip" data-group="w"><span class="tico">&#x1F4CA;</span><div><strong>C&#x1EA5;u tr&#xFA;c:</strong> Intro (paraphrase &#x111;&#x1EC1;) &#x2192; Overview (2 &#x111;&#x1EB7;c &#x111;i&#x1EC3;m n&#x1ED5;i b&#x1EAD;t, KH&#xD4;NG c&#xF3; s&#x1ED1; li&#x1EC7;u) &#x2192; Body 1 &#x2192; Body 2.<br>&#x26A0;&#xFE0F; Overview l&#xE0; ph&#x1EA7;n quan tr&#x1ECD;ng nh&#x1EA5;t &#x2014; b&#x1ECF; qua l&#xE0; m&#x1EA5;t Band!<br><strong>T&#x1EEB; xu h&#x01B0;&#x1EDB;ng:</strong> rose / fell / surged / plummeted / remained stable &middot; dramatically / significantly / slightly / steadily.</div></div>
+        <div id="w2" class="tip" data-group="w"><span class="tico">&#x2709;&#xFE0F;</span><div><strong>Formal:</strong> Dear Sir/Madam &#x2192; Yours faithfully.<br><strong>Semi-formal:</strong> Dear Mr/Ms [T&#xEA;n] &#x2192; Yours sincerely.<br><strong>Informal:</strong> Dear [T&#xEA;n] &#x2192; Best wishes.<br>3 bullet points trong &#x111;&#x1EC1; &#x2192; 3 &#x111;o&#x1EA1;n body t&#x01B0;&#x01A1;ng &#x1EE9;ng, kh&#xF4;ng b&#x1ECF; s&#xF3;t!</div></div>
+        <div id="w3" class="tip" data-group="w"><span class="tico">&#x1F4DD;</span><div><strong>5 d&#x1EA1;ng:</strong> Opinion &middot; Discussion (Both Views) &middot; Problem-Solution &middot; Advantages-Disadvantages &middot; Two-part Question.<br><strong>C&#x1EA5;u tr&#xFA;c chu&#x1EA9;n:</strong> Intro (thesis r&#xF5; r&#xE0;ng) &#x2192; Body 1 &#x2192; Body 2 &#x2192; Conclusion.<br>Task 2 chi&#x1EBF;m <strong>2/3</strong> t&#x1ED5;ng &#x111;i&#x1EC3;m Writing &#x2014; &#x111;&#x1EEB;ng d&#xE0;nh qu&#xE1; 25 ph&#xFA;t cho Task 1!</div></div>
+        <div class="slbl">B&#xE0;i m&#x1EAB;u Band 7.5</div>
+        <div style="background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r2);padding:14px 16px;margin-bottom:13px">
+          <div style="font-size:.69rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">&#x110;&#x1EC1; b&#xE0;i &#x2014; Task 2</div>
+          <div style="font-size:.83rem;color:var(--tx2);line-height:1.65;margin-bottom:12px">Some people believe the internet has made the world a better place. Others disagree. Discuss both views and give your own opinion.</div>
+          <div class="wscores">
+            <div class="wscore"><div class="wsn" style="color:#43a047">7.5</div><div class="wsl">Task</div></div>
+            <div class="wscore"><div class="wsn" style="color:#1976d2">7.5</div><div class="wsl">C&amp;C</div></div>
+            <div class="wscore"><div class="wsn" style="color:#f57c00">8.0</div><div class="wsl">Lexical</div></div>
+            <div class="wscore"><div class="wsn" style="color:#e91e63">7.5</div><div class="wsl">Grammar</div></div>
+            <div class="wscore"><div class="wsn" style="color:#7c3aed">7.5</div><div class="wsl">Overall</div></div>
+          </div>
+          <div class="essaybox">
+            <p>The internet has undoubtedly transformed every aspect of modern life, yet its net impact on society remains deeply contested. While some celebrate it as the most democratising force in human history, others contend that it has introduced new forms of harm. This essay will examine both perspectives before arguing that, on balance, the internet has been broadly beneficial.</p>
+            <p>Proponents point to its remarkable capacity to democratise access to information. Prior to the digital age, quality education was largely the preserve of the wealthy. Today, a student in a rural village can access the same resources as a scholar at Oxford. Furthermore, the internet has revolutionised global commerce, enabling entrepreneurs in developing nations to reach international markets.</p>
+            <p>Conversely, critics argue that the internet has precipitated significant social harms. The proliferation of misinformation on social media has eroded public trust in institutions. Moreover, the addictive design of many platforms has been linked to rising anxiety, particularly among adolescents.</p>
+            <p>In conclusion, while the internet has created problems that must be urgently addressed, its capacity to democratise knowledge represents a fundamentally positive contribution to human progress.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="sec-lbl">Học theo chủ đề IELTS</div>
-      <div class="vg">
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Môi trường Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">🌍</div><div class="vc-n">Môi trường</div><div class="vc-c">25 từ</div></div>
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Giáo dục Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">🎓</div><div class="vc-n">Giáo dục</div><div class="vc-c">22 từ</div></div>
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Công nghệ Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">💻</div><div class="vc-n">Công nghệ</div><div class="vc-c">20 từ</div></div>
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Sức khỏe Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">❤️</div><div class="vc-n">Sức khỏe</div><div class="vc-c">18 từ</div></div>
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Xã hội Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">👥</div><div class="vc-n">Xã hội</div><div class="vc-c">24 từ</div></div>
-        <div class="vc" onclick="qk('v','Cho tôi 20 từ vựng IELTS chủ đề Kinh tế Band 6-7 kèm nghĩa tiếng Việt, phiên âm và ví dụ câu')"><div class="vc-ico">💰</div><div class="vc-n">Kinh tế</div><div class="vc-c">19 từ</div></div>
-      </div>
-
-      <div class="sec-lbl">Quiz từ vựng nhanh</div>
-      <div class="qwrap">
-        <div class="qhd">
-          <span style="font-size:.8rem;font-weight:700;color:var(--text)">📚 Flashcard Quiz</span>
-          <button style="font-size:.72rem;font-weight:600;color:var(--text3);background:var(--border);border-radius:var(--r);padding:4px 11px" onclick="startVQ()">🔄 Câu mới</button>
+        <div class="aibox">
+          <div class="aihead"><div class="aidot">&#x1F4CA;</div><div><div class="ait">AI Ch&#x1EA5;m b&#xE0;i Writing</div><div class="ais">Paste b&#xE0;i vi&#x1EBF;t &#x2192; nh&#x1EAD;n &#x111;i&#x1EC3;m 4 ti&#xEA;u ch&#xED; + g&#xF3;p &#xFD; c&#x1EE5; th&#x1EC3;</div></div></div>
+          <div class="qchips">
+            <button class="qchip" onclick="quickQ('w','T&#x1EA1;o &#x111;&#x1EC1; Task 2 v&#x1EC1; C&#xF4;ng ngh&#x1EC7; v&#xE0; b&#xE0;i m&#x1EAB;u Band 7.5 k&#xE8;m ph&#xE2;n t&#xED;ch chi ti&#x1EBF;t b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">T&#x1EA1;o b&#xE0;i m&#x1EAB;u</button>
+            <button class="qchip" onclick="quickQ('w','Li&#x1EC7;t k&#xEA; 20 linking words &#x111;a d&#x1EA1;ng cho IELTS Writing k&#xE8;m v&#xED; d&#x1EE5; c&#xE1;ch d&#xF9;ng b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Linking Words</button>
+            <button class="qchip" onclick="quickQ('w','Gi&#x1EA3;i th&#xED;ch 5 d&#x1EA1;ng essay Task 2 IELTS v&#x1EDB;i c&#x1EA5;u tr&#xFA;c v&#xE0; v&#xED; d&#x1EE5; thesis statement b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">5 d&#x1EA1;ng Essay</button>
+          </div>
+          <textarea class="aita" id="ai-w" placeholder="Paste b&#xE0;i vi&#x1EBF;t &#x111;&#x1EC3; AI ch&#x1EA5;m &#x111;i&#x1EC3;m...&#10;(Task 1: &#x2265; 150 t&#x1EEB; | Task 2: &#x2265; 250 t&#x1EEB;)"></textarea>
+          <div class="airow">
+            <button class="aibtn" onclick="gradeW()">&#x1F4CA; Ch&#x1EA5;m b&#xE0;i</button>
+            <button class="aibtn2" onclick="callAI('w')">&#x1F4AC; H&#x1ECF;i Writing</button>
+          </div>
+          <div class="aiload" id="ld-w"><div class="spin"></div>AI &#x111;ang ph&#xE2;n t&#xED;ch...</div>
+          <div class="airesp" id="rs-w"></div>
         </div>
-        <div class="qbd" id="vq-area">
-          <div style="text-align:center;padding:18px;color:var(--text3);font-size:.84rem">Nhấn "Câu mới" để bắt đầu quiz từ vựng</div>
-        </div>
-      </div>
-
-      <div class="aib" style="margin-top:12px">
-        <div class="aib-head">
-          <div class="aib-dot">📚</div>
-          <div><div class="aib-t">AI Luyện từ vựng</div><div class="aib-s">Tạo bài tập, giải thích từ, phân biệt từ dễ nhầm</div></div>
-        </div>
-        <div class="qchips">
-          <button class="qchip" onclick="qk('v','Tạo 10 câu điền từ vựng IELTS Band 6-7 kèm đáp án và giải thích bằng tiếng Việt')">Quiz điền từ</button>
-          <button class="qchip" onclick="qk('v','Liệt kê 10 collocations phổ biến trong IELTS Writing kèm ví dụ câu bằng tiếng Việt')">Collocations</button>
-          <button class="qchip" onclick="qk('v','Giải thích sự khác biệt giữa 5 cặp từ dễ nhầm trong IELTS với ví dụ câu bằng tiếng Việt')">Từ dễ nhầm</button>
-        </div>
-        <textarea class="ai-ta" id="ti-v" placeholder="Nhập từ cần học hoặc hỏi về từ vựng...&#10;(VD: Phân biệt 'affect' và 'effect')"></textarea>
-        <div class="ai-btns"><button class="ai-btn" onclick="ask('v')">⚡ Hỏi ngay</button></div>
-        <div class="ai-load" id="tl-v"><div class="spin"></div>AI đang trả lời...</div>
-        <div class="ai-resp" id="tr-v"></div>
       </div>
     </div>
   </div>
 </div>
 
-</div><!-- end accordion -->
+<!-- SPEAKING -->
+<div class="aitem" id="ac-speaking">
+  <div class="ahead" onclick="openAcc('speaking')">
+    <div class="aico" style="background:var(--cs)">&#x1F3A4;</div>
+    <div class="atxt">
+      <div class="atitle">Speaking &#x2014; N&#xF3;i</div>
+      <div class="asub">3 Parts &middot; 11&#x2013;14 ph&#xFA;t &middot; Fluency + Vocab + Grammar + Pronunciation</div>
+    </div>
+    <div class="ameta">
+      <span class="abadge" style="background:var(--cs);color:var(--cs-d)">Band 5&#x2192;7</span>
+      <div class="arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
+    </div>
+  </div>
+  <div class="abody">
+    <div class="abody-inner">
+      <div class="acontent">
+        <div class="prow"><span class="plbl">Ti&#x1EBF;n &#x111;&#x1ED9;</span><div class="ptrack"><div class="pfill" style="width:10%;background:var(--cs-m)"></div></div><span class="ppct" style="color:var(--cs-d)">10%</span></div>
+        <div class="sgrid">
+          <div class="scard" onclick="openTip('s1',this,'s')"><div class="stitle">&#x1F60A; Part 1 &#x2014; C&#xE2;u h&#x1ECF;i c&#xE1; nh&#xE2;n</div><div class="sdesc">4&#x2013;5 ph&#xFA;t. Ch&#x1EE7; &#x111;&#x1EC1; h&#xE0;ng ng&#xE0;y: gia &#x111;&#xEC;nh, s&#x1EDF; th&#xED;ch, c&#xF4;ng vi&#x1EC7;c.</div><div class="sfoot"><span class="stag" style="background:var(--cl);color:var(--cl-d)">D&#x1EC5; nh&#x1EA5;t</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('s2',this,'s')"><div class="stitle">&#x1F5E3;&#xFE0F; Part 2 &#x2014; Cue Card</div><div class="sdesc">1 ph&#xFA;t chu&#x1EA9;n b&#x1ECB; &middot; n&#xF3;i 1&#x2013;2 ph&#xFA;t. C&#x1EA5;u tr&#xFA;c 4W.</div><div class="sfoot"><span class="stag" style="background:var(--cw);color:var(--cw-d)">Trung b&#xEC;nh</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('s3',this,'s')"><div class="stitle">&#x1F4AC; Part 3 &#x2014; Th&#x1EA3;o lu&#x1EAD;n s&#xE2;u</div><div class="sdesc">4&#x2013;5 ph&#xFA;t. C&#xE2;u h&#x1ECF;i tr&#x1EEB;u t&#x01B0;&#x1EE3;ng &#x2014; ph&#xE2;n t&#xED;ch &#x111;a chi&#x1EC1;u.</div><div class="sfoot"><span class="stag" style="background:#fce4ec;color:#880e4f">Kh&#xF3; nh&#x1EA5;t</span><span class="sarr">&#x2192;</span></div></div>
+          <div class="scard" onclick="openTip('s4',this,'s')"><div class="stitle">&#x1F5E8;&#xFE0F; Fillers t&#x1EF1; nhi&#xEA;n</div><div class="sdesc">Thay th&#x1EBF; "ummm" &#x2014; gi&#x1EEF; &#x111;i&#x1EC3;m Fluency kh&#xF4;ng b&#x1ECB; tr&#x1EEB;.</div><div class="sfoot"><span class="stag" style="background:var(--cs);color:var(--cs-d)">Fluency</span><span class="sarr">&#x2192;</span></div></div>
+        </div>
+        <div id="s1" class="tip" data-group="s"><span class="tico">&#x1F60A;</span><div>Tr&#x1EA3; l&#x1EDD;i 2-3 c&#xE2;u + l&#xFD; do + v&#xED; d&#x1EE5; c&#x1EE5; th&#x1EC3;. &#x110;&#x1EEB;ng qu&#xE1; ng&#x1EAF;n ho&#x1EB7;c qu&#xE1; d&#xE0;i.<br>&#x274C; Band 5: <em>"Yes, I like cooking."</em><br>&#x2705; Band 7: <em>"Yes, I'm quite passionate about cooking &#x2014; I find it a great way to unwind. My signature dish is pho, which takes about 6 hours!"</em></div></div>
+        <div id="s2" class="tip" data-group="s"><span class="tico">&#x1F5E3;&#xFE0F;</span><div>C&#x1EA5;u tr&#xFA;c 4W: <strong>What</strong> (m&#xF4; t&#x1EA3;) &#x2192; <strong>When/Where</strong> (b&#x1ED1;i c&#x1EA3;nh) &#x2192; <strong>Who</strong> (ai li&#xEA;n quan) &#x2192; <strong>Why</strong> (t&#x1EA1;i sao &#x111;&#xE1;ng nh&#x1EDB;).<br>D&#xF9;ng h&#x1EBF;t 2 ph&#xFA;t! K&#x1EBF;t th&#xFA;c: <em>"That's why this experience was so memorable for me."</em></div></div>
+        <div id="s3" class="tip" data-group="s"><span class="tico">&#x1F4AC;</span><div>&#x110;&#x01B0;a ra nhi&#x1EC1;u g&#xF3;c nh&#xEC;n: <em>"On one hand... On the other hand..."</em><br>D&#xF9;ng hedging: <em>"It could be argued that... / Some might say... / There's a growing concern that..."</em><br>Band 7: Ph&#xE2;n t&#xED;ch 2 chi&#x1EC1;u &#x2014; kh&#xF4;ng ch&#x1EC9; &#x111;&#x1ED3;ng &#xFD; ho&#x1EB7;c kh&#xF4;ng &#x111;&#x1ED3;ng &#xFD; &#x111;&#x01A1;n thu&#x1EA7;n!</div></div>
+        <div id="s4" class="tip" data-group="s"><span class="tico">&#x1F5E8;&#xFE0F;</span><div>&#x2705; <em>"That's an interesting question..."</em><br>&#x2705; <em>"Let me think about that for a moment..."</em><br>&#x2705; <em>"Off the top of my head, I'd say..."</em><br>&#x2705; <em>"I've never really thought about it, but..."</em><br>&#x2705; <em>"That's a tricky one, but I suppose..."</em></div></div>
+        <div class="aibox">
+          <div class="aihead"><div class="aidot">&#x1F3A4;</div><div><div class="ait">AI Luy&#x1EC7;n Speaking</div><div class="ais">C&#xE2;u h&#x1ECF;i ng&#x1EAB;u nhi&#xEA;n + model answer Band 7</div></div></div>
+          <div class="qchips">
+            <button class="qchip" onclick="quickQ('s','T&#x1EA1;o 5 c&#xE2;u h&#x1ECF;i Speaking Part 1 v&#x1EC1; ch&#x1EE7; &#x111;&#x1EC1; Gia &#x111;&#xEC;nh v&#xE0; model answer Band 7 cho t&#x1EEB;ng c&#xE2;u b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Part 1 &#x2014; Gia &#x111;&#xEC;nh</button>
+            <button class="qchip" onclick="quickQ('s','T&#x1EA1;o Cue Card Speaking Part 2 v&#x1EC1; Du l&#x1ECB;ch v&#xE0; model answer Band 7 chi ti&#x1EBF;t b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Part 2 &#x2014; Cue Card</button>
+            <button class="qchip" onclick="quickQ('s','T&#x1EA1;o 3 c&#xE2;u h&#x1ECF;i Speaking Part 3 v&#x1EC1; C&#xF4;ng ngh&#x1EC7; v&#xE0; model answer Band 7 ph&#xE2;n t&#xED;ch &#x111;a chi&#x1EC1;u b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Part 3 &#x2014; Th&#x1EA3;o lu&#x1EAD;n</button>
+          </div>
+          <textarea class="aita" id="ai-s" placeholder="Vi&#x1EBF;t c&#xE2;u tr&#x1EA3; l&#x1EDD;i Speaking &#x111;&#x1EC3; AI feedback...&#10;Ho&#x1EB7;c h&#x1ECF;i b&#x1EA5;t k&#x1EF3; &#x111;i&#x1EC1;u g&#xEC; v&#x1EC1; Speaking"></textarea>
+          <div class="airow">
+            <button class="aibtn" onclick="callAI('s')">&#x1F4DD; Nh&#x1EAD;n feedback</button>
+            <button class="aibtn2" onclick="modelAnswer()">&#x1F31F; Model Answer</button>
+          </div>
+          <div class="aiload" id="ld-s"><div class="spin"></div>AI &#x111;ang t&#x1EA1;o...</div>
+          <div class="airesp" id="rs-s"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<footer>IELTS Pro · Luyện thi thông minh · Giao diện tối giản dành cho người mới bắt đầu</footer>
+<!-- VOCABULARY -->
+<div class="aitem" id="ac-vocab">
+  <div class="ahead" onclick="openAcc('vocab')">
+    <div class="aico" style="background:var(--cv)">&#x1F4DA;</div>
+    <div class="atxt">
+      <div class="atitle">Vocabulary &#x2014; T&#x1EEB; v&#x1EF1;ng h&#x1ECD;c thu&#x1EAD;t</div>
+      <div class="asub">Theo ch&#x1EE7; &#x111;&#x1EC1; &middot; theo &#x111;&#x1ED9; kh&#xF3; &middot; flashcard + quiz t&#x01B0;&#x01A1;ng t&#xE1;c</div>
+    </div>
+    <div class="ameta">
+      <span class="abadge" style="background:var(--cv);color:var(--cv-d)">30+ t&#x1EEB;</span>
+      <div class="arr"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6.5l5 5 5-5"/></svg></div>
+    </div>
+  </div>
+  <div class="abody">
+    <div class="abody-inner">
+      <div class="acontent">
+        <div class="slbl" style="margin-top:0">H&#x1ECD;c theo &#x111;&#x1ED9; kh&#xF3;</div>
+        <div class="lvrow">
+          <div class="lvpill" onclick="quickQ('v','Cho t&#xF4;i 15 t&#x1EEB; v&#x1EF1;ng IELTS Band 5-6 ph&#x1ED5; bi&#x1EBF;n nh&#x1EA5;t k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m IPA, v&#xED; d&#x1EE5; c&#xE2;u v&#xE0; synonyms')"><div class="lvdot" style="background:#43a047"></div><div><div class="lvname">&#x1F7E2; N&#x1EC1;n t&#x1EA3;ng</div><div class="lvr">Band 5 &middot; B&#x1EAF;t &#x111;&#x1EA7;u &#x111;&#xE2;y</div></div></div>
+          <div class="lvpill" onclick="quickQ('v','Cho t&#xF4;i 15 t&#x1EEB; v&#x1EF1;ng h&#x1ECD;c thu&#x1EAD;t IELTS Band 6-7 quan tr&#x1ECD;ng k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m IPA, v&#xED; d&#x1EE5; c&#xE2;u v&#xE0; synonyms')"><div class="lvdot" style="background:#7c3aed"></div><div><div class="lvname">&#x1F7E3; N&#xE2;ng cao</div><div class="lvr">Band 6-7 &middot; Trung b&#xEC;nh</div></div></div>
+          <div class="lvpill" onclick="quickQ('v','Cho t&#xF4;i 15 t&#x1EEB; v&#x1EF1;ng h&#x1ECD;c thu&#x1EAD;t IELTS Band 8-9 n&#xE2;ng cao k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m IPA, v&#xED; d&#x1EE5; c&#xE2;u v&#xE0; c&#xE1;ch d&#xF9;ng')"><div class="lvdot" style="background:#f57c00"></div><div><div class="lvname">&#x1F7E0; Chuy&#xEA;n s&#xE2;u</div><div class="lvr">Band 8+ &middot; N&#xE2;ng cao</div></div></div>
+        </div>
+        <div class="slbl">H&#x1ECD;c theo ch&#x1EE7; &#x111;&#x1EC1; IELTS</div>
+        <div class="vgrid">
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; M&#xF4;i tr&#x01B0;&#x1EDD;ng Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x1F30D;</div><div class="vname">M&#xF4;i tr&#x01B0;&#x1EDD;ng</div><div class="vcnt">25 t&#x1EEB;</div></div>
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; Gi&#xE1;o d&#x1EE5;c Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x1F393;</div><div class="vname">Gi&#xE1;o d&#x1EE5;c</div><div class="vcnt">22 t&#x1EEB;</div></div>
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; C&#xF4;ng ngh&#x1EC7; Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x1F4BB;</div><div class="vname">C&#xF4;ng ngh&#x1EC7;</div><div class="vcnt">20 t&#x1EEB;</div></div>
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; S&#x1EE9;c kh&#x1EE7;e Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x2764;&#xFE0F;</div><div class="vname">S&#x1EE9;c kh&#x1EE7;e</div><div class="vcnt">18 t&#x1EEB;</div></div>
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; X&#xE3; h&#x1ED9;i Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x1F465;</div><div class="vname">X&#xE3; h&#x1ED9;i</div><div class="vcnt">24 t&#x1EEB;</div></div>
+          <div class="vtop" onclick="quickQ('v','Cho t&#xF4;i 20 t&#x1EEB; v&#x1EF1;ng IELTS ch&#x1EE7; &#x111;&#x1EC1; Kinh t&#x1EBF; Band 6-7 k&#xE8;m ngh&#x0129;a ti&#x1EBF;ng Vi&#x1EC7;t, phi&#xEA;n &#xE2;m v&#xE0; v&#xED; d&#x1EE5; c&#xE2;u')"><div class="vico">&#x1F4B0;</div><div class="vname">Kinh t&#x1EBF;</div><div class="vcnt">19 t&#x1EEB;</div></div>
+        </div>
+        <div class="slbl">Quiz t&#x1EEB; v&#x1EF1;ng nhanh</div>
+        <div class="qwrap">
+          <div class="qhead"><span class="qhtitle">&#x1F4DA; Flashcard Quiz</span><button class="qreset" onclick="startVQ()">&#x1F504; C&#xE2;u m&#x1EDB;i</button></div>
+          <div class="qbody" id="vq"><div style="text-align:center;padding:20px;color:var(--tx3);font-size:.84rem">Nh&#x1EA5;n "C&#xE2;u m&#x1EDB;i" &#x111;&#x1EC3; b&#x1EAF;t &#x111;&#x1EA7;u quiz t&#x1EEB; v&#x1EF1;ng</div></div>
+        </div>
+        <div class="aibox" style="margin-top:13px">
+          <div class="aihead"><div class="aidot">&#x1F4DA;</div><div><div class="ait">AI Luy&#x1EC7;n t&#x1EEB; v&#x1EF1;ng</div><div class="ais">T&#x1EA1;o b&#xE0;i t&#x1EAD;p, gi&#x1EA3;i th&#xED;ch t&#x1EEB;, ph&#xE2;n bi&#x1EC7;t t&#x1EEB; d&#x1EC5; nh&#x1EA7;m</div></div></div>
+          <div class="qchips">
+            <button class="qchip" onclick="quickQ('v','T&#x1EA1;o 10 c&#xE2;u &#x111;i&#x1EC1;n t&#x1EEB; v&#x1EF1;ng IELTS Band 6-7 k&#xE8;m &#x111;&#xE1;p &#xE1;n v&#xE0; gi&#x1EA3;i th&#xED;ch b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Quiz &#x111;i&#x1EC1;n t&#x1EEB;</button>
+            <button class="qchip" onclick="quickQ('v','Li&#x1EC7;t k&#xEA; 10 collocations ph&#x1ED5; bi&#x1EBF;n trong IELTS Writing k&#xE8;m v&#xED; d&#x1EE5; c&#xE2;u b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">Collocations</button>
+            <button class="qchip" onclick="quickQ('v','Gi&#x1EA3;i th&#xED;ch s&#x1EF1; kh&#xE1;c bi&#x1EC7;t gi&#x1EEF;a 5 c&#x1EB7;p t&#x1EEB; d&#x1EC5; nh&#x1EA7;m trong IELTS v&#x1EDB;i v&#xED; d&#x1EE5; c&#xE2;u b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t')">T&#x1EEB; d&#x1EC5; nh&#x1EA7;m</button>
+          </div>
+          <textarea class="aita" id="ai-v" placeholder="Nh&#x1EAD;p t&#x1EEB; c&#x1EA7;n h&#x1ECD;c ho&#x1EB7;c h&#x1ECF;i v&#x1EC1; t&#x1EEB; v&#x1EF1;ng...&#10;(VD: Ph&#xE2;n bi&#x1EC7;t 'affect' v&#xE0; 'effect')"></textarea>
+          <div class="airow"><button class="aibtn" onclick="callAI('v')">&#x26A1; H&#x1ECF;i ngay</button></div>
+          <div class="aiload" id="ld-v"><div class="spin"></div>AI &#x111;ang tr&#x1EA3; l&#x1EDD;i...</div>
+          <div class="airesp" id="rs-v"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end acc-list -->
+<footer>IELTS Pro &middot; Luy&#x1EC7;n thi th&#xF4;ng minh &middot; Giao di&#x1EC7;n t&#x1ED1;i gi&#x1EA3;n d&#xE0;nh cho ng&#x01B0;&#x1EDD;i m&#x1EDB;i b&#x1EAF;t &#x111;&#x1EA7;u</footer>
 </div><!-- end wrap -->
 
 <script>
 /* STATE */
-const S={
-  xp:parseInt(localStorage.getItem('ip_xp')||'0'),
-  band:parseFloat(localStorage.getItem('ip_band')||'0'),
-  sv(){localStorage.setItem('ip_xp',this.xp);localStorage.setItem('ip_band',this.band)},
-  add(n){this.xp+=n;this.band=Math.min(9,(this.xp/900)*9);this.sv();su();toast('+'+n+' XP')}
+const A={
+  xp:parseInt(localStorage.getItem('ix')||'0'),
+  band:parseFloat(localStorage.getItem('ib')||'0'),
+  sv(){localStorage.setItem('ix',this.xp);localStorage.setItem('ib',this.band)},
+  earn(n){this.xp+=n;this.band=Math.min(9,(this.xp/900)*9);this.sv();syncUI();toast('+'+n+' XP')}
 };
-function su(){
-  document.getElementById('nb').textContent=S.band.toFixed(1);
-  document.getElementById('nx').textContent=S.xp;
+function syncUI(){
+  ['js-band'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=A.band.toFixed(1)});
+  ['js-xp'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=A.xp});
 }
-
 /* BAND CALC */
-const BA={40:9,39:9,38:8.5,37:8,36:8,35:7.5,34:7,33:7,32:6.5,31:6.5,30:6,29:6,28:5.5,27:5.5,26:5,25:5,24:4.5,23:4.5,22:4,21:4,20:4};
-const BG={40:9,39:8.5,38:8,37:7.5,36:7,35:6.5,34:6,33:5.5,32:5,31:4.5,30:4};
+const BAC={40:9,39:9,38:8.5,37:8,36:8,35:7.5,34:7,33:7,32:6.5,31:6.5,30:6,29:6,28:5.5,27:5.5,26:5,25:5,24:4.5,23:4.5,22:4,21:4,20:4};
+const BGT={40:9,39:8.5,38:8,37:7.5,36:7,35:6.5,34:6,33:5.5,32:5,31:4.5,30:4};
 const BC={9:'#673ab7',8:'#1976d2',7:'#43a047',6:'#f57c00',5:'#e91e63',4:'#e53935'};
 function calcBand(){
   const r=Math.min(40,Math.max(0,parseInt(document.getElementById('raw').value)||0));
   const t=document.getElementById('btype').value;
-  const b=(t==='ac'?BA:BG)[r]||(r>=26?5:r>=22?4.5:4);
-  const el=document.getElementById('bout');
+  const b=(t==='ac'?BAC:BGT)[r]||(r>=26?5:r>=22?4.5:4);
+  const el=document.getElementById('band-out');
   el.textContent=b.toFixed(1);el.style.color=BC[Math.floor(b)]||'#e53935';
-  const msgs={9:'Expert — hoàn toàn thành thạo!',8:'Very Good — xử lý được văn bản phức tạp!',7:'Good — đạt mục tiêu phổ biến ⭐',6:'Competent — cần thêm '+(33-r)+' câu để đạt Band 7.',5:'Modest — cần thêm '+(33-r)+' câu để đạt Band 7.',4:'Foundation — tập trung từ vựng và ngữ pháp cơ bản.'};
-  document.getElementById('bfb').textContent=msgs[Math.floor(b)]||msgs[4];
+  const msgs={9:'Expert &#x2014; ho&#xE0;n to&#xE0;n th&#xE0;nh th&#x1EA1;o!',8:'Very Good &#x2014; x&#x1EED; l&#xFD; v&#x0103;n b&#x1EA3;n ph&#x1EE9;c t&#x1EA1;p t&#x1ED1;t!',7:'Good &#x2014; &#x111;&#x1EA1;t m&#x1EE5;c ti&#xEA;u ph&#x1ED5; bi&#x1EBF;n &#x2B50;',6:'Competent &#x2014; c&#x1EA7;n th&#xEA;m '+(33-r)+' c&#xE2;u &#x111;&#x1EC3; &#x111;&#x1EA1;t Band 7.',5:'Modest &#x2014; c&#x1EA7;n th&#xEA;m '+(33-r)+' c&#xE2;u &#x111;&#x1EC3; &#x111;&#x1EA1;t Band 7.',4:'Foundation &#x2014; t&#x1EAD;p trung t&#x1EEB; v&#x1EF1;ng v&#xE0; ng&#x1EEF; ph&#xE1;p c&#x01A1; b&#x1EA3;n.'};
+  document.getElementById('band-fb').textContent=msgs[Math.floor(b)]||msgs[4];
 }
-
-/* ACCORDION — chỉ mở 1 section tại 1 thời điểm */
-function tog(id){
-  const ids=['listening','reading','writing','speaking','vocab'];
-  ids.forEach(k=>{
-    const el=document.getElementById('a-'+k);
-    if(!el)return;
-    if(k===id){
-      const wasOpen=el.classList.contains('open');
-      el.classList.toggle('open',!wasOpen);
-    }else{
-      el.classList.remove('open');
-    }
-  });
+/* ACCORDION &#x2014; FIX: one open at a time, grid-rows animation */
+const SECTIONS=['listening','reading','writing','speaking','vocab'];
+function openAcc(id){
+  const target=document.getElementById('ac-'+id);
+  const isOpen=target.classList.contains('open');
+  SECTIONS.forEach(k=>document.getElementById('ac-'+k).classList.remove('open'));
+  if(!isOpen)target.classList.add('open');
 }
-
-/* SUB-ITEM TOGGLE — chỉ mở 1 tip tại 1 thời điểm */
-function tgl(showId,hideIds){
-  const showEl=document.getElementById(showId);
-  if(!showEl)return;
-  const isOpen=showEl.style.display!=='none';
-  // Ẩn tất cả
-  hideIds.split(',').forEach(id=>{
-    const el=document.getElementById(id.trim());
-    if(el)el.style.display='none';
-  });
-  showEl.style.display=isOpen?'none':'flex';
+/* TIP PANELS &#x2014; FIX: per-group toggle, .visible class */
+function openTip(panelId,card,group){
+  const panel=document.getElementById(panelId);
+  if(!panel)return;
+  const wasOpen=panel.classList.contains('visible');
+  document.querySelectorAll('.tip[data-group="'+group+'"]').forEach(p=>p.classList.remove('visible'));
+  const grid=card.closest('.sgrid');
+  if(grid)grid.querySelectorAll('.scard').forEach(c=>c.classList.remove('act'));
+  if(!wasOpen){panel.classList.add('visible');card.classList.add('act')}
 }
-
 /* READING QUIZ */
-const RQ=[
-  {q:'Çatalhöyük was occupied for approximately 1,800 years.',a:'T',e:'7500 BCE đến 5700 BCE = 1800 năm. ✅ TRUE'},
-  {q:'The city had a well-developed road network.',a:'F',e:'Passage nói "had NO streets or footpaths" — NGƯỢC LẠI. ❌ FALSE'},
-  {q:'Residents used doors and windows to enter their homes.',a:'F',e:'Vào nhà qua lỗ trên mái — không phải cửa hay cửa sổ. ❌ FALSE'},
-  {q:'The population of Çatalhöyük reached 10,000 people.',a:'N',e:'Bài không đề cập số dân cụ thể. ⬜ NOT GIVEN'},
-  {q:'The uniform building size implies social equality.',a:'T',e:'"roughly equal size, suggesting an egalitarian social structure" ✅ TRUE'},
+const QD=[
+  {q:'&#xC7;atalh&#xF6;y&#xFC;k was occupied for approximately 1,800 years.',a:'T',e:'7500 BCE &#x111;&#x1EBF;n 5700 BCE = 1800 n&#x0103;m. &#x2705; TRUE'},
+  {q:'The city had a well-developed road network.',a:'F',e:'Passage n&#xF3;i "had NO streets or footpaths" &#x2014; NG&#x01AF;&#x1ECC;C L&#x1EA0;I. &#x274C; FALSE'},
+  {q:'Residents used doors and windows to enter their homes.',a:'F',e:'V&#xE0;o nh&#xE0; qua l&#x1ED7; tr&#xEA;n m&#xE1;i &#x2014; kh&#xF4;ng ph&#x1EA3;i c&#x1EED;a. &#x274C; FALSE'},
+  {q:'The population of &#xC7;atalh&#xF6;y&#xFC;k reached 10,000 people.',a:'N',e:'B&#xE0;i kh&#xF4;ng &#x111;&#x1EC1; c&#x1EAD;p s&#x1ED1; d&#xE2;n c&#x1EE5; th&#x1EC3;. &#x25AB;&#xFE0F; NOT GIVEN'},
+  {q:'The uniform building size implies social equality.',a:'T',e:'"roughly equal size, suggesting an egalitarian social structure" &#x2705; TRUE'},
 ];
-let ri=0,rs=0;
-function initRQ(){ri=0;rs=0;renderRQ();}
-function renderRQ(){
-  const el=document.getElementById('rq');if(!el)return;
-  if(ri>=RQ.length){
-    el.innerHTML=`<div class="res-box">
-      <div class="res-n">${rs}/${RQ.length}</div>
-      <div class="res-l">${rs>=4?'Xuất sắc! 🏆':rs>=3?'Tốt lắm! ⭐':'Cần ôn thêm 💪'}</div>
-      <div class="res-s">${Math.round(rs/RQ.length*100)}% chính xác</div>
-      <button class="ai-btn" onclick="initRQ()" style="margin:0 auto">🔄 Làm lại</button>
-    </div>`;
-    S.add(rs*10);return;
+let qi=0,qs=0;
+function initQuiz(){qi=0;qs=0;renderQ()}
+function renderQ(){
+  const el=document.getElementById('quiz-area');if(!el)return;
+  if(qi>=QD.length){
+    const pct=Math.round(qs/QD.length*100);
+    el.innerHTML=`<div class="resbox"><div class="resn">${qs}/${QD.length}</div><div class="resl">${qs>=4?'Xu&#x1EA5;t s&#x1EAF;c! &#x1F3C6;':qs>=3?'T&#x1ED1;t l&#x1EAF;m! &#x2B50;':'C&#x1EA7;n &#xF4;n th&#xEA;m &#x1F4AA;'}</div><div class="ress">${pct}% ch&#xED;nh x&#xE1;c</div><button class="aibtn" onclick="initQuiz()" style="margin:0 auto">&#x1F504; L&#xE0;m l&#x1EA1;i</button></div>`;
+    A.earn(qs*10);return;
   }
-  const q=RQ[ri];
-  const dots=RQ.map((_,i)=>`<div class="pd ${i<ri?'done':i===ri?'cur':''}"></div>`).join('');
-  el.innerHTML=`<div class="pdots">${dots}</div>
-    <div style="font-size:.68rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px">Câu ${ri+1}/${RQ.length}</div>
-    <div class="q-txt">${q.q}</div>
-    <div class="q-opts">
-      ${['True','False','Not Given'].map(o=>`<button class="q-opt" onclick="ansRQ(this,'${o[0]}','${q.a}')">${o}</button>`).join('')}
-    </div>
-    <div class="exp" id="rq-exp"></div>
-    <button class="q-nxt" id="rq-nx" onclick="ri++;renderRQ()">Tiếp →</button>`;
+  const q=QD[qi];
+  const dots=QD.map((_,i)=>`<div class="pdot ${i<qi?'done':i===qi?'cur':''}"></div>`).join('');
+  el.innerHTML=`<div class="pdots">${dots}</div><div style="font-size:.67rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">C&#xE2;u ${qi+1}/${QD.length}</div><div class="qtxt">${q.q}</div><div class="qopts">${['True','False','Not Given'].map(o=>`<button class="qopt" type="button" onclick="ansQ(this,'${o[0]}','${q.a}')">${o}</button>`).join('')}</div><div class="expbox" id="qexp"></div><button class="qnxt" id="qnxt" type="button" onclick="qi++;renderQ()">Ti&#x1EBF;p &#x2192;</button>`;
 }
-function ansRQ(btn,ch,correct){
+function ansQ(btn,ch,correct){
   if(btn.disabled)return;
   const ok=ch===correct;
   btn.classList.add(ok?'ok':'no');
-  if(ok)rs++;
-  btn.closest('.q-opts').querySelectorAll('.q-opt').forEach(b=>{
-    b.disabled=true;
-    if(b.textContent[0]===correct)b.classList.add('rv');
-  });
-  document.getElementById('rq-exp').textContent='📖 '+RQ[ri].e;
-  document.getElementById('rq-exp').style.display='block';
-  document.getElementById('rq-nx').style.display='block';
+  if(ok)qs++;
+  btn.closest('.qopts').querySelectorAll('.qopt').forEach(b=>{b.disabled=true;if(b.textContent[0]===correct)b.classList.add('rv')});
+  const exp=document.getElementById('qexp'),nxt=document.getElementById('qnxt');
+  if(exp){exp.textContent='&#x1F4D6; '+QD[qi].e;exp.style.display='block'}
+  if(nxt)nxt.style.display='block';
 }
-
 /* VOCAB QUIZ */
-const VL=[
-  {w:'deteriorate',m:'Trở nên tệ hơn, xuống cấp',e:'Air quality has deteriorated.',s:'worsen, decline, degrade'},
-  {w:'mitigate',m:'Giảm thiểu, làm nhẹ bớt',e:'Trees help mitigate pollution.',s:'alleviate, reduce, lessen'},
-  {w:'proliferate',m:'Lan rộng nhanh chóng',e:'Mobile use has proliferated globally.',s:'multiply, spread, burgeon'},
-  {w:'alleviate',m:'Làm nhẹ bớt, giảm đi',e:'Policies should alleviate poverty.',s:'ease, relieve, reduce'},
-  {w:'exacerbate',m:'Làm trầm trọng thêm',e:'Stress exacerbates health problems.',s:'worsen, aggravate, intensify'},
-  {w:'paramount',m:'Quan trọng nhất, tối cao',e:'Safety is of paramount importance.',s:'supreme, foremost, cardinal'},
-  {w:'ubiquitous',m:'Có mặt khắp nơi',e:'Smartphones are ubiquitous today.',s:'omnipresent, pervasive, universal'},
-  {w:'disparity',m:'Sự chênh lệch rõ ràng',e:'A wage disparity exists between genders.',s:'gap, difference, inequality'},
-  {w:'substantiate',m:'Chứng minh bằng bằng chứng',e:'New data substantiates the claim.',s:'prove, confirm, validate'},
-  {w:'elucidate',m:'Giải thích cặn kẽ, làm rõ',e:'She elucidated the complex theory.',s:'clarify, explain, illuminate'},
+const VD=[
+  {w:'deteriorate',m:'Tr&#x1EDF; n&#xEA;n t&#x1EC7; h&#x01A1;n, xu&#x1ED1;ng c&#x1EA5;p',ex:'Air quality has deteriorated.',sy:'worsen, decline'},
+  {w:'mitigate',m:'Gi&#x1EA3;m thi&#x1EC3;u, l&#xE0;m nh&#x1EB9; b&#x1EDB;t',ex:'Trees help mitigate pollution.',sy:'alleviate, reduce'},
+  {w:'proliferate',m:'Lan r&#x1ED9;ng nhanh ch&#xF3;ng',ex:'Mobile use has proliferated.',sy:'multiply, spread'},
+  {w:'alleviate',m:'L&#xE0;m nh&#x1EB9; b&#x1EDB;t, gi&#x1EA3;m &#x111;i',ex:'Policies should alleviate poverty.',sy:'ease, relieve'},
+  {w:'exacerbate',m:'L&#xE0;m tr&#x1EA7;m tr&#x1ECD;ng th&#xEA;m',ex:'Stress exacerbates health problems.',sy:'worsen, aggravate'},
+  {w:'paramount',m:'Quan tr&#x1ECD;ng nh&#x1EA5;t, t&#x1ED1;i cao',ex:'Safety is of paramount importance.',sy:'supreme, foremost'},
+  {w:'ubiquitous',m:'C&#xF3; m&#x1EB7;t kh&#x1EAF;p n&#x01A1;i',ex:'Smartphones are ubiquitous today.',sy:'omnipresent, pervasive'},
+  {w:'disparity',m:'S&#x1EF1; ch&#xEA;nh l&#x1EC7;ch r&#xF5; r&#xE0;ng',ex:'A wage disparity exists.',sy:'gap, inequality'},
+  {w:'substantiate',m:'Ch&#x1EE9;ng minh b&#x1EB1;ng b&#x1EB1;ng ch&#x1EE9;ng',ex:'New data substantiates the claim.',sy:'prove, validate'},
+  {w:'elucidate',m:'Gi&#x1EA3;i th&#xED;ch c&#x1EB7;n k&#x1EBD;, l&#xE0;m r&#xF5;',ex:'She elucidated the theory.',sy:'clarify, explain'},
 ];
-let vqActive=null;
-function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
+let lastV=null;
+function shuf(a){return[...a].sort(()=>Math.random()-.5)}
 function startVQ(){
-  const pool=VL.filter(v=>v!==vqActive);
+  const pool=VD.filter(v=>v!==lastV);
   const v=pool[Math.floor(Math.random()*pool.length)];
-  vqActive=v;
-  const opts=shuffle([v,...shuffle(VL.filter(x=>x.w!==v.w)).slice(0,3)]);
-  const el=document.getElementById('vq-area');
-  el.innerHTML=`<div style="text-align:center;margin-bottom:18px;">
-    <div style="font-size:1.5rem;font-weight:800;color:var(--cv-d);font-family:'Lora',serif;margin-bottom:3px">${v.w}</div>
-    <div style="font-size:.74rem;color:var(--text3)">Chọn nghĩa đúng:</div>
-  </div>
-  <div class="q-opts">${opts.map((o,i)=>`<button class="q-opt" onclick="ansVQ(this,'${o.w}','${v.w}','${v.e}','${v.s}')">${String.fromCharCode(65+i)}. ${o.m}</button>`).join('')}</div>
-  <div class="exp" id="vq-exp"></div>`;
+  lastV=v;
+  const opts=shuf([v,...shuf(VD.filter(x=>x.w!==v.w)).slice(0,3)]);
+  document.getElementById('vq').innerHTML=`<div style="text-align:center;margin-bottom:18px"><div style="font-size:1.45rem;font-weight:800;color:var(--cv-d);font-family:'Lora',serif;margin-bottom:3px">${v.w}</div><div style="font-size:.73rem;color:var(--tx3)">Ch&#x1ECD;n ngh&#x0129;a &#x111;&#xFA;ng:</div></div><div class="qopts">${opts.map((o,i)=>`<button class="qopt" type="button" onclick="ansV(this,'${o.w}','${v.w}','${v.sy}')">${String.fromCharCode(65+i)}. ${o.m}</button>`).join('')}</div><div class="expbox" id="vexp"></div>`;
 }
-function ansVQ(btn,ch,correct,ex,syn){
+function ansV(btn,ch,correct,syn){
   if(btn.disabled)return;
   const ok=ch===correct;
   btn.classList.add(ok?'ok':'no');
-  if(ok)S.add(20);
-  btn.closest('.q-opts').querySelectorAll('.q-opt').forEach(b=>b.disabled=true);
-  document.getElementById('vq-exp').innerHTML=`${ok?'✅':'❌'} <strong>${correct}</strong> — "${ex}"<br><em style="color:var(--text3)">Synonyms: ${syn}</em>`;
-  document.getElementById('vq-exp').style.display='block';
+  if(ok)A.earn(20);
+  btn.closest('.qopts').querySelectorAll('.qopt').forEach(b=>b.disabled=true);
+  const exp=document.getElementById('vexp');
+  const word=VD.find(v=>v.w===correct);
+  if(exp){exp.innerHTML=`${ok?'&#x2705;':'&#x274C;'} <strong>${correct}</strong> &#x2014; "${word?.ex}"<br><em style="color:var(--tx3)">Synonyms: ${syn}</em>`;exp.style.display='block'}
 }
-
 /* AI */
-const SYS='Bạn là giáo viên IELTS chuyên nghiệp 15+ năm kinh nghiệm. Trả lời bằng tiếng Việt, cụ thể, thực tế với ví dụ rõ ràng. Dùng ✅ ❌ 💡 để format dễ đọc. Ví dụ tiếng Anh kèm dịch nghĩa tiếng Việt.';
+const SYS='B&#x1EA1;n l&#xE0; gi&#xE1;o vi&#xEA;n IELTS chuy&#xEA;n nghi&#x1EC7;p 15+ n&#x0103;m kinh nghi&#x1EC7;m. Tr&#x1EA3; l&#x1EDD;i b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t, c&#x1EE5; th&#x1EC3;, th&#x1EF1;c t&#x1EBF; v&#x1EDB;i v&#xED; d&#x1EE5; r&#xF5; r&#xE0;ng. D&#xF9;ng &#x2705; &#x274C; &#x1F4A1; &#x111;&#x1EC3; format d&#x1EC5; &#x111;&#x1ECD;c. V&#xED; d&#x1EE5; ti&#x1EBF;ng Anh k&#xE8;m d&#x1ECB;ch ti&#x1EBF;ng Vi&#x1EC7;t.';
 const SK={l:'Listening',r:'Reading',w:'Writing',s:'Speaking',v:'Vocabulary'};
-
-async function callAI(prompt,lid,rid){
+async function doAI(prompt,lid,rid){
   const ld=document.getElementById(lid),rp=document.getElementById(rid);
-  if(ld)ld.style.display='flex';if(rp)rp.style.display='none';
+  if(ld)ld.classList.add('on');if(rp)rp.style.display='none';
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:[{role:'user',content:prompt}]})
-    });
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:[{role:'user',content:prompt}]})});
     const d=await res.json();
-    const txt=d.content?.map(c=>c.text||'').join('')||'Có lỗi xảy ra.';
-    if(rp){rp.textContent=txt;rp.style.display='block';}
-    S.add(10);
+    const txt=d.content?.map(c=>c.text||'').join('')||'C&#xF3; l&#x1ED7;i x&#x1EA3;y ra.';
+    if(rp){rp.textContent=txt;rp.style.display='block'}
+    A.earn(10);
   }catch(e){
-    if(rp){rp.textContent='⚠️ Không thể kết nối AI. Kiểm tra kết nối mạng và thử lại.';rp.style.display='block';}
+    if(rp){rp.textContent='&#x26A0;&#xFE0F; Kh&#xF4;ng th&#x1EC3; k&#x1EBF;t n&#x1ED1;i AI. Ki&#x1EC3;m tra m&#x1EA1;ng v&#xE0; th&#x1EED; l&#x1EA1;i.';rp.style.display='block'}
   }
-  if(ld)ld.style.display='none';
+  if(ld)ld.classList.remove('on');
 }
-function ask(sk){
-  const v=document.getElementById('ti-'+sk)?.value?.trim();
-  if(!v){toast('Vui lòng nhập câu hỏi!');return;}
-  callAI(`[IELTS ${SK[sk]}] ${v}`,'tl-'+sk,'tr-'+sk);
+function callAI(sk){
+  const v=document.getElementById('ai-'+sk)?.value?.trim();
+  if(!v){toast('Vui l&#xF2;ng nh&#x1EAD;p c&#xE2;u h&#x1ECF;i!');return}
+  doAI('[IELTS '+SK[sk]+'] '+v,'ld-'+sk,'rs-'+sk);
 }
-function qk(sk,prompt){
-  const inp=document.getElementById('ti-'+sk);
+function quickQ(sk,prompt){
+  const inp=document.getElementById('ai-'+sk);
   if(inp)inp.value=prompt;
-  callAI(prompt,'tl-'+sk,'tr-'+sk);
+  doAI(prompt,'ld-'+sk,'rs-'+sk);
 }
 function gradeW(){
-  const v=document.getElementById('ti-w')?.value?.trim();
-  if(!v||v.length<80){toast('Vui lòng nhập bài viết đầy đủ hơn!');return;}
-  const p=`Chấm bài IELTS Writing sau theo 4 tiêu chí (Task Achievement/Response, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy). Cho band score từng tiêu chí và overall band. Trích dẫn câu cụ thể trong bài khi nhận xét điểm mạnh và điểm yếu. Đề xuất 3 cải thiện cụ thể nhất để nâng band.\n\nBài viết:\n${v}`;
-  callAI(p,'tl-w','tr-w');
+  const v=document.getElementById('ai-w')?.value?.trim();
+  if(!v||v.length<80){toast('Vui l&#xF2;ng nh&#x1EAD;p b&#xE0;i vi&#x1EBF;t &#x111;&#x1EA7;y &#x111;&#x1EE7; h&#x01A1;n!');return}
+  const p='Ch&#x1EA5;m b&#xE0;i IELTS Writing sau theo 4 ti&#xEA;u ch&#xED; (Task Achievement/Response, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy). Cho band score t&#x1EEB;ng ti&#xEA;u ch&#xED; v&#xE0; overall. Tr&#xED;ch d&#x1EAB;n c&#xE2;u c&#x1EE5; th&#x1EC3; trong b&#xE0;i khi nh&#x1EAD;n x&#xE9;t. &#x110;&#x1EC1; xu&#x1EA5;t 3 c&#x1EA3;i thi&#x1EC7;n c&#x1EE5; th&#x1EC3; nh&#x1EA5;t.\n\nB&#xE0;i vi&#x1EBF;t:\n'+v;
+  doAI(p,'ld-w','rs-w');
 }
-function spModel(){
-  const v=document.getElementById('ti-s')?.value?.trim();
-  const p=v?`Cho feedback Band 7 cho câu trả lời Speaking này và viết model answer nâng cấp lên Band 7.5:\n${v}`:'Tạo 1 câu hỏi Speaking Part 2 Cue Card ngẫu nhiên và model answer Band 7.5 chi tiết bằng tiếng Việt';
-  callAI(p,'tl-s','tr-s');
+function modelAnswer(){
+  const v=document.getElementById('ai-s')?.value?.trim();
+  const p=v?'Cho feedback Band 7 cho c&#xE2;u tr&#x1EA3; l&#x1EDD;i Speaking n&#xE0;y v&#xE0; vi&#x1EBF;t model answer n&#xE2;ng c&#x1EA5;p l&#xEA;n Band 7.5:\n'+v:'T&#x1EA1;o 1 c&#xE2;u h&#x1ECF;i Speaking Part 2 Cue Card ng&#x1EAB;u nhi&#xEA;n v&#xE0; model answer Band 7.5 chi ti&#x1EBF;t b&#x1EB1;ng ti&#x1EBF;ng Vi&#x1EC7;t';
+  doAI(p,'ld-s','rs-s');
 }
-
-/* TOAST */
+/* TOAST &#x2014; FIX: force reflow for animation reset */
+let toastT=null;
 function toast(msg){
-  let t=document.querySelector('.toast-el');
-  if(!t){t=document.createElement('div');t.className='toast-el';document.body.appendChild(t);}
-  t.textContent=msg;
-  clearTimeout(t._t);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
-  t._t=setTimeout(()=>t.classList.remove('show'),2200);
+  let el=document.querySelector('.toast');
+  if(!el){el=document.createElement('div');el.className='toast';document.body.appendChild(el)}
+  el.textContent=msg;
+  el.classList.remove('show');
+  clearTimeout(toastT);
+  void el.offsetWidth;
+  el.classList.add('show');
+  toastT=setTimeout(()=>el.classList.remove('show'),2400);
 }
-
 /* INIT */
 document.addEventListener('DOMContentLoaded',()=>{
-  su();calcBand();initRQ();
+  syncUI();calcBand();initQuiz();
 });
 </script>
 </body>
