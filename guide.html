@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hướng dẫn tự học thông minh — BandUp</title>
+<meta name="description" content="Cách tự học IELTS hiệu quả: xác định band, đặt mục tiêu, học chủ động, lịch học mẫu, sổ tay lỗi sai, chiến lược thi và One Skill Retake.">
+<!--
+BANDUP · guide.html · v1.0
+Trang này thuộc dự án BandUp, tuân theo DEV CONTRACT ghi trong index.html.
+Guide KHÔNG có bài học tick tiến độ (index loại guide khỏi bảng tiến độ),
+nên KHÔNG ghi bandup.manifest.*. Checklist khởi động dùng key riêng:
+  bandup.guide.checklist → JSON array các item id đã tick
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F6F1;
+  --card:#FFFFFF;
+  --ink:#12283A;
+  --ink-soft:#4A5D6E;
+  --line:#DCE0D6;
+  --accent:#FFD64D;
+  --accent-deep:#E8B400;
+  --c-fd:#3C6E9C;
+  --c-rd:#0E7C5B;
+  --c-wr:#C05621;
+  --c-sp:#B03A66;
+  --c-ls:#5A4FB5;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-body:"Be Vietnam Pro",system-ui,sans-serif;
+  --font-mono:"Space Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+/* Thanh tiến trình đọc */
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99;transition:width .1s linear}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,246,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+/* Hero gọn */
+.hero{padding:52px 0 36px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--accent);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.8rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:14px;max-width:20ch}
+.hero p.lead{font-size:1.04rem;color:var(--ink-soft);max-width:42rem}
+.hero .meta{margin-top:18px;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);display:flex;gap:18px;flex-wrap:wrap}
+
+/* Bố cục 2 cột */
+.layout{display:grid;grid-template-columns:250px 1fr;gap:44px;padding:44px 0 20px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr;gap:28px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+@media(max-width:900px){.toc{position:static}}
+.toc h2{font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.toc a{display:flex;gap:9px;align-items:baseline;text-decoration:none;font-size:.84rem;color:var(--ink-soft);padding:6px 8px;border-radius:7px;border-left:3px solid transparent}
+.toc a .n{font-family:var(--font-mono);font-size:.66rem;font-weight:700;min-width:18px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a.active{background:var(--paper);color:var(--ink);border-left-color:var(--accent);font-weight:600}
+
+/* Nội dung */
+.content{min-width:0}
+.content section{padding:8px 0 40px;scroll-margin-top:84px}
+.content h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.35rem,2.6vw,1.75rem);letter-spacing:-.02em;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.content h2 .num{flex:none;font-family:var(--font-mono);font-size:.72rem;font-weight:700;width:34px;height:34px;border-radius:9px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.content h3{font-family:var(--font-display);font-weight:700;font-size:1.08rem;margin:22px 0 10px}
+.content p{margin-bottom:14px;max-width:70ch}
+.content p.tight{margin-bottom:8px}
+.content ul,.content ol{margin:0 0 14px 22px;max-width:68ch}
+.content li{margin-bottom:8px}
+.content strong{font-weight:700}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.term{font-family:var(--font-mono);font-size:.86em;font-weight:700}
+
+/* Bảng */
+.tbl-scroll{overflow-x:auto;margin:16px 0 20px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:520px}
+th{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:12px 14px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600;white-space:nowrap}
+td .mono{font-family:var(--font-mono);font-size:.8rem}
+
+/* Callout */
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--card);padding:15px 18px;border-radius:11px;font-size:.93rem;margin:16px 0 20px;box-shadow:var(--shadow);max-width:70ch}
+.call.warn{border-left-color:#B23A3A}
+.call b:first-child{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--ink-soft)}
+
+/* Vòng lặp học */
+.loop{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:18px 0 22px}
+.loop .node{flex:1;min-width:150px;background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.loop .node b{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.08em;display:block;margin-bottom:6px}
+.loop .node span{font-size:.82rem;color:var(--ink-soft);line-height:1.5;display:block}
+.loop .arr{align-self:center;font-family:var(--font-mono);font-weight:700;color:var(--ink-soft)}
+@media(max-width:760px){.loop{flex-direction:column}.loop .arr{transform:rotate(90deg);align-self:flex-start;margin-left:22px}}
+
+/* Mini card kỹ năng */
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 8px}
+@media(max-width:760px){.skills{grid-template-columns:1fr}}
+.skill{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);padding:20px 20px 20px 24px;box-shadow:var(--shadow);position:relative}
+.skill .spine{position:absolute;left:0;top:16px;bottom:16px;width:5px;border-radius:0 4px 4px 0;background:var(--sc,var(--ink))}
+.skill h3{margin:0 0 10px;font-size:1.02rem;color:var(--sc,var(--ink))}
+.skill ul{margin:0 0 0 18px}
+.skill li{font-size:.88rem;margin-bottom:7px}
+
+/* Checklist */
+.checklist{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-top:8px}
+.checklist .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.checklist .head b{font-family:var(--font-mono);font-size:.8rem}
+.ck{display:flex;gap:12px;align-items:flex-start;padding:11px 10px;border-radius:10px;cursor:pointer;transition:background .15s}
+.ck:hover{background:var(--paper)}
+.ck input{appearance:none;flex:none;width:22px;height:22px;margin-top:2px;border:2px solid var(--ink);border-radius:7px;background:var(--card);cursor:pointer;display:grid;place-content:center}
+.ck input::after{content:"✓";font-family:var(--font-mono);font-weight:700;font-size:.85rem;color:var(--ink);transform:scale(0);transition:transform .15s}
+.ck input:checked{background:var(--accent)}
+.ck input:checked::after{transform:scale(1)}
+.ck span{font-size:.93rem}
+.ck input:checked+span{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:rgba(18,40,58,.4)}
+
+/* Tóm tắt */
+.summary{background:var(--ink);color:#F2F4EE;border-radius:var(--radius);padding:28px;margin-top:8px}
+.summary h3{font-family:var(--font-display);font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:10px;color:#fff}
+.summary h3 .flash{width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.7rem;font-weight:700}
+.summary ol{margin-left:20px}
+.summary li{margin-bottom:9px;font-size:.94rem;color:#DDE3DA}
+.summary li b{color:#fff}
+
+/* Điều hướng cuối trang */
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:34px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:transform .15s,box-shadow .15s,background .15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:36px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .6s ease both}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="BandUp — về trang chủ"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="index.html#lotrinh">Lộ trình</a>
+      <a href="index.html#tiendo">Tiến độ</a>
+      <a class="cta" href="index.html">Trang chủ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap rise">
+      <span class="eyebrow">BandUp · Bước 0 · Đọc trước khi học</span>
+      <h1>Hướng dẫn tự học thông minh</h1>
+      <p class="lead">Đây là bài duy nhất trên web không dạy tiếng Anh — nó dạy <mark>cách học</mark>. 15 phút ở đây sẽ tiết kiệm cho bạn hàng chục giờ học sai cách phía sau.</p>
+      <div class="meta"><span>⏱ ~15 phút đọc</span><span>✎ Cập nhật 08/2026</span><span>☑ Có checklist khởi động cuối bài</span></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <!-- MỤC LỤC -->
+    <aside class="toc" aria-label="Mục lục">
+      <h2>Mục lục</h2>
+      <a href="#s1"><span class="n">01</span> Xác định điểm xuất phát</a>
+      <a href="#s2"><span class="n">02</span> Mục tiêu &amp; thời gian thực tế</a>
+      <a href="#s3"><span class="n">03</span> 4 nguyên tắc học chủ động</a>
+      <a href="#s4"><span class="n">04</span> Vòng lặp học với BandUp</a>
+      <a href="#s5"><span class="n">05</span> Lịch học mẫu theo quỹ thời gian</a>
+      <a href="#s6"><span class="n">06</span> Chiến lược riêng từng kỹ năng</a>
+      <a href="#s7"><span class="n">07</span> Từ vựng: học ít, nhớ lâu</a>
+      <a href="#s8"><span class="n">08</span> Sổ tay lỗi sai</a>
+      <a href="#s9"><span class="n">09</span> Ngày thi &amp; One Skill Retake</a>
+      <a href="#s10"><span class="n">10</span> 5 sai lầm khiến tự học thất bại</a>
+      <a href="#s11"><span class="n">☑</span> Checklist khởi động</a>
+      <a href="#s12"><span class="n">★</span> Tóm tắt 1 phút</a>
+    </aside>
+
+    <!-- NỘI DUNG -->
+    <article class="content">
+
+      <section id="s1">
+        <h2><span class="num">01</span> Xác định điểm xuất phát</h2>
+        <p><strong>Đừng đoán — hãy đo.</strong> Vào web luyện đề của bạn (hoặc đề mẫu chính thức miễn phí của British Council / IDP), làm trọn vẹn 1 bài <span class="term">Listening</span> và 1 bài <span class="term">Reading</span> đúng thời gian thi, chấm theo answer key rồi quy ra band. Đó là hai kỹ năng tự chấm được chính xác.</p>
+        <p><span class="term">Writing</span> và <span class="term">Speaking</span> khó tự chấm hơn: hãy đối chiếu bài của mình với <mark>band descriptors</mark> (tiêu chí chấm công khai của IELTS) hoặc nhờ người giỏi hơn nhận xét — và coi kết quả là <em>ước lượng</em>, không phải con số chắc chắn.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Mốc band</th><th>Cảm giác nhận biết nhanh</th></tr>
+          <tr><td>Dưới 4.0</td><td>Câu đơn còn sai; đọc đoạn ngắn quen thuộc vẫn phải tra nhiều từ; nghe chỉ bắt được từ rời rạc.</td></tr>
+          <tr><td>4.0 – 5.0</td><td>Hiểu ý chính chủ đề quen thuộc; viết được đoạn đơn giản nhưng lỗi dày; nói được câu ngắn, hay bí từ.</td></tr>
+          <tr><td>5.0 – 5.5</td><td>Giao tiếp cơ bản ổn; đọc – nghe hụt ở đoạn dài, từ học thuật; viết thiếu liên kết, lập luận mỏng.</td></tr>
+          <tr><td>6.0 – 6.5</td><td>Dùng ngôn ngữ khá linh hoạt; sai sót vẫn xuất hiện đều nhưng ít cản trở giao tiếp; đọc hiểu hầu hết văn bản.</td></tr>
+          <tr><td>7.0</td><td>Linh hoạt và chính xác; lỗi thưa, thường tự sửa được; xử lý tốt ngôn ngữ phức tạp, trừu tượng.</td></tr>
+        </table></div>
+        <div class="call"><b>Quy tắc vào cửa</b>Kết quả đo quyết định điểm vào: dưới 4.0 → học <strong>Nền tảng → 4.0</strong> trước. Từ 4.0 trở lên → vào thẳng nhóm band của từng kỹ năng. Lưu ý: band từng kỹ năng có thể lệch nhau 1.0+ — hãy học theo band <strong>của từng kỹ năng</strong>, không theo overall.</div>
+      </section>
+
+      <section id="s2">
+        <h2><span class="num">02</span> Mục tiêu &amp; thời gian thực tế</h2>
+        <p>Đặt mục tiêu = band tổ chức yêu cầu <strong>+ 0.5 dự phòng</strong> nếu thời gian cho phép (phòng ngày thi kém phong độ). Sau đó nhìn thẳng vào quỹ thời gian — bảng dưới là <em>ước lượng để lập kế hoạch</em>, không phải cam kết; tốc độ thật phụ thuộc nền tảng và cường độ luyện chủ động:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Quãng tăng band</th><th>Giờ học tập trung (ước lượng)</th><th>Nếu học 2h/ngày</th></tr>
+          <tr><td>3.x → 4.5</td><td>150 – 250 giờ</td><td>~3 – 4 tháng</td></tr>
+          <tr><td>4.5 → 5.5</td><td>200 – 300 giờ</td><td>~4 – 5 tháng</td></tr>
+          <tr><td>5.5 → 6.5</td><td>250 – 350 giờ</td><td>~5 – 6 tháng</td></tr>
+          <tr><td>6.5 → 7.0</td><td>150 – 250 giờ</td><td>~3 – 4 tháng</td></tr>
+        </table></div>
+        <p>Càng lên cao mỗi 0.5 band càng "đắt" giờ hơn — vì bạn phải sửa những lỗi đã thành thói quen, không chỉ học thêm cái mới.</p>
+        <div class="call"><b>Nguyên tắc vàng</b><strong>Đều đặn thắng cường độ.</strong> 1 giờ mỗi ngày suốt 7 ngày hiệu quả hơn hẳn 7 giờ dồn vào thứ Bảy — não cần gặp lại kiến thức nhiều lần cách quãng để chuyển vào trí nhớ dài hạn.</div>
+      </section>
+
+      <section id="s3">
+        <h2><span class="num">03</span> Bốn nguyên tắc học chủ động</h2>
+        <p>Khác biệt giữa người tự học tăng band và người "học mãi không lên" gần như luôn nằm ở 4 điều này:</p>
+        <ol>
+          <li><strong>Tỉ lệ 1:2.</strong> Cứ 10 phút đọc bài giảng / xem video, dành <mark>20 phút luyện chủ động</mark>: làm câu hỏi, viết ra, nói thành tiếng. Chỉ xem và gật gù tạo cảm giác giỏi lên — nhưng điểm đứng yên.</li>
+          <li><strong>Tạo sản phẩm rồi soi lỗi.</strong> Writing và Speaking chỉ tăng khi bạn tạo ra bài viết / đoạn nói thật của mình rồi đối chiếu tiêu chí, tìm lỗi. Không có sản phẩm = không có gì để tiến bộ.</li>
+          <li><strong>Lặp lại ngắt quãng (spaced repetition).</strong> Gặp lại kiến thức sau 1 ngày → 3 ngày → 1 tuần → 1 tháng. Web này có nút tick từng bài chính là để bạn quay lại ôn có hệ thống.</li>
+          <li><strong>Một nguồn chính.</strong> Chọn BandUp làm xương sống kiến thức, web luyện đề của bạn làm "phòng gym". Sưu tầm 10 nguồn khác nhau là hình thức trì hoãn phổ biến nhất của người tự học.</li>
+        </ol>
+      </section>
+
+      <section id="s4">
+        <h2><span class="num">04</span> Vòng lặp học với BandUp</h2>
+        <p>Toàn bộ việc tự học của bạn là một vòng lặp 4 nhịp, xoay liên tục đến ngày thi:</p>
+        <div class="loop">
+          <div class="node"><b>1 · HỌC</b><span>Học 1 bài đúng nhóm band trên BandUp, làm 3–5 câu luyện cuối bài trước khi mở đáp án.</span></div>
+          <span class="arr">→</span>
+          <div class="node"><b>2 · LUYỆN</b><span>Sang web ôn thi của bạn, làm phần đề tương ứng với kiến thức vừa học.</span></div>
+          <span class="arr">→</span>
+          <div class="node"><b>3 · SOI</b><span>Chấm bài, ghi từng lỗi vào sổ tay lỗi sai (mục 08) — kể cả câu đúng nhờ đoán.</span></div>
+          <span class="arr">→</span>
+          <div class="node"><b>4 · VÁ</b><span>Lỗi thuộc bài nào trên BandUp, quay lại đúng bài đó học lại rồi mới đi tiếp.</span></div>
+        </div>
+        <ul>
+          <li>Chỉ tick <strong>"Đã học xong"</strong> khi làm đúng ≥ 4/5 câu luyện <em>và</em> tự giải thích được vì sao đúng.</li>
+          <li><strong>Học đúng nhóm band.</strong> Đang 5.0 thì học 5.0 → 5.5, đừng nhảy lên 6.5 → 7.0: tài liệu band cao đòi hỏi nền bạn chưa có, hiểu lơ mơ thì nhớ không sâu.</li>
+          <li>Thứ tự kỹ năng web gợi ý: <span class="term">Reading → Writing → Speaking → Listening</span> — Reading nuôi từ vựng và cấu trúc cho Writing, vốn đó lại phục vụ Speaking; Listening luyện nền đều mỗi ngày. Nhưng nếu một kỹ năng đang kéo tụt điểm tổng, hãy ưu tiên nó trước.</li>
+        </ul>
+      </section>
+
+      <section id="s5">
+        <h2><span class="num">05</span> Lịch học mẫu theo quỹ thời gian</h2>
+        <p>Hai khung mẫu — chọn theo quỹ giờ thật của bạn rồi giữ <strong>cố định khung giờ</strong> (não hình thành thói quen theo giờ, không theo quyết tâm):</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Ngày</th><th>Gói 60 phút/ngày (đi làm, đi học)</th><th>Gói 120 phút/ngày (nước rút)</th></tr>
+          <tr><td>Thứ 2</td><td>Reading 40' + từ vựng 20'</td><td>Reading 60' + Listening 40' + từ vựng 20'</td></tr>
+          <tr><td>Thứ 3</td><td>Writing 40' + từ vựng 20'</td><td>Writing 80' + từ vựng 20' + ôn sổ lỗi 20'</td></tr>
+          <tr><td>Thứ 4</td><td>Listening 40' + từ vựng 20'</td><td>Speaking 60' + Reading 40' + từ vựng 20'</td></tr>
+          <tr><td>Thứ 5</td><td>Speaking 40' + từ vựng 20'</td><td>Writing 80' + Listening 20' + từ vựng 20'</td></tr>
+          <tr><td>Thứ 6</td><td>Kỹ năng yếu nhất 40' + từ vựng 20'</td><td>Kỹ năng yếu nhất 80' + từ vựng 20' + Speaking 20'</td></tr>
+          <tr><td>Thứ 7</td><td>Luyện đề 1 phần (web ôn thi) + chấm</td><td>Luyện đề 2 phần + chấm kỹ + ghi sổ lỗi</td></tr>
+          <tr><td>Chủ nhật</td><td>Đọc lại sổ lỗi + ôn flashcard tuần</td><td>Mock 1 kỹ năng đúng giờ + tổng kết tuần</td></tr>
+        </table></div>
+        <ul>
+          <li><strong>15–20 phút từ vựng mỗi ngày là bất di bất dịch</strong> — đó là dòng máu nuôi cả 4 kỹ năng.</li>
+          <li>Nghe podcast / xem video tiếng Anh lúc di chuyển là <em>gia vị</em> tốt, nhưng không tính vào giờ học chính — học chính phải có luyện tập và soi lỗi.</li>
+        </ul>
+      </section>
+
+      <section id="s6">
+        <h2><span class="num">06</span> Chiến lược riêng từng kỹ năng</h2>
+        <p>Chi tiết đầy đủ nằm trong 4 module, nhưng đây là "kim chỉ nam" mỗi kỹ năng — biết trước sẽ giúp bạn học module nhanh hơn:</p>
+        <div class="skills">
+          <div class="skill" style="--sc:var(--c-rd)"><span class="spine"></span>
+            <h3>Reading</h3>
+            <ul>
+              <li>Kẻ thù thật là <strong>thời gian</strong>, không phải từ khó — mọi kỹ thuật đều xoay quanh 60 phút / 40 câu.</li>
+              <li>Đề gần như không lặp từ của bài — luyện nhận diện <span class="term">paraphrase</span> là kỹ năng số 1.</li>
+              <li>Đọc câu hỏi trước, đọc đoạn sau; mỗi câu sai phải trả lời được "bẫy nằm ở từ nào".</li>
+            </ul>
+          </div>
+          <div class="skill" style="--sc:var(--c-wr)"><span class="spine"></span>
+            <h3>Writing</h3>
+            <ul>
+              <li>Học <strong>tiêu chí chấm</strong> trước khi viết bài đầu tiên — viết mà không biết luật chấm là viết mù.</li>
+              <li>Dưới 6.5, điểm mất chủ yếu ở <span class="term">Task Response</span> và <span class="term">Coherence</span>, không phải thiếu từ "khủng".</li>
+              <li>Viết lại 1 bài cũ cho tốt hơn &gt; viết 3 bài mới. Thi trên máy? Luyện <strong>gõ</strong> từ tuần đầu.</li>
+            </ul>
+          </div>
+          <div class="skill" style="--sc:var(--c-sp)"><span class="spine"></span>
+            <h3>Speaking</h3>
+            <ul>
+              <li><strong>Ghi âm chính mình 5 phút mỗi ngày</strong> rồi nghe lại — khó chịu nhưng tăng band nhanh nhất.</li>
+              <li>Trả lời theo khung: Ý → Lý do → Ví dụ. Hết ý là bệnh của phương pháp, không phải của bạn.</li>
+              <li>Đừng học thuộc bài mẫu nguyên văn — giám khảo nhận ra ngay và sẽ hỏi xoáy ra ngoài kịch bản.</li>
+            </ul>
+          </div>
+          <div class="skill" style="--sc:var(--c-ls)"><span class="spine"></span>
+            <h3>Listening</h3>
+            <ul>
+              <li>Nghe lần 1 như thi thật; lần 2 mở <span class="term">transcript</span>, gạch đúng chỗ tai đã bỏ sót.</li>
+              <li>Chép chính tả 2–3 câu mỗi ngày — bài tập nhỏ, hiệu quả lớn với âm nối và âm cuối.</li>
+              <li>Bẫy kinh điển: người nói <em>tự sửa ý</em> ("...thứ Ba, à không, thứ Năm") — đáp án nằm sau chữ sửa.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="s7">
+        <h2><span class="num">07</span> Từ vựng: học ít, nhớ lâu</h2>
+        <ul>
+          <li><strong>Học theo cụm, không học từ rời.</strong> Nhớ <span class="term">heavy traffic</span>, <span class="term">take responsibility</span> — không nhớ "heavy = nặng" rồi tự ghép sai thành <em>strong traffic</em>. Cụm từ (collocation) là thứ giám khảo nghe ra ngay.</li>
+          <li><strong>10–15 từ/cụm mới mỗi ngày</strong> là mức trần nhớ bền với đa số người học — tham hơn chỉ tạo ảo giác chăm chỉ.</li>
+          <li>Mỗi từ mới phải kèm <strong>1 câu ví dụ do chính bạn đặt</strong>, gắn với đời sống của bạn — não nhớ thứ liên quan tới mình.</li>
+          <li>Ôn bằng <span class="term">flashcard</span> ngắt quãng: app (Anki, Quizlet) hoặc hộp giấy 3 ngăn (mỗi ngày / 3 ngày / 1 tuần).</li>
+          <li><strong>"Biết" chưa phải "dùng được":</strong> mỗi tuần ép 10 từ mới học vào 1 đoạn viết hoặc 1 phút nói. Từ nào chưa từng dùng là từ chưa thuộc.</li>
+        </ul>
+      </section>
+
+      <section id="s8">
+        <h2><span class="num">08</span> Sổ tay lỗi sai — thói quen đáng giá nhất</h2>
+        <p>Nếu chỉ giữ lại một thói quen từ toàn bộ bài này, hãy giữ thói quen này. Một cuốn sổ (hoặc file), kẻ 4 cột:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Lỗi của tôi</th><th>Sửa đúng</th><th>Vì sao sai</th><th>Gặp ở đâu</th></tr>
+          <tr><td class="mono">He go to school</td><td class="mono">He goes to school</td><td>Quên chia động từ ngôi 3 số ít</td><td>Writing T2, 05/08</td></tr>
+          <tr><td class="mono">discuss about</td><td class="mono">discuss</td><td>discuss không đi với about</td><td>Speaking P3, 06/08</td></tr>
+          <tr><td class="mono">Chọn B (đúng là C)</td><td class="mono">→ C</td><td>Không thấy "however" đảo ý ở câu sau</td><td>Reading passage 2, 07/08</td></tr>
+        </table></div>
+        <ul>
+          <li>Ghi <strong>cả câu đúng nhờ đoán</strong> — đoán trúng là lỗ hổng được che, không phải kiến thức.</li>
+          <li>Chủ nhật đọc lại toàn bộ sổ tuần đó. <mark>Đề thi thật của bạn nằm trong cuốn sổ này</mark> — vì bạn sẽ sai lại đúng những lỗi cũ.</li>
+          <li>Một lỗi lặp đến lần thứ 3 = tín hiệu quay lại học lại đúng bài liên quan trên BandUp.</li>
+        </ul>
+      </section>
+
+      <section id="s9">
+        <h2><span class="num">09</span> Ngày thi &amp; One Skill Retake</h2>
+        <h3>Chọn hình thức thi ngay từ đầu</h3>
+        <p>Tại Việt Nam nên ưu tiên <strong>thi trên máy tính</strong>: kết quả nhanh (1–2 ngày), nhiều ca thi, và quan trọng nhất — mở quyền dùng <span class="term">One Skill Retake (OSR)</span>. Quyết định này ảnh hưởng cách luyện: thi máy thì phải luyện <strong>gõ bài Writing</strong> và đọc trên màn hình từ những tuần đầu.</p>
+        <h3>One Skill Retake là vũ khí chiến lược</h3>
+        <ul>
+          <li>OSR cho phép <strong>thi lại đúng 1 kỹ năng</strong> trong vòng <strong>60 ngày</strong> kể từ ngày thi gốc (áp dụng bài thi trên máy, 1 lần cho mỗi bài thi).</li>
+          <li>Chi phí thấp hơn hẳn thi lại cả 4 kỹ năng (giữa 2026 tại VN: khoảng 2,94 triệu so với ~4,66 triệu — <em>kiểm tra lại phí và điều kiện trên trang IDP / British Council trước khi đăng ký vì có thể thay đổi</em>).</li>
+          <li><strong>Cách dùng thông minh:</strong> khi 3 kỹ năng đã chạm mục tiêu, chỉ 1 kỹ năng hụt — đừng luyện dàn trải. Dồn toàn lực 3–6 tuần vào kỹ năng đó rồi thi OSR.</li>
+          <li>Trước khi trông cậy vào OSR, xác nhận <strong>tổ chức bạn nộp điểm có chấp nhận kết quả OSR</strong> không.</li>
+        </ul>
+        <h3>2 tuần cuối trước ngày thi</h3>
+        <ul>
+          <li>Làm ít nhất <strong>2 bài mock trọn vẹn đúng giờ, đúng thứ tự thi thật</strong> (Listening → Reading → Writing liền mạch) — sức bền 3 giờ là thứ phải luyện riêng.</li>
+          <li>Ngừng học kiến thức mới ở tuần cuối; chỉ ôn sổ lỗi, flashcard và giữ nhịp mỗi kỹ năng mỗi ngày một ít.</li>
+        </ul>
+      </section>
+
+      <section id="s10">
+        <h2><span class="num">10</span> Năm sai lầm khiến tự học thất bại</h2>
+        <ol>
+          <li><strong>Sưu tầm thay vì học.</strong> Ổ cứng đầy tài liệu, đầu trống kiến thức. Một nguồn chính + một web luyện đề là đủ.</li>
+          <li><strong>Chỉ luyện đề, bỏ học kiến thức.</strong> Cày đề giúp quen format rồi chạm trần rất nhanh — vì đề không dạy bạn thứ bạn chưa biết.</li>
+          <li><strong>Nhảy band tài liệu.</strong> Đang 5.0 học tài liệu 7.0 để "cho nhanh" — kết quả là chép mẫu mà không dùng lại được.</li>
+          <li><strong>Né Speaking vì ngại.</strong> Trớ trêu là với người luyện đều (ghi âm mỗi ngày), Speaking thường là kỹ năng tăng nhanh nhất.</li>
+          <li><strong>Học bù cuối tuần.</strong> 6 giờ thứ Bảy không cứu nổi 5 ngày bỏ trống — trí nhớ dài hạn cần tần suất, không cần anh hùng.</li>
+        </ol>
+        <div class="call warn"><b>Tự kiểm tra</b>Nếu sau 2 tuần bạn chưa từng: ghi âm mình nói, viết trọn 1 đoạn văn, hoặc mở sổ lỗi — bạn đang <em>xem</em> IELTS, chưa <em>học</em> IELTS. Quay lại mục 03.</div>
+      </section>
+
+      <section id="s11">
+        <h2><span class="num">☑</span> Checklist khởi động</h2>
+        <p class="tight">Tick xong toàn bộ danh sách này là bạn chính thức vào lộ trình. Trạng thái được lưu trên trình duyệt của bạn.</p>
+        <div class="checklist">
+          <div class="head"><span>Hoàn thành để bắt đầu</span><b id="ckCount">0/8</b></div>
+          <label class="ck"><input type="checkbox" data-ck="c1"><span>Làm 1 bài Listening + 1 bài Reading đúng giờ để đo band xuất phát</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c2"><span>Ghi ra band mục tiêu (+0.5 dự phòng) và ngày thi dự kiến</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c3"><span>Chọn khung giờ học cố định hằng ngày (60' hoặc 120')</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c4"><span>Tạo sổ tay lỗi sai 4 cột (sổ giấy hoặc file)</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c5"><span>Chọn công cụ flashcard (app hoặc hộp giấy 3 ngăn)</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c6"><span>Lưu sẵn web luyện đề của bạn cạnh BandUp</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c7"><span>Quyết định hình thức thi (khuyên: trên máy) và tìm hiểu One Skill Retake</span></label>
+          <label class="ck"><input type="checkbox" data-ck="c8"><span>Mở module đầu tiên đúng band của mình và học bài số 1</span></label>
+        </div>
+      </section>
+
+      <section id="s12">
+        <h2><span class="num">★</span> Tóm tắt 1 phút</h2>
+        <div class="summary">
+          <h3><span class="flash">60s</span> Nếu chỉ nhớ 7 điều</h3>
+          <ol>
+            <li><b>Đo band trước khi học</b> — vào đúng cửa theo từng kỹ năng.</li>
+            <li><b>Đều đặn thắng cường độ</b> — 1h/ngày × 7 &gt; 7h thứ Bảy.</li>
+            <li><b>Tỉ lệ 1:2</b> — 10 phút học, 20 phút luyện chủ động.</li>
+            <li><b>Vòng lặp Học → Luyện → Soi → Vá</b>, xoay đến ngày thi.</li>
+            <li><b>Từ vựng theo cụm</b>, 10–15/ngày, ôn ngắt quãng.</li>
+            <li><b>Sổ lỗi sai là đề thi thật của bạn</b> — đọc lại mỗi tuần.</li>
+            <li><b>Thi trên máy + One Skill Retake</b> là chiến lược, không phải cứu cánh.</li>
+          </ol>
+        </div>
+      </section>
+
+      <div class="endnav">
+        <a class="btn btn-primary" id="nextBtn" href="foundation.html" aria-disabled="true" title="Trang đang được xây dựng">Tiếp theo: Nền tảng → 4.0</a>
+        <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+      </div>
+
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v1.0 · guide · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* Thanh tiến trình đọc */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+  readbar.style.width = pct + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* Scroll-spy cho mục lục */
+var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc a"));
+var sections = tocLinks.map(function(a){
+  return document.querySelector(a.getAttribute("href"));
+}).filter(Boolean);
+if("IntersectionObserver" in window){
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        tocLinks.forEach(function(a){
+          a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id);
+        });
+      }
+    });
+  }, {rootMargin:"-20% 0px -70% 0px"});
+  sections.forEach(function(s){ spy.observe(s); });
+}
+
+/* Checklist khởi động — lưu localStorage */
+var CK_KEY = "bandup.guide.checklist";
+function loadCk(){
+  try{
+    var raw = localStorage.getItem(CK_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveCk(set){
+  try{ localStorage.setItem(CK_KEY, JSON.stringify(Array.from(set))); }catch(e){}
+}
+var ckBoxes = Array.prototype.slice.call(document.querySelectorAll("[data-ck]"));
+var ckState = loadCk();
+function renderCkCount(){
+  var done = 0;
+  ckBoxes.forEach(function(b){ if(b.checked) done++; });
+  document.getElementById("ckCount").textContent = done + "/" + ckBoxes.length;
+}
+ckBoxes.forEach(function(b){
+  b.checked = ckState.has(b.dataset.ck);
+  b.addEventListener("change", function(){
+    if(b.checked) ckState.add(b.dataset.ck); else ckState.delete(b.dataset.ck);
+    saveCk(ckState);
+    renderCkCount();
+  });
+});
+renderCkCount();
+
+/* Mở khoá nút "Tiếp theo" khi foundation.html tồn tại */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var btn = document.getElementById("nextBtn");
+  fetch("foundation.html", {method:"HEAD", cache:"no-store"})
+    .then(function(r){
+      if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>
