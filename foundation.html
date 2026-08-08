@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nền tảng → 4.0 — BandUp</title>
+<meta name="description" content="Module nền tảng IELTS cho người mất gốc: 9 bài ngữ pháp cốt lõi, 4 bài từ vựng thiết yếu, 3 bài phát âm cơ bản và bài kiểm tra sẵn sàng lên band 4.0.">
+<!--
+BANDUP · foundation.html · v1.0
+Tuân theo DEV CONTRACT trong index.html.
+- Page key: foundation · Band code: f · Lesson id: fd-f-01 → fd-f-17
+- Khi load: tự ghi bandup.manifest.foundation (quét .lesson[data-lesson])
+- Tick "Đã học xong" ghi vào bandup.done (dùng chung toàn site)
+- Mở rộng sau: đánh số tiếp fd-f-18, fd-f-19... KHÔNG đổi id đã có
+  (đổi id sẽ làm mất tiến độ người học đã tick)
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F6F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#DCE0D6; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
+  --done-bg:#FFFBEA;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-body:"Be Vietnam Pro",system-ui,sans-serif;
+  --font-mono:"Space Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,246,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+/* Hero */
+.hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-fd);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--c-fd)}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:44rem;margin-bottom:20px}
+.pageprog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:34rem}
+.pageprog .track{flex:1;min-width:180px;height:10px;background:var(--card);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.pageprog .track i{display:block;height:100%;width:0%;background:var(--c-fd);border-radius:99px;transition:width .5s ease}
+.pageprog b{font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:262px 1fr;gap:40px;padding:40px 0 20px;align-items:start}
+@media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:920px){.toc{position:static;max-height:none}}
+.toc h2{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2:first-child{margin-top:0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.82rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
+.toc a.done{color:var(--ink)}
+.toc a.done .st{color:var(--accent-deep);font-weight:700}
+
+/* Chương & bài học */
+.content{min-width:0}
+.chapter{padding:6px 0 34px;scroll-margin-top:84px}
+.chapter>h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chapter>h2 .cnum{flex:none;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--c-fd);color:#fff}
+.chapter>h2 .ccount{margin-left:auto;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);font-weight:400}
+.chapter>p.cintro{color:var(--ink-soft);font-size:.94rem;max-width:66ch;margin-bottom:18px}
+
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;scroll-margin-top:84px;position:relative}
+.lesson .spine{position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 4px 4px 0;background:var(--c-fd)}
+.lesson.done{background:var(--done-bg)}
+.lesson.done .spine{background:var(--accent-deep)}
+.ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ls-id{font-family:var(--font-mono);font-size:.64rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
+.ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
+.lesson.done .ls-check{opacity:1;transform:scale(1)}
+.lesson p{margin-bottom:12px;max-width:70ch}
+.lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
+.lesson li{margin-bottom:7px}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.en{font-family:var(--font-mono);font-size:.88em;font-weight:700}
+.ipa{font-family:var(--font-mono);font-size:.86em;color:var(--c-fd)}
+.vs{color:var(--ink-soft);font-size:.86em}
+
+/* Bảng */
+.tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
+th{font-family:var(--font-mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.k{font-weight:700;white-space:nowrap}
+td .mono,.mono{font-family:var(--font-mono);font-size:.84em}
+tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;padding:7px 12px}
+
+/* Callout lỗi hay mắc */
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);padding:13px 16px;border-radius:11px;font-size:.9rem;margin:14px 0;max-width:70ch}
+.call.warn{border-left-color:#B23A3A;background:#FCF6F4}
+.call b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink-soft)}
+.wrong{color:#B23A3A;text-decoration:line-through;text-decoration-thickness:1.5px}
+.right{color:var(--c-rd);font-weight:700}
+
+/* Quiz */
+.quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
+.quiz>b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.q{margin-bottom:12px;max-width:70ch}
+.q .qq{margin-bottom:6px}
+details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
+summary{cursor:pointer;list-style:none;font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:8px 12px;color:var(--ink-soft);user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent-deep)}
+details[open] summary::before{content:"▾ "}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:10px 14px;font-size:.9rem}
+details .ans p{margin-bottom:6px}
+
+/* Nút tick */
+.ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
+.tickbtn{font-family:var(--font-body);font-weight:600;font-size:.88rem;padding:10px 18px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
+.lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
+
+/* Cổng ra */
+.gate{background:var(--ink);color:#E8ECE5;border-radius:var(--radius);padding:26px;margin-top:6px}
+.gate h4{font-family:var(--font-display);font-size:1.05rem;color:#fff;margin-bottom:10px}
+.gate table{min-width:0;font-size:.88rem}
+.gate td,.gate th{border-color:#2C4258;color:#E8ECE5}
+.gate th{background:transparent;color:#9FB2C2;border-bottom-color:#5A7186}
+.gate td.k{color:var(--accent)}
+
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:30px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:.15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px 0 42px;margin-top:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="guide.html">Hướng dẫn tự học</a>
+      <a href="index.html#tiendo">Tiến độ</a>
+      <a class="cta" href="index.html#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Module nền tảng · Chung cho 4 kỹ năng</span>
+      <h1>Nền tảng → <em>4.0</em></h1>
+      <p class="lead">Dành cho người mất gốc hoặc dưới 4.0: 9 bài ngữ pháp cốt lõi, 4 bài từ vựng thiết yếu (~140 từ và cụm), 3 bài phát âm chữa đúng bệnh của người Việt — và 1 bài kiểm tra để biết khi nào bạn sẵn sàng bước vào 4 kỹ năng. Học lần lượt, đừng nhảy cóc.</p>
+      <div class="pageprog"><div class="track"><i id="pgBar"></i></div><b id="pgText">0/17 bài · 0%</b></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Chương 1 · Ngữ pháp</h2>
+      <a href="#fd-f-01" data-toc="fd-f-01"><span class="st">○</span>Trật tự câu S–V–O</a>
+      <a href="#fd-f-02" data-toc="fd-f-02"><span class="st">○</span>"To be" &amp; động từ thường</a>
+      <a href="#fd-f-03" data-toc="fd-f-03"><span class="st">○</span>Hiện tại đơn &amp; tiếp diễn</a>
+      <a href="#fd-f-04" data-toc="fd-f-04"><span class="st">○</span>Quá khứ đơn</a>
+      <a href="#fd-f-05" data-toc="fd-f-05"><span class="st">○</span>Tương lai &amp; hoàn thành</a>
+      <a href="#fd-f-06" data-toc="fd-f-06"><span class="st">○</span>Danh từ &amp; a/an/the</a>
+      <a href="#fd-f-07" data-toc="fd-f-07"><span class="st">○</span>Phủ định &amp; câu hỏi</a>
+      <a href="#fd-f-08" data-toc="fd-f-08"><span class="st">○</span>Giới từ in/on/at</a>
+      <a href="#fd-f-09" data-toc="fd-f-09"><span class="st">○</span>So sánh &amp; liên từ</a>
+      <h2>Chương 2 · Từ vựng</h2>
+      <a href="#fd-f-10" data-toc="fd-f-10"><span class="st">○</span>Con người &amp; sinh hoạt</a>
+      <a href="#fd-f-11" data-toc="fd-f-11"><span class="st">○</span>Nhà ở, ăn uống, sức khoẻ</a>
+      <a href="#fd-f-12" data-toc="fd-f-12"><span class="st">○</span>Thành phố, du lịch, thời tiết</a>
+      <a href="#fd-f-13" data-toc="fd-f-13"><span class="st">○</span>Động từ vàng &amp; cụm đi kèm</a>
+      <h2>Chương 3 · Phát âm</h2>
+      <a href="#fd-f-14" data-toc="fd-f-14"><span class="st">○</span>Nguyên âm dễ lẫn</a>
+      <a href="#fd-f-15" data-toc="fd-f-15"><span class="st">○</span>Âm cuối &amp; đuôi -s/-ed</a>
+      <a href="#fd-f-16" data-toc="fd-f-16"><span class="st">○</span>Trọng âm &amp; nhịp câu</a>
+      <h2>Cổng ra</h2>
+      <a href="#fd-f-17" data-toc="fd-f-17"><span class="st">○</span>Kiểm tra: Sẵn sàng 4.0?</a>
+    </aside>
+
+    <div class="content">
+
+    <!-- ═══════════ CHƯƠNG 1 · NGỮ PHÁP CỐT LÕI ═══════════ -->
+    <section class="chapter" id="ch1">
+      <h2><span class="cnum">CHƯƠNG 1</span> Ngữ pháp cốt lõi <span class="ccount" data-chcount="ch1">0/9</span></h2>
+      <p class="cintro">Không phải toàn bộ ngữ pháp tiếng Anh — chỉ phần lõi đủ để tạo câu đúng. Mỗi bài đều có mục "lỗi người Việt hay mắc": đó chính là những lỗi khiến bài thi mất điểm nhiều nhất ở band thấp.</p>
+
+      <!-- 01 -->
+      <article class="lesson" id="fd-f-01" data-lesson="fd-f-01" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-01</span><h3>Trật tự câu S–V–O — luật số 1 của tiếng Anh</h3><span class="ls-check">✓</span></div>
+        <p>Câu tiếng Anh xếp theo trật tự cố định: <mark>S (chủ ngữ) – V (động từ) – O (tân ngữ)</mark>. Tiếng Việt cũng vậy ở câu cơ bản ("Tôi ăn cơm" → <span class="en">I eat rice</span>), nên bạn có lợi thế — nhưng tiếng Anh <em>nghiêm ngặt</em> hơn nhiều: đổi chỗ là đổi nghĩa hoặc sai hẳn.</p>
+        <ul>
+          <li><span class="en">The dog bites the man.</span> (Con chó cắn người) ≠ <span class="en">The man bites the dog.</span> — cùng 5 từ, đảo chỗ là đảo nghĩa.</li>
+          <li>Tính từ đứng <strong>trước</strong> danh từ — ngược tiếng Việt: nhà đẹp → <span class="en">a beautiful house</span> <span class="vs">(không phải "a house beautiful")</span>.</li>
+          <li>Trạng ngữ nơi chốn đứng trước thời gian, thường ở cuối câu: <span class="en">I study English at home every evening.</span></li>
+        </ul>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>Dịch từng từ theo tiếng Việt: <span class="wrong">I very like coffee</span> → <span class="right">I really like coffee</span> / <span class="right">I like coffee very much</span>. "Very" không đứng trước động từ.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Sắp xếp thành câu đúng: <span class="en">English / every day / she / studies</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>She studies English every day.</b> — S (She) + V (studies) + O (English) + trạng ngữ thời gian ở cuối.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu nào đúng? (A) <span class="en">He has a car new.</span> (B) <span class="en">He has a new car.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B.</b> Tính từ (new) luôn đứng trước danh từ (car).</p></div></details></div>
+          <div class="q"><p class="qq">3. Sửa lỗi: <span class="en">I very love this song.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I really love this song</b> (hoặc <b>I love this song very much</b>).</p></div></details></div>
+          <div class="q"><p class="qq">4. Dịch: "Mẹ tôi nấu bữa tối ở nhà."</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>My mother cooks dinner at home.</b> — S–V–O + nơi chốn cuối câu.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 02 -->
+      <article class="lesson" id="fd-f-02" data-lesson="fd-f-02" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-02</span><h3>"To be" và động từ thường — hai hệ thống tách biệt</h3><span class="ls-check">✓</span></div>
+        <p>Tiếng Anh có 2 loại "động từ" và <mark>mỗi câu cơ bản chỉ dùng một trong hai</mark>: <strong>to be</strong> (am/is/are) mô tả trạng thái, danh tính, vị trí; <strong>động từ thường</strong> mô tả hành động.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Chủ ngữ</th><th>To be (hiện tại)</th><th>To be (quá khứ)</th><th>Ví dụ</th></tr>
+          <tr><td class="k">I</td><td>am</td><td>was</td><td class="mono">I am a student.</td></tr>
+          <tr><td class="k">He / She / It</td><td>is</td><td>was</td><td class="mono">She is tired.</td></tr>
+          <tr><td class="k">You / We / They</td><td>are</td><td>were</td><td class="mono">They are at home.</td></tr>
+        </table></div>
+        <p>Động từ thường đi thẳng sau chủ ngữ, <strong>không kèm be</strong>: <span class="en">She works in a bank.</span> <span class="vs">(không phải "She is work")</span></p>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>① Bỏ "be" khi tả trạng thái: <span class="wrong">He tired</span> → <span class="right">He is tired</span>. ② Thêm "be" thừa trước động từ thường: <span class="wrong">I am agree with you</span> → <span class="right">I agree with you</span>.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền am/is/are: <span class="en">My parents ___ teachers.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>are</b> — "my parents" = they.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu nào đúng? (A) <span class="en">She is have a dog.</span> (B) <span class="en">She has a dog.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B.</b> "Has" là động từ thường — không đi kèm "is".</p></div></details></div>
+          <div class="q"><p class="qq">3. Sửa lỗi: <span class="en">I very happy today.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I am very happy today.</b> — "happy" là tính từ, cần "be" phía trước.</p></div></details></div>
+          <div class="q"><p class="qq">4. Dịch: "Chúng tôi đã ở Đà Nẵng tuần trước." (dùng be quá khứ)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>We were in Da Nang last week.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 03 -->
+      <article class="lesson" id="fd-f-03" data-lesson="fd-f-03" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-03</span><h3>Hiện tại đơn &amp; hiện tại tiếp diễn</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th></th><th>Hiện tại đơn (Present Simple)</th><th>Hiện tại tiếp diễn (Present Continuous)</th></tr>
+          <tr><td class="k">Dùng khi</td><td>Thói quen, sự thật, lịch trình</td><td>Đang diễn ra ngay lúc nói / quanh thời điểm này</td></tr>
+          <tr><td class="k">Công thức</td><td class="mono">S + V(s/es)</td><td class="mono">S + am/is/are + V-ing</td></tr>
+          <tr><td class="k">Dấu hiệu</td><td class="mono">every day, usually, often, always, never</td><td class="mono">now, right now, at the moment, Look!</td></tr>
+          <tr><td class="k">Ví dụ</td><td class="mono">I drink coffee every morning.</td><td class="mono">I am drinking coffee now.</td></tr>
+        </table></div>
+        <ul>
+          <li>Ngôi 3 số ít (he/she/it) thêm <mark>-s/-es</mark> vào động từ: <span class="en">He works. She watches TV.</span></li>
+          <li>Động từ trạng thái <strong>không</strong> dùng tiếp diễn: <span class="en">like, love, hate, know, want, need, understand</span> → <span class="wrong">I am knowing him</span> → <span class="right">I know him</span>.</li>
+        </ul>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>Quên -s ngôi 3 số ít — lỗi bị trừ điểm Writing/Speaking nhiều nhất ở band thấp: <span class="wrong">My father work in a hospital</span> → <span class="right">My father works in a hospital</span>.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền dạng đúng: <span class="en">She usually (go) ___ to bed at 11 p.m.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>goes</b> — thói quen (usually) + ngôi 3 số ít.</p></div></details></div>
+          <div class="q"><p class="qq">2. Điền dạng đúng: <span class="en">Listen! Someone (sing) ___ in the next room.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>is singing</b> — đang diễn ra lúc nói (Listen!).</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu nào sai và vì sao? (A) <span class="en">I am wanting a new phone.</span> (B) <span class="en">I want a new phone.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>A sai</b> — "want" là động từ trạng thái, không dùng V-ing.</p></div></details></div>
+          <div class="q"><p class="qq">4. Chọn: <span class="en">Water (boil / boils) at 100°C.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>boils</b> — sự thật hiển nhiên dùng hiện tại đơn; "water" = it.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 04 -->
+      <article class="lesson" id="fd-f-04" data-lesson="fd-f-04" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-04</span><h3>Quá khứ đơn &amp; 20 động từ bất quy tắc cốt lõi</h3><span class="ls-check">✓</span></div>
+        <p>Kể chuyện đã xảy ra → <strong>Past Simple</strong>: động từ quy tắc thêm <mark>-ed</mark> (<span class="en">worked, played, studied</span>); động từ bất quy tắc phải thuộc lòng. Dấu hiệu: <span class="en">yesterday, last week, in 2020, two days ago</span>.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nguyên mẫu</th><th>Quá khứ</th><th>Nguyên mẫu</th><th>Quá khứ</th></tr>
+          <tr><td class="k">go</td><td>went</td><td class="k">say</td><td>said</td></tr>
+          <tr><td class="k">have</td><td>had</td><td class="k">know</td><td>knew</td></tr>
+          <tr><td class="k">do</td><td>did</td><td class="k">think</td><td>thought</td></tr>
+          <tr><td class="k">make</td><td>made</td><td class="k">give</td><td>gave</td></tr>
+          <tr><td class="k">take</td><td>took</td><td class="k">find</td><td>found</td></tr>
+          <tr><td class="k">get</td><td>got</td><td class="k">tell</td><td>told</td></tr>
+          <tr><td class="k">come</td><td>came</td><td class="k">buy</td><td>bought</td></tr>
+          <tr><td class="k">see</td><td>saw</td><td class="k">eat</td><td>ate</td></tr>
+          <tr><td class="k">meet</td><td>met</td><td class="k">write</td><td>wrote</td></tr>
+          <tr><td class="k">read</td><td>read <span class="ipa">/red/</span></td><td class="k">drink</td><td>drank</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Quy tắc quan trọng</b>Phủ định và câu hỏi quá khứ dùng <span class="en">did</span> + động từ <strong>nguyên mẫu</strong>: <span class="wrong">Did you went?</span> → <span class="right">Did you go?</span> · <span class="wrong">I didn't saw him</span> → <span class="right">I didn't see him</span>. "Did" đã gánh phần quá khứ rồi.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">Yesterday I (go) ___ to the cinema with my friends.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>went</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Sửa lỗi: <span class="en">She didn't came to class last Monday.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>She didn't come to class last Monday.</b> — sau didn't dùng nguyên mẫu.</p></div></details></div>
+          <div class="q"><p class="qq">3. Điền: <span class="en">We (buy) ___ a new TV two weeks ago.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>bought</b>.</p></div></details></div>
+          <div class="q"><p class="qq">4. Đặt câu hỏi cho câu trả lời: <span class="en">"I met her at the library."</span> (Where...?)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Where did you meet her?</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 05 -->
+      <article class="lesson" id="fd-f-05" data-lesson="fd-f-05" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-05</span><h3>Tương lai (will / be going to) &amp; hiện tại hoàn thành nhập môn</h3><span class="ls-check">✓</span></div>
+        <ul>
+          <li><span class="en">will + V</span>: quyết định ngay lúc nói, lời hứa, dự đoán — <span class="en">I'll help you. It will rain tomorrow.</span></li>
+          <li><span class="en">be going to + V</span>: kế hoạch đã định trước, dấu hiệu rõ ràng — <span class="en">I'm going to visit Hue next month.</span></li>
+          <li><span class="en">have/has + V3</span> (Present Perfect) ở mức nhập môn: <strong>kinh nghiệm</strong> (<span class="en">I have been to Sapa. Have you ever eaten sushi?</span>) và <strong>việc vừa xảy ra còn liên quan hiện tại</strong> (<span class="en">I have just finished my homework.</span>) — dấu hiệu: <span class="en">ever, never, just, already, yet</span>.</li>
+        </ul>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nguyên mẫu</th><th>V3 (quá khứ phân từ)</th><th>Nguyên mẫu</th><th>V3</th></tr>
+          <tr><td class="k">go</td><td>gone</td><td class="k">see</td><td>seen</td></tr>
+          <tr><td class="k">do</td><td>done</td><td class="k">eat</td><td>eaten</td></tr>
+          <tr><td class="k">have</td><td>had</td><td class="k">be</td><td>been</td></tr>
+          <tr><td class="k">make</td><td>made</td><td class="k">write</td><td>written</td></tr>
+          <tr><td class="k">take</td><td>taken</td><td class="k">know</td><td>known</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>Dùng hoàn thành khi có mốc thời gian quá khứ cụ thể: <span class="wrong">I have seen him yesterday</span> → <span class="right">I saw him yesterday</span>. Có "yesterday / last... / ago / in 2020" → luôn là Past Simple.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Chọn: <span class="en">The phone is ringing! I (will / am going to) answer it.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>will</b> — quyết định ngay lúc nói.</p></div></details></div>
+          <div class="q"><p class="qq">2. Chọn: <span class="en">Look at those dark clouds. It (will / is going to) rain.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>is going to</b> — dự đoán dựa trên dấu hiệu nhìn thấy.</p></div></details></div>
+          <div class="q"><p class="qq">3. Điền: <span class="en">I (never / be) ___ to Phu Quoc.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>have never been</b> — kinh nghiệm tính đến hiện tại.</p></div></details></div>
+          <div class="q"><p class="qq">4. Sửa lỗi: <span class="en">She has finished the report last night.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>She finished the report last night.</b> — có mốc "last night".</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-05">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 06 -->
+      <article class="lesson" id="fd-f-06" data-lesson="fd-f-06" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-06</span><h3>Danh từ đếm được / không đếm được &amp; mạo từ a/an/the</h3><span class="ls-check">✓</span></div>
+        <ul>
+          <li><strong>Đếm được</strong>: có số nhiều (<span class="en">a book → two books</span>). Quy tắc: +s; +es sau s/sh/ch/x/o (<span class="en">watches, boxes</span>); phụ âm + y → ies (<span class="en">city → cities</span>). Bất quy tắc: <span class="en">man→men, woman→women, child→children, person→people, foot→feet, tooth→teeth</span>.</li>
+          <li><strong>Không đếm được</strong>: không thêm s, không dùng a/an — <span class="en">water, money, information, advice, news, furniture, homework, traffic</span>. Đo lường bằng <span class="en">some / much / a lot of / a piece of / a glass of</span>.</li>
+          <li><span class="en">a</span> trước âm phụ âm, <span class="en">an</span> trước âm nguyên âm — tính theo <mark>âm, không theo chữ cái</mark>: <span class="en">an hour</span> <span class="ipa">/aʊə/</span>, <span class="en">a university</span> <span class="ipa">/juː-/</span>.</li>
+          <li><span class="en">the</span>: khi cả người nói lẫn người nghe biết đang nói đến cái nào, hoặc vật duy nhất (<span class="en">the sun</span>). Nói chung chung số nhiều / không đếm được → <strong>không dùng mạo từ</strong>: <span class="en">I like music. Dogs are friendly.</span></li>
+        </ul>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b><span class="wrong">an information</span> → <span class="right">some information / a piece of information</span> · <span class="wrong">many money</span> → <span class="right">much money / a lot of money</span> · <span class="wrong">two childs</span> → <span class="right">two children</span>.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Chọn a/an: <span class="en">___ egg, ___ house, ___ hour, ___ university</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>an egg, a house, an hour, a university</b> — "hour" câm h, "university" bắt đầu bằng âm /j/.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu nào đúng? (A) <span class="en">She gave me a good advice.</span> (B) <span class="en">She gave me some good advice.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — advice không đếm được.</p></div></details></div>
+          <div class="q"><p class="qq">3. Viết dạng số nhiều: <span class="en">person, city, watch, foot</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>people, cities, watches, feet</b>.</p></div></details></div>
+          <div class="q"><p class="qq">4. Điền the hoặc để trống (–): <span class="en">I love ___ music. ___ moon is bright tonight.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>– music; The moon</b> — nói chung không mạo từ; vật duy nhất dùng the.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-06">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 07 -->
+      <article class="lesson" id="fd-f-07" data-lesson="fd-f-07" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-07</span><h3>Câu phủ định &amp; câu hỏi — trợ động từ do/does/did</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Dạng</th><th>Hiện tại</th><th>Quá khứ</th></tr>
+          <tr><td class="k">Khẳng định</td><td class="mono">She likes tea.</td><td class="mono">She liked tea.</td></tr>
+          <tr><td class="k">Phủ định</td><td class="mono">She doesn't like tea.</td><td class="mono">She didn't like tea.</td></tr>
+          <tr><td class="k">Câu hỏi Yes/No</td><td class="mono">Does she like tea?</td><td class="mono">Did she like tea?</td></tr>
+          <tr><td class="k">Câu hỏi Wh-</td><td class="mono">What does she like?</td><td class="mono">What did she like?</td></tr>
+        </table></div>
+        <ul>
+          <li>Riêng <strong>to be</strong> tự đảo, không cần do: <span class="en">Is she tired? She isn't tired.</span></li>
+          <li>Từ hỏi hay dùng: <span class="en">What, Where, When, Why, Who, How</span> + <span class="en">How much</span> (không đếm được), <span class="en">How many</span> (đếm được), <span class="en">How often</span> (tần suất), <span class="en">How long</span> (bao lâu).</li>
+        </ul>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>① Quên trợ động từ: <span class="wrong">What you do?</span> → <span class="right">What do you do?</span> ② Phủ định kép: <span class="wrong">I don't know nothing</span> → <span class="right">I don't know anything</span>. ③ Sau does/doesn't động từ về nguyên mẫu: <span class="wrong">Does she likes...?</span> → <span class="right">Does she like...?</span></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Chuyển sang phủ định: <span class="en">He plays football on Sundays.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>He doesn't play football on Sundays.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. Đặt câu hỏi Yes/No: <span class="en">They went to Ha Long Bay last summer.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Did they go to Ha Long Bay last summer?</b></p></div></details></div>
+          <div class="q"><p class="qq">3. Chọn: <span class="en">(How much / How many) students are there in your class?</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>How many</b> — students đếm được.</p></div></details></div>
+          <div class="q"><p class="qq">4. Sửa lỗi: <span class="en">Where she is from?</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Where is she from?</b> — với to be, đảo be lên trước chủ ngữ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-07">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 08 -->
+      <article class="lesson" id="fd-f-08" data-lesson="fd-f-08" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-08</span><h3>Giới từ in / on / at — thời gian &amp; nơi chốn</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th></th><th>AT (điểm)</th><th>ON (bề mặt / ngày)</th><th>IN (bao quanh / khoảng)</th></tr>
+          <tr><td class="k">Thời gian</td><td class="mono">at 7 a.m. · at noon · at night</td><td class="mono">on Monday · on 2 September · on my birthday</td><td class="mono">in July · in 2026 · in summer · in the morning</td></tr>
+          <tr><td class="k">Nơi chốn</td><td class="mono">at school · at the bus stop · at home · at work</td><td class="mono">on the table · on the wall · on Tran Duy Hung Street</td><td class="mono">in Hanoi · in the room · in a car</td></tr>
+        </table></div>
+        <ul>
+          <li>Mẹo nhớ thời gian: <strong>at</strong> giờ cụ thể → <strong>on</strong> ngày/thứ → <strong>in</strong> khoảng lớn hơn (tháng, năm, mùa, buổi).</li>
+          <li>Ngoại lệ phương tiện: <span class="en">in a car / in a taxi</span> nhưng <span class="en">on a bus / on a train / on a plane</span>.</li>
+          <li>Cụm cố định hay gặp trong đề: <span class="en">on time</span> (đúng giờ), <span class="en">in time</span> (kịp lúc), <span class="en">on TV</span>, <span class="en">on the internet</span>, <span class="en">at the weekend</span>.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">The meeting starts ___ 9 a.m. ___ Monday.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>at 9 a.m. on Monday.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. Điền: <span class="en">I was born ___ 2005, ___ April.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>in 2005, in April.</b></p></div></details></div>
+          <div class="q"><p class="qq">3. Chọn: <span class="en">She is (in / on / at) the bus now.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>on</b> — bus/train/plane dùng on.</p></div></details></div>
+          <div class="q"><p class="qq">4. Điền: <span class="en">He is ___ work, but his keys are ___ the table ___ the kitchen.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>at work · on the table · in the kitchen.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-08">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 09 -->
+      <article class="lesson" id="fd-f-09" data-lesson="fd-f-09" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-09</span><h3>So sánh hơn / nhất &amp; liên từ nối ý</h3><span class="ls-check">✓</span></div>
+        <ul>
+          <li><strong>So sánh hơn</strong>: tính từ ngắn + <span class="en">-er than</span> (<span class="en">cheaper than</span>); tính từ dài dùng <span class="en">more ... than</span> (<span class="en">more expensive than</span>).</li>
+          <li><strong>So sánh nhất</strong>: <span class="en">the + -est</span> / <span class="en">the most ...</span> (<span class="en">the cheapest, the most beautiful</span>).</li>
+          <li>Bất quy tắc: <span class="en">good → better → the best</span> · <span class="en">bad → worse → the worst</span> · <span class="en">far → further → the furthest</span>.</li>
+          <li>Bằng nhau: <span class="en">as ... as</span> — <span class="en">This bag is as expensive as that one.</span></li>
+          <li><strong>Liên từ nối ý</strong> — bước đệm từ câu đơn lên câu ghép (rất quan trọng cho Writing band 4–5): <span class="en">and</span> (và), <span class="en">but</span> (nhưng), <span class="en">or</span> (hoặc), <span class="en">so</span> (nên), <span class="en">because</span> (vì), <span class="en">when</span> (khi), <span class="en">if</span> (nếu). Ví dụ: <span class="en">I stayed at home because it rained heavily.</span></li>
+        </ul>
+        <div class="call warn"><b class="tag">Lỗi người Việt hay mắc</b>① So sánh kép: <span class="wrong">more better</span> → <span class="right">better</span>. ② Nhầm <span class="en">than</span> (hơn) với <span class="en">then</span> (sau đó). ③ Dùng "because" mở đầu rồi bỏ lửng mệnh đề chính.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">Motorbikes are (cheap) ___ cars.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>cheaper than</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Điền: <span class="en">This is (interesting) ___ book I have ever read.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>the most interesting</b>.</p></div></details></div>
+          <div class="q"><p class="qq">3. Nối 2 câu bằng liên từ phù hợp: <span class="en">I was tired. I went to bed early.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I was tired, so I went to bed early.</b> (hoặc: I went to bed early because I was tired.)</p></div></details></div>
+          <div class="q"><p class="qq">4. Sửa lỗi: <span class="en">My English is more better now.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>My English is better now.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-09">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ CHƯƠNG 2 · TỪ VỰNG THIẾT YẾU ═══════════ -->
+    <section class="chapter" id="ch2">
+      <h2><span class="cnum">CHƯƠNG 2</span> Từ vựng thiết yếu <span class="ccount" data-chcount="ch2">0/4</span></h2>
+      <p class="cintro">~140 từ và cụm nền tảng theo chủ đề đời sống — đúng các chủ đề IELTS hỏi nhiều nhất ở Speaking Part 1 và Listening Section 1. Học theo quy tắc trong Hướng dẫn: 10–15 mục/ngày, luôn học cả cụm, tự đặt 1 câu ví dụ cho mỗi mục.</p>
+
+      <!-- 10 -->
+      <article class="lesson" id="fd-f-10" data-lesson="fd-f-10" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-10</span><h3>Con người &amp; sinh hoạt hằng ngày</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Từ / cụm</th><th>Nghĩa</th><th>Cụm hay gặp</th></tr>
+          <tr class="sub"><td colspan="3">Gia đình &amp; con người</td></tr>
+          <tr><td class="k">parents</td><td>bố mẹ</td><td class="mono">live with my parents</td></tr>
+          <tr><td class="k">relatives</td><td>họ hàng</td><td class="mono">visit relatives at Tet</td></tr>
+          <tr><td class="k">children</td><td>con cái</td><td class="mono">bring up children (nuôi dạy)</td></tr>
+          <tr><td class="k">get married</td><td>kết hôn</td><td class="mono">get married to somebody</td></tr>
+          <tr><td class="k">look after</td><td>chăm sóc</td><td class="mono">look after my grandmother</td></tr>
+          <tr><td class="k">grow up</td><td>lớn lên</td><td class="mono">I grew up in Hanoi</td></tr>
+          <tr><td class="k">friendly</td><td>thân thiện</td><td class="mono">a friendly neighbour</td></tr>
+          <tr><td class="k">close</td><td>thân thiết</td><td class="mono">a close friend</td></tr>
+          <tr class="sub"><td colspan="3">Công việc</td></tr>
+          <tr><td class="k">job</td><td>công việc</td><td class="mono">find / get a job</td></tr>
+          <tr><td class="k">salary</td><td>lương</td><td class="mono">a high / low salary</td></tr>
+          <tr><td class="k">colleague</td><td>đồng nghiệp</td><td class="mono">get on well with colleagues</td></tr>
+          <tr><td class="k">office</td><td>văn phòng</td><td class="mono">work in an office</td></tr>
+          <tr><td class="k">apply</td><td>nộp đơn</td><td class="mono">apply for a job</td></tr>
+          <tr><td class="k">meeting</td><td>cuộc họp</td><td class="mono">have / attend a meeting</td></tr>
+          <tr><td class="k">busy</td><td>bận rộn</td><td class="mono">have a busy day</td></tr>
+          <tr><td class="k">retire</td><td>nghỉ hưu</td><td class="mono">retire at the age of 60</td></tr>
+          <tr class="sub"><td colspan="3">Học tập</td></tr>
+          <tr><td class="k">subject</td><td>môn học</td><td class="mono">my favourite subject</td></tr>
+          <tr><td class="k">exam</td><td>kỳ thi</td><td class="mono">pass / fail an exam</td></tr>
+          <tr><td class="k">take a course</td><td>học một khoá</td><td class="mono">take an online course</td></tr>
+          <tr><td class="k">homework</td><td>bài tập về nhà</td><td class="mono">do my homework</td></tr>
+          <tr><td class="k">knowledge</td><td>kiến thức</td><td class="mono">gain knowledge</td></tr>
+          <tr><td class="k">improve</td><td>cải thiện</td><td class="mono">improve my English</td></tr>
+          <tr><td class="k">practise</td><td>luyện tập</td><td class="mono">practise speaking every day</td></tr>
+          <tr><td class="k">university</td><td>đại học</td><td class="mono">go to university</td></tr>
+          <tr class="sub"><td colspan="3">Thói quen hằng ngày</td></tr>
+          <tr><td class="k">get up</td><td>thức dậy</td><td class="mono">get up early</td></tr>
+          <tr><td class="k">have breakfast</td><td>ăn sáng</td><td class="mono">have breakfast at 7</td></tr>
+          <tr><td class="k">go to work</td><td>đi làm</td><td class="mono">go to work by bus</td></tr>
+          <tr><td class="k">housework</td><td>việc nhà</td><td class="mono">do the housework</td></tr>
+          <tr><td class="k">free time</td><td>thời gian rảnh</td><td class="mono">in my free time</td></tr>
+          <tr><td class="k">hobby</td><td>sở thích</td><td class="mono">my main hobby is...</td></tr>
+          <tr><td class="k">relax</td><td>thư giãn</td><td class="mono">relax at the weekend</td></tr>
+          <tr><td class="k">go to bed</td><td>đi ngủ</td><td class="mono">go to bed late</td></tr>
+        </table></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">I ___ up at 6 and ___ breakfast with my family.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>get up · have breakfast</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Chọn từ đúng: Người cùng làm việc với bạn ở công ty là <span class="en">(customer / colleague / relative)</span>.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>colleague</b> — customer: khách hàng; relative: họ hàng.</p></div></details></div>
+          <div class="q"><p class="qq">3. Điền: <span class="en">She ___ for a job at a bank last month and ___ the interview.</span> (apply / pass)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>applied · passed</b> — nhớ chia quá khứ.</p></div></details></div>
+          <div class="q"><p class="qq">4. Dịch dùng cụm đã học: "Trong thời gian rảnh, tôi trông em gái."</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>In my free time, I look after my younger sister.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-10">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 11 -->
+      <article class="lesson" id="fd-f-11" data-lesson="fd-f-11" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-11</span><h3>Nhà ở, ăn uống, mua sắm, sức khoẻ</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Từ / cụm</th><th>Nghĩa</th><th>Cụm hay gặp</th></tr>
+          <tr class="sub"><td colspan="3">Nhà ở</td></tr>
+          <tr><td class="k">apartment</td><td>căn hộ</td><td class="mono">rent an apartment</td></tr>
+          <tr><td class="k">furniture</td><td>nội thất (không đếm được)</td><td class="mono">buy new furniture</td></tr>
+          <tr><td class="k">comfortable</td><td>thoải mái</td><td class="mono">a comfortable sofa</td></tr>
+          <tr><td class="k">move house</td><td>chuyển nhà</td><td class="mono">we moved house last year</td></tr>
+          <tr><td class="k">neighbourhood</td><td>khu dân cư</td><td class="mono">a quiet neighbourhood</td></tr>
+          <tr><td class="k">suburb</td><td>ngoại ô</td><td class="mono">live in the suburbs</td></tr>
+          <tr class="sub"><td colspan="3">Ăn uống</td></tr>
+          <tr><td class="k">meal</td><td>bữa ăn</td><td class="mono">have three meals a day</td></tr>
+          <tr><td class="k">dish</td><td>món ăn</td><td class="mono">a traditional dish</td></tr>
+          <tr><td class="k">delicious</td><td>ngon</td><td class="mono">the food is delicious</td></tr>
+          <tr><td class="k">fresh</td><td>tươi</td><td class="mono">fresh vegetables</td></tr>
+          <tr><td class="k">order</td><td>gọi món / đặt</td><td class="mono">order food online</td></tr>
+          <tr><td class="k">eat out</td><td>ăn ngoài</td><td class="mono">eat out with friends</td></tr>
+          <tr><td class="k">taste</td><td>vị / có vị</td><td class="mono">it tastes really good</td></tr>
+          <tr class="sub"><td colspan="3">Mua sắm</td></tr>
+          <tr><td class="k">price</td><td>giá</td><td class="mono">the price of petrol</td></tr>
+          <tr><td class="k">expensive / cheap</td><td>đắt / rẻ</td><td class="mono">quite expensive</td></tr>
+          <tr><td class="k">discount</td><td>giảm giá</td><td class="mono">get a 50% discount</td></tr>
+          <tr><td class="k">pay</td><td>trả tiền</td><td class="mono">pay in cash / by card</td></tr>
+          <tr><td class="k">customer</td><td>khách hàng</td><td class="mono">serve customers</td></tr>
+          <tr><td class="k">try on</td><td>mặc thử</td><td class="mono">try on a shirt</td></tr>
+          <tr><td class="k">spend</td><td>tiêu (tiền/thời gian)</td><td class="mono">spend money on clothes</td></tr>
+          <tr class="sub"><td colspan="3">Sức khoẻ</td></tr>
+          <tr><td class="k">healthy</td><td>lành mạnh, khoẻ</td><td class="mono">a healthy diet</td></tr>
+          <tr><td class="k">sick / ill</td><td>ốm</td><td class="mono">feel sick</td></tr>
+          <tr><td class="k">see a doctor</td><td>đi khám</td><td class="mono">you should see a doctor</td></tr>
+          <tr><td class="k">medicine</td><td>thuốc</td><td class="mono">take medicine</td></tr>
+          <tr><td class="k">do exercise</td><td>tập thể dục</td><td class="mono">do exercise every day</td></tr>
+          <tr><td class="k">headache</td><td>đau đầu</td><td class="mono">have a headache</td></tr>
+          <tr><td class="k">keep fit</td><td>giữ sức khoẻ / dáng</td><td class="mono">keep fit by running</td></tr>
+        </table></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">We usually ___ out at the weekend, but tonight I'll ___ food online.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>eat out · order</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu nào đúng? (A) <span class="en">I bought some new furnitures.</span> (B) <span class="en">I bought some new furniture.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — furniture không đếm được (ôn lại fd-f-06).</p></div></details></div>
+          <div class="q"><p class="qq">3. Điền: <span class="en">I try to ___ fit by ___ exercise every morning.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>keep · doing</b> — keep fit by doing exercise.</p></div></details></div>
+          <div class="q"><p class="qq">4. Dịch: "Chiếc áo này đắt nhưng tôi được giảm giá 30%."</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>This shirt is expensive, but I got a 30% discount.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-11">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 12 -->
+      <article class="lesson" id="fd-f-12" data-lesson="fd-f-12" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-12</span><h3>Thành phố, giao thông, du lịch, thời tiết</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Từ / cụm</th><th>Nghĩa</th><th>Cụm hay gặp</th></tr>
+          <tr class="sub"><td colspan="3">Giao thông</td></tr>
+          <tr><td class="k">traffic</td><td>giao thông (không đếm được)</td><td class="mono">heavy traffic</td></tr>
+          <tr><td class="k">traffic jam</td><td>tắc đường</td><td class="mono">be stuck in a traffic jam</td></tr>
+          <tr><td class="k">rush hour</td><td>giờ cao điểm</td><td class="mono">during rush hour</td></tr>
+          <tr><td class="k">catch</td><td>bắt (xe)</td><td class="mono">catch a bus</td></tr>
+          <tr><td class="k">ride</td><td>đi (xe máy/xe đạp)</td><td class="mono">ride a motorbike</td></tr>
+          <tr><td class="k">public transport</td><td>phương tiện công cộng</td><td class="mono">use public transport</td></tr>
+          <tr class="sub"><td colspan="3">Thành phố</td></tr>
+          <tr><td class="k">crowded</td><td>đông đúc</td><td class="mono">a crowded street</td></tr>
+          <tr><td class="k">convenient</td><td>thuận tiện</td><td class="mono">convenient for shopping</td></tr>
+          <tr><td class="k">pollution</td><td>ô nhiễm</td><td class="mono">air pollution</td></tr>
+          <tr><td class="k">noisy / quiet</td><td>ồn ào / yên tĩnh</td><td class="mono">a noisy area</td></tr>
+          <tr><td class="k">modern</td><td>hiện đại</td><td class="mono">modern buildings</td></tr>
+          <tr><td class="k">facilities</td><td>tiện ích</td><td class="mono">good public facilities</td></tr>
+          <tr class="sub"><td colspan="3">Du lịch</td></tr>
+          <tr><td class="k">go on a trip</td><td>đi một chuyến</td><td class="mono">go on a trip to Hue</td></tr>
+          <tr><td class="k">book</td><td>đặt (vé/phòng)</td><td class="mono">book a ticket / a hotel</td></tr>
+          <tr><td class="k">stay at</td><td>ở (khách sạn)</td><td class="mono">stay at a hotel</td></tr>
+          <tr><td class="k">go sightseeing</td><td>đi tham quan</td><td class="mono">go sightseeing in the old town</td></tr>
+          <tr><td class="k">tourist attraction</td><td>điểm du lịch</td><td class="mono">a famous tourist attraction</td></tr>
+          <tr><td class="k">luggage</td><td>hành lý (không đếm được)</td><td class="mono">pack my luggage</td></tr>
+          <tr><td class="k">travel abroad</td><td>du lịch nước ngoài</td><td class="mono">travel abroad once a year</td></tr>
+          <tr class="sub"><td colspan="3">Thời tiết</td></tr>
+          <tr><td class="k">weather</td><td>thời tiết (không đếm được)</td><td class="mono">the weather is nice</td></tr>
+          <tr><td class="k">sunny / rainy / cloudy</td><td>nắng / mưa / nhiều mây</td><td class="mono">a sunny day</td></tr>
+          <tr><td class="k">hot and humid</td><td>nóng ẩm</td><td class="mono">summer is hot and humid</td></tr>
+          <tr><td class="k">temperature</td><td>nhiệt độ</td><td class="mono">the temperature rises</td></tr>
+          <tr><td class="k">season</td><td>mùa</td><td class="mono">the rainy season</td></tr>
+          <tr><td class="k">forecast</td><td>dự báo</td><td class="mono">the weather forecast</td></tr>
+        </table></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Điền: <span class="en">I was late because I was stuck in a ___ during ___ hour.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>traffic jam · rush</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Chọn: <span class="en">Hanoi's summer is hot and (humid / crowded / fresh).</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>humid</b>.</p></div></details></div>
+          <div class="q"><p class="qq">3. Điền động từ: <span class="en">We ___ a hotel online and ___ sightseeing on the first day.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>booked · went</b> — chia quá khứ vì kể chuyến đi đã qua.</p></div></details></div>
+          <div class="q"><p class="qq">4. Câu nào đúng? (A) <span class="en">My luggages are heavy.</span> (B) <span class="en">My luggage is heavy.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — luggage không đếm được, đi với is.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-12">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 13 -->
+      <article class="lesson" id="fd-f-13" data-lesson="fd-f-13" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-13</span><h3>Động từ vàng: make · do · have · take · get · go</h3><span class="ls-check">✓</span></div>
+        <p>6 động từ này xuất hiện dày đặc trong mọi kỹ năng, nhưng nghĩa phụ thuộc vào <mark>cụm đi kèm</mark> — dùng sai cặp (như <span class="wrong">make homework</span>) là lỗi lộ band thấp ngay lập tức. Học cả cụm như một từ duy nhất.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Động từ</th><th>Các cụm phải thuộc</th></tr>
+          <tr><td class="k">make</td><td class="mono">make a decision (quyết định) · make a mistake · make money · make friends · make progress (tiến bộ) · make an effort (nỗ lực)</td></tr>
+          <tr><td class="k">do</td><td class="mono">do homework · do the housework · do exercise · do research · do well (làm tốt) · do somebody a favour (giúp)</td></tr>
+          <tr><td class="k">have</td><td class="mono">have breakfast/lunch/dinner · have a shower · have a good time · have a problem · have a look · have a rest</td></tr>
+          <tr><td class="k">take</td><td class="mono">take a photo · take a break · take a bus/taxi · take an exam · take care of (chăm sóc) · take part in (tham gia)</td></tr>
+          <tr><td class="k">get</td><td class="mono">get up · get a job · get better (khá lên) · get married · get on well with (hoà hợp) · get used to (quen với)</td></tr>
+          <tr><td class="k">go</td><td class="mono">go shopping · go abroad · go online · go for a walk · go out with friends · go on holiday</td></tr>
+          <tr><td class="k">khác</td><td class="mono">spend time/money on · look for (tìm) · look after (chăm sóc) · turn on/off · find out (tìm ra) · give up (từ bỏ)</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Mẹo nhớ nhanh</b><span class="en">do</span> thiên về công việc/nghĩa vụ (homework, housework, exercise) · <span class="en">make</span> thiên về tạo ra kết quả (decision, mistake, money, progress).</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Chọn make/do: <span class="en">___ a decision · ___ the housework · ___ progress · ___ research</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>make a decision · do the housework · make progress · do research</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Điền: <span class="en">She ___ part in a speaking club to ___ friends.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>takes · make</b> — take part in, make friends.</p></div></details></div>
+          <div class="q"><p class="qq">3. Sửa lỗi: <span class="en">I need to make my homework before going out.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>do my homework</b>.</p></div></details></div>
+          <div class="q"><p class="qq">4. Điền: <span class="en">It took me a month to get ___ to getting ___ at 5 a.m.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>used · up</b> — get used to + V-ing, get up.</p></div></details></div>
+          <div class="q"><p class="qq">5. Dịch dùng cụm đã học: "Đừng từ bỏ — bạn đang tiến bộ đấy."</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Don't give up — you are making progress.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-13">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ CHƯƠNG 3 · PHÁT ÂM CƠ BẢN ═══════════ -->
+    <section class="chapter" id="ch3">
+      <h2><span class="cnum">CHƯƠNG 3</span> Phát âm cơ bản <span class="ccount" data-chcount="ch3">0/3</span></h2>
+      <p class="cintro">Không dạy cả bảng IPA — chỉ chữa 3 "căn bệnh" phát âm phổ biến nhất của người Việt. Chữa được 3 bệnh này, Listening tự nhiên nghe rõ hơn và Speaking dễ hiểu hơn hẳn. Mỗi từ mới học sau này, hãy tra phiên âm và nghe audio trong từ điển (Cambridge / Oxford online).</p>
+
+      <!-- 14 -->
+      <article class="lesson" id="fd-f-14" data-lesson="fd-f-14" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-14</span><h3>Nguyên âm dài – ngắn &amp; các cặp âm dễ lẫn</h3><span class="ls-check">✓</span></div>
+        <p>Tiếng Việt không phân biệt nguyên âm dài/ngắn, nên các cặp dưới đây nghe "giống nhau" với tai người Việt — nhưng với người bản xứ là <mark>hai từ khác nghĩa hoàn toàn</mark>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Cặp âm</th><th>Từ 1</th><th>Từ 2</th><th>Mẹo phân biệt</th></tr>
+          <tr><td class="k"><span class="ipa">/ɪ/ – /iː/</span></td><td class="mono">ship <span class="ipa">/ʃɪp/</span> (tàu)</td><td class="mono">sheep <span class="ipa">/ʃiːp/</span> (cừu)</td><td>/iː/ kéo dài, miệng cười</td></tr>
+          <tr><td class="k"><span class="ipa">/ɪ/ – /iː/</span></td><td class="mono">live <span class="ipa">/lɪv/</span> (sống)</td><td class="mono">leave <span class="ipa">/liːv/</span> (rời đi)</td><td>"I live here" ≠ "I leave here"</td></tr>
+          <tr><td class="k"><span class="ipa">/ʊ/ – /uː/</span></td><td class="mono">full <span class="ipa">/fʊl/</span> (đầy)</td><td class="mono">fool <span class="ipa">/fuːl/</span> (kẻ ngốc)</td><td>/uː/ tròn môi, kéo dài</td></tr>
+          <tr><td class="k"><span class="ipa">/e/ – /æ/</span></td><td class="mono">bed <span class="ipa">/bed/</span> (giường)</td><td class="mono">bad <span class="ipa">/bæd/</span> (tệ)</td><td>/æ/ há miệng rộng hơn hẳn</td></tr>
+          <tr><td class="k"><span class="ipa">/ɪ/ – /iː/</span></td><td class="mono">chip <span class="ipa">/tʃɪp/</span></td><td class="mono">cheap <span class="ipa">/tʃiːp/</span> (rẻ)</td><td>đồ "cheap" đọc dài</td></tr>
+          <tr><td class="k"><span class="ipa">/ɜː/</span></td><td class="mono" colspan="2">bird <span class="ipa">/bɜːd/</span> · work <span class="ipa">/wɜːk/</span> · learn <span class="ipa">/lɜːn/</span></td><td>không phải "guơ" — môi thả lỏng, âm giữa</td></tr>
+          <tr><td class="k"><span class="ipa">/ə/ schwa</span></td><td class="mono" colspan="2">banana <span class="ipa">/bəˈnɑːnə/</span> · teacher <span class="ipa">/ˈtiːtʃə/</span></td><td>âm phổ biến nhất tiếng Anh — ngắn, nhẹ, ở âm tiết không nhấn</td></tr>
+        </table></div>
+        <p><strong>Cách luyện (10 phút/ngày):</strong> mở từ điển online có audio → nghe từng cặp 3 lần → nhại theo → thu âm mình đọc cả cặp → so với bản gốc. Tai phân biệt được thì miệng mới đọc đúng được — và Listening cũng nhờ đó mà lên.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Từ nào có nguyên âm dài /iː/: <span class="en">ship · sheep · chip</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>sheep</b> <span class="ipa">/ʃiːp/</span>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu <span class="en">"I want to live in Da Nang"</span> và <span class="en">"I want to leave Da Nang"</span> khác nhau ở âm nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>/ɪ/ (live) và /iː/ (leave)</b> — nghĩa ngược nhau: sống ở ≠ rời khỏi.</p></div></details></div>
+          <div class="q"><p class="qq">3. Âm schwa /ə/ trong <span class="en">teacher</span> nằm ở âm tiết nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Âm tiết thứ hai</b>: <span class="ipa">/ˈtiːtʃə/</span> — âm không nhấn đọc nhẹ thành /ə/.</p></div></details></div>
+          <div class="q"><p class="qq">4. Chọn phiên âm đúng của <span class="en">work</span>: (A) <span class="ipa">/wɔːk/</span> (B) <span class="ipa">/wɜːk/</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — /wɔːk/ là "walk" (đi bộ). Cặp work/walk cũng rất hay bị lẫn.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-14">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 15 -->
+      <article class="lesson" id="fd-f-15" data-lesson="fd-f-15" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-15</span><h3>Âm cuối — căn bệnh số 1 &amp; cách đọc đuôi -s / -ed</h3><span class="ls-check">✓</span></div>
+        <p>Tiếng Việt nuốt phụ âm cuối, nên người Việt đọc <span class="en">nice – night – nine</span> gần như giống nhau. Bỏ âm cuối khiến người nghe không hiểu <em>và</em> khiến chính bạn nghe Listening bị hụt. Luyện: đọc chậm, bật nhẹ âm cuối <span class="ipa">/s/ /z/ /t/ /d/ /k/ /p/</span> — nhẹ thôi, đừng thêm "sờ", "tờ" thành âm tiết mới.</p>
+        <p><strong>Đuôi -s/-es</strong> (danh từ số nhiều &amp; động từ ngôi 3) đọc theo âm đứng trước nó:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Đọc là</th><th>Khi âm trước là</th><th>Ví dụ</th></tr>
+          <tr><td class="k"><span class="ipa">/s/</span></td><td>âm vô thanh <span class="ipa">/p t k f θ/</span></td><td class="mono">books, cats, stops</td></tr>
+          <tr><td class="k"><span class="ipa">/z/</span></td><td>âm hữu thanh &amp; nguyên âm</td><td class="mono">dogs, plays, learns</td></tr>
+          <tr><td class="k"><span class="ipa">/ɪz/</span></td><td><span class="ipa">/s z ʃ tʃ dʒ/</span> (âm gió)</td><td class="mono">buses, watches, changes</td></tr>
+        </table></div>
+        <p><strong>Đuôi -ed</strong> (quá khứ) cũng theo âm trước nó:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Đọc là</th><th>Khi âm trước là</th><th>Ví dụ</th></tr>
+          <tr><td class="k"><span class="ipa">/t/</span></td><td>âm vô thanh</td><td class="mono">watched, stopped, worked</td></tr>
+          <tr><td class="k"><span class="ipa">/d/</span></td><td>âm hữu thanh &amp; nguyên âm</td><td class="mono">played, cleaned, lived</td></tr>
+          <tr><td class="k"><span class="ipa">/ɪd/</span></td><td><span class="ipa">/t/</span> hoặc <span class="ipa">/d/</span></td><td class="mono">wanted, needed, decided</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Bài tập 5 phút mỗi ngày</b>Chép chính tả 2–3 câu ngắn từ audio bất kỳ, chú ý viết đủ đuôi -s/-ed. Đây là bài tập một mũi tên trúng hai đích: tai nghe được âm cuối thì miệng sẽ nhớ đọc âm cuối.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Từ nào có đuôi -ed đọc là /ɪd/: <span class="en">played · wanted · watched</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>wanted</b> — vì kết thúc bằng /t/.</p></div></details></div>
+          <div class="q"><p class="qq">2. Xếp theo cách đọc đuôi -s (/s/, /z/, /ɪz/): <span class="en">books · buses · dogs</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>books /s/ · dogs /z/ · buses /ɪz/</b>.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao bỏ âm cuối làm hại cả Listening?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Não bạn không lưu "hình âm thanh" có âm cuối, nên khi người bản xứ đọc đủ âm cuối (kèm nối âm), bạn không nhận ra từ mình đã biết.</p></div></details></div>
+          <div class="q"><p class="qq">4. Đọc thử và tự kiểm tra: <span class="en">"She worked late and missed the last bus."</span> — có mấy âm cuối cần bật?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>worked /t/ · late /t/ · missed /t/ · last /t/ · bus /s/</b> — 5 vị trí. Đọc chậm, bật đủ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-15">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- 16 -->
+      <article class="lesson" id="fd-f-16" data-lesson="fd-f-16" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-16</span><h3>Trọng âm từ &amp; nhịp điệu câu</h3><span class="ls-check">✓</span></div>
+        <ul>
+          <li>Mỗi từ đa âm tiết có <mark>một âm tiết nhấn</mark> (đọc to, dài, cao hơn). Sai trọng âm khiến người bản xứ khó hiểu hơn cả sai một nguyên âm: <span class="en">hotel</span> nhấn âm 2 <span class="ipa">/həʊˈtel/</span>, không phải "HÔ-teo".</li>
+          <li>Xu hướng (có ngoại lệ): danh từ 2 âm tiết nhấn âm 1 (<span class="en">TEAcher, SUBject, MOUNtain</span>); động từ 2 âm tiết nhấn âm 2 (<span class="en">beGIN, forGET, reLAX</span>). Một số từ đổi loại đổi trọng âm: <span class="en">PREsent</span> (món quà) – <span class="en">preSENT</span> (trình bày); <span class="en">REcord</span> (bản ghi) – <span class="en">reCORD</span> (ghi lại).</li>
+          <li><strong>Nhịp câu</strong>: từ nội dung (danh, động, tính, trạng) được nhấn; từ chức năng (<span class="en">a, the, of, and, to</span>) đọc lướt bằng schwa /ə/. Người bản xứ "nuốt chữ" chính là hiện tượng này — hiểu nó, Listening của bạn đổi đời.</li>
+          <li><strong>Thói quen bắt buộc từ hôm nay:</strong> học từ mới nào cũng ghi kèm trọng âm (chấm • trước âm nhấn hoặc viết hoa âm nhấn).</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Từ nào nhấn âm tiết thứ 2: <span class="en">teacher · hotel · subject</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>hotel</b> <span class="ipa">/həʊˈtel/</span>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Trong câu <span class="en">"I want to go to the market"</span>, những từ nào được nhấn?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>want, go, market</b> — các từ còn lại (I, to, the) đọc lướt.</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">"This is a present for you"</span> — "present" nhấn âm nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Âm 1 (PREsent)</b> — ở đây là danh từ "món quà".</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao ghi trọng âm khi học từ mới lại quan trọng?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì trọng âm là một phần của "danh tính" từ: đọc sai trọng âm thì nói khó hiểu, và nghe người khác đọc đúng lại không nhận ra từ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-16">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ CỔNG RA ═══════════ -->
+    <section class="chapter" id="ch4">
+      <h2><span class="cnum">CỔNG RA</span> Sẵn sàng rời nền tảng? <span class="ccount" data-chcount="ch4">0/1</span></h2>
+
+      <!-- 17 -->
+      <article class="lesson" id="fd-f-17" data-lesson="fd-f-17" data-band="f">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">fd-f-17</span><h3>Bài kiểm tra tổng hợp — 10 câu quyết định</h3><span class="ls-check">✓</span></div>
+        <p>Làm hết 10 câu <strong>trước khi</strong> mở bất kỳ đáp án nào (ghi ra giấy). Đây là "cổng ra" của module nền tảng.</p>
+        <div class="quiz"><b>Bài kiểm tra</b>
+          <div class="q"><p class="qq">1. Chọn câu đúng: (A) <span class="en">She don't like coffee.</span> (B) <span class="en">She doesn't like coffee.</span> (C) <span class="en">She doesn't likes coffee.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — doesn't + nguyên mẫu (bài 07).</p></div></details></div>
+          <div class="q"><p class="qq">2. Điền: <span class="en">Yesterday I (go) ___ to the cinema.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>went</b> (bài 04).</p></div></details></div>
+          <div class="q"><p class="qq">3. Sửa lỗi: <span class="en">He gave me many advices.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>He gave me a lot of advice.</b> — advice không đếm được (bài 06).</p></div></details></div>
+          <div class="q"><p class="qq">4. Điền giới từ: <span class="en">My birthday is ___ 2 September.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>on</b> (bài 08).</p></div></details></div>
+          <div class="q"><p class="qq">5. Chọn: <span class="en">This book is (gooder / better / more good) than that one.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>better</b> (bài 09).</p></div></details></div>
+          <div class="q"><p class="qq">6. Sắp xếp: <span class="en">coffee / like / I / very much</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I like coffee very much.</b> (bài 01).</p></div></details></div>
+          <div class="q"><p class="qq">7. Sửa lỗi: <span class="en">I have visited Hue last year.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I visited Hue last year.</b> — có mốc quá khứ cụ thể (bài 05).</p></div></details></div>
+          <div class="q"><p class="qq">8. Chọn make/do/take: <span class="en">I usually ___ the housework ___ a break, then ___ dinner.</span> (housework → break → dinner)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>do the housework · take a break · have dinner</b> — câu này cố tình gài bẫy: "dinner" đi với <b>have</b>, không nằm trong make/do/take. Chọn đúng cả 3 nghĩa là bạn đã nắm chắc bài 13.</p></div></details></div>
+          <div class="q"><p class="qq">9. Từ nào có đuôi -ed đọc /ɪd/: <span class="en">watched · needed · played</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>needed</b> (bài 15).</p></div></details></div>
+          <div class="q"><p class="qq">10. Từ nào nhấn âm tiết thứ 2: <span class="en">teacher · hotel · subject</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>hotel</b> (bài 16).</p></div></details></div>
+        </div>
+        <div class="gate">
+          <h4>Tự chấm &amp; quyết định</h4>
+          <div class="tbl-scroll"><table>
+            <tr><th>Kết quả</th><th>Quyết định</th></tr>
+            <tr><td class="k">8 – 10 đúng</td><td>Sẵn sàng. Mở các module kỹ năng, bắt đầu từ nhóm band 4.0 → 5.0.</td></tr>
+            <tr><td class="k">5 – 7 đúng</td><td>Gần rồi. Học lại đúng những bài có câu sai (đáp án ghi số bài), làm lại bài này sau 2–3 ngày.</td></tr>
+            <tr><td class="k">Dưới 5</td><td>Chưa vội. Học lại Chương 1 từ đầu theo đúng thứ tự — nền móng lung lay thì band nào xây lên cũng đổ.</td></tr>
+          </table></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="fd-f-17">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <div class="endnav">
+      <a class="btn btn-primary" id="nextBtn" href="reading.html" aria-disabled="true" title="Trang đang được xây dựng">Tiếp theo: Reading →</a>
+      <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+    </div>
+
+    </div><!-- /content -->
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v1.0 · foundation · 17 bài · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══ Thanh tiến trình đọc ══ */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  readbar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* ══ DEV CONTRACT: quét bài học & ghi manifest ══ */
+var PAGE_KEY = "foundation";
+var lessonEls = Array.prototype.slice.call(document.querySelectorAll(".lesson[data-lesson]"));
+var LESSONS = lessonEls.map(function(el){
+  return {
+    id: el.dataset.lesson,
+    band: el.dataset.band,
+    title: el.querySelector("h3") ? el.querySelector("h3").textContent.trim() : el.dataset.lesson
+  };
+});
+try{
+  localStorage.setItem("bandup.manifest." + PAGE_KEY, JSON.stringify({
+    page: PAGE_KEY,
+    title: "Nền tảng → 4.0",
+    updated: Date.now(),
+    lessons: LESSONS
+  }));
+}catch(e){}
+
+/* ══ Tiến độ: đọc / ghi bandup.done ══ */
+function loadDone(){
+  try{
+    var raw = localStorage.getItem("bandup.done");
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveDone(set){
+  try{ localStorage.setItem("bandup.done", JSON.stringify(Array.from(set))); }catch(e){}
+}
+var doneSet = loadDone();
+
+function renderState(){
+  var doneCount = 0;
+  lessonEls.forEach(function(el){
+    var id = el.dataset.lesson;
+    var isDone = doneSet.has(id);
+    if(isDone) doneCount++;
+    el.classList.toggle("done", isDone);
+    var btn = el.querySelector("[data-tick]");
+    if(btn) btn.textContent = isDone ? "✓ Đã học — bấm để bỏ đánh dấu" : "Đánh dấu đã học xong";
+    var toc = document.querySelector('[data-toc="' + id + '"]');
+    if(toc){
+      toc.classList.toggle("done", isDone);
+      toc.querySelector(".st").textContent = isDone ? "✓" : "○";
+    }
+  });
+  /* Thanh tiến độ đầu trang */
+  var pct = LESSONS.length ? Math.round(doneCount / LESSONS.length * 100) : 0;
+  document.getElementById("pgBar").style.width = pct + "%";
+  document.getElementById("pgText").textContent = doneCount + "/" + LESSONS.length + " bài · " + pct + "%";
+  /* Đếm theo chương */
+  document.querySelectorAll("[data-chcount]").forEach(function(c){
+    var ch = document.getElementById(c.dataset.chcount);
+    if(!ch) return;
+    var inCh = Array.prototype.slice.call(ch.querySelectorAll(".lesson[data-lesson]"));
+    var d = inCh.filter(function(el){ return doneSet.has(el.dataset.lesson); }).length;
+    c.textContent = d + "/" + inCh.length;
+  });
+}
+
+document.addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-tick]");
+  if(!btn) return;
+  var id = btn.getAttribute("data-tick");
+  if(doneSet.has(id)) doneSet.delete(id); else doneSet.add(id);
+  saveDone(doneSet);
+  renderState();
+});
+
+/* Đồng bộ khi quay lại tab */
+window.addEventListener("focus", function(){ doneSet = loadDone(); renderState(); });
+renderState();
+
+/* ══ Mở khoá nút "Tiếp theo" khi reading.html tồn tại ══ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var btn = document.getElementById("nextBtn");
+  fetch("reading.html", {method:"HEAD", cache:"no-store"})
+    .then(function(r){
+      if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>
