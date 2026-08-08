@@ -16,29 +16,30 @@ Tuân theo DEV CONTRACT trong index.html.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F5F6F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
-  --line:#DCE0D6; --accent:#FFD64D; --accent-deep:#E8B400;
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#E4DFD3; --accent:#FFD64D; --accent-deep:#E8B400;
   --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
   --done-bg:#FFFBEA;
-  --radius:14px;
+  --radius:16px;
   --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
-  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
-  --font-body:"Be Vietnam Pro",system-ui,sans-serif;
-  --font-mono:"Space Mono",ui-monospace,monospace;
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,sans-serif;
+  --font-mono:"Nunito",system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+@media(min-width:640px){html{font-size:17px}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 #readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
 
 /* Topbar */
-.topbar{position:sticky;top:0;z-index:50;background:rgba(245,246,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
 .logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
 .logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
@@ -51,7 +52,7 @@ a{color:inherit}
 
 /* Hero */
 .hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
-.eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow{font-family:var(--font-mono);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
 .eyebrow::before{content:"";width:26px;height:3px;background:var(--c-fd);border-radius:2px}
 .hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
 .hero h1 em{font-style:normal;color:var(--c-fd)}
@@ -66,9 +67,9 @@ a{color:inherit}
 @media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
 .toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
 @media(max-width:920px){.toc{position:static;max-height:none}}
-.toc h2{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
 .toc h2:first-child{margin-top:0}
-.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.82rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.88rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
 .toc a:hover{background:var(--paper);color:var(--ink)}
 .toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
 .toc a.done{color:var(--ink)}
@@ -87,7 +88,7 @@ a{color:inherit}
 .lesson.done{background:var(--done-bg)}
 .lesson.done .spine{background:var(--accent-deep)}
 .ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
-.ls-id{font-family:var(--font-mono);font-size:.64rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.ls-id{font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
 .lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
 .ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
 .lesson.done .ls-check{opacity:1;transform:scale(1)}
@@ -95,14 +96,14 @@ a{color:inherit}
 .lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
 .lesson li{margin-bottom:7px}
 mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
-.en{font-family:var(--font-mono);font-size:.88em;font-weight:700}
+.en{font-weight:800;font-size:.97em;color:#1F4E68}
 .ipa{font-family:var(--font-mono);font-size:.86em;color:var(--c-fd)}
 .vs{color:var(--ink-soft);font-size:.86em}
 
 /* Bảng */
 .tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
 table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
-th{font-family:var(--font-mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+th{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
 td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:none}
 td.k{font-weight:700;white-space:nowrap}
@@ -118,21 +119,21 @@ tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;
 
 /* Quiz */
 .quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
-.quiz>b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.quiz>b{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
 .q{margin-bottom:12px;max-width:70ch}
 .q .qq{margin-bottom:6px}
 details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
-summary{cursor:pointer;list-style:none;font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:8px 12px;color:var(--ink-soft);user-select:none}
+summary{cursor:pointer;list-style:none;font-weight:800;font-size:.85rem;padding:10px 14px;color:var(--ink);user-select:none}
 summary::-webkit-details-marker{display:none}
 summary::before{content:"▸ ";color:var(--accent-deep)}
 details[open] summary::before{content:"▾ "}
 details[open] summary{border-bottom:1px solid var(--line)}
-details .ans{padding:10px 14px;font-size:.9rem}
+details .ans{padding:12px 14px;font-size:.95rem}
 details .ans p{margin-bottom:6px}
 
 /* Nút tick */
 .ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
-.tickbtn{font-family:var(--font-body);font-weight:600;font-size:.88rem;padding:10px 18px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn{font-family:var(--font-body);font-weight:800;font-size:.95rem;padding:12px 20px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
 .tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
 .lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
 
@@ -157,6 +158,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 footer p{font-size:.82rem;color:var(--ink-soft)}
 footer .mono{font-family:var(--font-mono);font-size:.72rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ── UI v2: mục lục mobile & nút về đầu trang ── */
+.toc-toggle{display:none}
+@media(max-width:920px){
+  .toc-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-family:var(--font-body);font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer}
+  .toc.collapsed > *:not(.toc-toggle){display:none}
+  .toc:not(.collapsed) .toc-toggle{margin-bottom:8px}
+}
+#toTop{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--accent);color:var(--ink);font-size:1.25rem;font-weight:800;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;font-family:var(--font-body)}
+#toTop.show{opacity:1;pointer-events:auto}
 </style>
 </head>
 <body>
@@ -804,7 +815,7 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
 <footer>
   <div class="wrap">
     <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
-    <p class="mono">v1.0 · foundation · 17 bài · 08/2026</p>
+    <p class="mono">v1.1 · foundation · 17 bài · giao diện v2 · 08/2026</p>
   </div>
 </footer>
 
@@ -901,6 +912,33 @@ renderState();
       if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
     })
     .catch(function(){});
+})();
+
+/* ══ UI v2: mục lục gọn trên mobile + nút về đầu trang ══ */
+(function(){
+  var toc = document.querySelector(".toc");
+  if(toc){
+    var tg = document.createElement("button");
+    tg.type = "button"; tg.className = "toc-toggle";
+    tg.innerHTML = 'Mục lục <span aria-hidden="true">▾</span>';
+    toc.insertBefore(tg, toc.firstChild);
+    if(window.innerWidth <= 920) toc.classList.add("collapsed");
+    tg.addEventListener("click", function(){
+      toc.classList.toggle("collapsed");
+      tg.querySelector("span").textContent = toc.classList.contains("collapsed") ? "▾" : "▴";
+    });
+    toc.addEventListener("click", function(e){
+      if(e.target.closest("a") && window.innerWidth <= 920){
+        toc.classList.add("collapsed");
+        tg.querySelector("span").textContent = "▾";
+      }
+    });
+  }
+  var tt = document.createElement("button");
+  tt.type = "button"; tt.id = "toTop"; tt.setAttribute("aria-label","Về đầu trang"); tt.textContent = "↑";
+  document.body.appendChild(tt);
+  tt.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+  window.addEventListener("scroll", function(){ tt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
 })();
 </script>
 </body>
