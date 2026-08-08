@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading — BandUp</title>
+<meta name="description" content="Module IELTS Reading: chiến lược 60 phút, skimming, scanning, paraphrase, các dạng câu hỏi Completion, Multiple Choice, True/False/Not Given, Matching Information — chia theo mốc band 4.0 đến 7.0.">
+<!--
+BANDUP · reading.html · v1 (phủ b1 + b2)
+Tuân theo DEV CONTRACT trong index.html.
+- Page key: reading · Lesson id hiện có:
+    rd-b1-01 → rd-b1-06  (Band 4.0 → 5.0)
+    rd-b2-01 → rd-b2-05  (Band 5.0 → 5.5)
+- Bản cập nhật sau BỔ SUNG (không đổi id cũ):
+    rd-b3-xx (5.5→6.0) · rd-b4-xx (6.0→6.5) · rd-b5-xx (6.5→7.0)
+- Khi load: tự ghi bandup.manifest.reading; tick ghi vào bandup.done
+- Ngữ liệu tiếng Anh trong bài là văn bản gốc tự soạn cho BandUp
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F6F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#DCE0D6; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
+  --done-bg:#FFFBEA;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-body:"Be Vietnam Pro",system-ui,sans-serif;
+  --font-mono:"Space Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,246,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+.hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-rd);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--c-rd)}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:46rem;margin-bottom:20px}
+.pageprog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:34rem}
+.pageprog .track{flex:1;min-width:180px;height:10px;background:var(--card);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.pageprog .track i{display:block;height:100%;width:0%;background:var(--c-rd);border-radius:99px;transition:width .5s ease}
+.pageprog b{font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+
+.layout{display:grid;grid-template-columns:262px 1fr;gap:40px;padding:40px 0 20px;align-items:start}
+@media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:920px){.toc{position:static;max-height:none}}
+.toc h2{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2:first-child{margin-top:0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.82rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
+.toc a.done{color:var(--ink)}
+.toc a.done .st{color:var(--accent-deep);font-weight:700}
+.toc .soon{font-size:.76rem;color:var(--ink-soft);padding:5px 8px;font-style:italic}
+
+.content{min-width:0}
+.chapter{padding:6px 0 34px;scroll-margin-top:84px}
+.chapter>h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chapter>h2 .cnum{flex:none;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--c-rd);color:#fff}
+.chapter>h2 .ccount{margin-left:auto;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);font-weight:400}
+.chapter>p.cintro{color:var(--ink-soft);font-size:.94rem;max-width:66ch;margin-bottom:18px}
+
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;scroll-margin-top:84px;position:relative}
+.lesson .spine{position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 4px 4px 0;background:var(--c-rd)}
+.lesson.done{background:var(--done-bg)}
+.lesson.done .spine{background:var(--accent-deep)}
+.ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ls-id{font-family:var(--font-mono);font-size:.64rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
+.ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
+.lesson.done .ls-check{opacity:1;transform:scale(1)}
+.lesson p{margin-bottom:12px;max-width:70ch}
+.lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
+.lesson li{margin-bottom:7px}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.en{font-family:var(--font-mono);font-size:.88em;font-weight:700}
+.vs{color:var(--ink-soft);font-size:.86em}
+
+/* Đoạn văn luyện tập */
+.passage{border:1.5px solid var(--line);border-left:6px solid var(--c-rd);background:var(--paper);border-radius:11px;padding:16px 18px;margin:14px 0;max-width:72ch}
+.passage b.ptag{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--c-rd);display:block;margin-bottom:6px}
+.passage p{font-size:.93rem;line-height:1.75;margin-bottom:8px}
+.passage p:last-child{margin-bottom:0}
+.passage .pl{font-family:var(--font-mono);font-weight:700;font-size:.8em;color:var(--c-rd);margin-right:6px}
+
+.tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
+th{font-family:var(--font-mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.k{font-weight:700;white-space:nowrap}
+td .mono,.mono{font-family:var(--font-mono);font-size:.84em}
+tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;padding:7px 12px}
+
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);padding:13px 16px;border-radius:11px;font-size:.9rem;margin:14px 0;max-width:70ch}
+.call.warn{border-left-color:#B23A3A;background:#FCF6F4}
+.call b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink-soft)}
+.wrong{color:#B23A3A;text-decoration:line-through;text-decoration-thickness:1.5px}
+.right{color:var(--c-rd);font-weight:700}
+
+.quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
+.quiz>b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.q{margin-bottom:12px;max-width:72ch}
+.q .qq{margin-bottom:6px}
+details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
+summary{cursor:pointer;list-style:none;font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.06em;padding:8px 12px;color:var(--ink-soft);user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent-deep)}
+details[open] summary::before{content:"▾ "}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:10px 14px;font-size:.9rem}
+details .ans p{margin-bottom:6px}
+
+.ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
+.tickbtn{font-family:var(--font-body);font-weight:600;font-size:.88rem;padding:10px 18px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
+.lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
+
+.coming{border:1.5px dashed var(--line);border-radius:var(--radius);padding:22px;color:var(--ink-soft);font-size:.92rem;background:var(--card);margin-bottom:18px}
+.coming b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:30px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:.15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px 0 42px;margin-top:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="guide.html">Hướng dẫn tự học</a>
+      <a href="foundation.html">Nền tảng</a>
+      <a class="cta" href="index.html#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Ưu tiên 1 · Kỹ năng Reading</span>
+      <h1>Reading <em>4.0 → 5.5</em></h1>
+      <p class="lead">60 phút · 3 passage · 40 câu — kẻ thù thật của Reading là thời gian, và vũ khí lớn nhất là paraphrase. Bản hiện tại phủ hai nhóm band 4.0 → 5.0 và 5.0 → 5.5; các nhóm 5.5 → 7.0 sẽ được bổ sung ngay vào trang này. Yêu cầu trước khi học: qua "cổng ra" của module Nền tảng.</p>
+      <div class="pageprog"><div class="track"><i id="pgBar"></i></div><b id="pgText">0/11 bài · 0%</b></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Band 4.0 → 5.0</h2>
+      <a href="#rd-b1-01" data-toc="rd-b1-01"><span class="st">○</span>Toàn cảnh &amp; chiến lược 60'</a>
+      <a href="#rd-b1-02" data-toc="rd-b1-02"><span class="st">○</span>Skimming — nắm ý chính</a>
+      <a href="#rd-b1-03" data-toc="rd-b1-03"><span class="st">○</span>Scanning — săn keyword</a>
+      <a href="#rd-b1-04" data-toc="rd-b1-04"><span class="st">○</span>Paraphrase — chìa khoá số 1</a>
+      <a href="#rd-b1-05" data-toc="rd-b1-05"><span class="st">○</span>Dạng bài: Completion</a>
+      <a href="#rd-b1-06" data-toc="rd-b1-06"><span class="st">○</span>Dạng bài: Multiple Choice</a>
+      <h2>Band 5.0 → 5.5</h2>
+      <a href="#rd-b2-01" data-toc="rd-b2-01"><span class="st">○</span>True / False / Not Given</a>
+      <a href="#rd-b2-02" data-toc="rd-b2-02"><span class="st">○</span>Matching Information</a>
+      <a href="#rd-b2-03" data-toc="rd-b2-03"><span class="st">○</span>Xử lý câu dài &amp; từ mới</a>
+      <a href="#rd-b2-04" data-toc="rd-b2-04"><span class="st">○</span>Từ điển paraphrase học thuật</a>
+      <a href="#rd-b2-05" data-toc="rd-b2-05"><span class="st">○</span>Quy trình 1 passage + luyện</a>
+      <h2>Sắp bổ sung</h2>
+      <p class="soon">5.5 → 6.0 · 6.0 → 6.5 · 6.5 → 7.0</p>
+    </aside>
+
+    <div class="content">
+
+    <!-- ═══════════ BAND 4.0 → 5.0 ═══════════ -->
+    <section class="chapter" id="b1">
+      <h2><span class="cnum">BAND 4.0 → 5.0</span> Làm quen bài thi &amp; kỹ thuật đọc lõi <span class="ccount" data-chcount="b1">0/6</span></h2>
+      <p class="cintro">Mục tiêu nhóm này: hiểu luật chơi, thành thạo 3 kỹ thuật lõi (skim – scan – paraphrase) và làm chắc 2 dạng câu hỏi "dễ ăn điểm" nhất. Đạt ~15/40 câu đúng là bạn ở ngưỡng 5.0 (Academic).</p>
+
+      <!-- rd-b1-01 -->
+      <article class="lesson" id="rd-b1-01" data-lesson="rd-b1-01" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-01</span><h3>Toàn cảnh bài thi Reading &amp; chiến lược 60 phút</h3><span class="ls-check">✓</span></div>
+        <ul>
+          <li><strong>Cấu trúc:</strong> 3 passage (Academic: bài học thuật, khó dần; General Training: phần 1–2 là văn bản đời sống/công việc, phần 3 gần giống Academic), tổng <mark>40 câu trong 60 phút</mark>. Không có thời gian chép đáp án riêng — làm tới đâu ghi đáp án tới đó.</li>
+          <li><strong>Không trừ điểm câu sai</strong> → tuyệt đối không để trống ô nào. Hết giờ thì đoán có chiến lược (chọn đáp án bạn nghiêng về nhất).</li>
+          <li><strong>Đáp án đa số dạng bài đi theo thứ tự</strong> xuất hiện trong passage (trừ các dạng Matching) — câu 3 nằm sau câu 2 trong bài. Biết luật này giúp khoanh vùng cực nhanh.</li>
+        </ul>
+        <div class="tbl-scroll"><table>
+          <tr><th>Band</th><th>Số câu đúng /40 (Academic, tham khảo)</th><th>Ghi chú</th></tr>
+          <tr><td class="k">5.0</td><td>~15</td><td rowspan="5">Xê dịch 1–2 câu tuỳ đề. General Training cần nhiều câu đúng hơn cho cùng band (vd 6.0 ≈ 30).</td></tr>
+          <tr><td class="k">5.5</td><td>~19</td></tr>
+          <tr><td class="k">6.0</td><td>~23</td></tr>
+          <tr><td class="k">6.5</td><td>~27</td></tr>
+          <tr><td class="k">7.0</td><td>~30</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Chiến lược thời gian cho band 4–5</b>Đừng chia đều 20–20–20. Passage khó dần, nên phân bổ <strong>17' – 20' – 23'</strong>. Quan trọng hơn: ở trình 4.0–5.0, mục tiêu là <mark>ăn chắc Passage 1–2</mark>; sang Passage 3 làm dạng dễ (Completion) trước, câu khó đoán nhanh rồi bỏ qua — đừng "tử thủ" 1 câu quá 90 giây.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn còn 5 phút và 6 câu chưa làm ở Passage 3. Nên làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Làm nhanh các câu dạng dễ (điền từ) trước, các câu còn lại <b>điền đáp án dự đoán — không để trống</b>, vì sai không bị trừ điểm.</p></div></details></div>
+          <div class="q"><p class="qq">2. Câu 14 bạn tìm thấy đáp án ở giữa passage. Câu 15 (cùng dạng bài) nên tìm ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Từ vị trí đó trở về sau</b> — đáp án đa số dạng bài đi theo thứ tự trong passage.</p></div></details></div>
+          <div class="q"><p class="qq">3. Muốn đạt 5.5 (Academic) bạn cần đúng khoảng bao nhiêu câu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>~19/40</b> — nghĩa là được phép sai hơn nửa bài. Hiểu điều này để bớt hoảng và tập trung câu "ăn được".</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao không nên dành quá 90 giây cho một câu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mọi câu đều <b>1 điểm như nhau</b>. 3 phút "tử thủ" 1 câu khó = mất cơ hội ăn 2–3 câu dễ ở phía sau.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b1-02 -->
+      <article class="lesson" id="rd-b1-02" data-lesson="rd-b1-02" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-02</span><h3>Skimming — nắm ý chính bài đọc trong 2 phút</h3><span class="ls-check">✓</span></div>
+        <p><strong>Skimming</strong> = đọc lướt để trả lời 2 câu hỏi: <em>bài này nói về gì?</em> và <em>mỗi đoạn nói về gì?</em> — KHÔNG phải đọc hiểu từng chữ. Cách làm:</p>
+        <ol>
+          <li>Đọc <mark>tiêu đề</mark> và câu mở bài.</li>
+          <li>Đọc <mark>câu đầu tiên của mỗi đoạn</mark> (thường là câu chủ đề); liếc câu cuối nếu câu đầu mơ hồ.</li>
+          <li>Để mắt các <strong>từ lặp lại nhiều lần</strong> — đó là chủ đề bài.</li>
+          <li>Gặp từ mới: <strong>bỏ qua, không dừng lại</strong>. Ghi chú lề 1–3 từ cho mỗi đoạn (thi trên máy: dùng highlight/notes).</li>
+        </ol>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p>Many large cities are trying to reduce the number of cars on their roads. One popular solution is the bicycle-sharing scheme, which allows people to rent a bike for short trips at a low cost. The first modern schemes appeared in Europe, but the idea has now spread to Asia and South America. Supporters say that cycling cuts air pollution and improves public health. However, critics point out that bikes are often stolen or damaged, which makes some schemes expensive to run.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Skim đoạn trên trong 25 giây: bài nói về điều gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Mô hình chia sẻ xe đạp ở các thành phố — lợi ích và hạn chế.</b> Nhận ra nhờ: "bicycle-sharing scheme" lặp ý, "Supporters say... However, critics...".</p></div></details></div>
+          <div class="q"><p class="qq">2. Từ/cụm nào cho bạn biết đoạn sắp chuyển sang mặt trái của vấn đề?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>However, critics point out...</b> — các từ nối như however/but/although là biển báo đổi hướng ý, cực quan trọng khi skim.</p></div></details></div>
+          <div class="q"><p class="qq">3. Nếu ghi chú lề cho đoạn này bằng 3 từ, bạn ghi gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>"bike share: +/-"</b> hoặc "xe đạp: lợi & hại". Ngắn, đủ gợi nhớ để quay lại tìm.</p></div></details></div>
+          <div class="q"><p class="qq">4. Khi skim mà gặp từ không biết (vd "schemes"), phản xạ đúng là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bỏ qua và đọc tiếp.</b> Skim chỉ cần khung ý; từ mới sẽ xử lý sau, khi (và chỉ khi) câu hỏi trỏ vào nó.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b1-03 -->
+      <article class="lesson" id="rd-b1-03" data-lesson="rd-b1-03" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-03</span><h3>Scanning — săn từ khoá như tìm tên mình trong danh sách</h3><span class="ls-check">✓</span></div>
+        <p><strong>Scanning</strong> = quét mắt tìm một mẩu thông tin cụ thể, không đọc những phần còn lại. Bí quyết nằm ở việc chọn đúng loại từ khoá trong câu hỏi:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Loại keyword</th><th>Ví dụ</th><th>Đặc điểm</th></tr>
+          <tr><td class="k">Mỏ neo (không đổi)</td><td class="mono">2014 · $58 million · Maria Santos · DNA</td><td>Số, năm, tên riêng, từ viết hoa, thuật ngữ — xuất hiện <b>nguyên văn</b> trong bài → quét cực nhanh</td></tr>
+          <tr><td class="k">Nội dung (sẽ bị đổi)</td><td class="mono">build → construct · cost → price</td><td>Danh/động/tính từ thường — gần như chắc chắn bị <b>paraphrase</b>, đừng mong thấy nguyên văn</td></tr>
+        </table></div>
+        <p>Quy trình: mỗi câu hỏi chọn <mark>1 mỏ neo + 1–2 keyword nội dung</mark> → quét tìm mỏ neo trước → đọc kỹ câu quanh nó.</p>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p>The Harmony Bridge opened in 2014 and cost $58 million to build. It stretches 480 metres across the Green River and carries around 12,000 vehicles every day. The bridge was designed by the engineer Maria Santos, whose team spent three years on the project.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Scan trong 10 giây: cây cầu dài bao nhiêu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>480 metres</b> — mắt chỉ cần bắt con số + "metres".</p></div></details></div>
+          <div class="q"><p class="qq">2. Ai thiết kế cây cầu? Bạn đã quét theo dấu hiệu nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Maria Santos</b> — quét theo <b>chữ viết hoa giữa câu</b> (tên riêng), nhanh hơn nhiều so với đọc cả đoạn.</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu hỏi thi: <span class="en">"How long did the construction team work on the bridge?"</span> — chọn keyword nào để scan?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mỏ neo tiềm năng: <b>team</b>; nội dung: <b>work / how long</b> (dễ bị đổi). Trong bài: "whose team spent <b>three years</b>" — "work on" đã bị đổi thành "spent ... on". Đáp án: three years.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao không nên chọn "bridge" làm keyword chính của các câu hỏi ở đoạn này?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì "bridge" xuất hiện <b>khắp nơi trong bài</b> — keyword tốt phải giúp khoanh vùng hẹp, tức là từ càng "hiếm" trong bài càng tốt.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b1-04 -->
+      <article class="lesson" id="rd-b1-04" data-lesson="rd-b1-04" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-04</span><h3>Paraphrase — lý do bạn "tìm mãi không thấy đáp án"</h3><span class="ls-check">✓</span></div>
+        <p>Nguyên tắc ra đề của IELTS: <mark>câu hỏi gần như không bao giờ lặp nguyên văn từ của bài</mark>. Cảm giác "đọc hiểu mà không tìm thấy" chính là do bạn đang tìm từ, trong khi phải tìm <em>ý</em>. Paraphrase có 3 tầng:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Tầng</th><th>Câu hỏi viết</th><th>Bài đọc viết</th></tr>
+          <tr><td class="k">1 · Từ đồng nghĩa</td><td class="mono">buy · big · help</td><td class="mono">purchase · large · assist</td></tr>
+          <tr><td class="k">2 · Đổi dạng từ</td><td class="mono">decide (v) · quick (adj)</td><td class="mono">decision (n) · rapidly (adv)</td></tr>
+          <tr><td class="k">3 · Đổi cấu trúc</td><td class="mono">Scientists discovered X</td><td class="mono">X was discovered (by scientists)</td></tr>
+          <tr><td class="k">3 · Đổi góc so sánh</td><td class="mono">A is cheaper than B</td><td class="mono">B costs more than A</td></tr>
+        </table></div>
+        <p><strong>Phản xạ cần luyện:</strong> gạch keyword trong câu hỏi xong, tự hỏi ngay: <em>"từ này có thể bị đổi thành gì?"</em> rồi mới scan. Mỗi lần chữa bài, ghi cặp paraphrase vừa gặp vào sổ lỗi sai — sau 20 bài, bạn sẽ có từ điển paraphrase của riêng mình.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Câu hỏi: <span class="en">"The scheme helps people with low incomes."</span> — Bài đọc: <span class="en">"The programme assists those who earn very little."</span> Chỉ ra 3 cặp paraphrase.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>scheme = programme · helps = assists · people with low incomes = those who earn very little.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">"The bridge was completed in 2014"</span> có thể được bài viết lại theo tầng 3 như thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>"Workers finished building the bridge in 2014"</b> — bị động → chủ động, completed → finished building.</p></div></details></div>
+          <div class="q"><p class="qq">3. Keyword <span class="en">"growth"</span> trong câu hỏi — dự đoán 3 cách bài đọc có thể diễn đạt.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>increase / rise / expansion</b>, hoặc dạng động từ: <b>grew / has grown / went up</b>.</p></div></details></div>
+          <div class="q"><p class="qq">4. Câu hỏi: <span class="en">"Bikes are less expensive than cars."</span> — Bài đọc: <span class="en">"Cars cost far more than bicycles."</span> Hai câu này cùng ý hay ngược ý?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cùng ý</b> — chỉ đổi góc so sánh. Đây là bẫy khiến nhiều bạn chọn False oan trong dạng T/F/NG sau này.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b1-05 -->
+      <article class="lesson" id="rd-b1-05" data-lesson="rd-b1-05" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-05</span><h3>Dạng bài Completion — điền từ, dạng "dễ ăn" nhất</h3><span class="ls-check">✓</span></div>
+        <p>Gồm các biến thể Sentence / Note / Table / Flow-chart completion — cùng một bản chất: <mark>điền từ lấy nguyên văn từ bài đọc</mark>. Đây là dạng nên "ăn chắc" đầu tiên ở band 4–5.</p>
+        <ul>
+          <li><strong>Luật đếm từ là luật sắt:</strong> đề ghi <span class="en">NO MORE THAN TWO WORDS AND/OR A NUMBER</span> → viết 3 từ là sai dù đúng ý. <span class="en">a/the</span> tính là một từ; số viết "20" hay "twenty" đều tính là một số.</li>
+          <li><strong>Đoán loại từ trước khi tìm:</strong> nhìn chỗ trống — sau <span class="en">a/an/the</span> hay tính từ → cần danh từ; sau <span class="en">to</span> → động từ nguyên mẫu; trước danh từ → tính từ. Đoán đúng loại từ = khoanh vùng nhanh gấp đôi.</li>
+          <li>Đáp án <strong>giữ nguyên chính tả và dạng từ</strong> như trong bài — chép sai chính tả là mất điểm.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p>The town's new library opened last spring. The building has three floors and a small garden on the roof, where visitors can read outdoors in warm weather. Membership is free for residents, although borrowers must pay a small fee if they return books late.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (NO MORE THAN TWO WORDS)</b>
+          <div class="q"><p class="qq">1. <span class="en">Visitors can read outside on the ___ when the weather is warm.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>roof</b> (hoặc "small garden" — nhưng chỗ trống sau "the" và trước mệnh đề chỉ nơi chốn, bám sát bài: "a small garden on the roof" → điền <b>roof</b> khớp ngữ pháp nhất). Chú ý: "outside" = "outdoors" (paraphrase).</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">Local residents do not have to pay for ___.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>membership</b> — "free for residents" = "do not have to pay". Điền danh từ, đúng 1 từ.</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">People who bring books back late must pay a ___.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>(small) fee</b> — "return books late" = "bring books back late". Viết "small fee" (2 từ) hay "fee" (1 từ) đều trong giới hạn.</p></div></details></div>
+          <div class="q"><p class="qq">4. Đề cho phép <span class="en">ONE WORD ONLY</span>, đáp án trong bài là "a small fee" — bạn điền gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>fee</b> — bỏ từ phụ, giữ danh từ lõi. Điền "small fee" lúc này là sai vì vượt giới hạn.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-05">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b1-06 -->
+      <article class="lesson" id="rd-b1-06" data-lesson="rd-b1-06" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b1-06</span><h3>Dạng bài Multiple Choice — nghệ thuật loại trừ</h3><span class="ls-check">✓</span></div>
+        <p>Quy trình: đọc câu hỏi, gạch keyword, <mark>định vị đoạn chứa đáp án trước rồi mới đối chiếu các phương án</mark> — để 3 đáp án sai không "dắt mũi" bạn. Ba loại bẫy kinh điển:</p>
+        <ul>
+          <li><strong>Đúng một nửa:</strong> phương án có vế đầu đúng, vế sau sai — đọc trọn phương án đến chữ cuối cùng.</li>
+          <li><strong>Mượn từ của bài:</strong> phương án chứa đúng những từ trong passage nhưng ghép sai ý — phương án đúng thường <em>paraphrase</em>, phương án sai thường <em>chép từ</em>.</li>
+          <li><strong>Từ cực đoan:</strong> <span class="en">all, every, never, only, always</span> — bài đọc hiếm khi tuyệt đối hoá; thấy các từ này phải soi kỹ.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p>Working from home became common in many countries after 2020. Some employees report that they save time and money because they no longer travel to an office. Companies can also spend less on office space. However, several studies suggest that new staff find it harder to learn their jobs at home, since they cannot easily watch and copy experienced colleagues.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. <span class="en">According to the passage, one advantage for companies is that they can</span><br>A. hire more new staff &nbsp; B. reduce spending on offices &nbsp; C. train employees faster &nbsp; D. help staff travel less</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — paraphrase của "spend less on office space". A và C mượn từ "new staff", "learn their jobs" nhưng sai ý; D là lợi ích của <em>nhân viên</em>, không phải công ty (bẫy đổi chủ thể).</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">The studies mentioned suggest that working from home</span><br>A. saves money for all employees &nbsp; B. is more difficult for new staff &nbsp; C. will soon end &nbsp; D. helps people copy colleagues</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b>. A dùng từ cực đoan "all" (bài chỉ nói "some employees"); C không có trong bài; D đảo ngược ý gốc ("cannot easily watch and copy").</p></div></details></div>
+          <div class="q"><p class="qq">3. Trong 2 câu trên, phương án đúng có đặc điểm chung gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Đều là <b>paraphrase</b> của bài (spend less on office space → reduce spending on offices; find it harder → more difficult) — trong khi các phương án sai chép từ của bài. Ghi nhớ dấu hiệu này.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao nên định vị đoạn trước khi đọc kỹ 4 phương án?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì 3 phương án sai được thiết kế để <b>nghe rất hợp lý</b>. Đọc chúng trước khi có "sự thật" từ bài, bạn dễ bị mớm ý và chọn theo cảm giác.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b1-06">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.0 → 5.5 ═══════════ -->
+    <section class="chapter" id="b2">
+      <h2><span class="cnum">BAND 5.0 → 5.5</span> Dạng bài khó hơn &amp; đọc sâu hơn <span class="ccount" data-chcount="b2">0/5</span></h2>
+      <p class="cintro">Nhóm này xử lý dạng bài gây sai nhiều nhất (True/False/Not Given), dạng không theo thứ tự (Matching Information), và hai kỹ năng nền: mổ xẻ câu dài và vốn paraphrase học thuật. Mục tiêu: chạm ~19/40 câu đúng.</p>
+
+      <!-- rd-b2-01 -->
+      <article class="lesson" id="rd-b2-01" data-lesson="rd-b2-01" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b2-01</span><h3>True / False / Not Given — dạng bài đáng sợ nhất</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nhãn</th><th>Khi nào chọn</th></tr>
+          <tr><td class="k">TRUE</td><td>Bài khẳng định <b>đúng như</b> câu đề (qua paraphrase)</td></tr>
+          <tr><td class="k">FALSE</td><td>Bài nói <b>ngược lại / mâu thuẫn</b> với câu đề</td></tr>
+          <tr><td class="k">NOT GIVEN</td><td>Bài <b>không đủ thông tin</b> để kết luận đúng hay sai về đúng khía cạnh đó</td></tr>
+        </table></div>
+        <ul>
+          <li><strong>Luật số 1:</strong> chỉ so câu đề với <mark>những gì bài viết</mark> — tuyệt đối không dùng kiến thức, kinh nghiệm hay suy diễn "chắc là vậy".</li>
+          <li><strong>Bẫy NG tinh vi:</strong> chủ đề được nhắc đến, nhưng <em>khía cạnh cụ thể</em> trong câu đề (so sánh, mức độ, nguyên nhân, "đầu tiên/duy nhất") thì bài không nói → NOT GIVEN, không phải False.</li>
+          <li><strong>Yes/No/Not Given:</strong> kỹ thuật y hệt, nhưng so với <em>quan điểm/tuyên bố của tác giả</em> (gặp ở bài nghị luận) thay vì sự kiện.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p>Green tea has been drunk in China for thousands of years. Today it is popular in many parts of the world, and some people believe it can help them lose weight. Research shows that green tea contains compounds which may slightly increase the speed at which the body burns energy. However, the effect is small, and researchers agree that drinking tea alone will not make a person slim.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (T / F / NG)</b>
+          <div class="q"><p class="qq">1. <span class="en">Green tea is only popular in China.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>FALSE</b> — bài nói "popular in many parts of the world", mâu thuẫn trực tiếp với "only in China".</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">Some people think green tea helps with weight loss.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>TRUE</b> — "some people believe it can help them lose weight" = paraphrase gần như hoàn hảo (think = believe, weight loss = lose weight).</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">Green tea is the healthiest drink in the world.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>NOT GIVEN</b> — bài nói về trà xanh và trao đổi chất, nhưng <em>không hề so sánh</em> nó với đồ uống khác. Chủ đề có, khía cạnh "healthiest" không có.</p></div></details></div>
+          <div class="q"><p class="qq">4. <span class="en">Researchers believe that tea by itself will make people slim.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>FALSE</b> — bài viết "will NOT make a person slim". Câu đề bỏ chữ "not" — kiểu lật ý kinh điển, phải đọc đến phủ định cuối câu.</p></div></details></div>
+          <div class="q"><p class="qq">5. Bạn biết chắc ngoài đời trà xanh có caffeine. Câu đề: <span class="en">"Green tea contains caffeine."</span> — chọn gì với đoạn trên?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>NOT GIVEN</b> — bài không nhắc caffeine. Kiến thức ngoài đời của bạn <b>không được tính</b>. Đây là cách đề trừng phạt người "biết nhiều".</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b2-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b2-02 -->
+      <article class="lesson" id="rd-b2-02" data-lesson="rd-b2-02" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b2-02</span><h3>Matching Information — dạng KHÔNG theo thứ tự</h3><span class="ls-check">✓</span></div>
+        <p>Đề hỏi: <span class="en">"Which paragraph contains the following information?"</span>. Hai điều khiến dạng này khác biệt:</p>
+        <ul>
+          <li><strong>Đáp án không theo thứ tự</strong>, và một đoạn có thể được dùng 2 lần nếu đề ghi <span class="en">"You may use any letter more than once"</span>.</li>
+          <li>Bạn tìm theo <mark>chức năng của thông tin</mark>, không phải theo từ: đề luôn mở đầu bằng <span class="en">an example of… / a reason why… / a description of… / a comparison between…</span> — chữ mở đầu này quyết định thứ bạn cần thấy trong đoạn.</li>
+        </ul>
+        <div class="call"><b class="tag">Chiến thuật</b>Làm dạng này <strong>sau cùng</strong> trong các nhóm câu hỏi của passage đó — lúc ấy bạn đã có "bản đồ" bài trong đầu nhờ các câu trước, việc ghép đoạn nhanh gấp ba.</div>
+        <div class="passage"><b class="ptag">Đoạn luyện tập</b>
+          <p><span class="pl">A</span>The first free public libraries appeared in the nineteenth century, when many cities began to see reading as something that benefited the whole community.</p>
+          <p><span class="pl">B</span>Today, libraries offer far more than books: most provide free internet access, language classes and meeting rooms for local clubs and study groups.</p>
+          <p><span class="pl">C</span>Funding, however, remains a serious challenge. In one recent case, a mid-sized town closed three of its five library branches after its budget was cut by forty per cent.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (chọn A / B / C)</b>
+          <div class="q"><p class="qq">1. <span class="en">an example of a town reducing its library services</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>C</b> — "In one recent case, a mid-sized town closed three of its five branches" = một ví dụ (example) cụ thể. Từ "example" trong đề ↔ "in one recent case" trong bài.</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">a reference to when free libraries first existed</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>A</b> — "first... appeared in the nineteenth century" = mốc thời gian bắt đầu. "First existed" ↔ "appeared".</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">services libraries provide other than lending books</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — "far more than books: internet access, language classes, meeting rooms" = dịch vụ ngoài sách. "Other than lending books" ↔ "more than books".</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao câu 1 không chọn B dù B cũng nói về "services"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì đề yêu cầu <b>an example of a town reducing services</b> — cần một <em>ví dụ cụ thể về cắt giảm</em>, B chỉ mô tả dịch vụ nói chung. Chữ mở đầu (example / description) là kim chỉ nam.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b2-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b2-03 -->
+      <article class="lesson" id="rd-b2-03" data-lesson="rd-b2-03" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b2-03</span><h3>Xử lý câu dài &amp; đoán nghĩa từ mới qua ngữ cảnh</h3><span class="ls-check">✓</span></div>
+        <p><strong>Mổ xẻ câu dài</strong> theo 2 bước: (1) tìm <mark>S – V chính</mark>; (2) tạm che phần chêm — phần giữa hai dấu phẩy và mệnh đề <span class="en">who/which/that</span>. Ví dụ:</p>
+        <div class="passage"><b class="ptag">Câu mẫu</b>
+          <p>The scheme, <span class="vs">which was introduced by the city council in 2019 despite strong opposition from local businesses,</span> has reduced traffic in the centre by almost a quarter.</p>
+        </div>
+        <p>Che phần mờ đi, còn lại xương sống: <span class="en">The scheme has reduced traffic by almost a quarter.</span> — nghĩa chính nằm ở đây; phần chêm chỉ bổ sung chi tiết (ai đưa ra, khi nào, ai phản đối).</p>
+        <p><strong>Đoán nghĩa từ mới</strong> nhờ 4 biển báo ngữ cảnh:</p>
+        <ul>
+          <li><span class="en">such as / for example / like</span> → định nghĩa bằng ví dụ: <span class="en">beverages, such as juice, water and tea</span> → beverages = đồ uống.</li>
+          <li><span class="en">or</span> + từ dễ / dấu ngoặc đơn → từ đồng nghĩa được cho sẵn.</li>
+          <li><span class="en">unlike / however / but</span> → nghĩa <em>ngược</em> với vế kia: <span class="en">Unlike her talkative brother, Lan is quite reticent</span> → reticent ≈ ít nói.</li>
+          <li><span class="en">because / so</span> → suy từ quan hệ nhân quả.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Tìm S–V chính: <span class="en">"The factory, which employs more than two thousand workers from nearby villages, produces electronic components for export."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>The factory produces electronic components (for export).</b> Mệnh đề "which employs..." là phần chêm.</p></div></details></div>
+          <div class="q"><p class="qq">2. Đoán nghĩa "beverages": <span class="en">"The company sells a range of beverages, such as fruit juice, bottled water and iced tea."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Đồ uống</b> — biển báo "such as" + toàn ví dụ là đồ uống.</p></div></details></div>
+          <div class="q"><p class="qq">3. Đoán nghĩa "reticent": <span class="en">"Unlike her talkative brother, Lan is quite reticent."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Ít nói, kín tiếng</b> — "unlike" báo hiệu trái ngược với "talkative".</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao kỹ năng che phần chêm đặc biệt hữu ích cho dạng T/F/NG?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì câu đề T/F/NG thường chỉ nhắm vào <b>xương sống S–V–O</b>, còn bẫy được giấu trong phần chêm hoặc ngược lại. Tách được hai lớp, bạn so ý chính xác hơn hẳn.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b2-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b2-04 -->
+      <article class="lesson" id="rd-b2-04" data-lesson="rd-b2-04" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b2-04</span><h3>Từ điển paraphrase học thuật — 30 cặp gặp nhiều nhất</h3><span class="ls-check">✓</span></div>
+        <p>Học thuộc bảng này như học từ vựng: mỗi ngày 10 cặp, tự đặt 1 câu cho mỗi cặp. Đây là những "bản dịch" đề ↔ bài xuất hiện lặp đi lặp lại trong các đề thi:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nhóm nghĩa</th><th>Cặp paraphrase (đề ↔ bài)</th></tr>
+          <tr><td class="k">Mua – bán, tiền</td><td class="mono">buy ↔ purchase · expensive ↔ costly · cheap ↔ inexpensive / affordable · spend ↔ pay out</td></tr>
+          <tr><td class="k">Tăng – giảm</td><td class="mono">increase ↔ rise / grow / go up · decrease ↔ decline / fall / drop · quickly ↔ rapidly · about ↔ approximately / around</td></tr>
+          <tr><td class="k">Giúp – cần – lấy</td><td class="mono">help ↔ assist / aid · need ↔ require · get ↔ obtain / acquire · try ↔ attempt · use ↔ utilise / consume</td></tr>
+          <tr><td class="k">Chỉ ra – tạo ra</td><td class="mono">show ↔ demonstrate / reveal / indicate · make ↔ manufacture / produce · cause ↔ lead to / bring about / result in · stop ↔ prevent / halt</td></tr>
+          <tr><td class="k">Quan trọng – to nhỏ</td><td class="mono">important ↔ crucial / vital / significant · big ↔ large / considerable · small ↔ minor / slight · main ↔ primary / major</td></tr>
+          <tr><td class="k">Người &amp; thế giới</td><td class="mono">people ↔ individuals · children ↔ the young / youngsters · old ↔ ancient / elderly (người) · worldwide ↔ global / international</td></tr>
+          <tr><td class="k">Lợi – hại</td><td class="mono">benefit ↔ advantage · drawback ↔ disadvantage / downside · danger ↔ threat / risk · problem ↔ issue / difficulty</td></tr>
+          <tr><td class="k">Cách làm – kết quả</td><td class="mono">method ↔ approach / technique · result ↔ outcome / consequence · now ↔ currently / at present · almost ↔ nearly</td></tr>
+        </table></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Đề dùng <span class="en">"a significant drawback"</span> — bài đọc có thể viết gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>"a major disadvantage" / "a considerable downside"</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bài viết <span class="en">"The number of visitors has declined rapidly"</span> — đề có thể hỏi bằng cách nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>"Visitor numbers have fallen quickly / decreased fast"</b> — cùng lúc đổi cả decline lẫn rapidly.</p></div></details></div>
+          <div class="q"><p class="qq">3. Cặp nào KHÔNG đồng nghĩa: (A) obtain – get (B) prevent – cause (C) outcome – result?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — prevent (ngăn chặn) gần như <em>trái nghĩa</em> với cause (gây ra). Nhận diện cặp trái nghĩa cũng quan trọng không kém: đó là nguồn đáp án FALSE.</p></div></details></div>
+          <div class="q"><p class="qq">4. Cách biến bảng này thành của bạn trong 3 ngày?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mỗi ngày 10 cặp → nạp vào flashcard, mặt trước từ của "đề", mặt sau từ của "bài" + <b>1 câu tự đặt</b>. Ôn ngắt quãng đúng như Hướng dẫn tự học mục 07.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b2-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- rd-b2-05 -->
+      <article class="lesson" id="rd-b2-05" data-lesson="rd-b2-05" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">rd-b2-05</span><h3>Quy trình làm 1 passage hoàn chỉnh + bài luyện tổng hợp</h3><span class="ls-check">✓</span></div>
+        <p>Ráp mọi thứ đã học thành một quy trình 6 bước, dùng cho <em>mọi</em> passage từ nay về sau:</p>
+        <ol>
+          <li>Đọc tiêu đề + <strong>skim 2 phút</strong> (bài 02) → ghi chú 1–3 từ mỗi đoạn.</li>
+          <li>Đọc nhóm câu hỏi đầu tiên, <strong>gạch keyword</strong> (bài 03) và dự đoán paraphrase (bài 04).</li>
+          <li><strong>Scan</strong> định vị đoạn chứa đáp án.</li>
+          <li>Đọc kỹ câu chứa đáp án + 1 câu trước và sau; mổ xẻ nếu câu dài (bài b2-03).</li>
+          <li>Trả lời và <strong>ghi đáp án ngay</strong>; tôn trọng luật đếm từ, chính tả.</li>
+          <li>Các dạng Matching để <strong>cuối cùng</strong>; câu bí quá 90 giây → đoán, đánh dấu, đi tiếp.</li>
+        </ol>
+        <div class="passage"><b class="ptag">Bài luyện tổng hợp (~140 từ)</b>
+          <p>Honey bees play a vital role in modern farming. As they move from flower to flower collecting food, they carry pollen between plants, allowing crops such as apples, almonds and cucumbers to produce fruit. Scientists estimate that about one third of the food we eat depends, directly or indirectly, on this free service. In recent years, however, bee populations have fallen sharply in several regions. Researchers point to a combination of causes, including the heavy use of certain pesticides, the loss of wild flowers, and new diseases spread by imported insects. Some governments have responded by banning the most harmful chemicals, while farmers are being encouraged to plant strips of wild flowers beside their fields. Early results are promising, but experts warn that recovery will be slow because several pressures act on bees at the same time.</p>
+        </div>
+        <div class="quiz"><b>5 câu trộn dạng — làm hết rồi mới mở đáp án</b>
+          <div class="q"><p class="qq">1. (Completion, ONE WORD ONLY) <span class="en">While gathering food, bees carry ___ from plant to plant.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>pollen</b> — "gathering food" = "collecting food"; "from plant to plant" = "between plants".</p></div></details></div>
+          <div class="q"><p class="qq">2. (Completion, NO MORE THAN TWO WORDS) <span class="en">Around ___ of human food relies on bees in some way.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>one third</b> — "around" = "about"; "relies on... in some way" = "depends, directly or indirectly".</p></div></details></div>
+          <div class="q"><p class="qq">3. (Multiple Choice) <span class="en">Which is NOT mentioned as a cause of falling bee numbers?</span><br>A. pesticides &nbsp; B. new diseases &nbsp; C. climate change &nbsp; D. the loss of wild flowers</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>C</b> — ba nguyên nhân bài nêu: pesticides, loss of wild flowers, diseases. Climate change nghe "hợp lý ngoài đời" nhưng bài không nói — đúng kiểu bẫy kiến thức nền.</p></div></details></div>
+          <div class="q"><p class="qq">4. (T/F/NG) <span class="en">All governments have banned harmful pesticides.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>FALSE</b> — bài viết "<b>Some</b> governments have responded by banning..." — "all" mâu thuẫn với "some".</p></div></details></div>
+          <div class="q"><p class="qq">5. (T/F/NG) <span class="en">Planting wild flowers is cheaper than banning chemicals.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>NOT GIVEN</b> — cả hai biện pháp đều được nhắc, nhưng bài <em>không so sánh chi phí</em> giữa chúng. Nhắc đến ≠ có thông tin để kết luận.</p></div></details></div>
+        </div>
+        <div class="call"><b class="tag">Bước tiếp theo bắt buộc</b>Mở web luyện đề của bạn, làm <strong>Passage 1 của một đề bất kỳ</strong> theo đúng quy trình 6 bước, bấm giờ 17 phút. Chấm xong, ghi mọi cặp paraphrase và mọi lỗi vào sổ — rồi quay lại đây tick bài này.</div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="rd-b2-05">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <div class="coming"><b>Sắp bổ sung vào trang này</b>Band 5.5 → 6.0 (Matching Headings, Summary Completion, tăng tốc độ đọc) · Band 6.0 → 6.5 (Matching Features/Sentence Endings, MCQ nâng cao) · Band 6.5 → 7.0 (chiến lược 30/40, xử lý passage 3 học thuật dài). Tiến độ bạn đã tick sẽ được giữ nguyên khi trang cập nhật.</div>
+
+    <div class="endnav">
+      <a class="btn btn-primary" id="nextBtn" href="writing.html" aria-disabled="true" title="Trang đang được xây dựng">Tiếp theo: Writing →</a>
+      <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+    </div>
+
+    </div><!-- /content -->
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v1 · reading (b1+b2) · 11 bài · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══ Thanh tiến trình đọc ══ */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  readbar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* ══ DEV CONTRACT: quét bài học & ghi manifest ══ */
+var PAGE_KEY = "reading";
+var lessonEls = Array.prototype.slice.call(document.querySelectorAll(".lesson[data-lesson]"));
+var LESSONS = lessonEls.map(function(el){
+  return {
+    id: el.dataset.lesson,
+    band: el.dataset.band,
+    title: el.querySelector("h3") ? el.querySelector("h3").textContent.trim() : el.dataset.lesson
+  };
+});
+try{
+  localStorage.setItem("bandup.manifest." + PAGE_KEY, JSON.stringify({
+    page: PAGE_KEY,
+    title: "Reading",
+    updated: Date.now(),
+    lessons: LESSONS
+  }));
+}catch(e){}
+
+/* ══ Tiến độ: đọc / ghi bandup.done ══ */
+function loadDone(){
+  try{
+    var raw = localStorage.getItem("bandup.done");
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveDone(set){
+  try{ localStorage.setItem("bandup.done", JSON.stringify(Array.from(set))); }catch(e){}
+}
+var doneSet = loadDone();
+
+function renderState(){
+  var doneCount = 0;
+  lessonEls.forEach(function(el){
+    var id = el.dataset.lesson;
+    var isDone = doneSet.has(id);
+    if(isDone) doneCount++;
+    el.classList.toggle("done", isDone);
+    var btn = el.querySelector("[data-tick]");
+    if(btn) btn.textContent = isDone ? "✓ Đã học — bấm để bỏ đánh dấu" : "Đánh dấu đã học xong";
+    var toc = document.querySelector('[data-toc="' + id + '"]');
+    if(toc){
+      toc.classList.toggle("done", isDone);
+      toc.querySelector(".st").textContent = isDone ? "✓" : "○";
+    }
+  });
+  var pct = LESSONS.length ? Math.round(doneCount / LESSONS.length * 100) : 0;
+  document.getElementById("pgBar").style.width = pct + "%";
+  document.getElementById("pgText").textContent = doneCount + "/" + LESSONS.length + " bài · " + pct + "%";
+  document.querySelectorAll("[data-chcount]").forEach(function(c){
+    var ch = document.getElementById(c.dataset.chcount);
+    if(!ch) return;
+    var inCh = Array.prototype.slice.call(ch.querySelectorAll(".lesson[data-lesson]"));
+    var d = inCh.filter(function(el){ return doneSet.has(el.dataset.lesson); }).length;
+    c.textContent = d + "/" + inCh.length;
+  });
+}
+
+document.addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-tick]");
+  if(!btn) return;
+  var id = btn.getAttribute("data-tick");
+  if(doneSet.has(id)) doneSet.delete(id); else doneSet.add(id);
+  saveDone(doneSet);
+  renderState();
+});
+
+window.addEventListener("focus", function(){ doneSet = loadDone(); renderState(); });
+renderState();
+
+/* ══ Mở khoá nút "Tiếp theo" khi writing.html tồn tại ══ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var btn = document.getElementById("nextBtn");
+  fetch("writing.html", {method:"HEAD", cache:"no-store"})
+    .then(function(r){
+      if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>
