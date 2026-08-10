@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — BandUp</title>
+<meta name="description" content="Module IELTS Writing: 4 tiêu chí chấm, viết câu đúng, dựng đoạn văn, khung Task 1 và Task 2, bài mẫu có phân tích — chia theo mốc band từ 4.0 đến 7.0.">
+<!--
+BANDUP · writing.html · v3 (phủ đủ b1 → b5) · giao diện v2
+Tuân theo DEV CONTRACT trong index.html.
+- Page key: writing · Lesson id hiện có:
+    wr-b1-01 → wr-b1-06  (Band 4.0 → 5.0)
+    wr-b2-01 → wr-b2-05  (Band 5.0 → 5.5)
+    wr-b3-01 → wr-b3-04  (Band 5.5 → 6.0)
+    wr-b4-01 → wr-b4-04  (Band 6.0 → 6.5)
+    wr-b5-01 → wr-b5-03  (Band 6.5 → 7.0)
+- Mở rộng sau (7.0+): thêm wr-b6-xx, KHÔNG đổi id cũ
+- Khi load: tự ghi bandup.manifest.writing; tick ghi vào bandup.done
+- Bài mẫu tiếng Anh là văn bản gốc tự soạn cho BandUp
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#E4DFD3; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
+  --done-bg:#FFFBEA;
+  --radius:16px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,sans-serif;
+  --font-mono:"Nunito",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(min-width:640px){html{font-size:17px}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+.hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-wr);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--c-wr)}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:46rem;margin-bottom:20px}
+.pageprog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:34rem}
+.pageprog .track{flex:1;min-width:180px;height:10px;background:var(--card);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.pageprog .track i{display:block;height:100%;width:0%;background:var(--c-wr);border-radius:99px;transition:width .5s ease}
+.pageprog b{font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+
+.layout{display:grid;grid-template-columns:262px 1fr;gap:40px;padding:40px 0 20px;align-items:start}
+@media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:920px){.toc{position:static;max-height:none}}
+.toc h2{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2:first-child{margin-top:0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.88rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
+.toc a.done{color:var(--ink)}
+.toc a.done .st{color:var(--accent-deep);font-weight:700}
+.toc .soon{font-size:.76rem;color:var(--ink-soft);padding:5px 8px;font-style:italic}
+
+.content{min-width:0}
+.chapter{padding:6px 0 34px;scroll-margin-top:84px}
+.chapter>h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chapter>h2 .cnum{flex:none;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--c-wr);color:#fff}
+.chapter>h2 .ccount{margin-left:auto;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);font-weight:400}
+.chapter>p.cintro{color:var(--ink-soft);font-size:.94rem;max-width:66ch;margin-bottom:18px}
+
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;scroll-margin-top:84px;position:relative}
+.lesson .spine{position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 4px 4px 0;background:var(--c-wr)}
+.lesson.done{background:var(--done-bg)}
+.lesson.done .spine{background:var(--accent-deep)}
+.ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ls-id{font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
+.ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
+.lesson.done .ls-check{opacity:1;transform:scale(1)}
+.lesson p{margin-bottom:12px;max-width:70ch}
+.lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
+.lesson li{margin-bottom:7px}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.en{font-weight:800;font-size:.97em;color:#1F4E68}
+.gl{color:var(--ink-soft);font-style:italic;font-size:.85em;font-weight:400}
+.vs{color:var(--ink-soft);font-size:.86em}
+
+/* Bài mẫu / văn bản luyện */
+.passage{border:1.5px solid var(--line);border-left:6px solid var(--c-wr);background:var(--paper);border-radius:11px;padding:16px 18px;margin:14px 0;max-width:72ch}
+.passage b.ptag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--c-wr);display:block;margin-bottom:6px}
+.passage p{font-size:.95rem;line-height:1.8;margin-bottom:10px}
+.passage p:last-child{margin-bottom:0}
+.passage .lb{font-family:var(--font-mono);font-weight:800;font-size:.72rem;color:#fff;background:var(--c-wr);border-radius:5px;padding:1px 6px;margin-right:6px;white-space:nowrap}
+
+.tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
+th{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.k{font-weight:700;white-space:nowrap}
+td .mono,.mono{font-family:var(--font-mono);font-size:.84em}
+tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;padding:7px 12px}
+
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);padding:13px 16px;border-radius:11px;font-size:.9rem;margin:14px 0;max-width:70ch}
+.call.warn{border-left-color:#B23A3A;background:#FCF6F4}
+.call b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink-soft)}
+.wrong{color:#B23A3A;text-decoration:line-through;text-decoration-thickness:1.5px}
+.right{color:var(--c-rd);font-weight:700}
+.vn-sum{background:var(--ink);color:#DDE3DA;border-radius:11px;padding:15px 18px;margin:16px 0 4px;max-width:72ch;font-size:.9rem}
+.vn-sum b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--accent)}
+.vn-sum p{margin-bottom:6px;color:#DDE3DA;max-width:none}
+.vn-sum p:last-child{margin-bottom:0}
+
+.quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
+.quiz>b{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.q{margin-bottom:12px;max-width:72ch}
+.q .qq{margin-bottom:6px}
+details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
+summary{cursor:pointer;list-style:none;font-weight:800;font-size:.85rem;padding:10px 14px;color:var(--ink);user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent-deep)}
+details[open] summary::before{content:"▾ "}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:12px 14px;font-size:.95rem}
+details .ans p{margin-bottom:6px}
+
+.ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
+.tickbtn{font-family:var(--font-body);font-weight:800;font-size:.95rem;padding:12px 20px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
+.lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
+
+.coming{border:1.5px dashed var(--line);border-radius:var(--radius);padding:22px;color:var(--ink-soft);font-size:.92rem;background:var(--card);margin-bottom:18px}
+.coming b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:30px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:.15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px 0 42px;margin-top:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+
+/* ── UI v2: mục lục mobile & nút về đầu trang ── */
+.toc-toggle{display:none}
+@media(max-width:920px){
+  .toc-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-family:var(--font-body);font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer}
+  .toc.collapsed > *:not(.toc-toggle){display:none}
+  .toc:not(.collapsed) .toc-toggle{margin-bottom:8px}
+}
+#toTop{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--accent);color:var(--ink);font-size:1.25rem;font-weight:800;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;font-family:var(--font-body)}
+#toTop.show{opacity:1;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="reading.html">Reading</a>
+      <a href="index.html#tiendo">Tiến độ</a>
+      <a class="cta" href="index.html#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Ưu tiên 2 · Kỹ năng Writing</span>
+      <h1>Writing <em>4.0 → 7.0</em></h1>
+      <p class="lead">60 phút · Task 1 (150 từ) + Task 2 (250 từ, chiếm 2/3 điểm). Ở band thấp, điểm mất vì trả lời sai câu hỏi và câu sai ngữ pháp — không phải vì thiếu từ "khủng". Lộ trình đầy đủ 5 nhóm band từ 4.0 đến 7.0; từ nhóm 6.0 trở lên bài học chuyển dần sang tiếng Anh kèm chú thích Việt. Nên học song song với Reading: từ vựng đọc được chính là nguyên liệu để viết.</p>
+      <div class="pageprog"><div class="track"><i id="pgBar"></i></div><b id="pgText">0/22 bài · 0%</b></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Band 4.0 → 5.0</h2>
+      <a href="#wr-b1-01" data-toc="wr-b1-01"><span class="st">○</span>Toàn cảnh bài thi Writing</a>
+      <a href="#wr-b1-02" data-toc="wr-b1-02"><span class="st">○</span>4 tiêu chí chấm điểm</a>
+      <a href="#wr-b1-03" data-toc="wr-b1-03"><span class="st">○</span>Viết câu đúng trước đã</a>
+      <a href="#wr-b1-04" data-toc="wr-b1-04"><span class="st">○</span>Câu ghép &amp; câu phức</a>
+      <a href="#wr-b1-05" data-toc="wr-b1-05"><span class="st">○</span>Dựng đoạn văn T-E-E</a>
+      <a href="#wr-b1-06" data-toc="wr-b1-06"><span class="st">○</span>Khung Task 2 bốn đoạn</a>
+      <h2>Band 5.0 → 5.5</h2>
+      <a href="#wr-b2-01" data-toc="wr-b2-01"><span class="st">○</span>Task 1 Academic nhập môn</a>
+      <a href="#wr-b2-02" data-toc="wr-b2-02"><span class="st">○</span>Ngôn ngữ mô tả số liệu</a>
+      <a href="#wr-b2-03" data-toc="wr-b2-03"><span class="st">○</span>Task 1 GT — viết thư</a>
+      <a href="#wr-b2-04" data-toc="wr-b2-04"><span class="st">○</span>Phân tích đề &amp; dàn ý 5 phút</a>
+      <a href="#wr-b2-05" data-toc="wr-b2-05"><span class="st">○</span>Bài mẫu Task 2 + tự chấm</a>
+      <h2>Band 5.5 → 6.0</h2>
+      <a href="#wr-b3-01" data-toc="wr-b3-01"><span class="st">○</span>Phát triển ý sâu</a>
+      <a href="#wr-b3-02" data-toc="wr-b3-02"><span class="st">○</span>Cohesion nâng cao</a>
+      <a href="#wr-b3-03" data-toc="wr-b3-03"><span class="st">○</span>Task 1: Process</a>
+      <a href="#wr-b3-04" data-toc="wr-b3-04"><span class="st">○</span>Task 1: Map</a>
+      <h2>Band 6.0 → 6.5</h2>
+      <a href="#wr-b4-01" data-toc="wr-b4-01"><span class="st">○</span>Câu phức có kiểm soát</a>
+      <a href="#wr-b4-02" data-toc="wr-b4-02"><span class="st">○</span>Collocation học thuật</a>
+      <a href="#wr-b4-03" data-toc="wr-b4-03"><span class="st">○</span>Thừa nhận &amp; hoá giải</a>
+      <a href="#wr-b4-04" data-toc="wr-b4-04"><span class="st">○</span>Mở bài &amp; kết bài band 7</a>
+      <h2>Band 6.5 → 7.0</h2>
+      <a href="#wr-b5-01" data-toc="wr-b5-01"><span class="st">○</span>Giải phẫu band 7</a>
+      <a href="#wr-b5-02" data-toc="wr-b5-02"><span class="st">○</span>Từ chính xác &amp; hedging</a>
+      <a href="#wr-b5-03" data-toc="wr-b5-03"><span class="st">○</span>Quy trình soát bài &amp; ngày thi</a>
+    </aside>
+
+    <div class="content">
+
+    <!-- ═══════════ BAND 4.0 → 5.0 ═══════════ -->
+    <section class="chapter" id="b1">
+      <h2><span class="cnum">BAND 4.0 → 5.0</span> Hiểu luật chấm &amp; viết cho đúng <span class="ccount" data-chcount="b1">0/6</span></h2>
+      <p class="cintro">Trước khi học "viết hay", phải biết bài bị chấm thế nào và viết cho <em>đúng</em>. Nhóm này đặt móng: luật thi, 4 tiêu chí, câu đúng, đoạn có tổ chức, và khung Task 2 tối giản đủ chạm band 5.</p>
+
+      <!-- wr-b1-01 -->
+      <article class="lesson" id="wr-b1-01" data-lesson="wr-b1-01" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-01</span><h3>Toàn cảnh bài thi Writing — luật chơi trước, ngòi bút sau</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th></th><th>Task 1</th><th>Task 2</th></tr>
+          <tr><td class="k">Yêu cầu</td><td>Academic: mô tả biểu đồ / quy trình / bản đồ.<br>General Training: viết thư.</td><td>Bài luận nêu quan điểm / thảo luận về một vấn đề xã hội (cả 2 hình thức thi).</td></tr>
+          <tr><td class="k">Số từ tối thiểu</td><td><b>150 từ</b></td><td><b>250 từ</b></td></tr>
+          <tr><td class="k">Thời gian khuyên dùng</td><td>~20 phút</td><td>~40 phút</td></tr>
+          <tr><td class="k">Tỉ trọng điểm</td><td>1/3</td><td><b>2/3</b></td></tr>
+        </table></div>
+        <ul>
+          <li>Viết <strong>thiếu số từ tối thiểu bị phạt điểm</strong>; viết dài không được cộng — chỉ tăng rủi ro lỗi và tốn giờ. Vùng an toàn: Task 1 ~160–190 từ, Task 2 ~260–290 từ.</li>
+          <li>Task 2 nặng gấp đôi → nếu sợ thiếu giờ, <mark>viết Task 2 trước</mark>. Đừng bao giờ để Task 2 dưới 35 phút.</li>
+          <li>Thi trên máy: có bộ đếm từ tự động và cho phép copy–paste để sắp xếp lại ý — lợi thế lớn, nhưng phải luyện gõ từ sớm (Hướng dẫn tự học, mục 09).</li>
+          <li>Bài do giám khảo chấm theo 4 tiêu chí (bài sau) — mỗi tiêu chí 25%, không tiêu chí nào "gánh" được tiêu chí khác.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn còn 25 phút mà chưa viết chữ nào. Nên phân bổ thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dồn <b>~20 phút cho Task 2</b> (viết đủ khung 4 đoạn, chấp nhận ngắn gọn) và ~5 phút viết Task 1 tối giản — vì Task 2 nặng gấp đôi. Bỏ trắng Task 2 là thảm hoạ điểm số.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bài Task 2 của bạn được 240 từ — có sao không?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Có</b> — dưới 250 từ bị phạt ở tiêu chí Task Response. Luyện cảm giác độ dài: ~5 đoạn viết tay một trang, hoặc nhìn bộ đếm khi thi máy.</p></div></details></div>
+          <div class="q"><p class="qq">3. Viết Task 2 thật dài (400+ từ) để "ghi điểm chăm chỉ" — đúng hay sai?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Sai</b> — không có điểm thưởng độ dài; càng dài càng nhiều lỗi và càng dễ lạc đề, trong khi thời gian soát bài biến mất.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao nên quyết định "viết task nào trước" từ lúc luyện chứ không phải trong phòng thi?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì mọi quyết định trong phòng thi đều tốn năng lượng và gây hoảng. Nghi thức cố định (ví dụ: luôn Task 2 trước) được luyện thành phản xạ thì ngày thi chỉ việc chạy.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b1-02 -->
+      <article class="lesson" id="wr-b1-02" data-lesson="wr-b1-02" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-02</span><h3>4 tiêu chí chấm — bản đồ kho báu của Writing</h3><span class="ls-check">✓</span></div>
+        <p>Điểm Writing = trung bình 4 tiêu chí, mỗi tiêu chí 25%. Viết mà không biết luật chấm là viết mù — đây là bài <mark>quan trọng nhất của cả module</mark>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Tiêu chí</th><th>Chấm cái gì</th><th>Để lên band 5 → 6 cần</th></tr>
+          <tr><td class="k">Task Achievement / Response <span class="gl">(TA/TR)</span></td><td>Trả lời đúng và đủ câu hỏi? Đủ số từ? Quan điểm rõ (T2)? Có overview (T1)?</td><td>Trả lời <b>mọi vế</b> của đề, quan điểm nhất quán từ đầu đến cuối, ý có phát triển</td></tr>
+          <tr><td class="k">Coherence &amp; Cohesion <span class="gl">(CC)</span></td><td>Chia đoạn logic? Ý nối nhau mượt? Từ nối dùng đúng, không lạm dụng?</td><td>Mỗi đoạn 1 ý chính, từ nối đa dạng vừa phải, có đại từ thay thế (this, they)</td></tr>
+          <tr><td class="k">Lexical Resource <span class="gl">(LR)</span></td><td>Vốn từ đủ cho chủ đề? Ít lặp từ? Sai từ có cản trở nghĩa không?</td><td>Paraphrase được đề, ít lặp, bắt đầu có collocation tự nhiên</td></tr>
+          <tr><td class="k">Grammatical Range &amp; Accuracy <span class="gl">(GRA)</span></td><td>Có trộn câu đơn – ghép – phức? Tỉ lệ câu không lỗi?</td><td>Có câu phức dùng đúng; phần lớn câu <b>không mắc lỗi</b> phá nghĩa</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Sự thật ngược đời</b>Người band 4–5 thường lao vào học "từ khủng" — nhưng dữ liệu chấm cho thấy họ mất điểm nhiều nhất ở <strong>TA/TR và CC</strong>: trả lời thiếu vế, đoạn lộn xộn. Từ khó dùng sai còn <em>bị trừ LR nặng hơn</em> từ đơn giản dùng đúng.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Đề hỏi "Discuss both views and give your opinion" nhưng bài chỉ bàn 2 quan điểm, không nêu ý kiến riêng — tiêu chí nào bị trừ nặng nhất?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Task Response</b> — thiếu hẳn một vế của đề. Dù 3 tiêu chí kia band 7, TR ~5 sẽ kéo trung bình sập.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bài dùng "Moreover" mở đầu 6 câu liên tiếp — tiêu chí nào bị ảnh hưởng?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Coherence &amp; Cohesion</b> — lạm dụng từ nối máy móc bị trừ CC, không được cộng.</p></div></details></div>
+          <div class="q"><p class="qq">3. Một bạn viết <span class="en">"The phenomenon exacerbates the paradigm of society"</span> (vô nghĩa) thay vì <span class="en">"This problem makes life harder for many people"</span> — bên nào điểm LR cao hơn?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Câu đơn giản đúng nghĩa</b>. LR chấm độ <em>chính xác và phù hợp</em>, không chấm độ "kêu". Từ khó dùng sai = bằng chứng chống lại bạn.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bài của bạn được TA 6 · CC 5 · LR 6 · GRA 5 — điểm Writing khoảng bao nhiêu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Trung bình = 5.5. Bài học: kéo tiêu chí <b>thấp nhất</b> lên hiệu quả hơn đánh bóng tiêu chí đã cao.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b1-03 -->
+      <article class="lesson" id="wr-b1-03" data-lesson="wr-b1-03" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-03</span><h3>Viết câu đúng trước đã — một câu đúng hơn ba câu sai</h3><span class="ls-check">✓</span></div>
+        <p>Ở band 4–5, GRA sập vì những lỗi đã học trong module Nền tảng nay tái xuất dưới áp lực viết: quên -s ngôi 3, thiếu "be", sai thì, sai mạo từ. Quy tắc sống còn: <mark>không viết câu bạn không chắc ngữ pháp</mark>.</p>
+        <p><strong>Công thức mở rộng câu an toàn</strong> — một câu đơn đúng có thể "lớn lên" mà không tăng rủi ro:</p>
+        <div class="passage"><b class="ptag">Công thức</b>
+          <p><span class="en">[Nowadays,] + S + V + O + [place] + [because + mệnh đề].</span></p>
+          <p>Lõi: <span class="en">Students use smartphones.</span><br>Mở rộng: <span class="en">Nowadays, many students use smartphones in class because these devices help them study faster.</span></p>
+        </div>
+        <ul>
+          <li>Checklist 4 điểm cho <em>mỗi câu</em> khi mới luyện: ① động từ đã chia đúng chưa? ② chủ ngữ – động từ khớp số chưa? ③ danh từ đếm được có mạo từ/số nhiều chưa? ④ thì có khớp cả bài không?</li>
+          <li>Thói quen vàng: viết xong mỗi đoạn, <strong>đọc lại từng câu một lần</strong> chỉ để soát 4 điểm trên — 30 giây cứu cả band GRA.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Sửa lỗi: <span class="en">Many student is use internet for study.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Many students use the internet to study / for studying.</b> — 3 lỗi: students (số nhiều), bỏ "is" thừa, "for study" sai dạng.</p></div></details></div>
+          <div class="q"><p class="qq">2. Sửa lỗi: <span class="en">In the past, people is travel by horse.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>In the past, people travelled by horse.</b> — "in the past" ép thì quá khứ; people + động từ thường, không kèm "is".</p></div></details></div>
+          <div class="q"><p class="qq">3. Mở rộng câu lõi <span class="en">"Children play games"</span> theo công thức đủ 4 thành phần.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>Nowadays, many children play video games at home because their parents are too busy to take them outside.</b></p></div></details></div>
+          <div class="q"><p class="qq">4. Câu nào an toàn hơn cho người band 4.5: (A) một câu 35 từ với 3 mệnh đề lồng nhau, (B) hai câu 12–15 từ đúng ngữ pháp?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — GRA chấm tỉ lệ câu không lỗi. Câu dài sai còn kéo cả CC (người đọc lạc). Câu phức sẽ học có kiểm soát ở bài sau.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b1-04 -->
+      <article class="lesson" id="wr-b1-04" data-lesson="wr-b1-04" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-04</span><h3>Câu ghép &amp; câu phức — nâng GRA có kiểm soát</h3><span class="ls-check">✓</span></div>
+        <p>GRA band 6 yêu cầu "a mix of simple and complex sentences" — nghĩa là mỗi đoạn nên có <mark>ít nhất một câu ghép hoặc phức dùng đúng</mark>, không phải câu nào cũng phức.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Loại</th><th>Công thức</th><th>Ví dụ</th></tr>
+          <tr><td class="k">Câu ghép</td><td class="mono">Mệnh đề, + and/but/so/or + mệnh đề</td><td class="mono">Online learning is cheap, so many people choose it.</td></tr>
+          <tr><td class="k">Câu phức (sau)</td><td class="mono">Mệnh đề chính + because/although/when/if + mệnh đề phụ</td><td class="mono">People eat out more because they are busier than before.</td></tr>
+          <tr><td class="k">Câu phức (trước)</td><td class="mono">Although/When/If + mệnh đề phụ, + mệnh đề chính</td><td class="mono">Although cities are noisy, many young people prefer them.</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Hai lỗi người Việt hay mắc</b>① <strong>Comma splice</strong> — nối 2 câu chỉ bằng dấu phẩy: <span class="wrong">Online shopping is convenient, it saves time.</span> → <span class="right">Online shopping is convenient because it saves time.</span> ② <strong>Although… but…</strong> trong cùng câu: <span class="wrong">Although it rained, but we went out.</span> → <span class="right">Although it rained, we went out.</span> Một câu chỉ cần một "cầu nối".</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Nối bằng liên từ phù hợp: <span class="en">Uniforms are cheap. Some students dislike them.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ví dụ: <b>Uniforms are cheap, but some students dislike them.</b> hoặc <b>Although uniforms are cheap, some students dislike them.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. Sửa comma splice: <span class="en">Cities are crowded, the air is polluted.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cities are crowded, and the air is polluted.</b> hoặc tách 2 câu. Dấu phẩy một mình không nối được 2 mệnh đề.</p></div></details></div>
+          <div class="q"><p class="qq">3. Sửa lỗi: <span class="en">Although fast food is tasty, but it is unhealthy.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Although fast food is tasty, it is unhealthy.</b> (hoặc bỏ Although, giữ but).</p></div></details></div>
+          <div class="q"><p class="qq">4. Khi nào mệnh đề phụ cần dấu phẩy?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Khi nó đứng <b>trước</b> mệnh đề chính: <span class="en">If it rains, we will stay home.</span> Đứng sau thì không: <span class="en">We will stay home if it rains.</span></p></div></details></div>
+          <div class="q"><p class="qq">5. Viết 1 câu phức về chủ đề "làm việc tại nhà" dùng "because", tự soát bằng checklist bài trước.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <b>Many companies allow remote work because it reduces office costs and travel time.</b> — soát: chia động từ ✓, khớp số ✓, mạo từ ✓, thì nhất quán ✓.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b1-05 -->
+      <article class="lesson" id="wr-b1-05" data-lesson="wr-b1-05" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-05</span><h3>Dựng đoạn văn theo công thức T-E-E</h3><span class="ls-check">✓</span></div>
+        <p>Đoạn thân bài chuẩn = <mark>T-E-E</mark>: <strong>T</strong>opic sentence (câu chủ đề nêu ý chính) → <strong>E</strong>xplain (giải thích vì sao/thế nào) → <strong>E</strong>xample (ví dụ cụ thể). Một đoạn — một ý chính, không hơn.</p>
+        <div class="passage"><b class="ptag">Đoạn mẫu có gắn nhãn</b>
+          <p><span class="lb">T</span><span class="en">School uniforms save students time in the morning.</span> <span class="lb">E</span><span class="en">Because everyone wears the same clothes, students do not have to decide what to wear every day.</span> <span class="lb">E</span><span class="en">For example, my cousin gets ready fifteen minutes faster since her school introduced uniforms.</span></p>
+        </div>
+        <p><strong>Từ nối cơ bản đủ dùng đến band 6</strong> — ít mà đúng thắng nhiều mà máy móc:</p>
+        <ul>
+          <li>Mở ý: <span class="en">Firstly, Secondly, In addition</span> · Ví dụ: <span class="en">For example, For instance</span> · Đối lập: <span class="en">However, On the other hand</span> · Kết quả: <span class="en">As a result, Therefore</span> · Kết bài: <span class="en">In conclusion</span>.</li>
+          <li>Cấm kỵ: mỗi câu một từ nối; hai từ nối cùng nghĩa dính nhau (<span class="wrong">Moreover, in addition,…</span>).</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Xếp 3 câu sau thành đoạn T-E-E: (a) <span class="en">For instance, workers in Ha Noi often spend two hours a day on the road.</span> (b) <span class="en">Traffic jams waste a large amount of people's time.</span> (c) <span class="en">When roads are blocked, millions of workers arrive late and lose working hours.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>b → c → a</b>. b nêu ý (T), c giải thích cơ chế (E), a cho ví dụ cụ thể (E).</p></div></details></div>
+          <div class="q"><p class="qq">2. Đoạn sau hỏng ở đâu: <span class="en">"Uniforms save time. They are also cheap. Besides, schools should ban smartphones. Uniforms make students equal."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Một đoạn nhồi 3 ý</b> (tiết kiệm thời gian, rẻ, bình đẳng) + 1 câu <b>lạc đề</b> (smartphones). CC sập. Mỗi ý lớn xứng đáng một đoạn riêng với E-E của nó.</p></div></details></div>
+          <div class="q"><p class="qq">3. Chọn từ nối: <span class="en">Online courses are flexible. ___, students can study at midnight if they want.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>For example / For instance</b> — câu sau là ví dụ minh hoạ, không phải ý mới (không dùng In addition).</p></div></details></div>
+          <div class="q"><p class="qq">4. Viết một đoạn T-E-E (3 câu) cho ý: <span class="en">"Doing exercise reduces stress."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <b>Doing exercise helps people reduce stress. When we move our bodies, the brain releases chemicals that improve our mood. For example, many office workers feel much more relaxed after a thirty-minute run in the evening.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-05">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b1-06 -->
+      <article class="lesson" id="wr-b1-06" data-lesson="wr-b1-06" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b1-06</span><h3>Khung Task 2 bốn đoạn — đủ chạm band 5+</h3><span class="ls-check">✓</span></div>
+        <p>Khung tối giản dùng được cho hầu hết đề: <mark>Mở bài (paraphrase đề + quan điểm) → Thân 1 (T-E-E) → Thân 2 (T-E-E) → Kết (nhắc lại quan điểm)</mark>. Bài mẫu dưới đây viết <em>cố ý đơn giản</em> — mục tiêu là khung chuẩn và câu đúng (bài thật cần ≥250 từ; mẫu rút gọn để phân tích):</p>
+        <div class="passage"><b class="ptag">Đề: Some people think that students should wear uniforms at school. Do you agree or disagree?</b>
+          <p><span class="lb">MỞ</span><span class="en">People have different opinions about whether school uniforms are a good idea. I agree that students should wear uniforms because they save time and make everyone equal.</span></p>
+          <p><span class="lb">THÂN 1</span><span class="en">Firstly, uniforms save students time in the morning. Because everyone wears the same clothes, students do not need to decide what to wear every day. For example, my cousin gets ready fifteen minutes faster since her school introduced uniforms.</span></p>
+          <p><span class="lb">THÂN 2</span><span class="en">Secondly, uniforms make all students equal. When everyone dresses in the same way, it is difficult to see who comes from a rich or poor family. As a result, students judge each other by their behaviour, not by their clothes.</span></p>
+          <p><span class="lb">KẾT</span><span class="en">In conclusion, I believe that school uniforms are good for students because they reduce stress in the morning and create a fair environment at school.</span></p>
+        </div>
+        <div class="quiz"><b>Mổ xẻ bài mẫu</b>
+          <div class="q"><p class="qq">1. Mở bài paraphrase đề bằng những cặp từ nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>think → have opinions about · should wear → are a good idea</b>. Không chép lại nguyên văn đề — đó là điểm LR đầu tiên của bài.</p></div></details></div>
+          <div class="q"><p class="qq">2. Quan điểm của người viết nằm ở câu nào, và được nhắc lại ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Câu 2 mở bài (<span class="en">I agree that…</span>) và câu đầu kết bài (<span class="en">I believe that…</span>) — quan điểm <b>xuất hiện sớm, nhất quán đến cuối</b>: đúng yêu cầu TR.</p></div></details></div>
+          <div class="q"><p class="qq">3. Chỉ ra 1 câu ghép và 1 câu phức trong bài.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Phức: <span class="en">Because everyone wears the same clothes, students do not need to decide…</span> · Ghép/phức: <span class="en">When everyone dresses in the same way, it is difficult…</span> — mỗi đoạn ít nhất 1 câu phức = đạt chuẩn GRA hướng band 6.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bài này khó vượt ~5.5 dù không lỗi — vì sao? (Câu hỏi thật thà nhất bài)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì <b>ý còn đơn giản, ví dụ cá nhân, từ vựng phổ thông, câu ngắn lặp nhịp</b> — TR/CC ổn nhưng LR/GRA chưa có "range". Đó chính là nội dung các nhóm band sau: giữ nguyên khung này, nâng chất từng viên gạch.</p></div></details></div>
+          <div class="q"><p class="qq">5. Nhiệm vụ: viết bài theo đúng khung cho đề <span class="en">"Some people think children should not use smartphones. Do you agree or disagree?"</span> — 25 phút, rồi tự soát.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Checklist tự soát: ① mở bài có paraphrase + quan điểm? ② mỗi thân đúng 1 ý, đủ T-E-E? ③ mỗi đoạn có ≥1 câu phức đúng? ④ soát 4 điểm ngữ pháp từng câu? ⑤ kết không thêm ý mới? Ghi lỗi vào sổ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b1-06">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.0 → 5.5 ═══════════ -->
+    <section class="chapter" id="b2">
+      <h2><span class="cnum">BAND 5.0 → 5.5</span> Task 1 nhập môn &amp; Task 2 chắc khung <span class="ccount" data-chcount="b2">0/5</span></h2>
+      <p class="cintro">Nhóm này mở mặt trận Task 1 (biểu đồ Academic và thư GT), trang bị ngôn ngữ số liệu, rồi quay lại Task 2 với kỹ năng phân tích đề — thứ quyết định Task Response trước cả khi bạn viết chữ đầu tiên.</p>
+
+      <!-- wr-b2-01 -->
+      <article class="lesson" id="wr-b2-01" data-lesson="wr-b2-01" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b2-01</span><h3>Task 1 Academic nhập môn — Overview là trái tim</h3><span class="ls-check">✓</span></div>
+        <p>Đề Task 1 Academic: biểu đồ đường/cột/tròn, bảng số liệu, quy trình (process) hoặc bản đồ (map). Khung 4 phần cho nhóm biểu đồ số liệu:</p>
+        <ol>
+          <li><strong>Intro (1 câu):</strong> paraphrase đề — <span class="en">The chart shows…</span> → <span class="en">The line graph illustrates/compares…</span></li>
+          <li><strong>Overview (1–2 câu, bắt đầu bằng <span class="en">Overall,</span>):</strong> 2 đặc điểm lớn nhất — xu hướng chung, cao nhất/thấp nhất, thay đổi mạnh nhất. <mark>Không có số liệu chi tiết ở đây.</mark></li>
+          <li><strong>Body 1 &amp; Body 2:</strong> chia dữ liệu thành 2 nhóm logic, mô tả kèm số liệu cụ thể.</li>
+        </ol>
+        <div class="call warn"><b class="tag">Hai luật sắt của Task 1</b>① <strong>Không overview → TA trần ~5</strong>, dù phần còn lại hay đến đâu. ② <strong>Không nêu ý kiến, nguyên nhân, giải pháp</strong> — Task 1 chỉ mô tả cái nhìn thấy; "because people like technology" là tự sát TA.</div>
+        <div class="passage"><b class="ptag">Số liệu luyện tập (mô tả bằng lời)</b>
+          <p>Biểu đồ đường: % hộ gia đình có internet ở 3 nước, 2010–2020. Nước A: 45% → 90%. Nước B: 60% → 75%. Nước C: 20% → 70%.</p>
+          <p><b>Mẫu Intro + Overview:</b> <span class="en">The line graph shows the percentage of households with internet access in three countries between 2010 and 2020. Overall, internet access rose in all three countries over the period, with Country C recording the fastest growth, while Country A had the highest figure by the end.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Đề: <span class="en">"The bar chart shows the number of visitors to three museums in 2019."</span> — viết câu intro paraphrase.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <b>The bar chart compares how many people visited three different museums in 2019.</b> — shows → compares; the number of visitors → how many people visited.</p></div></details></div>
+          <div class="q"><p class="qq">2. Overview nào đúng cho số liệu internet ở trên? (A) <span class="en">Overall, Country A rose from 45% to 90%.</span> (B) <span class="en">Overall, access increased everywhere, and Country C grew fastest.</span> (C) <span class="en">Overall, more people used the internet because it became cheaper.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b>. A phạm luật "không số chi tiết trong overview"; C phạm luật "không nêu nguyên nhân".</p></div></details></div>
+          <div class="q"><p class="qq">3. Với 3 nước trên, chia Body 1 / Body 2 thế nào cho logic?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Một cách hợp lý: <b>Body 1 = A và C</b> (hai nước tăng mạnh), <b>Body 2 = B</b> (tăng chậm, khởi điểm cao). Chia theo <em>đặc điểm dữ liệu</em>, không máy móc mỗi nước một câu.</p></div></details></div>
+          <div class="q"><p class="qq">4. (T/F) Task 1 nên có kết bài "In conclusion" nêu cảm nghĩ.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — Task 1 không cần kết luận; overview đã làm nhiệm vụ "tổng kết". Viết cảm nghĩ còn phạm luật ý kiến.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b2-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b2-02 -->
+      <article class="lesson" id="wr-b2-02" data-lesson="wr-b2-02" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b2-02</span><h3>Ngôn ngữ mô tả số liệu — bộ đồ nghề Task 1</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Chuyển động</th><th>Động từ</th><th>Danh từ</th></tr>
+          <tr><td class="k">Tăng</td><td class="mono">rise · increase · grow · climb</td><td class="mono">a rise · an increase · growth</td></tr>
+          <tr><td class="k">Giảm</td><td class="mono">fall · decrease · decline · drop</td><td class="mono">a fall · a decrease · a decline</td></tr>
+          <tr><td class="k">Ổn định</td><td class="mono">remain stable · stay unchanged · level off</td><td class="mono">a period of stability</td></tr>
+          <tr><td class="k">Dao động</td><td class="mono">fluctuate</td><td class="mono">a fluctuation</td></tr>
+          <tr><td class="k">Đỉnh / đáy</td><td class="mono">peak at X · hit a low of X</td><td class="mono">a peak of X</td></tr>
+        </table></div>
+        <ul>
+          <li>Trạng từ/tính từ mức độ: mạnh — <span class="en">sharply, dramatically / a sharp rise</span>; đều — <span class="en">steadily, gradually</span>; nhẹ — <span class="en">slightly / a slight fall</span>.</li>
+          <li>Cấu trúc số liệu: <span class="en">rose <b>from</b> 45% <b>to</b> 90%</span> (từ… đến) · <span class="en">increased <b>by</b> 45 percentage points</span> (tăng thêm) · <span class="en">stood <b>at</b> 60% in 2010</span> (đứng ở mức).</li>
+          <li>Biến hoá câu để có "range": <span class="en">Sales rose sharply</span> ⇄ <span class="en">There was a sharp rise in sales</span> — cùng ý, hai bộ khung (động từ ⇄ danh từ).</li>
+          <li><strong>Thì:</strong> mốc thời gian trong quá khứ (2010–2020) → quá khứ đơn toàn bài.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Viết 1 câu cho: Nước C, 20% (2010) → 70% (2020).</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <b>Internet access in Country C rose sharply from 20% in 2010 to 70% in 2020.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. Chọn by/to: <span class="en">The figure increased ___ 15%, from 60% ___ 75%.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>by 15%… to 75%</b> — "by" = mức tăng thêm; "to" = mức đạt tới. Nhầm cặp này là sai số liệu, trừ TA.</p></div></details></div>
+          <div class="q"><p class="qq">3. Chuyển sang khung danh từ: <span class="en">The number of visitors fell slightly.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>There was a slight fall in the number of visitors.</b></p></div></details></div>
+          <div class="q"><p class="qq">4. Số liệu đi ngang suốt 5 năm rồi tăng vọt năm cuối — viết 1 câu dùng 2 động từ chuyển động.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <b>The figure remained stable for five years before climbing dramatically in the final year.</b></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b2-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b2-03 -->
+      <article class="lesson" id="wr-b2-03" data-lesson="wr-b2-03" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b2-03</span><h3>Task 1 General Training — viết thư đúng giọng</h3><span class="ls-check">✓</span></div>
+        <p>Thi GT? Task 1 là một lá thư với <strong>3 gạch đầu dòng bắt buộc</strong> — mỗi gạch một đoạn, bỏ sót gạch nào TA trừ gạch đó. Việc đầu tiên khi đọc đề: xác định <mark>giọng thư</mark>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Giọng</th><th>Gửi ai</th><th>Mở đầu</th><th>Kết thư</th></tr>
+          <tr><td class="k">Formal</td><td>Người lạ, công ty, cơ quan</td><td class="mono">Dear Sir or Madam,</td><td class="mono">Yours faithfully,</td></tr>
+          <tr><td class="k">Semi-formal</td><td>Người quen biết tên (sếp, thầy, chủ nhà)</td><td class="mono">Dear Mr Tan,</td><td class="mono">Yours sincerely,</td></tr>
+          <tr><td class="k">Informal</td><td>Bạn bè, người thân</td><td class="mono">Dear Anna,</td><td class="mono">Best wishes, / Love,</td></tr>
+        </table></div>
+        <ul>
+          <li>Khung thư: chào → <strong>1 câu nêu mục đích</strong> (<span class="en">I am writing to…</span> / informal: <span class="en">Just a quick note to…</span>) → 3 đoạn cho 3 gạch → câu chốt hành động (<span class="en">I look forward to hearing from you.</span>) → kết + tên.</li>
+          <li>Cụm chức năng: phàn nàn — <span class="en">I am writing to express my dissatisfaction with…</span> · yêu cầu — <span class="en">I would be grateful if you could…</span> · cảm ơn — <span class="en">I really appreciate…</span> · xin lỗi — <span class="en">I am terribly sorry for…</span></li>
+          <li><strong>Nhất quán giọng</strong> là điểm chấm ngầm của LR: một chữ lệch giọng cũng lộ.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Thư phàn nàn với công ty chuyển nhà (không biết tên ai) — chọn cặp mở/kết.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Dear Sir or Madam, … Yours faithfully,</b> — formal vì người nhận vô danh.</p></div></details></div>
+          <div class="q"><p class="qq">2. Tìm chữ lệch giọng: <span class="en">"Dear Sir or Madam, I am writing to complain about my order. It was a total mess, you know? I would be grateful if you could refund me."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>"It was a total mess, you know?"</b> — văn nói lọt vào thư formal. Sửa: <span class="en">The order arrived damaged and incomplete.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Nối cụm với mục đích: <span class="en">(a) I would be grateful if you could… (b) Just wanted to say a huge thank you for… (c) I am writing to express my dissatisfaction with…</span> — yêu cầu / cảm ơn bạn bè / phàn nàn formal.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>a = yêu cầu (formal) · b = cảm ơn informal · c = phàn nàn formal.</b></p></div></details></div>
+          <div class="q"><p class="qq">4. Đề: thư cho bạn, 3 gạch: mời đến chơi thành phố bạn · gợi ý hoạt động · hướng dẫn cách đến nhà. Lập khung 5 dòng.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: ① <span class="en">Dear Minh,</span> ② mục đích: <span class="en">I'm so excited to invite you to visit me in Da Nang next month!</span> ③ đoạn mời + thời gian · ④ đoạn hoạt động (beach, food tour) · ⑤ đoạn chỉ đường + <span class="en">Can't wait to see you! Best wishes, Lan.</span></p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b2-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b2-04 -->
+      <article class="lesson" id="wr-b2-04" data-lesson="wr-b2-04" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b2-04</span><h3>Phân tích đề &amp; dàn ý 5 phút — TR quyết định từ đây</h3><span class="ls-check">✓</span></div>
+        <p>Điểm TR được định đoạt <strong>trước khi viết chữ đầu tiên</strong>. 5 dạng đề Task 2 và dấu hiệu nhận diện:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Dạng</th><th>Câu hỏi của đề</th><th>Bài phải có</th></tr>
+          <tr><td class="k">Opinion</td><td class="mono">Do you agree or disagree? / To what extent…?</td><td>Quan điểm rõ ngay mở bài, giữ đến cuối</td></tr>
+          <tr><td class="k">Discussion</td><td class="mono">Discuss both views and give your opinion.</td><td>Cả 2 phía <b>và</b> ý kiến riêng — thiếu 1 trong 3 là mất TR</td></tr>
+          <tr><td class="k">Adv / Disadv</td><td class="mono">What are the advantages and disadvantages? / Do the advantages outweigh…?</td><td>Cả 2 mặt; nếu có "outweigh" phải cân và chốt bên nặng hơn</td></tr>
+          <tr><td class="k">Problem / Solution</td><td class="mono">What problems…? What solutions…?</td><td>Đúng thứ được hỏi (causes ≠ problems!)</td></tr>
+          <tr><td class="k">Two-part</td><td class="mono">2 câu hỏi trực tiếp liên tiếp</td><td>Trả lời đủ cả 2, thường mỗi câu một thân bài</td></tr>
+        </table></div>
+        <p><strong>Quy trình 5 phút:</strong> ① gạch topic words (chủ đề) và task words (mệnh lệnh) → ② chọn quan điểm/phía → ③ 2 ý chính + 1 ví dụ mỗi ý → ④ ghi dàn ý 4 dòng. Không nghĩ ra ví dụ = ý đó yếu, đổi ý khác.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Nhận diện dạng: <span class="en">"Some people believe children should learn a foreign language at primary school, while others think they should start at secondary school. Discuss both views and give your opinion."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Discussion</b> — bài cần 3 thứ: phía tiểu học, phía trung học, và ý kiến của bạn. Vế "give your opinion" là vế hay bị bỏ quên nhất trong toàn bộ Task 2.</p></div></details></div>
+          <div class="q"><p class="qq">2. Đề: <span class="en">"More and more people are working from home. What are the causes of this trend? Is it a positive or negative development?"</span> — dạng gì, bài cần mấy phần?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Two-part</b>: thân 1 = causes, thân 2 = đánh giá tích cực/tiêu cực (phải chốt một phía). Chỉ viết causes = trả lời nửa đề.</p></div></details></div>
+          <div class="q"><p class="qq">3. Đề hỏi <span class="en">"What problems does heavy traffic cause?"</span> — bạn viết về nguyên nhân tắc đường. TR bị gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Lạc trọng tâm nghiêm trọng</b> — problems (hậu quả) ≠ causes (nguyên nhân). Bài trôi chảy đến đâu TR vẫn ~4–5. Gạch task words để không chết oan kiểu này.</p></div></details></div>
+          <div class="q"><p class="qq">4. Lập dàn ý 4 dòng (5 phút) cho đề: <span class="en">"Some people think advertising aimed at children should be banned. Do you agree or disagree?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu (agree): ① Mở: paraphrase + agree. ② Thân 1: trẻ chưa phân biệt được quảng cáo và sự thật → ví dụ đồ ăn nhanh. ③ Thân 2: gây áp lực tiền bạc lên cha mẹ → ví dụ đồ chơi theo phim. ④ Kết: nhắc lại agree. (Chọn disagree cũng hợp lệ — TR chấm độ rõ và nhất quán, không chấm "phe đúng".)</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b2-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b2-05 -->
+      <article class="lesson" id="wr-b2-05" data-lesson="wr-b2-05" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b2-05</span><h3>Bài mẫu Task 2 hoàn chỉnh + quy trình tự chấm</h3><span class="ls-check">✓</span></div>
+        <div class="passage"><b class="ptag">Đề: Nowadays many people choose to shop online instead of in physical shops. Do the advantages of this development outweigh the disadvantages? (~253 từ)</b>
+          <p><span class="lb">MỞ</span><span class="en">Shopping on the internet has become extremely popular in recent years, and many consumers now buy products online rather than visiting physical stores. Although this trend has some drawbacks, I believe its advantages are more significant.</span></p>
+          <p><span class="lb">THÂN 1</span><span class="en">The main advantage of online shopping is convenience. Customers can order almost anything at any time without leaving their homes, which is especially helpful for people who work long hours or live far from shopping centres. For example, a busy parent can buy school supplies late at night instead of spending the weekend in crowded stores. In addition, prices on the internet are often lower because online sellers do not have to pay for expensive shops and staff. Furthermore, it is easy to compare prices across different websites within minutes, which helps careful consumers find the best possible deal.</span></p>
+          <p><span class="lb">THÂN 2</span><span class="en">On the other hand, buying online has certain disadvantages. Shoppers cannot touch or try products before paying, so items sometimes arrive in the wrong size or poor quality. For instance, clothes bought online often fit differently from how they appear in photos. Delivery can also be slow or unreliable in some areas, and waiting several days for an urgent item can be genuinely frustrating. However, these problems are becoming less serious, since most large websites now offer free returns and faster shipping.</span></p>
+          <p><span class="lb">KẾT</span><span class="en">In conclusion, although online shopping is not perfect, I would argue that the benefits of convenience and lower prices clearly outweigh the disadvantages, which online companies are already solving through better return policies and delivery services.</span></p>
+        </div>
+        <p><strong>Những lỗi kéo band mà bài mẫu tránh</strong> — cũng là danh sách cấm của bạn:</p>
+        <ul>
+          <li>Mở bài học thuộc kiểu <span class="wrong">"In this day and age, it is undeniable that…"</span> — giám khảo nhận ra văn mẫu thuộc lòng và <strong>không tính điểm</strong> cho phần đó.</li>
+          <li>Bịa số liệu giả cho "sang": <span class="wrong">"According to a study, 87% of people…"</span> — ví dụ đời thường hợp lý ăn điểm hơn thống kê bịa.</li>
+          <li>Kết bài thêm ý mới chưa từng xuất hiện; một đoạn nhồi nhiều ý; quên vế "outweigh" (bài mẫu chốt rõ ở kết).</li>
+        </ul>
+        <div class="quiz"><b>Mổ xẻ &amp; tự chấm</b>
+          <div class="q"><p class="qq">1. Câu nào thể hiện position, và vế "outweigh" được trả lời ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Position ở câu cuối mở bài (<span class="en">I believe its advantages are more significant</span>) và được <b>cân lại ở kết</b> (<span class="en">clearly outweigh</span>). Đề "outweigh" mà không chốt bên nặng hơn = TR thủng.</p></div></details></div>
+          <div class="q"><p class="qq">2. Liệt kê các từ nối bài dùng — có bị lạm dụng không?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">Although · For example · In addition · On the other hand · For instance · However · In conclusion</span> — mỗi từ một nhiệm vụ, không từ nào lặp, không câu nào "gánh" 2 từ nối. Đây là mức CC band 6+.</p></div></details></div>
+          <div class="q"><p class="qq">3. Thân 2 nói về nhược điểm nhưng kết thúc bằng <span class="en">"However, these problems are becoming less serious…"</span> — câu đó làm nhiệm vụ gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Giảm sức nặng của nhược điểm</b> để nhất quán với position "advantages outweigh" — kỹ thuật "thừa nhận rồi hoá giải", món chính của nhóm band 6.0→6.5 sắp tới.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ capstone: viết đề <span class="en">"Many people now watch films at home instead of going to the cinema. Do the advantages outweigh the disadvantages?"</span> trong 40 phút, rồi tự chấm.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Checklist 8 câu: ① ≥250 từ? ② position rõ + chốt outweigh? ③ 4 đoạn, mỗi thân 1 ý? ④ đủ T-E-E mỗi thân? ⑤ từ nối đa dạng không lạm dụng? ⑥ có paraphrase đề? ⑦ mỗi đoạn ≥1 câu phức đúng? ⑧ đã soát ngữ pháp từng câu? — Ghi mọi lỗi vào sổ, đối chiếu bài mẫu, rồi tick bài này.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b2-05">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.5 → 6.0 ═══════════ -->
+    <section class="chapter" id="b3">
+      <h2><span class="cnum">BAND 5.5 → 6.0</span> Đào sâu ý &amp; hoàn thiện Task 1 <span class="ccount" data-chcount="b3">0/4</span></h2>
+      <p class="cintro">Từ 5.5 lên 6.0, khung không đổi — chất từng viên gạch phải đổi: ý được đào sâu thay vì liệt kê nông, câu nối nhau bằng referencing thay vì "Moreover" máy móc, và hai dạng Task 1 còn lại (process, map) được đưa vào kho vũ khí.</p>
+
+      <!-- wr-b3-01 -->
+      <article class="lesson" id="wr-b3-01" data-lesson="wr-b3-01" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b3-01</span><h3>Phát triển ý sâu — kỹ thuật "Vậy thì sao?"</h3><span class="ls-check">✓</span></div>
+        <p>Band descriptors nói thẳng: band 5 = "ý còn hạn chế, chưa được phát triển đủ"; band 7 = "ý chính được <mark>mở rộng và chứng minh</mark>". Cách rẻ nhất để mở rộng ý: sau mỗi câu, tự hỏi <strong>"Vậy thì sao?" (So what?)</strong> và viết câu trả lời — thay vì nhảy sang ý mới:</p>
+        <div class="passage"><b class="ptag">Chuỗi đào sâu 1 ý — từ 1 câu thành 4 câu</b>
+          <p><span class="lb">Ý</span><span class="en">Online learning is flexible.</span></p>
+          <p><span class="lb">Vậy thì sao?</span><span class="en">Students can choose when and where they study.</span></p>
+          <p><span class="lb">Vậy thì sao?</span><span class="en">As a result, people with full-time jobs can still gain new qualifications.</span></p>
+          <p><span class="lb">Ví dụ</span><span class="en">For example, an accountant can complete an evening data course without giving up her job.</span></p>
+        </div>
+        <div class="call warn"><b class="tag">Căn bệnh "liệt kê"</b>Đoạn thân bài nhồi 3 lợi ích, mỗi cái 1 câu — đọc như gạch đầu dòng trá hình. TR kẹt ở 5–6 vĩnh viễn vì không ý nào được chứng minh. Công thức band 6+: <strong>một đoạn = một ý × 4–5 câu đào sâu</strong>.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Đào sâu ý sau bằng 2 câu "Vậy thì sao?" + 1 ví dụ: <span class="en">"Public transport reduces traffic jams."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">When more people share one bus or train, fewer private cars enter the city centre. Consequently, roads move faster and people waste less time commuting. For example, cities with metro systems usually have much shorter rush hours than car-dependent ones.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Chẩn đoán đoạn sau: <span class="en">"Uniforms save time. They are also cheaper than fashion clothes. In addition, they make students equal. Finally, they look professional."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Liệt kê 4 ý nông trong 1 đoạn</b> — không ý nào có Explain hay Example. Sửa: chọn 1 ý mạnh nhất, đào 4 tầng; các ý khác bỏ hoặc chuyển đoạn.</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu nào là "Vậy thì sao?" đúng cho <span class="en">"Fast food is cheap and quick"</span>: (A) <span class="en">Many restaurants sell fast food.</span> (B) <span class="en">Busy workers therefore choose it several times a week, even when they know it is unhealthy.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — đẩy hệ quả đi tiếp một bước. A chỉ là thông tin ngang hàng, không phát triển gì.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: lấy lại bài uniforms bạn viết ở wr-b1-06, chọn 1 thân bài và viết lại với chuỗi 4 tầng.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự soát: đoạn mới có đúng 1 ý? Mỗi câu sau trả lời "vậy thì sao" của câu trước? Có 1 ví dụ cụ thể chốt đoạn? So sánh 2 phiên bản để <em>thấy</em> band 5 và band 6 khác nhau chỗ nào.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b3-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b3-02 -->
+      <article class="lesson" id="wr-b3-02" data-lesson="wr-b3-02" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b3-02</span><h3>Cohesion nâng cao — nối câu không cần "Moreover"</h3><span class="ls-check">✓</span></div>
+        <p>CC band 7 yêu cầu từ nối "đa dạng và đúng chỗ" — nghĩa là phần lớn liên kết phải <mark>vô hình</mark>, làm bằng 3 công cụ này thay vì rải Firstly/Moreover:</p>
+        <ul>
+          <li><strong>This/These + danh từ tóm tắt:</strong> câu trước nêu sự việc, câu sau gói nó lại — <span class="en">Many governments have banned smoking in public places. <b>This policy</b> has already improved air quality indoors.</span> Danh từ tóm tắt hay dùng: <span class="en">this trend · this approach · this policy · these measures · such behaviour · the problem · the shift</span>.</li>
+          <li><strong>Thay thế từ vựng:</strong> lần 2 nhắc lại chủ đề bằng từ khác — advertising → <span class="en">these commercials / such marketing</span>; children → <span class="en">young viewers / this age group</span>.</li>
+          <li><strong>Đại từ sạch:</strong> <span class="en">it/they</span> chỉ dùng khi người đọc biết ngay nó thay cho gì; "it" mơ hồ là lỗi CC kinh điển.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Trước → Sau</b>
+          <p><span class="lb">TRƯỚC</span><span class="en">Advertising is everywhere. Advertising makes people buy things. Moreover, advertising targets children. Moreover, advertising is hard to control.</span></p>
+          <p><span class="lb">SAU</span><span class="en">Advertising is now almost impossible to avoid. This constant exposure encourages people to buy products they do not need, and the problem is even more serious for children, who cannot recognise persuasion when they see it.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Nối 2 câu bằng "This + danh từ tóm tắt": <span class="en">"Many companies now allow employees to work from home."</span> + ý "giúp giảm chi phí văn phòng".</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Many companies now allow employees to work from home. <b>This arrangement</b> significantly reduces the cost of maintaining large offices.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Chọn danh từ tóm tắt cho: <span class="en">"More and more young people are moving from villages to big cities. ___ has left many rural areas with an ageing population."</span> (A) This city (B) This migration (C) This people</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B — This migration</b> — gói đúng toàn bộ sự việc của câu trước. A gói sai đối tượng; C sai ngữ pháp.</p></div></details></div>
+          <div class="q"><p class="qq">3. Tìm "it" mơ hồ: <span class="en">"The government built a new stadium next to the old library, but it was unpopular with residents."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>"It" có thể là <b>stadium, library, hoặc cả quyết định xây</b> — người đọc phải đoán. Sửa: <span class="en">…but <b>the project</b> was unpopular with residents.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Một bài Task 2 ~270 từ nên có khoảng bao nhiêu từ nối "lộ" (Firstly, However, In conclusion…)?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Khoảng <b>5–7</b> là vùng đẹp — đủ dẫn đường, không thành cái nạng. Phần liên kết còn lại giao cho referencing và thay thế từ vựng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b3-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b3-03 -->
+      <article class="lesson" id="wr-b3-03" data-lesson="wr-b3-03" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b3-03</span><h3>Task 1: Process — bị động &amp; trình tự</h3><span class="ls-check">✓</span></div>
+        <p>Đề process (quy trình sản xuất, vòng đời tự nhiên) không có xu hướng tăng giảm — nên bộ đồ nghề đổi hẳn:</p>
+        <ul>
+          <li><strong>Khung:</strong> Intro paraphrase (<span class="en">The diagram illustrates how glass bottles are recycled</span>) → Overview = <mark>số bước + điểm bắt đầu và kết thúc</mark> (<span class="en">Overall, the process consists of six main stages, beginning with the collection of used bottles and ending with the delivery of new ones to shops.</span>) → Body chia đôi quy trình theo trình tự.</li>
+          <li><strong>Bị động</strong> là giọng chính (ai làm không quan trọng): <span class="en">the bottles <b>are collected</b> · the glass <b>is crushed</b> · it <b>is melted</b> in a furnace</span>.</li>
+          <li><strong>Sequencers:</strong> <span class="en">First / At the first stage · Next · After that · Subsequently · Once + mệnh đề (Once the glass has been crushed, …) · Finally</span>.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Quy trình luyện tập (mô tả bằng lời): tái chế chai thủy tinh</b>
+          <p>Thu gom chai đã dùng → chở về nhà máy → phân loại theo màu → nghiền thành mảnh nhỏ → nấu chảy trong lò → đổ khuôn thành chai mới → giao đến cửa hàng.</p>
+          <p><b>Mẫu 2 câu body:</b> <span class="en">First, used bottles are collected from recycling points and transported to the plant, where they are sorted by colour. Once the glass has been crushed into small pieces, it is melted in a furnace at extremely high temperatures.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Viết câu bị động cho bước "đổ khuôn thành chai mới".</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">The melted glass <b>is then moulded</b> into new bottles.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Overview nào đúng? (A) <span class="en">Overall, recycling glass is good for the environment.</span> (B) <span class="en">Overall, the process involves six main stages, from collecting used bottles to delivering new ones.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — A là <em>ý kiến</em>, phạm luật sắt của Task 1. Overview process = đếm bước + đầu–cuối.</p></div></details></div>
+          <div class="q"><p class="qq">3. Nối 2 bước "nghiền" và "nấu chảy" bằng "Once…".</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">Once the bottles have been crushed into small pieces, the glass is melted in a furnace.</span> — Once + hoàn thành, mệnh đề chính hiện tại bị động.</p></div></details></div>
+          <div class="q"><p class="qq">4. (T/F) Bài process nên dùng "increased sharply" để bài "giàu từ vựng".</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — process không có số liệu tăng giảm; nhét trend language vào là lạc ngôn ngữ, trừ TA lẫn LR. Đúng đồ nghề cho đúng dạng đề.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b3-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b3-04 -->
+      <article class="lesson" id="wr-b3-04" data-lesson="wr-b3-04" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b3-04</span><h3>Task 1: Map — ngôn ngữ biến đổi &amp; vị trí</h3><span class="ls-check">✓</span></div>
+        <p>Đề map cho 2 bản đồ ở 2 thời điểm — nhiệm vụ là mô tả <mark>cái gì đã thay đổi, cái gì giữ nguyên</mark>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nhóm</th><th>Cụm phải thuộc</th></tr>
+          <tr><td class="k">Thay đổi</td><td class="mono">was demolished (bị phá bỏ) · was replaced by · was converted into (được chuyển thành) · was extended · a new X was constructed/built · remained unchanged</td></tr>
+          <tr><td class="k">Vị trí</td><td class="mono">in the north-east corner · to the south of · in the centre · along the coast · opposite · next to</td></tr>
+          <tr><td class="k">Thì</td><td class="mono">2 mốc quá khứ (1990–2020) → past simple; quá khứ đến nay → present perfect (has been converted)</td></tr>
+        </table></div>
+        <p><strong>Overview cho map</strong> = mức độ và hướng biến đổi tổng thể: <span class="en">Overall, the village was transformed dramatically over the period, changing from a small farming community into a modern tourist area, while only the church remained untouched.</span></p>
+        <div class="passage"><b class="ptag">Dữ liệu luyện tập (mô tả bằng lời): làng ven biển 1990 → 2020</b>
+          <p>1990: đất nông nghiệp phía bắc · vài ngôi nhà ở trung tâm · cảng cá phía nam · nhà thờ cạnh trung tâm. — 2020: đất nông nghiệp → khu chung cư · cảng cá → bến du thuyền (marina) · thêm con đường lớn chạy dọc bờ biển · nhà thờ giữ nguyên.</p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Viết câu cho thay đổi của cảng cá.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">The fishing port in the south <b>was converted into</b> a marina.</span> (hoặc: was replaced by a marina.)</p></div></details></div>
+          <div class="q"><p class="qq">2. Viết câu cho con đường mới, kèm vị trí.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">A new road <b>was constructed along the coast</b>, connecting the residential area with the marina.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Diễn đạt "nhà thờ không đổi" bằng 2 cách.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">The church <b>remained unchanged</b>.</span> / <span class="en">The church was the only building that <b>stayed exactly the same</b> throughout the period.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Chọn thì: bản đồ thứ hai ghi "Now" thay vì "2020" — câu về đất nông nghiệp viết thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mốc "now" → present perfect: <span class="en">The farmland in the north <b>has been replaced</b> by apartment blocks.</span> Hai mốc quá khứ mới dùng past simple.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b3-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.0 → 6.5 ═══════════ -->
+    <section class="chapter" id="b4">
+      <h2><span class="cnum">BAND 6.0 → 6.5</span> Range có kiểm soát <span class="ccount" data-chcount="b4">0/4</span></h2>
+      <p class="cintro">Từ nhóm này, bài học chuyển dần sang tiếng Anh — từ khó có chú thích nghiêng, cuối bài có Tóm tắt nhanh. "Range" (độ đa dạng câu và từ) là chìa khoá 6.5, nhưng luật bất biến vẫn là: chính xác trước, đa dạng sau.</p>
+
+      <!-- wr-b4-01 -->
+      <article class="lesson" id="wr-b4-01" data-lesson="wr-b4-01" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b4-01</span><h3>Câu phức có kiểm soát — 4 cấu trúc đáng tiền nhất</h3><span class="ls-check">✓</span></div>
+        <p>GRA 7 needs "a variety of complex structures" with most sentences error-free. You do not need twenty structures — you need <mark>four, used accurately</mark> <span class="gl">(bốn cấu trúc, dùng chính xác)</span>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Structure</th><th>Formula &amp; example</th></tr>
+          <tr><td class="k">1 · Relative clause</td><td class="mono">Children <b>who grow up with smartphones</b> often struggle to concentrate. · Remote work, <b>which became common after 2020</b>, has reshaped city centres.</td></tr>
+          <tr><td class="k">2 · Concession</td><td class="mono"><b>While</b> uniforms limit self-expression, they create a fairer environment. · <b>Despite</b> its cost, the policy is worth pursuing.</td></tr>
+          <tr><td class="k">3 · Real conditional</td><td class="mono"><b>If</b> governments invest in public transport, congestion <b>will</b> fall.</td></tr>
+          <tr><td class="k">4 · Unreal conditional</td><td class="mono"><b>If</b> advertising to children <b>were</b> banned, companies <b>would</b> simply find other channels.</td></tr>
+        </table></div>
+        <ul>
+          <li>Unreal conditional is a band-7 flavour <span class="gl">(gia vị band 7)</span> for discussing hypothetical policies — one per essay is plenty.</li>
+          <li>Quota: <strong>1–2 complex sentences per paragraph</strong>. One broken 35-word sentence costs more than it earns — accuracy first, always.</li>
+          <li>Classic error to kill: <span class="wrong">If governments will invest…</span> → <span class="right">If governments invest…</span> — no "will" inside the if-clause.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Combine with a relative clause: <span class="en">"Many students take part-time jobs. These students often have less time to study."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">Many students <b>who take part-time jobs</b> often have less time to study.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Rewrite with Despite: <span class="en">"Although the metro system was expensive, it solved the city's traffic problem."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en"><b>Despite its high cost</b>, the metro system solved the city's traffic problem.</span> — Despite + danh từ, không + mệnh đề.</p></div></details></div>
+          <div class="q"><p class="qq">3. Write an unreal conditional for: cấm ô tô trong trung tâm thành phố.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">If private cars <b>were banned</b> from city centres, air quality <b>would improve</b> dramatically within a few years.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Find and fix the error: <span class="en">"If schools will teach financial skills, young people would manage money better."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Trộn hai loại điều kiện. Sửa thành real: <span class="en">If schools teach financial skills, young people will manage money better.</span> hoặc unreal: <span class="en">If schools taught financial skills, young people would manage money better.</span></p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Chỉ cần 4 cấu trúc: mệnh đề quan hệ, nhượng bộ (While/Despite), điều kiện thật, điều kiện giả định → mỗi đoạn 1–2 câu phức là đủ chuẩn "variety" → không bao giờ có "will" trong mệnh đề if → một câu phức sai đắt hơn hai câu đơn đúng.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b4-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b4-02 -->
+      <article class="lesson" id="wr-b4-02" data-lesson="wr-b4-02" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b4-02</span><h3>Collocation học thuật — nói chuyện như bài band 7</h3><span class="ls-check">✓</span></div>
+        <p>LR 7 rewards "less common lexical items with awareness of collocation" <span class="gl">(từ ít phổ biến, ý thức về cụm đi kèm)</span>. Learn these by <strong>topic family</strong>, five at a time, and only deploy the ones you are sure of:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Topic</th><th>Collocations</th></tr>
+          <tr><td class="k">Government &amp; policy</td><td class="mono">implement a policy · impose a ban/tax on · allocate funds to · tighten regulations · launch a campaign</td></tr>
+          <tr><td class="k">Society</td><td class="mono">raise awareness of · play a vital role in · have a profound impact on · pose a threat to · bridge the gap between</td></tr>
+          <tr><td class="k">Environment</td><td class="mono">reduce carbon emissions · deplete natural resources · dispose of waste · renewable energy sources</td></tr>
+          <tr><td class="k">Education &amp; work</td><td class="mono">acquire skills/knowledge · academic performance · pursue a career · strike a balance between work and life</td></tr>
+          <tr><td class="k">Nâng cấp "very"</td><td class="mono">very important → crucial/vital · very big → substantial/considerable · very bad → severe/detrimental · very common → widespread/prevalent</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Luật một chiều</b>One wrong collocation exposes you more than ten plain words <span class="gl">(một cụm sai lộ hơn mười từ thường)</span>: <span class="wrong">make a research</span> → <span class="right">conduct/do research</span> · <span class="wrong">solve the pollution</span> → <span class="right">tackle/address pollution</span>. Chưa chắc thì dùng từ thường — LR chấm độ chính xác, không chấm độ liều.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Upgrade: <span class="en">"Pollution is a very bad problem that has a very big effect on health."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Pollution is a <b>severe</b> problem that has a <b>profound impact on</b> public health.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Fill the collocation: <span class="en">"Governments should ___ a heavy tax ___ sugary drinks and ___ the funds ___ public hospitals."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">impose a heavy tax <b>on</b> sugary drinks and <b>allocate</b> the funds <b>to</b> public hospitals.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Spot the wrong collocation: <span class="en">"Schools play a vital role in helping students make researches and acquire practical skills."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="wrong">make researches</span> → <span class="right">do/conduct research</span> (research không đếm được — kiến thức từ tận foundation quay lại đòi nợ). "Play a vital role" và "acquire skills" đều chuẩn.</p></div></details></div>
+          <div class="q"><p class="qq">4. Write one sentence about environment using two collocations from the table.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Switching to <b>renewable energy sources</b> is the most realistic way to <b>reduce carbon emissions</b> without slowing economic growth.</span></p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Học collocation theo cụm chủ đề, mỗi lần 5 cụm → thay mọi "very + tính từ" bằng một từ mạnh chính xác → cụm sai lộ band hơn từ thường; chưa chắc thì không liều → nạp các cụm này vào flashcard cùng hệ với từ vựng Reading.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b4-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b4-03 -->
+      <article class="lesson" id="wr-b4-03" data-lesson="wr-b4-03" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b4-03</span><h3>Thừa nhận &amp; hoá giải — concede then refute</h3><span class="ls-check">✓</span></div>
+        <p>The single technique that most separates 6.5 essays from 6.0: <strong>acknowledge the other side, then defeat it</strong> <span class="gl">(thừa nhận phía kia, rồi hoá giải)</span>. It proves you considered both sides while keeping your position sharp — exactly what TR band 7 asks for.</p>
+        <ul>
+          <li><strong>Step 1 — Concede:</strong> <span class="en">Admittedly, … / It is true that … / Opponents argue that …</span> + điểm mạnh <em>thật</em> của phía kia (đừng dựng bù nhìn rơm).</li>
+          <li><strong>Step 2 — Refute:</strong> <span class="en">However, this view overlooks … / this drawback is outweighed by … / such problems can be minimised by …</span> → kéo người đọc về phía bạn.</li>
+          <li><strong>Dosage</strong> <span class="gl">(liều lượng)</span>: concede đúng <strong>một lần</strong>, thường mở đầu thân bài 2. Rải khắp bài = position mờ = TR tụt.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Model paragraph — đề cấm quảng cáo nhắm vào trẻ em (phe agree)</b>
+          <p><span class="en">Admittedly, advertising gives companies an essential way to reach customers, and some argue that parents, not governments, should control what children watch. However, this view overlooks the fact that young children cannot yet tell the difference between entertainment and persuasion. Since the audience itself is defenceless, regulation is a fairer solution than blaming busy parents.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Trong đoạn mẫu, đâu là câu concede, đâu là câu refute?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Concede: câu 1 (<span class="en">Admittedly… what children watch</span>). Refute: câu 2–3, mở bằng <span class="en">However, this view overlooks…</span> — chú ý "this view" chính là referencing của bài wr-b3-02.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn đã gặp kỹ thuật này ở bài mẫu online-shopping (wr-b2-05) — câu nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">"However, these problems are becoming less serious, since most large websites now offer free returns…"</span> — thừa nhận nhược điểm ở thân 2 rồi hoá giải để giữ position "advantages outweigh".</p></div></details></div>
+          <div class="q"><p class="qq">3. Write a concede–refute pair for: <span class="en">"Working from home should become the norm"</span> (phe agree; phía kia: teamwork suffers).</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">It is true that spontaneous teamwork is harder when colleagues rarely meet in person. However, this drawback can be minimised by regular online meetings and occasional office days, while the gains in productivity and work-life balance remain permanent.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao concede ở cả hai thân bài lại nguy hiểm?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì mỗi lần thừa nhận là một lần "nhả" lập trường — hai lần trở lên, giám khảo không còn thấy <b>position rõ ràng xuyên suốt</b> (yêu cầu cứng của TR). Một nhát concede, một nhát hoá giải, rồi đi tiếp.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Công thức: Admittedly + điểm mạnh thật của phía kia → However + hoá giải (overlooks / outweighed by / can be minimised) → chỉ dùng một lần mỗi bài, thường đầu thân bài 2 → đây là kỹ thuật tách 6.5 khỏi 6.0.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b4-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b4-04 -->
+      <article class="lesson" id="wr-b4-04" data-lesson="wr-b4-04" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b4-04</span><h3>Mở bài &amp; kết bài chuẩn band 7 — không template</h3><span class="ls-check">✓</span></div>
+        <p>Examiners read the introduction first and the conclusion last — these 4 sentences frame their whole impression <span class="gl">(định khung toàn bộ ấn tượng)</span>:</p>
+        <ul>
+          <li><strong>Intro = 2 câu:</strong> ① paraphrase đề (3 kỹ thuật từ Reading b1-04, nay dùng để <em>viết</em>: synonym, đổi dạng từ, đổi cấu trúc) + ② thesis nêu position rõ, có thể hé 2 lý do.</li>
+          <li><strong>Synonym nguy hiểm</strong> <span class="gl">(từ đồng nghĩa "giả")</span>: children ≠ <span class="wrong">kids</span> (văn nói) ≠ <span class="wrong">infants</span> (sai nghĩa — trẻ sơ sinh); advertising ≠ <span class="wrong">propaganda</span>. Không chắc synonym → <mark>đổi cấu trúc thay vì đổi từ</mark>.</li>
+          <li><strong>Conclusion:</strong> <span class="en">In conclusion,</span> + position bằng cách diễn đạt khác + một final thought/khuyến nghị ngắn. Cấm tuyệt đối: ý mới, ví dụ mới.</li>
+          <li><strong>Template chết điểm:</strong> <span class="wrong">"This essay will discuss both sides of this controversial issue."</span> — không position, không nội dung, giám khảo gặp nghìn lần.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Yếu → Mạnh (đề: cấm quảng cáo nhắm vào trẻ em)</b>
+          <p><span class="lb">YẾU</span><span class="en">Nowadays, advertising is a controversial topic in modern society. This essay will discuss this issue.</span></p>
+          <p><span class="lb">MẠNH</span><span class="en">Commercials that target young children have become increasingly common, and many believe they should be prohibited. I fully support this view, because children are easily influenced and such advertising places financial pressure on families.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Paraphrase đề sau bằng đổi cấu trúc: <span class="en">"Some people think the government should provide free public transport."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">It is sometimes argued that buses and trains should be free of charge for all citizens.</span> — provide free → free of charge; đổi bị động/chủ thể.</p></div></details></div>
+          <div class="q"><p class="qq">2. Spot the dangerous synonym: <span class="en">"Infants should not watch commercials because propaganda affects their brains."</span> (đề gốc nói về children và advertising)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cả hai</b>: infants = trẻ sơ sinh (đổi nghĩa đề → lệch TR), propaganda = tuyên truyền chính trị (sai sắc thái nặng → trừ LR). Paraphrase sai còn tệ hơn chép đề.</p></div></details></div>
+          <div class="q"><p class="qq">3. Fix this conclusion: <span class="en">"In conclusion, advertising to children should be banned. Moreover, governments should also ban violent video games."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Câu 2 là <b>ý mới chưa từng xuất hiện</b> — cắt bỏ. Thay bằng final thought cùng mạch: <span class="en">If such regulations were introduced, childhood would be shaped by education rather than marketing.</span> (tiện thể khoe unreal conditional của wr-b4-01).</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: viết lại intro + conclusion cho bài capstone phim-ở-nhà (wr-b2-05) theo chuẩn bài này.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự soát: intro đúng 2 câu, paraphrase không synonym liều, position rõ? Conclusion đổi cách diễn đạt, có final thought, không ý mới? So với phiên bản cũ để đo mức tiến bộ.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Mở bài 2 câu: paraphrase + thesis có position → không chắc synonym thì đổi cấu trúc → kết bài = position nói cách khác + final thought, tuyệt đối không ý mới → tiêu diệt mọi câu template kiểu "This essay will discuss".</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b4-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.5 → 7.0 ═══════════ -->
+    <section class="chapter" id="b5">
+      <h2><span class="cnum">BAND 6.5 → 7.0</span> Chuẩn giám khảo <span class="ccount" data-chcount="b5">0/3</span></h2>
+      <p class="cintro">Ba bài cuối viết chủ yếu bằng tiếng Anh. Ở chặng này bạn không học thêm "chiêu" — bạn học nhìn bài viết của mình bằng đúng con mắt giám khảo, gọt từ cho chính xác, và đóng gói mọi thứ thành quy trình lặp lại được trong phòng thi.</p>
+
+      <!-- wr-b5-01 -->
+      <article class="lesson" id="wr-b5-01" data-lesson="wr-b5-01" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b5-01</span><h3>Anatomy of band 7 — đọc bài mình bằng mắt giám khảo</h3><span class="ls-check">✓</span></div>
+        <p>Band 7 is not perfection — every criterion explicitly tolerates <span class="gl">(cho phép)</span> occasional errors. What it demands is control. Here is band 7, criterion by criterion, in plain words:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Criterion</th><th>What a band-7 script shows</th></tr>
+          <tr><td class="k">TR</td><td>All parts of the task answered; a clear position runs through the <b>whole</b> essay; main ideas extended and supported — occasional over-generalisation <span class="gl">(khái quát quá đà)</span> is tolerated</td></tr>
+          <tr><td class="k">CC</td><td>Ideas flow with clear progression; a range of cohesive devices used appropriately (slight over- or under-use is fine); <b>each paragraph has one clear central topic</b></td></tr>
+          <tr><td class="k">LR</td><td>Enough range for flexibility and <b>precision</b>; some less common items with awareness of style and collocation; occasional slips in word choice or spelling accepted</td></tr>
+          <tr><td class="k">GRA</td><td>A variety of complex structures; <b>frequent error-free sentences</b>; good control with only a few errors</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Bốn lầm tưởng về band 7</b>① "Cần idioms" — sai: idioms rủi ro về style trong văn học thuật. ② "Không được sai lỗi nào" — sai: <em>occasional errors</em> nằm ngay trong descriptors. ③ "Viết dài điểm cao" — sai. ④ "Từ hiếm ăn LR" — sai: LR 7 thưởng cho <strong>độ chính xác</strong>, không thưởng độ loè.</div>
+        <p><strong>Finding your bottleneck</strong> <span class="gl">(tìm nút thắt)</span>: overall = trung bình 4 tiêu chí, nên một cặp điểm 6 kéo cả bài. Dấu hiệu nhận diện: nhận xét kiểu "ý chưa phát triển / lập trường mờ" → TR · "khó theo dõi, lặp từ nối" → CC · "từ dùng sai, lặp từ" → LR · "lỗi câu dày" → GRA. Đầu tư vào tiêu chí <em>thấp nhất</em>, không đánh bóng tiêu chí đã cao.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Match each phrase with its criterion: <span class="en">(a) frequent error-free sentences · (b) a clear position throughout · (c) awareness of collocation · (d) each paragraph has one central topic</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>a = GRA · b = TR · c = LR · d = CC.</b> Thuộc 4 câu này là bạn tự chấm được bài mình.</p></div></details></div>
+          <div class="q"><p class="qq">2. (T/F) A band-7 essay must contain at least two idioms.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — idioms thuộc văn nói; nhét vào essay còn dễ bị trừ "awareness of style". Speaking mới là sân của idioms.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn được TR 7 · CC 7 · LR 6 · GRA 6 (overall 6.5). Kế hoạch 3 tuần tới đầu tư vào đâu, cụ thể làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dồn vào <b>LR + GRA</b>: LR — nạp collocation theo họ chủ đề (wr-b4-02) và diệt lặp từ bằng thay thế từ vựng; GRA — tăng tỉ lệ câu không lỗi bằng danh sách lỗi cá nhân (bài wr-b5-03). Viết thêm bài mới không tự động sửa được hai điểm này.</p></div></details></div>
+          <div class="q"><p class="qq">4. TR 7 tha thứ "occasional over-generalisation" — nhưng công cụ nào chữa hẳn bệnh khái quát quá đà?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Hedging</b> — ngôn ngữ dè chừng (can, tend to, in many cases). Đó chính là bài tiếp theo.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Band 7 = kiểm soát, không phải hoàn hảo — mọi tiêu chí đều cho phép lỗi lác đác → 4 cửa ải: position xuyên suốt (TR), mỗi đoạn một chủ đề (CC), chính xác hơn hoa mỹ (LR), đa số câu không lỗi (GRA) → tìm tiêu chí thấp nhất của mình và đánh thẳng vào đó.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b5-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b5-02 -->
+      <article class="lesson" id="wr-b5-02" data-lesson="wr-b5-02" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b5-02</span><h3>Precision vocabulary &amp; hedging — gọt chữ như band 7</h3><span class="ls-check">✓</span></div>
+        <p>"Less common vocabulary" does not mean rare words — it means the <mark>exact word for the exact idea</mark>. Two upgrades to make:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Vague</th><th>Precise</th></tr>
+          <tr><td class="mono">get</td><td class="mono">obtain · gain · acquire</td></tr>
+          <tr><td class="mono">make people (do sth)</td><td class="mono">encourage · motivate · prompt people to</td></tr>
+          <tr><td class="mono">good</td><td class="mono">beneficial · effective · valuable</td></tr>
+          <tr><td class="mono">bad</td><td class="mono">harmful · detrimental · severe</td></tr>
+          <tr><td class="mono">help</td><td class="mono">facilitate · support · enable</td></tr>
+          <tr><td class="mono">stop</td><td class="mono">prevent · discourage · deter</td></tr>
+          <tr><td class="mono">show</td><td class="mono">demonstrate · indicate · reveal</td></tr>
+        </table></div>
+        <ul>
+          <li><strong>Hedging</strong> <span class="gl">(ngôn ngữ dè chừng)</span> — the cure for over-generalisation: <span class="en">can · may · tend to · is likely to · in many cases · to some extent · particularly among…</span> Compare: <span class="wrong">Technology destroys communication.</span> → <span class="right">Technology can weaken face-to-face communication, particularly among teenagers who spend hours online.</span> The second is both truer and higher-scoring.</li>
+          <li><strong>Formal register</strong> <span class="gl">(giọng trang trọng)</span>: <span class="wrong">kids</span> → children · <span class="wrong">a lot of</span> → a great deal of / numerous · <span class="wrong">stuff/things</span> → aspects / factors · <span class="wrong">don't</span> → do not (no contractions in essays).</li>
+          <li><strong>Word-family trap:</strong> <span class="en">economic</span> (thuộc kinh tế) ≠ <span class="en">economical</span> (tiết kiệm) — <span class="en">economic growth</span> nhưng <span class="en">an economical car</span>. Dùng nhiều dạng của một họ từ (benefit – beneficial) cũng là "range".</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Calibrate this claim with hedging: <span class="en">"Advertising always manipulates children."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Advertising <b>can easily mislead</b> young children, <b>particularly</b> those who cannot yet distinguish content from persuasion.</span> — đúng hơn về logic và cao điểm hơn về LR/TR.</p></div></details></div>
+          <div class="q"><p class="qq">2. Upgrade the vague verbs: <span class="en">"Governments should make people use public transport because it is good."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Governments should <b>encourage</b> the use of public transport because it is <b>highly beneficial</b> — it <b>substantially reduces</b> both congestion and emissions.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Fix the register: <span class="en">"Kids don't get a lot of exercise these days because they play with stuff on their phones."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Children <b>do not</b> take <b>a great deal of</b> exercise nowadays because they spend hours on mobile <b>applications</b>.</span> — 4 chỗ sửa: kids, don't, a lot of, stuff.</p></div></details></div>
+          <div class="q"><p class="qq">4. Chọn đúng: <span class="en">"Cycling to work is a very (economic / economical) choice, and it also supports (economic / economical) growth in the bike industry."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>economical choice · economic growth</b> — nhầm cặp này là lỗi word choice kinh điển bị soi ở LR 7.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>"Từ hiếm" thật ra là "từ trúng" — nâng cấp get/good/bad/help thành động từ – tính từ chính xác → hedging (can, tend to, in many cases) vừa chữa khái quát quá đà vừa ăn điểm → giữ giọng trang trọng: không kids, không viết tắt, không a lot of → cảnh giác cặp bẫy economic / economical.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b5-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- wr-b5-03 -->
+      <article class="lesson" id="wr-b5-03" data-lesson="wr-b5-03" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">wr-b5-03</span><h3>The checking protocol — 10 phút quyết định nửa band</h3><span class="ls-check">✓</span></div>
+        <p>At 6.5, most lost points are <em>avoidable</em> <span class="gl">(tránh được)</span> — they die in the checking phase you never scheduled. Lock this time budget during practice, not on test day:</p>
+        <ul>
+          <li><strong>Task 2 (40'):</strong> 5' plan → 30' write → <mark>5' check</mark>. <strong>Task 1 (20'):</strong> 3' analyse → 15' write → 2' check.</li>
+          <li><strong>Three check passes, in this order:</strong> ① <em>Task coverage</em> — đủ mọi vế của đề? position rõ? (T1: có overview?) ② <em>Personal error sweep</em> — quét đúng <strong>top-5 lỗi của riêng bạn</strong> lấy từ sổ lỗi sai (vd: -s ngôi 3, mạo từ, comma splice), không đọc lan man; ③ <em>Word count &amp; spelling</em>.</li>
+          <li>Why this order: a TR hole costs a whole band; a spelling slip costs almost nothing. Check the expensive things first.</li>
+          <li>Computer-based perks <span class="gl">(lợi thế thi máy)</span>: copy–paste để đảo ý khi lập dàn; bộ đếm từ; đừng phí giây nào cho định dạng.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Final error hunt — đoạn văn cài 6 lỗi, tìm và nâng cấp trước khi mở đáp án</b>
+          <p><span class="en">Some people think that technology make children lazy. Children spend a lot of time to play games, they do not go outside. Moreover, this have a very bad effect on their health. In conclusion of this paragraph, technology is bad.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Liệt kê và sửa ít nhất 5 lỗi trong đoạn trên.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>① <span class="wrong">technology make</span> → makes (SVA). ② <span class="wrong">spend time to play</span> → spend time <b>playing</b>. ③ <span class="wrong">…games, they do not go outside</span> → comma splice: <span class="en">…games instead of going outside</span>. ④ <span class="wrong">this have</span> → this <b>has</b>. ⑤ <span class="wrong">very bad</span> → <b>detrimental / severe</b>. ⑥ <span class="wrong">In conclusion of this paragraph</span> — đoạn văn không có kết luận riêng, và "technology is bad" khái quát quá đà, thiếu hedging.</p></div></details></div>
+          <div class="q"><p class="qq">2. Viết lại đoạn trên ở chuẩn band 7 (2–3 câu).</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Some people believe that technology makes children lazy. Children who spend hours playing video games rarely go outside, and this sedentary lifestyle <b>can have a detrimental effect</b> on their physical health.</span> — SVA sạch, relative clause, hedging, từ chính xác.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn viết xong Task 2 và chỉ còn 4 phút. Soát gì trước, vì sao?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Pass ① task coverage trước</b> (thiếu một vế đề = mất cả band TR), rồi <b>pass ② quét top-5 lỗi cá nhân</b>. Chính tả để cuối vì rẻ nhất. Soát thứ đắt tiền trước.</p></div></details></div>
+          <div class="q"><p class="qq">4. Thiết kế 2 tuần cuối trước ngày thi cho Writing.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: tuần 1 — 3 buổi viết full đúng giờ (T1+T2 trong 60'), tự chấm bằng bảng band 7 (wr-b5-01), cập nhật top-5 lỗi; tuần 2 — <b>viết lại</b> chính các bài đó cho tốt hơn thay vì viết đề mới: giai đoạn này mài độ sạch của câu và độ sâu của ý ăn điểm nhanh hơn nạp ý tưởng mới. Hoàn thành bài này là bạn đã đi hết lộ trình Writing của BandUp.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Luôn chừa 5 phút soát cho Task 2, 2 phút cho Task 1 → ba lượt soát theo giá tiền: đủ vế đề &amp; position → top-5 lỗi cá nhân → số từ &amp; chính tả → hai tuần cuối viết lại bài cũ cho hay hơn thay vì cày đề mới. Chúc mừng — bạn đã hoàn thành trọn lộ trình Writing 4.0 → 7.0.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="wr-b5-03">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <div class="coming"><b>Mở rộng theo yêu cầu</b>Lộ trình Writing 4.0 → 7.0 đã đủ. Nhóm 7.0+ (wr-b6) sẽ được bổ sung khi bạn yêu cầu — tiến độ đã tick luôn được giữ nguyên.</div>
+
+    <div class="endnav">
+      <a class="btn btn-primary" id="nextBtn" href="speaking.html" aria-disabled="true" title="Trang đang được xây dựng">Tiếp theo: Speaking →</a>
+      <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+    </div>
+
+    </div><!-- /content -->
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v3 · writing (b1–b5) · 22 bài · giao diện v2 · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══ Thanh tiến trình đọc ══ */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  readbar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* ══ DEV CONTRACT: quét bài học & ghi manifest ══ */
+var PAGE_KEY = "writing";
+var lessonEls = Array.prototype.slice.call(document.querySelectorAll(".lesson[data-lesson]"));
+var LESSONS = lessonEls.map(function(el){
+  return {
+    id: el.dataset.lesson,
+    band: el.dataset.band,
+    title: el.querySelector("h3") ? el.querySelector("h3").textContent.trim() : el.dataset.lesson
+  };
+});
+try{
+  localStorage.setItem("bandup.manifest." + PAGE_KEY, JSON.stringify({
+    page: PAGE_KEY,
+    title: "Writing",
+    updated: Date.now(),
+    lessons: LESSONS
+  }));
+}catch(e){}
+
+/* ══ Tiến độ: đọc / ghi bandup.done ══ */
+function loadDone(){
+  try{
+    var raw = localStorage.getItem("bandup.done");
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveDone(set){
+  try{ localStorage.setItem("bandup.done", JSON.stringify(Array.from(set))); }catch(e){}
+}
+var doneSet = loadDone();
+
+function renderState(){
+  var doneCount = 0;
+  lessonEls.forEach(function(el){
+    var id = el.dataset.lesson;
+    var isDone = doneSet.has(id);
+    if(isDone) doneCount++;
+    el.classList.toggle("done", isDone);
+    var btn = el.querySelector("[data-tick]");
+    if(btn) btn.textContent = isDone ? "✓ Đã học — bấm để bỏ đánh dấu" : "Đánh dấu đã học xong";
+    var toc = document.querySelector('[data-toc="' + id + '"]');
+    if(toc){
+      toc.classList.toggle("done", isDone);
+      toc.querySelector(".st").textContent = isDone ? "✓" : "○";
+    }
+  });
+  var pct = LESSONS.length ? Math.round(doneCount / LESSONS.length * 100) : 0;
+  document.getElementById("pgBar").style.width = pct + "%";
+  document.getElementById("pgText").textContent = doneCount + "/" + LESSONS.length + " bài · " + pct + "%";
+  document.querySelectorAll("[data-chcount]").forEach(function(c){
+    var ch = document.getElementById(c.dataset.chcount);
+    if(!ch) return;
+    var inCh = Array.prototype.slice.call(ch.querySelectorAll(".lesson[data-lesson]"));
+    var d = inCh.filter(function(el){ return doneSet.has(el.dataset.lesson); }).length;
+    c.textContent = d + "/" + inCh.length;
+  });
+}
+
+document.addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-tick]");
+  if(!btn) return;
+  var id = btn.getAttribute("data-tick");
+  if(doneSet.has(id)) doneSet.delete(id); else doneSet.add(id);
+  saveDone(doneSet);
+  renderState();
+});
+
+window.addEventListener("focus", function(){ doneSet = loadDone(); renderState(); });
+renderState();
+
+/* ══ Mở khoá nút "Tiếp theo" khi speaking.html tồn tại ══ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var btn = document.getElementById("nextBtn");
+  fetch("speaking.html", {method:"HEAD", cache:"no-store"})
+    .then(function(r){
+      if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
+    })
+    .catch(function(){});
+})();
+
+/* ══ UI v2: mục lục gọn trên mobile + nút về đầu trang ══ */
+(function(){
+  var toc = document.querySelector(".toc");
+  if(toc){
+    var tg = document.createElement("button");
+    tg.type = "button"; tg.className = "toc-toggle";
+    tg.innerHTML = 'Mục lục <span aria-hidden="true">▾</span>';
+    toc.insertBefore(tg, toc.firstChild);
+    if(window.innerWidth <= 920) toc.classList.add("collapsed");
+    tg.addEventListener("click", function(){
+      toc.classList.toggle("collapsed");
+      tg.querySelector("span").textContent = toc.classList.contains("collapsed") ? "▾" : "▴";
+    });
+    toc.addEventListener("click", function(e){
+      if(e.target.closest("a") && window.innerWidth <= 920){
+        toc.classList.add("collapsed");
+        tg.querySelector("span").textContent = "▾";
+      }
+    });
+  }
+  var tt = document.createElement("button");
+  tt.type = "button"; tt.id = "toTop"; tt.setAttribute("aria-label","Về đầu trang"); tt.textContent = "↑";
+  document.body.appendChild(tt);
+  tt.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+  window.addEventListener("scroll", function(){ tt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
+})();
+</script>
+</body>
+</html>
