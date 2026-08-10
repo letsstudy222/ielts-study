@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking — BandUp</title>
+<meta name="description" content="Module IELTS Speaking: 4 tiêu chí chấm, cấu trúc Part 1-2-3, khung trả lời Ý–Lý do–Ví dụ, phát âm, quy trình tự ghi âm và tự soi — chia theo mốc band từ 4.0 đến 7.0.">
+<!--
+BANDUP · speaking.html · v2 (phủ đủ b1 → b5) · giao diện v2
+Tuân theo DEV CONTRACT trong index.html.
+- Page key: speaking · Lesson id hiện có:
+    sp-b1-01 → sp-b1-06  (Band 4.0 → 5.0)
+    sp-b2-01 → sp-b2-05  (Band 5.0 → 5.5)
+    sp-b3-01 → sp-b3-04  (Band 5.5 → 6.0)
+    sp-b4-01 → sp-b4-04  (Band 6.0 → 6.5)
+    sp-b5-01 → sp-b5-03  (Band 6.5 → 7.0)
+- Mở rộng sau (7.0+): thêm sp-b6-xx, KHÔNG đổi id cũ
+- Khi load: tự ghi bandup.manifest.speaking; tick ghi vào bandup.done
+- Câu trả lời mẫu tiếng Anh là văn bản gốc tự soạn cho BandUp
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#E4DFD3; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
+  --done-bg:#FFFBEA;
+  --radius:16px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,sans-serif;
+  --font-mono:"Nunito",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(min-width:640px){html{font-size:17px}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+.hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-sp);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--c-sp)}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:46rem;margin-bottom:20px}
+.pageprog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:34rem}
+.pageprog .track{flex:1;min-width:180px;height:10px;background:var(--card);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.pageprog .track i{display:block;height:100%;width:0%;background:var(--c-sp);border-radius:99px;transition:width .5s ease}
+.pageprog b{font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+
+.layout{display:grid;grid-template-columns:262px 1fr;gap:40px;padding:40px 0 20px;align-items:start}
+@media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:920px){.toc{position:static;max-height:none}}
+.toc h2{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2:first-child{margin-top:0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.88rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
+.toc a.done{color:var(--ink)}
+.toc a.done .st{color:var(--accent-deep);font-weight:700}
+.toc .soon{font-size:.76rem;color:var(--ink-soft);padding:5px 8px;font-style:italic}
+
+.content{min-width:0}
+.chapter{padding:6px 0 34px;scroll-margin-top:84px}
+.chapter>h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chapter>h2 .cnum{flex:none;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--c-sp);color:#fff}
+.chapter>h2 .ccount{margin-left:auto;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);font-weight:400}
+.chapter>p.cintro{color:var(--ink-soft);font-size:.94rem;max-width:66ch;margin-bottom:18px}
+
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;scroll-margin-top:84px;position:relative}
+.lesson .spine{position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 4px 4px 0;background:var(--c-sp)}
+.lesson.done{background:var(--done-bg)}
+.lesson.done .spine{background:var(--accent-deep)}
+.ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ls-id{font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
+.ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
+.lesson.done .ls-check{opacity:1;transform:scale(1)}
+.lesson p{margin-bottom:12px;max-width:70ch}
+.lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
+.lesson li{margin-bottom:7px}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.en{font-weight:800;font-size:.97em;color:#1F4E68}
+.gl{color:var(--ink-soft);font-style:italic;font-size:.85em;font-weight:400}
+.vs{color:var(--ink-soft);font-size:.86em}
+
+.passage{border:1.5px solid var(--line);border-left:6px solid var(--c-sp);background:var(--paper);border-radius:11px;padding:16px 18px;margin:14px 0;max-width:72ch}
+.passage b.ptag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--c-sp);display:block;margin-bottom:6px}
+.passage p{font-size:.95rem;line-height:1.8;margin-bottom:10px}
+.passage p:last-child{margin-bottom:0}
+.passage .lb{font-family:var(--font-mono);font-weight:800;font-size:.72rem;color:#fff;background:var(--c-sp);border-radius:5px;padding:1px 6px;margin-right:6px;white-space:nowrap}
+
+.tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
+th{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.k{font-weight:700;white-space:nowrap}
+td .mono,.mono{font-family:var(--font-mono);font-size:.84em}
+tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;padding:7px 12px}
+
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);padding:13px 16px;border-radius:11px;font-size:.9rem;margin:14px 0;max-width:70ch}
+.call.warn{border-left-color:#B23A3A;background:#FCF6F4}
+.call b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink-soft)}
+.wrong{color:#B23A3A;text-decoration:line-through;text-decoration-thickness:1.5px}
+.right{color:var(--c-rd);font-weight:700}
+.vn-sum{background:var(--ink);color:#DDE3DA;border-radius:11px;padding:15px 18px;margin:16px 0 4px;max-width:72ch;font-size:.9rem}
+.vn-sum b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--accent)}
+.vn-sum p{margin-bottom:6px;color:#DDE3DA;max-width:none}
+.vn-sum p:last-child{margin-bottom:0}
+
+.quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
+.quiz>b{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.q{margin-bottom:12px;max-width:72ch}
+.q .qq{margin-bottom:6px}
+details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
+summary{cursor:pointer;list-style:none;font-weight:800;font-size:.85rem;padding:10px 14px;color:var(--ink);user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent-deep)}
+details[open] summary::before{content:"▾ "}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:12px 14px;font-size:.95rem}
+details .ans p{margin-bottom:6px}
+
+.ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
+.tickbtn{font-family:var(--font-body);font-weight:800;font-size:.95rem;padding:12px 20px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
+.lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
+
+.coming{border:1.5px dashed var(--line);border-radius:var(--radius);padding:22px;color:var(--ink-soft);font-size:.92rem;background:var(--card);margin-bottom:18px}
+.coming b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:30px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:.15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px 0 42px;margin-top:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+
+/* ── UI v2: mục lục mobile & nút về đầu trang ── */
+.toc-toggle{display:none}
+@media(max-width:920px){
+  .toc-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-family:var(--font-body);font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer}
+  .toc.collapsed > *:not(.toc-toggle){display:none}
+  .toc:not(.collapsed) .toc-toggle{margin-bottom:8px}
+}
+#toTop{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--accent);color:var(--ink);font-size:1.25rem;font-weight:800;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;font-family:var(--font-body)}
+#toTop.show{opacity:1;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="reading.html">Reading</a>
+      <a href="writing.html">Writing</a>
+      <a class="cta" href="index.html#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Ưu tiên 3 · Kỹ năng Speaking</span>
+      <h1>Speaking <em>4.0 → 7.0</em></h1>
+      <p class="lead">11–14 phút · 3 phần · nói với một giám khảo thật. Đây là kỹ năng duy nhất không thể luyện bằng mắt: cả module xoay quanh một vòng lặp duy nhất — <strong>nói → ghi âm → nghe lại → sửa</strong>. Lộ trình đầy đủ 5 nhóm band từ 4.0 đến 7.0; từ nhóm 6.0 trở lên bài học chuyển dần sang tiếng Anh kèm chú thích Việt.</p>
+      <div class="pageprog"><div class="track"><i id="pgBar"></i></div><b id="pgText">0/22 bài · 0%</b></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Band 4.0 → 5.0</h2>
+      <a href="#sp-b1-01" data-toc="sp-b1-01"><span class="st">○</span>Toàn cảnh &amp; 4 tiêu chí</a>
+      <a href="#sp-b1-02" data-toc="sp-b1-02"><span class="st">○</span>Vòng lặp tự ghi âm</a>
+      <a href="#sp-b1-03" data-toc="sp-b1-03"><span class="st">○</span>Part 1 &amp; công thức P-R-E</a>
+      <a href="#sp-b1-04" data-toc="sp-b1-04"><span class="st">○</span>Diệt câu trả lời cụt</a>
+      <a href="#sp-b1-05" data-toc="sp-b1-05"><span class="st">○</span>Phát âm: âm cuối &amp; trọng âm</a>
+      <a href="#sp-b1-06" data-toc="sp-b1-06"><span class="st">○</span>Fluency: xử lý khi bí</a>
+      <h2>Band 5.0 → 5.5</h2>
+      <a href="#sp-b2-01" data-toc="sp-b2-01"><span class="st">○</span>Part 2: giải mã cue card</a>
+      <a href="#sp-b2-02" data-toc="sp-b2-02"><span class="st">○</span>Part 2: 1 phút ghi chú</a>
+      <a href="#sp-b2-03" data-toc="sp-b2-03"><span class="st">○</span>Part 2: nói đủ 2 phút</a>
+      <a href="#sp-b2-04" data-toc="sp-b2-04"><span class="st">○</span>Part 3: trả lời trừu tượng</a>
+      <a href="#sp-b2-05" data-toc="sp-b2-05"><span class="st">○</span>Mock test + tự chấm</a>
+      <h2>Band 5.5 → 6.0</h2>
+      <a href="#sp-b3-01" data-toc="sp-b3-01"><span class="st">○</span>Ngữ điệu &amp; nhấn câu</a>
+      <a href="#sp-b3-02" data-toc="sp-b3-02"><span class="st">○</span>Từ vựng theo chủ đề</a>
+      <a href="#sp-b3-03" data-toc="sp-b3-03"><span class="st">○</span>Nối câu tự nhiên</a>
+      <a href="#sp-b3-04" data-toc="sp-b3-04"><span class="st">○</span>Đa dạng thì khi nói</a>
+      <h2>Band 6.0 → 6.5</h2>
+      <a href="#sp-b4-01" data-toc="sp-b4-01"><span class="st">○</span>Idiomatic language đúng liều</a>
+      <a href="#sp-b4-02" data-toc="sp-b4-02"><span class="st">○</span>Câu phức khi nói</a>
+      <a href="#sp-b4-03" data-toc="sp-b4-03"><span class="st">○</span>Part 3: xử lý câu hỏi vặn</a>
+      <a href="#sp-b4-04" data-toc="sp-b4-04"><span class="st">○</span>Nối âm &amp; nhịp điệu</a>
+      <h2>Band 6.5 → 7.0</h2>
+      <a href="#sp-b5-01" data-toc="sp-b5-01"><span class="st">○</span>Giải phẫu band 7</a>
+      <a href="#sp-b5-02" data-toc="sp-b5-02"><span class="st">○</span>Độ tự nhiên &amp; sắc thái</a>
+      <a href="#sp-b5-03" data-toc="sp-b5-03"><span class="st">○</span>Giao thức ngày thi</a>
+    </aside>
+
+    <div class="content">
+
+    <!-- ═══════════ BAND 4.0 → 5.0 ═══════════ -->
+    <section class="chapter" id="b1">
+      <h2><span class="cnum">BAND 4.0 → 5.0</span> Mở miệng &amp; nói thành câu <span class="ccount" data-chcount="b1">0/6</span></h2>
+      <p class="cintro">Rào cản lớn nhất ở band này không phải tiếng Anh — là nỗi sợ nói sai. Nhóm này dựng vòng lặp luyện tập tự thân, công thức trả lời đủ dài, và hai điểm phát âm sửa được nhanh nhất cho người Việt.</p>
+
+      <!-- sp-b1-01 -->
+      <article class="lesson" id="sp-b1-01" data-lesson="sp-b1-01" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-01</span><h3>Toàn cảnh bài thi &amp; 4 tiêu chí chấm Speaking</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Phần</th><th>Thời lượng</th><th>Nội dung</th></tr>
+          <tr><td class="k">Part 1</td><td>4–5 phút</td><td>Hỏi đáp về bản thân: nhà, việc/học, sở thích, quê quán. 3 chủ đề, mỗi chủ đề 3–4 câu.</td></tr>
+          <tr><td class="k">Part 2</td><td>3–4 phút</td><td>Cue card: 1 phút chuẩn bị + <b>nói liên tục 1,5–2 phút</b> + 1–2 câu hỏi phụ.</td></tr>
+          <tr><td class="k">Part 3</td><td>4–5 phút</td><td>Thảo luận trừu tượng, mở rộng từ chủ đề Part 2: xu hướng xã hội, so sánh, dự đoán.</td></tr>
+        </table></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Tiêu chí (25% mỗi cái)</th><th>Chấm cái gì</th></tr>
+          <tr><td class="k">Fluency &amp; Coherence</td><td>Nói trôi chảy, ít ngập ngừng dài; ý nối nhau logic, không lạc đề</td></tr>
+          <tr><td class="k">Lexical Resource</td><td>Vốn từ đủ diễn đạt; paraphrase được khi bí từ; collocation tự nhiên</td></tr>
+          <tr><td class="k">Grammatical Range &amp; Accuracy</td><td>Trộn câu đơn – phức; dùng đúng thì; lỗi không cản trở hiểu</td></tr>
+          <tr><td class="k">Pronunciation</td><td>Người nghe hiểu được không? Âm cuối, trọng âm, ngữ điệu — <b>không phải giọng Anh/Mỹ</b></td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Ba sự thật giải toả áp lực</b>① Giám khảo <strong>không chấm nội dung ý kiến</strong> — bạn được phép bịa hoàn toàn, miễn nói trôi. ② Giọng Việt không bị trừ điểm; chỉ bị trừ khi người nghe <em>phải đoán</em>. ③ Nói chậm mà đều tốt hơn nói nhanh rồi tắc — Fluency chấm độ liên tục, không chấm tốc độ.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn được hỏi <span class="en">"Do you like cooking?"</span> nhưng thật ra bạn chưa nấu bao giờ. Nên làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cứ bịa một câu chuyện dễ nói</b>. Giám khảo chấm tiếng Anh, không kiểm chứng đời tư. Nói thật mà bí từ còn hại hơn bịa mà trôi chảy.</p></div></details></div>
+          <div class="q"><p class="qq">2. Phần nào bắt buộc nói liên tục dài nhất, và trong bao lâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Part 2 — 1,5 đến 2 phút</b> độc thoại. Đây là phần khiến người band 4–5 sợ nhất và cũng là phần luyện có tiến bộ rõ nhất.</p></div></details></div>
+          <div class="q"><p class="qq">3. (T/F) Muốn điểm Pronunciation cao phải nói giọng Anh-Anh chuẩn.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — tiêu chí là <em>intelligibility</em> (dễ hiểu). Người Ấn, Singapore, Việt Nam đều đạt 8.0 với accent riêng. Cái bị trừ là nuốt âm cuối và sai trọng âm.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn nói rất nhanh nhưng cứ 10 giây lại dừng "ừm… ừm…" để tìm từ. Tiêu chí nào bị trừ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Fluency &amp; Coherence</b> — ngập ngừng dài và lặp là dấu hiệu band 5. Cách chữa: nói chậm lại một nhịp để não kịp chuẩn bị câu sau (bài sp-b1-06).</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b1-02 -->
+      <article class="lesson" id="sp-b1-02" data-lesson="sp-b1-02" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-02</span><h3>Vòng lặp tự ghi âm — cách luyện Speaking khi không có bạn học</h3><span class="ls-check">✓</span></div>
+        <p>Không có ai luyện cùng không phải lý do. Vòng lặp 4 bước dưới đây là <mark>toàn bộ phương pháp luyện Speaking của module này</mark> — mọi bài sau đều chạy trên nó:</p>
+        <ol>
+          <li><strong>NÓI</strong> — bật ghi âm điện thoại, trả lời câu hỏi ngay, không chuẩn bị, không dừng giữa chừng dù sai.</li>
+          <li><strong>NGHE LẠI</strong> — nghe hết một lượt. Bước này khó chịu và <em>chính là bước ăn điểm</em>: bạn nghe thấy lỗi mà lúc nói hoàn toàn không nhận ra.</li>
+          <li><strong>SOI</strong> — nghe lượt hai với 4 câu hỏi: ① có chỗ nào tôi dừng quá 3 giây? ② tôi lặp từ nào nhiều nhất? ③ câu nào sai ngữ pháp? ④ từ nào tôi phát âm mà chính tôi nghe không rõ?</li>
+          <li><strong>SỬA &amp; NÓI LẠI</strong> — ghi 3 lỗi vào sổ, trả lời <strong>lại đúng câu hỏi đó</strong>, ghi âm lần hai. So sánh hai bản.</li>
+        </ol>
+        <div class="call warn"><b class="tag">Sai lầm phổ biến nhất</b>Viết câu trả lời ra giấy rồi đọc lên. Đó là luyện <em>đọc</em>, không phải luyện <em>nói</em> — và trong phòng thi bạn sẽ không có giấy. Được phép ghi chú vài từ khoá, không được viết thành câu.</div>
+        <p><strong>Lịch tối thiểu:</strong> 15 phút/ngày, 5 ngày/tuần = 3 câu hỏi × vòng lặp. Ít mà đều thắng dồn 2 tiếng cuối tuần.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Chạy vòng lặp ngay bây giờ với câu: <span class="en">"What do you usually do at the weekend?"</span> — ghi âm 60 giây rồi nghe lại.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Không có "đáp án đúng" — kết quả cần là <b>3 lỗi bạn tự phát hiện</b> ghi vào sổ. Nếu bạn không nghe ra lỗi nào, hãy nghe lại và đếm số lần dừng quá 3 giây.</p></div></details></div>
+          <div class="q"><p class="qq">2. Vì sao bước "nghe lại" quan trọng hơn bước "nói"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì khi nói, não bận sản xuất ngôn ngữ nên <b>không tự giám sát được</b>. Chỉ khi nghe lại bạn mới ở vị trí người nghe — đúng vị trí của giám khảo.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn phát hiện mình nói "you know" 11 lần trong 1 phút. Xử lý thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Ghi vào sổ như một "lỗi cá nhân", rồi <b>nói lại cùng câu hỏi với mục tiêu duy nhất: không dùng "you know"</b>. Thay bằng khoảng lặng ngắn — im lặng 1 giây đỡ hại hơn nhiều lần đệm.</p></div></details></div>
+          <div class="q"><p class="qq">4. Không có ai sửa ngữ pháp cho bạn — làm sao biết câu mình sai?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lại và <b>viết ra 2–3 câu bạn vừa nói</b>, rồi soi bằng checklist 4 điểm ở bài wr-b1-03 (chia động từ, khớp số, mạo từ, thì). Viết ra là cách duy nhất để "nhìn thấy" câu nói của mình.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b1-03 -->
+      <article class="lesson" id="sp-b1-03" data-lesson="sp-b1-03" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-03</span><h3>Part 1 &amp; công thức P-R-E — trả lời đủ dài, không lan man</h3><span class="ls-check">✓</span></div>
+        <p>Part 1 cần câu trả lời <mark>2–4 câu</mark> (khoảng 15–25 giây). Ngắn hơn = giám khảo phải bơm; dài hơn = mất thời gian cho các câu sau. Công thức <strong>P-R-E</strong>:</p>
+        <ul>
+          <li><strong>P</strong>oint — trả lời thẳng câu hỏi.</li>
+          <li><strong>R</strong>eason — vì sao.</li>
+          <li><strong>E</strong>xample/Extra — ví dụ cụ thể hoặc chi tiết thêm.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Câu hỏi: Do you enjoy cooking?</b>
+          <p><span class="lb">P</span><span class="en">Yes, I really enjoy cooking, especially at the weekend.</span></p>
+          <p><span class="lb">R</span><span class="en">It helps me relax after a long week, because I can focus on something simple with my hands.</span></p>
+          <p><span class="lb">E</span><span class="en">Last Sunday, for example, I spent almost two hours making beef noodle soup for my family, and everyone finished it in ten minutes.</span></p>
+        </div>
+        <p>Từ nối tự nhiên cho Speaking (khác Writing — <span class="en">Firstly/Moreover</span> nghe rất "văn viết"): <span class="en">Well, … · Actually, … · I mean, … · The thing is, … · to be honest, … · especially when …</span></p>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Trả lời theo P-R-E: <span class="en">"Do you prefer tea or coffee?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I'd definitely go for coffee. I need it to wake up properly in the morning, otherwise I can't concentrate at all. Actually, I have a small coffee maker on my desk and I use it every single day.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Nâng câu cụt này lên P-R-E: <span class="en">"Do you live in a house or a flat?" — "A flat."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I live in a flat, on the fifth floor of a building near the city centre. I chose it mainly because it's close to my office, so I only need ten minutes to get to work. The only downside is that it's quite small — there's no space for a proper kitchen.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Câu trả lời sau hỏng ở đâu? <span class="en">"Do you like your hometown?" — "Yes I like my hometown because my hometown is beautiful and my hometown has many people and I like my hometown very much."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Lặp "my hometown" 4 lần</b> (trừ LR) và không có ví dụ cụ thể. Sửa: dùng <span class="en">it / the place / my city</span> thay thế, và thêm một chi tiết thật: <span class="en">…there's a lake right in the middle of the city where everyone runs in the evening.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Trả lời 3 câu Part 1 liên tiếp, ghi âm, đo thời lượng mỗi câu: <span class="en">"Where do you live?" · "Do you work or study?" · "What do you do in your free time?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mục tiêu: mỗi câu <b>15–25 giây</b>, đủ 3 tầng P-R-E. Dưới 10 giây là quá cụt; trên 40 giây là lan man — nghe lại và cắt bớt.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b1-04 -->
+      <article class="lesson" id="sp-b1-04" data-lesson="sp-b1-04" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-04</span><h3>Diệt câu trả lời cụt — 4 cách mở rộng khi "không biết nói gì"</h3><span class="ls-check">✓</span></div>
+        <p>Câu trả lời cụt là lý do số một khiến band mắc kẹt ở 4.5–5.0. Khi đầu trống rỗng, dùng một trong 4 hướng mở rộng này — chúng luôn có sẵn với <em>bất kỳ</em> câu hỏi nào:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Hướng</th><th>Câu hỏi tự đặt</th><th>Cụm khởi động</th></tr>
+          <tr><td class="k">Thời gian</td><td>Trước kia thế nào? Bây giờ khác gì?</td><td class="mono">I used to… but now… · Back when I was at school…</td></tr>
+          <tr><td class="k">So sánh</td><td>So với lựa chọn khác thì sao?</td><td class="mono">Compared to X, … · I'd rather … than …</td></tr>
+          <tr><td class="k">Cảm xúc / lý do</td><td>Vì sao tôi thấy vậy?</td><td class="mono">The main reason is… · What I love about it is…</td></tr>
+          <tr><td class="k">Ví dụ cụ thể</td><td>Lần gần nhất là khi nào?</td><td class="mono">Just last week… · For instance, my brother…</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Mẹo vàng</b>Chi tiết càng <strong>cụ thể</strong> càng dễ nói và càng ăn điểm: "tôi thích đọc sách" khó nói tiếp, nhưng "tôi đang đọc một cuốn trinh thám dày cộp trên tàu điện mỗi sáng" thì tự nó đẻ ra câu sau. Cụ thể hoá là kỹ thuật, không phải năng khiếu.</div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Mở rộng bằng hướng "Thời gian": <span class="en">"Do you often use public transport?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I do now, though I didn't at all a few years ago. I <b>used to</b> ride a motorbike everywhere, <b>but now</b> the traffic has got so bad that the bus is actually faster.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Mở rộng bằng hướng "So sánh": <span class="en">"Do you prefer watching films at home or at the cinema?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">At home, definitely. <b>Compared to</b> the cinema, it's much cheaper and I can pause whenever I want. The only thing I miss is the big screen.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Câu hỏi bạn thật sự không có gì để nói: <span class="en">"Do you like art?"</span> (bạn hoàn toàn không quan tâm). Trả lời thế nào cho đủ dài?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Trả lời <b>"không" một cách chi tiết</b> — hoàn toàn hợp lệ: <span class="en">To be honest, not really. I've never been the artistic type — I can't even draw a straight line. I did visit a museum in Hanoi last year with a friend, but I have to admit I was more interested in the café than the paintings.</span></p></div></details></div>
+          <div class="q"><p class="qq">4. Áp cả 4 hướng vào một câu hỏi: <span class="en">"Do you like your job/studies?"</span> — ghi âm 40 giây.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự soát: có ít nhất 2 trong 4 hướng? có <b>một chi tiết cụ thể</b> (tên môn, giờ giấc, một sự việc thật)? Nếu chỉ toàn câu chung chung, nói lại lần nữa và ép mình chèn 1 con số hoặc 1 sự việc.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b1-05 -->
+      <article class="lesson" id="sp-b1-05" data-lesson="sp-b1-05" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-05</span><h3>Phát âm — 2 thứ sửa nhanh nhất cho người Việt</h3><span class="ls-check">✓</span></div>
+        <p>Bỏ qua tham vọng "giọng bản xứ". Với người Việt, hai lỗi dưới đây gây khó hiểu nhiều nhất và <mark>sửa được trong vài tuần</mark>:</p>
+        <p><strong>① Âm cuối (ending sounds)</strong> — tiếng Việt không bật phụ âm cuối, nên <span class="en">like / light / life</span> nghe giống nhau, còn <span class="en">-s</span> và <span class="en">-ed</span> biến mất hoàn toàn (kéo cả điểm GRA vì giám khảo tưởng bạn chia sai thì):</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Đuôi</th><th>Cách đọc</th><th>Ví dụ</th></tr>
+          <tr><td class="k">-s / -es</td><td class="mono">/s/ sau âm vô thanh · /z/ sau âm hữu thanh · /ɪz/ sau s,z,ʃ,tʃ,dʒ</td><td class="mono">book<b>s</b> /s/ · job<b>s</b> /z/ · watch<b>es</b> /ɪz/</td></tr>
+          <tr><td class="k">-ed</td><td class="mono">/t/ sau vô thanh · /d/ sau hữu thanh · /ɪd/ sau t,d</td><td class="mono">work<b>ed</b> /t/ · play<b>ed</b> /d/ · want<b>ed</b> /ɪd/</td></tr>
+        </table></div>
+        <p><strong>② Trọng âm từ (word stress)</strong> — sai trọng âm khiến người nghe không nhận ra từ, dù bạn phát âm đủ chữ. Quy tắc thực dụng: <span class="en">-tion/-sion/-ic</span> → nhấn <em>ngay trước</em> đuôi (<span class="en">edu<b>CA</b>tion · eco<b>NO</b>mic</span>); <span class="en">-ity/-ify/-ogy</span> → nhấn trước 2 âm tiết (<span class="en">u<b>NI</b>versity · tech<b>NO</b>logy</span>).</p>
+        <div class="call warn"><b class="tag">Cặp danh từ – động từ cùng chữ</b>Danh từ nhấn <strong>đầu</strong>, động từ nhấn <strong>cuối</strong>: <span class="en"><b>RE</b>cord</span> (n) ⇄ <span class="en">re<b>CORD</b></span> (v) · <span class="en"><b>IN</b>crease</span> (n) ⇄ <span class="en">in<b>CREASE</b></span> (v) · <span class="en"><b>PRE</b>sent</span> (n) ⇄ <span class="en">pre<b>SENT</b></span> (v).</div>
+        <div class="quiz"><b>Luyện nhanh — đọc to &amp; ghi âm</b>
+          <div class="q"><p class="qq">1. Đọc và phân loại đuôi -ed: <span class="en">finished · decided · improved · watched · needed</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>/t/: finish<b>ed</b>, watch<b>ed</b> · /d/: improv<b>ed</b> · /ɪd/: decid<b>ed</b>, need<b>ed</b>. Nghe lại bản ghi: bạn có thật sự bật được âm cuối không?</p></div></details></div>
+          <div class="q"><p class="qq">2. Đánh trọng âm: <span class="en">information · photography · comfortable · economic · university</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">infor<b>MA</b>tion · pho<b>TO</b>graphy · <b>COM</b>fortable · eco<b>NO</b>mic · uni<b>VER</b>sity</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Đọc to câu này, chú ý mọi âm cuối: <span class="en">"She works in a shop that sells second-hand books and magazines."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Các âm cuối phải nghe rõ: work<b>s</b> /s/, shop /p/, sell<b>s</b> /z/, book<b>s</b> /s/, magazine<b>s</b> /z/. Ghi âm và nghe lại — đây là bài kiểm tra thật nhất.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao nuốt âm /s/ ở cuối lại làm mất điểm cả Grammar chứ không chỉ Pronunciation?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì giám khảo nghe <span class="en">"he work in a bank"</span> và ghi nhận đó là <b>lỗi chia động từ</b> — bạn mất điểm ở tiêu chí bạn không hề sai. Một lỗi, trừ hai nơi.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-05">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b1-06 -->
+      <article class="lesson" id="sp-b1-06" data-lesson="sp-b1-06" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b1-06</span><h3>Fluency — xử lý lúc bí từ, quên ý, nói nhầm</h3><span class="ls-check">✓</span></div>
+        <p>Người band 7 cũng bí từ — khác biệt là họ <mark>xử lý bằng tiếng Anh thay vì đứng hình</mark>. Ba bộ công cụ cần thuộc lòng đến mức bật ra tự động:</p>
+        <ul>
+          <li><strong>Câu câu giờ</strong> (thay cho "ừm…"): <span class="en">That's an interesting question. · Let me think for a second. · I've never really thought about that, but…</span> — dùng <em>một lần</em> mỗi câu hỏi, đừng thành thói quen.</li>
+          <li><strong>Diễn giải khi thiếu từ</strong> (kỹ năng ăn điểm LR): không biết "watering can" → <span class="en">that thing you use to put water on plants</span>. Cụm mở đầu: <span class="en">I don't know the exact word, but it's like… · it's a kind of… · something you use to…</span></li>
+          <li><strong>Tự sửa gọn</strong>: nói sai thì sửa nhanh và đi tiếp — <span class="en">…he go— sorry, he goes to work by bus.</span> Tự sửa một lần là dấu hiệu tốt; sửa đi sửa lại cùng một câu mới hại Fluency.</li>
+        </ul>
+        <div class="call warn"><b class="tag">Ba thứ giết Fluency</b>① Dịch từ tiếng Việt trong đầu rồi mới nói → luôn chậm một nhịp. ② Dừng lại vì một từ không nhớ → dùng diễn giải, đi tiếp. ③ Cố chèn từ "cao siêu" học vẹt → phát âm sai, dùng sai ngữ cảnh, mất cả LR lẫn Fluency.</div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Diễn giải 3 từ này mà không dùng chính nó: <span class="en">a fridge · a librarian · homesick</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">a big machine in the kitchen that keeps food cold</span> · <span class="en">the person who works in a place full of books</span> · <span class="en">the sad feeling you get when you're far from your family</span>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn đang nói giữa chừng thì quên hẳn ý định nói gì. Câu cứu nguy?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Sorry, I've lost my train of thought — anyway, what I really wanted to say is…</span> rồi quay về ý chính. Im lặng 5 giây hại hơn nhiều so với một câu chữa cháy.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao "dịch trong đầu" là kẻ thù lớn nhất của Fluency?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nó thêm một bước xử lý cho mỗi câu → luôn trễ nhịp và tạo ngập ngừng dài. Cách chữa: luyện nói về <b>những chủ đề quen thuộc lặp đi lặp lại</b> cho đến khi các cụm bật ra thẳng bằng tiếng Anh, không qua tiếng Việt.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm 60 giây trả lời <span class="en">"Tell me about your best friend"</span> với một luật duy nhất: <strong>không được dừng quá 2 giây</strong>, sai kệ.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lại và đếm số lần dừng dài. Bài tập này rèn phản xạ "cứ nói tiếp" — quan trọng hơn độ chính xác ở giai đoạn này. Lặp lại 3 ngày liên tiếp cùng đề tài để thấy đường cong tiến bộ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b1-06">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.0 → 5.5 ═══════════ -->
+    <section class="chapter" id="b2">
+      <h2><span class="cnum">BAND 5.0 → 5.5</span> Chinh phục Part 2 &amp; Part 3 <span class="ccount" data-chcount="b2">0/5</span></h2>
+      <p class="cintro">Part 2 (nói một mình 2 phút) và Part 3 (câu hỏi trừu tượng) là hai cửa ải quyết định band 5.5+. Nhóm này chia nhỏ chúng thành quy trình bấm giờ được, kết bằng một mock test hoàn chỉnh.</p>
+
+      <!-- sp-b2-01 -->
+      <article class="lesson" id="sp-b2-01" data-lesson="sp-b2-01" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b2-01</span><h3>Part 2: giải mã cue card &amp; luật "không lạc đề"</h3><span class="ls-check">✓</span></div>
+        <p>Cue card luôn có cấu trúc cố định: một câu đề + 3 gạch đầu dòng + một dòng <span class="en">and explain…</span>. Điều ít người biết: <mark>dòng "explain" cuối cùng mới là phần quan trọng nhất</mark> — nó thường chiếm nửa thời gian nói.</p>
+        <div class="passage"><b class="ptag">Cue card mẫu</b>
+          <p><span class="en">Describe a place you often go to relax.</span><br>
+          <span class="en">You should say:</span><br>
+          <span class="en">— where it is</span><br>
+          <span class="en">— how often you go there</span><br>
+          <span class="en">— what you usually do there</span><br>
+          <span class="en">and explain why this place helps you relax.</span></p>
+        </div>
+        <ul>
+          <li><strong>3 gạch đầu = phần mô tả</strong>, mỗi gạch ~20 giây. <strong>Dòng explain = phần lý giải</strong>, ~40–50 giây, nơi bạn ghi điểm Fluency và LR.</li>
+          <li><strong>Không cần theo đúng thứ tự</strong> gạch đầu dòng, nhưng phải chạm hết. Bỏ dòng "explain" là mất điểm TR nặng nhất.</li>
+          <li><strong>Được phép bịa</strong> — chọn phiên bản <em>dễ nói nhất</em>, không phải phiên bản thật nhất. Đề "một món quà đắt tiền" mà bạn chưa từng nhận? Mượn câu chuyện của người khác.</li>
+        </ul>
+        <div class="call warn"><b class="tag">Bẫy lạc đề chết người</b>Đề "a place you go to <strong>relax</strong>" mà bạn kể 2 phút về quán cà phê và menu đồ uống, không nhắc chữ "relax" nào → giám khảo ghi nhận không trả lời đúng đề. <strong>Luật</strong>: cứ ~30 giây, nhắc lại một từ khoá của đề để neo bài nói.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Với cue card mẫu trên, phần nào nên nói lâu nhất và vì sao?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Dòng "explain why this place helps you relax"</b> — đây là phần đòi lý giải, cho phép bạn dùng câu phức và từ vựng cảm xúc; 3 gạch trên chỉ là mô tả nền.</p></div></details></div>
+          <div class="q"><p class="qq">2. Đề: <span class="en">"Describe an expensive gift you received."</span> Bạn chưa từng nhận quà đắt tiền. Xử lý?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bịa hoặc mượn</b> — kể về chiếc điện thoại chị gái tặng, hoặc chuyện của bạn thân như của mình. Tiêu chí không có mục "trung thực".</p></div></details></div>
+          <div class="q"><p class="qq">3. Gạch đầu dòng nào của cue card mẫu dễ nói dài nhất, và bạn định nói gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Thường là <span class="en">"what you usually do there"</span> — vì nó cho phép kể hành động cụ thể (đọc sách, ngồi ngắm người qua lại, gọi món quen). Chi tiết cụ thể luôn dễ nói hơn nhận xét chung chung.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn nói hết ý sau 50 giây trong khi cần 2 phút. Cứu bằng cách nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dùng 4 hướng mở rộng ở bài sp-b1-04: so sánh với nơi khác, kể lần gần nhất bạn đến, nói ngày xưa nơi đó khác thế nào, hoặc nói bạn <em>sẽ</em> đến đó khi nào. Đây là lý do phải thuộc 4 hướng ấy.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b2-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b2-02 -->
+      <article class="lesson" id="sp-b2-02" data-lesson="sp-b2-02" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b2-02</span><h3>Part 2: dùng 1 phút chuẩn bị cho đúng</h3><span class="ls-check">✓</span></div>
+        <p>Bạn có giấy, bút và 60 giây. Sai lầm phổ biến: viết câu hoàn chỉnh — vừa không kịp, vừa dẫn tới đọc-thay-vì-nói. Quy trình đúng:</p>
+        <ol>
+          <li><strong>0–10 giây:</strong> chọn "nhân vật" — địa điểm/người/vật cụ thể nào. Quyết nhanh, <mark>đừng đổi ý giữa chừng</mark>; chọn cái dễ nói thắng cái hay ho.</li>
+          <li><strong>10–45 giây:</strong> ghi <strong>từ khoá</strong> theo 4 dòng, tương ứng 3 gạch đầu + dòng explain. Mỗi dòng 2–4 từ, không viết câu.</li>
+          <li><strong>45–60 giây:</strong> nghĩ riêng cho dòng explain — 2 lý do + 1 kỷ niệm cụ thể. Đây là phần đắt nhất.</li>
+        </ol>
+        <div class="passage"><b class="ptag">Ghi chú mẫu cho cue card "a place you go to relax" — đúng cỡ này là đủ</b>
+          <p><span class="en">— rooftop café, near office, 8th floor<br>
+          — every Fri evening, ~2 yrs<br>
+          — iced tea, read, watch traffic below<br>
+          — WHY: no noise / no one knows me / feels far away — that Friday after big deadline</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh — bấm giờ thật</b>
+          <div class="q"><p class="qq">1. Bấm 60 giây, ghi chú cho: <span class="en">"Describe a person who taught you something important."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự kiểm: có đúng <b>4 dòng từ khoá</b> không? Có viết thành câu không (nếu có = sai quy trình)? Dòng explain có <b>2 lý do + 1 kỷ niệm cụ thể</b> chưa?</p></div></details></div>
+          <div class="q"><p class="qq">2. Vì sao không nên viết câu hoàn chỉnh trong 1 phút chuẩn bị?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì (a) không kịp, (b) bạn sẽ <b>đọc</b> — giọng đọc nghe khác giọng nói và bị trừ Fluency, (c) mắt dán vào giấy làm mất ngữ điệu tự nhiên.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn nghĩ ra một chủ đề rất hay nhưng thiếu từ vựng, và một chủ đề nhàm nhưng dễ nói. Chọn cái nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cái dễ nói.</b> Giám khảo chấm tiếng Anh chứ không chấm độ thú vị của câu chuyện. Chủ đề "hay" mà tắc giữa chừng là mất điểm thật.</p></div></details></div>
+          <div class="q"><p class="qq">4. Trong lúc nói, bạn nên nhìn giấy ghi chú thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Liếc nhanh khi chuyển ý</b>, không dán mắt. Ghi chú là bản đồ để không lạc, không phải kịch bản để đọc.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b2-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b2-03 -->
+      <article class="lesson" id="sp-b2-03" data-lesson="sp-b2-03" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b2-03</span><h3>Part 2: nói đủ 2 phút — bài mẫu có mốc thời gian</h3><span class="ls-check">✓</span></div>
+        <p>Hai phút dài hơn bạn tưởng. Bài mẫu dưới đây dựng từ đúng bộ ghi chú ở bài trước, có gắn mốc thời gian để bạn biết mình đang ở đâu:</p>
+        <div class="passage"><b class="ptag">Bài nói mẫu — "a place you often go to relax"</b>
+          <p><span class="lb">0:00</span><span class="en">The place I'd like to talk about is a small rooftop café on the eighth floor of a building right next to my office.</span></p>
+          <p><span class="lb">0:15</span><span class="en">I've been going there almost every Friday evening for about two years now — it's become a kind of ritual for me at the end of the week.</span></p>
+          <p><span class="lb">0:35</span><span class="en">What I usually do is pretty simple. I order a large iced tea, find a seat right by the railing, and just read for an hour or so. Sometimes I don't even read; I just watch the traffic crawling below and let my mind go completely blank.</span></p>
+          <p><span class="lb">1:05</span><span class="en">As for why it helps me relax, there are two main reasons. The first one is the noise, or rather the lack of it. You'd expect the city centre to be loud, but eight floors up, all that sound turns into a kind of background hum. The second reason is that nobody there knows me. I'm not somebody's colleague or somebody's daughter — I'm just a person with a book.</span></p>
+          <p><span class="lb">1:45</span><span class="en">I remember one Friday after I'd finished a huge project. I sat there until the sky went completely dark, and honestly, I felt like myself again for the first time in weeks. That's exactly why I keep going back.</span></p>
+        </div>
+        <div class="quiz"><b>Mổ xẻ &amp; luyện</b>
+          <div class="q"><p class="qq">1. Phần "explain" chiếm bao nhiêu thời gian trong bài mẫu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Từ 1:05 đến hết ≈ <b>gần một nửa bài nói</b> — đúng tỉ lệ khuyến nghị. Ba gạch mô tả chỉ chiếm hơn một phút đầu.</p></div></details></div>
+          <div class="q"><p class="qq">2. Tìm 3 chỗ bài mẫu dùng chi tiết cụ thể thay vì nói chung chung.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">"eighth floor" · "a large iced tea" · "watch the traffic crawling below" · "until the sky went completely dark"</span> — chính các chi tiết này làm bài nói dài ra một cách tự nhiên và ăn điểm LR.</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu <span class="en">"The first one is the noise, or rather the lack of it"</span> thể hiện kỹ năng gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Tự sửa/tinh chỉnh ý ngay khi nói</b> (self-correction để làm rõ nghĩa) — dấu hiệu của người dùng ngôn ngữ chủ động, được cộng điểm Fluency chứ không bị trừ.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: chạy trọn quy trình với cue card <span class="en">"Describe a person who taught you something important"</span> — 1 phút ghi chú, ghi âm 2 phút, nghe lại.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự chấm: có nói đủ <b>90 giây trở lên</b>? có chạm cả 3 gạch + dòng explain? explain có chiếm ~nửa thời lượng? có ít nhất 3 chi tiết cụ thể? Ghi 3 lỗi vào sổ rồi nói lại lần hai.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b2-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b2-04 -->
+      <article class="lesson" id="sp-b2-04" data-lesson="sp-b2-04" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b2-04</span><h3>Part 3: trả lời câu hỏi trừu tượng</h3><span class="ls-check">✓</span></div>
+        <p>Part 3 không hỏi về bạn nữa mà hỏi về <mark>xã hội nói chung</mark> — và đó chính là lý do nó khó. Ba dạng câu hỏi và khung trả lời tương ứng:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Dạng</th><th>Ví dụ câu hỏi</th><th>Khung trả lời</th></tr>
+          <tr><td class="k">Ý kiến</td><td class="mono">Do you think… ? / Should governments… ?</td><td>Quan điểm → lý do → ví dụ (chính là P-R-E, phiên bản dài hơn)</td></tr>
+          <tr><td class="k">So sánh / thay đổi</td><td class="mono">How is X different from the past?</td><td>Xưa thế nào → nay thế nào → vì sao đổi</td></tr>
+          <tr><td class="k">Dự đoán</td><td class="mono">What will X be like in the future?</td><td>Dự đoán + hedging → lý do → điều kiện kèm theo</td></tr>
+        </table></div>
+        <ul>
+          <li><strong>Độ dài chuẩn:</strong> 30–45 giây — dài hơn Part 1, ngắn hơn Part 2.</li>
+          <li><strong>Nói về "người ta", không về mình:</strong> <span class="en">Most people tend to… · In my country, families usually… · There's a growing number of young people who…</span></li>
+          <li><strong>Hedging</strong> — chính là công cụ ở bài wr-b5-02, nay dùng để nói: <span class="en">it depends on… · in most cases… · at least in Vietnam… · I'd say generally…</span> Vừa đúng hơn, vừa tránh bí khi bị hỏi vặn.</li>
+          <li>Không biết gì về chủ đề? <strong>Vẫn phải nói</strong>: <span class="en">I'm not an expert on this, but I'd imagine that…</span> rồi lập luận thường thức.</li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh — ghi âm, mỗi câu 30–45 giây</b>
+          <div class="q"><p class="qq">1. <span class="en">"Do you think people work too much these days?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu mở đầu: <span class="en">I'd say generally yes, at least in big cities. Most people I know check work messages long after they've gone home, mainly because smartphones have blurred the line between the office and everywhere else. My cousin, for instance, answers emails at eleven at night and still calls it a normal day.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">"How has family life changed compared to the past?"</span> — dùng khung xưa/nay/vì sao.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">In the past, three generations usually lived under one roof in my country. Nowadays, young couples tend to move out and live on their own, mostly because they work in cities far from their parents. I think that's made families smaller but also more independent.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Câu hỏi bạn hoàn toàn không có kiến thức: <span class="en">"How will artificial intelligence change education?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I'm not an expert on this, but I'd imagine teachers will spend less time marking and more time actually talking to students, since computers can handle the repetitive part. Whether that's a good thing probably depends on how schools use the extra time.</span> — thừa nhận rồi vẫn lập luận, đúng cách xử lý.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao câu trả lời Part 3 chỉ 10 giây là mất điểm, dù đúng ngữ pháp?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì Part 3 là nơi giám khảo tìm <b>khả năng lập luận và từ vựng trừu tượng</b>. Trả lời cụt = không có mẫu ngôn ngữ để chấm cao, dù không sai gì.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b2-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b2-05 -->
+      <article class="lesson" id="sp-b2-05" data-lesson="sp-b2-05" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b2-05</span><h3>Mock test hoàn chỉnh + bảng tự chấm</h3><span class="ls-check">✓</span></div>
+        <p>Ráp mọi thứ lại. Chạy trọn bộ đề dưới đây <strong>một mạch, không dừng</strong>, ghi âm toàn bộ — đúng như thi thật (~12 phút):</p>
+        <div class="passage"><b class="ptag">Đề mock test — chủ đề: Học tập &amp; kỹ năng</b>
+          <p><span class="lb">PART 1</span><span class="en">Do you work or study? · What subject do you enjoy most? · Do you prefer studying in the morning or at night? · Did you like school when you were a child?</span></p>
+          <p><span class="lb">PART 2</span><span class="en">Describe a skill you would like to learn.<br>You should say: what the skill is / how you would learn it / how long it would take<br>and explain why you want to learn this skill.</span></p>
+          <p><span class="lb">PART 3</span><span class="en">Why do some people find it hard to learn new things as adults? · Is it better to learn a skill alone or with a teacher? · How might the way people learn change in the future?</span></p>
+        </div>
+        <p><strong>Bảng tự chấm</strong> — nghe lại bản ghi và cho điểm từng tiêu chí:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Tiêu chí</th><th>Dấu hiệu band ~5</th><th>Dấu hiệu band ~6+</th></tr>
+          <tr><td class="k">Fluency</td><td>Dừng &gt;3 giây nhiều lần; lặp từ đệm liên tục; Part 2 dưới 1 phút</td><td>Nói liên tục; dừng ngắn để nghĩ ý (không phải để tìm từ); Part 2 đủ 2 phút</td></tr>
+          <tr><td class="k">Lexical</td><td>Lặp cùng một từ nhiều lần; toàn từ rất phổ thông</td><td>Có paraphrase khi bí; có vài collocation tự nhiên; chi tiết cụ thể</td></tr>
+          <tr><td class="k">Grammar</td><td>Gần như chỉ câu đơn; sai thì liên tục</td><td>Có câu phức (because/although/which); thì nhất quán</td></tr>
+          <tr><td class="k">Pronunciation</td><td>Nuốt âm cuối; sai trọng âm từ quen thuộc</td><td>Âm cuối rõ; trọng âm đúng; có lên xuống giọng</td></tr>
+        </table></div>
+        <div class="quiz"><b>Sau khi chạy mock test</b>
+          <div class="q"><p class="qq">1. Đo Part 2 của bạn: được bao nhiêu giây?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dưới 60 giây = chưa đạt, cần luyện lại 4 hướng mở rộng (sp-b1-04). 90–120 giây = đúng chuẩn. Giám khảo sẽ dừng bạn ở 2 phút — bị dừng là điều <b>tốt</b>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Đếm số lần bạn dừng quá 3 giây trong toàn bài. Bao nhiêu là chấp nhận được?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dưới ~5 lần trong 12 phút là ổn ở mức 5.5–6.0. Trên 10 lần → Fluency đang là nút thắt của bạn, ưu tiên bài sp-b1-06 và luyện "không dừng quá 2 giây".</p></div></details></div>
+          <div class="q"><p class="qq">3. Tiêu chí nào của bạn thấp nhất theo bảng trên, và kế hoạch 2 tuần tới là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nguyên tắc giống Writing: <b>đầu tư vào tiêu chí thấp nhất</b>. Fluency → 15 phút/ngày luật không-dừng. Pronunciation → drill âm cuối &amp; trọng âm (sp-b1-05). Lexical → nạp từ theo chủ đề rồi ép dùng khi nói. Grammar → viết ra 5 câu vừa nói và soi checklist.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ định kỳ: bao lâu nên chạy lại một mock test đầy đủ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Mỗi 2 tuần</b>, lưu file ghi âm theo ngày. Nghe lại bản của 4 tuần trước là cách đo tiến bộ thuyết phục nhất — và là liều thuốc tinh thần khi bạn thấy nản.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b2-05">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.5 → 6.0 ═══════════ -->
+    <section class="chapter" id="b3">
+      <h2><span class="cnum">BAND 5.5 → 6.0</span> Nghe ra dáng người nói tiếng Anh <span class="ccount" data-chcount="b3">0/4</span></h2>
+      <p class="cintro">Từ 5.5 lên 6.0, bạn đã nói được — giờ phải nói cho <em>nghe được như tiếng Anh</em>: đúng nhạc điệu, đủ từ theo chủ đề, câu nối vào nhau thay vì rời rạc, và biết đổi thì theo mốc thời gian.</p>
+
+      <!-- sp-b3-01 -->
+      <article class="lesson" id="sp-b3-01" data-lesson="sp-b3-01" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b3-01</span><h3>Ngữ điệu &amp; nhấn câu — thứ khiến bạn nghe "phẳng"</h3><span class="ls-check">✓</span></div>
+        <p>Người Việt hay nói tiếng Anh đều đều mọi từ vì tiếng Việt là ngôn ngữ âm tiết đều. Tiếng Anh thì <mark>nhấn từ mang nghĩa, nuốt nhẹ từ chức năng</mark> — sửa được điểm này là Pronunciation nhảy rõ rệt.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nhóm</th><th>Từ loại</th><th>Cách xử lý</th></tr>
+          <tr><td class="k">Nhấn mạnh</td><td>Danh từ, động từ chính, tính từ, trạng từ, từ để hỏi</td><td>Đọc to, rõ, dài hơn một chút</td></tr>
+          <tr><td class="k">Nói nhẹ</td><td class="mono">a · the · to · of · and · was · are · for</td><td>Đọc nhanh, âm yếu /ə/ — <span class="mono">to = /tə/ · and = /ən/</span></td></tr>
+        </table></div>
+        <p>Ví dụ: <span class="en">I <b>WENT</b> to the <b>SHOP</b> to <b>BUY</b> some <b>BREAD</b>.</span> — 4 từ nhấn, phần còn lại lướt qua. Đọc đều cả 10 từ chính là "giọng máy đọc" mà giám khảo hay nghe ở band 5.</p>
+        <p><strong>Ngữ điệu lên xuống</strong> mang nghĩa thật:</p>
+        <ul>
+          <li>Xuống giọng cuối câu = khẳng định, chắc chắn, kết thúc ý.</li>
+          <li>Lên giọng cuối = câu hỏi, hoặc <em>chưa nói xong</em> — dùng khi liệt kê: <span class="en">I like reading ↗, cooking ↗, and hiking ↘.</span></li>
+          <li>Lên rồi xuống trên một từ = nhấn cảm xúc/tương phản: <span class="en">It was <b>REALLY</b> expensive.</span></li>
+        </ul>
+        <div class="call"><b class="tag">Drill 5 phút/ngày</b>Chọn 3 câu bất kỳ trong bài mẫu Part 2 (sp-b2-03) → gạch chân từ mang nghĩa → đọc to, ép mình nuốt nhẹ mọi từ không gạch → ghi âm, nghe lại xem có "nhấp nhô" chưa. Đây là kiểu drill có kết quả nhanh nhất trong toàn module.</div>
+        <div class="quiz"><b>Luyện nhanh — đọc to &amp; ghi âm</b>
+          <div class="q"><p class="qq">1. Gạch từ cần nhấn: <span class="en">"I usually go to the gym after work because it helps me sleep better."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>usually · GO · GYM · WORK · HELPS · SLEEP · BETTER</b> — các từ còn lại (I, to, the, after, because, it, me) lướt nhẹ.</p></div></details></div>
+          <div class="q"><p class="qq">2. Đọc câu này với ngữ điệu liệt kê đúng: <span class="en">"I speak Vietnamese, English and a little Japanese."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Lên giọng ở <span class="en">Vietnamese ↗, English ↗</span>, xuống giọng ở <span class="en">Japanese ↘</span> — báo hiệu danh sách đã hết. Đọc xuống giọng ở cả ba nghe như ba câu rời rạc.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao nói đều mọi từ lại làm người nghe mệt?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì người nghe tiếng Anh dựa vào <b>từ được nhấn</b> để bắt ý chính. Nói đều = họ phải tự lọc từng chữ → tốn sức → bị ghi nhận là "khó theo dõi", trừ Pronunciation.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm 30 giây trả lời <span class="en">"What do you usually do after work?"</span>, nghe lại và tự hỏi: giọng mình có lên xuống không?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nếu bản ghi nghe "phẳng như một đường thẳng", nói lại lần hai với yêu cầu duy nhất: <b>phóng đại ngữ điệu quá mức bình thường</b>. Cảm giác cường điệu khi nói thường lại vừa đủ tự nhiên khi nghe lại.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b3-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b3-02 -->
+      <article class="lesson" id="sp-b3-02" data-lesson="sp-b3-02" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b3-02</span><h3>Từ vựng theo 8 chủ đề hay gặp nhất</h3><span class="ls-check">✓</span></div>
+        <p>Đề Speaking xoay quanh một tập chủ đề hữu hạn. Nạp trước cụm cho từng chủ đề = không bao giờ bị "trống đầu". Học theo <mark>cụm, không học từ lẻ</mark>:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Chủ đề</th><th>Cụm đáng nạp</th></tr>
+          <tr><td class="k">Work &amp; study</td><td class="mono">a demanding job · meet a deadline · work long hours · get promoted · a heavy workload · cram for exams</td></tr>
+          <tr><td class="k">Hometown &amp; city</td><td class="mono">the outskirts · a bustling area · public green space · the cost of living · rush hour traffic</td></tr>
+          <tr><td class="k">Free time</td><td class="mono">unwind after work · a hobby I've picked up · binge-watch a series · catch up with friends</td></tr>
+          <tr><td class="k">Technology</td><td class="mono">be glued to a screen · a life-saver · keep in touch · back up files · scroll endlessly</td></tr>
+          <tr><td class="k">Food</td><td class="mono">a street food stall · home-cooked meals · eat out · a sweet tooth · fussy about food</td></tr>
+          <tr><td class="k">Travel</td><td class="mono">off the beaten track · a tight budget · get around by · a change of scenery · book in advance</td></tr>
+          <tr><td class="k">Family &amp; friends</td><td class="mono">we get on well · a close-knit family · look up to someone · take after my mother</td></tr>
+          <tr><td class="k">Health &amp; sport</td><td class="mono">stay in shape · work out · a sedentary lifestyle · get enough sleep · burn off stress</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Luật dùng</b>Nạp 5 cụm/ngày, nhưng chỉ <strong>dùng cụm bạn đã nói trơn</strong>. Cụm học vẹt phát âm vấp giữa câu còn hại hơn từ thường: nó vừa phá Fluency vừa lộ ra là học thuộc. Mỗi cụm mới phải qua vòng lặp ghi âm ít nhất một lần trước khi "được phép" mang vào phòng thi.</div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Dùng 2 cụm chủ đề Work để trả lời: <span class="en">"Is your job stressful?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">It can be, yes. I have quite <b>a heavy workload</b> at the moment and I often <b>work long hours</b> to <b>meet deadlines</b> — last month I was in the office until nine almost every night.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Diễn đạt "tôi và anh trai rất hợp nhau" theo kiểu tự nhiên.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">My brother and I <b>get on really well</b>.</span> — tự nhiên hơn hẳn <span class="wrong">We have a good relationship together.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Thay các từ nhạt trong câu sau: <span class="en">"I like to relax after work by watching many episodes of a show."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I like to <b>unwind</b> after work by <b>binge-watching</b> a series.</span> — hai cụm, cùng ý, cao điểm LR hơn nhiều.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: chọn 1 chủ đề trong bảng, nạp 5 cụm, rồi ghi âm 60 giây tự nói về chủ đề đó và ép dùng cả 5.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lại: cụm nào bạn nói vấp hoặc nghe gượng? <b>Loại nó ra</b> hoặc luyện thêm cho đến khi trơn. Đó là cách phân loại "cụm của mình" và "cụm mượn tạm".</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b3-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b3-03 -->
+      <article class="lesson" id="sp-b3-03" data-lesson="sp-b3-03" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b3-03</span><h3>Nối câu tự nhiên — Coherence khi nói</h3><span class="ls-check">✓</span></div>
+        <p>Coherence trong Speaking không giống Writing: dùng <span class="wrong">Firstly… Secondly… Moreover…</span> khi nói nghe như đang đọc bài luận, và giám khảo <mark>ghi nhận đó là dấu hiệu học thuộc</mark>. Bộ nối cho văn nói:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Chức năng</th><th>Văn viết (đừng dùng khi nói)</th><th>Văn nói tự nhiên</th></tr>
+          <tr><td class="k">Thêm ý</td><td class="mono">Moreover, Furthermore</td><td class="mono">and also… · on top of that… · plus…</td></tr>
+          <tr><td class="k">Đối lập</td><td class="mono">However, Nevertheless</td><td class="mono">but then again… · having said that… · the thing is…</td></tr>
+          <tr><td class="k">Ví dụ</td><td class="mono">For instance</td><td class="mono">like… · say… · I mean, take my brother —</td></tr>
+          <tr><td class="k">Quay lại ý</td><td class="mono">In conclusion</td><td class="mono">anyway… · so yeah, basically… · that's why…</td></tr>
+          <tr><td class="k">Suy nghĩ thêm</td><td class="mono">It could be argued</td><td class="mono">actually, now that I think about it… · I suppose…</td></tr>
+        </table></div>
+        <div class="passage"><b class="ptag">Cùng một ý — hai giọng</b>
+          <p><span class="lb">SÁCH VỞ</span><span class="en">Firstly, online shopping is convenient. Moreover, it is cheaper. In conclusion, I prefer it.</span></p>
+          <p><span class="lb">TỰ NHIÊN</span><span class="en">I do most of my shopping online these days — it's just so much easier, and usually cheaper too. Having said that, I still go to the market for vegetables. But yeah, for everything else, online all the way.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Chuyển sang giọng nói tự nhiên: <span class="en">"Firstly, I enjoy running. Moreover, it improves my health."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I really enjoy running — <b>and also</b> it keeps me healthy, which is <b>the thing is</b>… well, that's honestly the main reason I started.</span> Hoặc gọn hơn: <span class="en">I love running, <b>plus</b> it's great for my health.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Dùng <span class="en">"Having said that"</span> để tự phản biện chính mình về việc học online.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Online courses are incredibly convenient. <b>Having said that</b>, it's much harder to stay motivated when nobody's watching you.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao "Firstly/Secondly" lại bất lợi trong Speaking dù rất tốt trong Writing?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nó báo hiệu <b>câu trả lời đã được dựng sẵn</b>. Giám khảo tìm ngôn ngữ tự nhiên, tự phát; giọng đọc bài luận bị coi là học thuộc và không được cộng điểm.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm 45 giây về <span class="en">"Do you prefer living in a city or the countryside?"</span> với luật: <strong>không được dùng Firstly/Moreover/In conclusion</strong>.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lại: bài nói có nghe như đang trò chuyện không? Có ít nhất 2 cụm nối văn nói? Nếu vẫn "phẳng như bài luận", nói lại và chèn <span class="en">but then again / the thing is / anyway</span>.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b3-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b3-04 -->
+      <article class="lesson" id="sp-b3-04" data-lesson="sp-b3-04" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b3-04</span><h3>Đa dạng thì khi nói — GRA range dễ ăn nhất</h3><span class="ls-check">✓</span></div>
+        <p>Nhiều người nói Speaking chỉ dùng hiện tại đơn từ đầu đến cuối → GRA trần 5. Nhưng đề thi <mark>tự nó mời bạn đổi thì</mark>, chỉ cần bạn nghe ra lời mời:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Câu hỏi báo hiệu</th><th>Thì phải dùng</th><th>Mẫu</th></tr>
+          <tr><td class="mono">Do you often…? What do you usually…?</td><td class="k">Hiện tại đơn</td><td class="mono">I usually go there twice a week.</td></tr>
+          <tr><td class="mono">Did you… when you were a child?</td><td class="k">Quá khứ đơn</td><td class="mono">I used to play football every afternoon.</td></tr>
+          <tr><td class="mono">How long have you…?</td><td class="k">Hiện tại hoàn thành</td><td class="mono">I've been learning it for about three years.</td></tr>
+          <tr><td class="mono">What are you doing these days?</td><td class="k">Hiện tại tiếp diễn</td><td class="mono">I'm currently working on a small project.</td></tr>
+          <tr><td class="mono">Would you like to…? What will you do…?</td><td class="k">Tương lai / would</td><td class="mono">I'd love to visit Japan next year.</td></tr>
+          <tr><td class="mono">Part 3: What if…? / hypothetical</td><td class="k">Điều kiện loại 2</td><td class="mono">If I had more free time, I would definitely take up painting.</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Mẹo ăn GRA nhanh</b>Trong Part 2, dù đề ở thì nào, hãy cố ý chèn <strong>một câu quá khứ</strong> (kỷ niệm cụ thể) và <strong>một câu tương lai/would</strong> (dự định hoặc mong muốn). Chỉ hai câu đó thôi đã cho giám khảo bằng chứng "range" mà không cần bất kỳ cấu trúc cầu kỳ nào.</div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Trả lời đúng thì: <span class="en">"How long have you lived in your current home?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I<b>'ve been living</b> there for about four years now — I moved in right after I started my current job.</span> Hai thì trong một câu, hoàn toàn tự nhiên.</p></div></details></div>
+          <div class="q"><p class="qq">2. Sửa lỗi: <span class="en">"When I am a child, I go to my grandmother house every summer."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">When I <b>was</b> a child, I <b>used to go</b> to my <b>grandmother's</b> house every summer.</span> — sai thì + thiếu sở hữu cách, hai lỗi kinh điển ở Part 1.</p></div></details></div>
+          <div class="q"><p class="qq">3. Trả lời câu giả định Part 3: <span class="en">"What would you do if you had a year off work?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">If I <b>had</b> a whole year off, I <b>would probably travel</b> around Southeast Asia and finally learn to cook properly.</span> — điều kiện loại 2 chuẩn, đúng loại "gia vị" GRA mà Part 3 mời bạn dùng.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm câu trả lời Part 2 bất kỳ, rồi <strong>đếm số thì</strong> bạn đã dùng.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mục tiêu: <b>ít nhất 3 thì khác nhau</b> trong 2 phút. Nếu chỉ có hiện tại đơn, nói lại và chèn một kỷ niệm quá khứ + một câu <span class="en">I'd love to…</span> ở cuối.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b3-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.0 → 6.5 ═══════════ -->
+    <section class="chapter" id="b4">
+      <h2><span class="cnum">BAND 6.0 → 6.5</span> Nói như người dùng ngôn ngữ thật <span class="ccount" data-chcount="b4">0/4</span></h2>
+      <p class="cintro">Từ nhóm này, bài học chuyển dần sang tiếng Anh — từ khó có chú thích nghiêng, cuối bài có Tóm tắt nhanh. Trọng tâm: idiom đúng liều, câu phức nói được (không phải viết được), và bản lĩnh khi Part 3 hỏi vặn.</p>
+
+      <!-- sp-b4-01 -->
+      <article class="lesson" id="sp-b4-01" data-lesson="sp-b4-01" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b4-01</span><h3>Idiomatic language — the right dose</h3><span class="ls-check">✓</span></div>
+        <p>Speaking is the <em>one</em> paper where idiomatic language earns marks <span class="gl">(kỹ năng duy nhất mà thành ngữ được cộng điểm)</span> — LR band 7 explicitly mentions "some idiomatic vocabulary". But the dose matters more than the list:</p>
+        <ul>
+          <li><strong>Two or three per test, used where they fit naturally</strong> <span class="gl">(hai ba lần cả bài, dùng đúng chỗ)</span>. Ten forced idioms sound rehearsed <span class="gl">(học thuộc)</span> and cost you more than they earn.</li>
+          <li>Prefer <strong>everyday idiomatic phrases</strong> over dramatic proverbs. <span class="en">It's not really my cup of tea · I'm not a morning person · it drives me crazy · I'm getting the hang of it · it's a bit of a nightmare · to be honest with you</span> — these sound real. <span class="wrong">Every cloud has a silver lining</span> in the middle of a Part 1 answer sounds like a textbook.</li>
+          <li><strong>Phrasal verbs count too</strong> and are safer: <span class="en">pick up a hobby · put off a decision · get around to something · look forward to · come up with an idea · end up doing</span>.</li>
+        </ul>
+        <div class="call warn"><b class="tag">The tell-tale sign</b>An idiom that arrives with a tiny pause before it <span class="gl">(khựng nhẹ ngay trước khi nói)</span> tells the examiner it was memorised. Only deploy phrases you can say at full speed without thinking — which means every idiom must pass the recording loop first.</div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Reply naturally using an idiomatic phrase: <span class="en">"Do you like classical music?"</span> (bạn không thích)</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Honestly, it's <b>not really my cup of tea</b>. I can appreciate that it takes enormous skill, but I'd always pick something with a beat.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Use three phrasal verbs in one answer to: <span class="en">"Have you learned anything new recently?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I <b>picked up</b> guitar about six months ago. I kept <b>putting it off</b> for years, but I finally <b>got around to</b> booking lessons — and I think I'm slowly <b>getting the hang of</b> it.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Why is <span class="en">"Every cloud has a silver lining"</span> risky in Part 1?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tục ngữ đầy đủ nghe <b>trang trọng và học thuộc</b>, lệch hẳn với giọng trò chuyện của Part 1. Idiom đời thường ngắn gọn (<span class="en">a bit of a nightmare</span>) tự nhiên hơn nhiều và ăn điểm y hệt.</p></div></details></div>
+          <div class="q"><p class="qq">4. Chọn 3 cụm idiomatic bạn thích, chạy vòng lặp ghi âm cho đến khi nói trơn không khựng.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tiêu chí đạt: nói được ở <b>tốc độ bình thường, không có khoảng lặng ngay trước cụm</b>. Chưa đạt thì cụm đó chưa "thuộc về bạn" — đừng mang vào phòng thi.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Speaking là kỹ năng duy nhất idiom được cộng điểm → chỉ 2–3 lần cả bài, ưu tiên cụm đời thường (not my cup of tea, a bit of a nightmare) hơn tục ngữ → phrasal verb an toàn hơn và cũng tính là idiomatic → cụm nào còn khựng trước khi nói là cụm chưa được phép mang đi thi.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b4-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b4-02 -->
+      <article class="lesson" id="sp-b4-02" data-lesson="sp-b4-02" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b4-02</span><h3>Complex sentences you can actually say</h3><span class="ls-check">✓</span></div>
+        <p>Written complexity and spoken complexity are different animals <span class="gl">(hai loại khác hẳn nhau)</span>. A 40-word sentence you can write calmly will collapse mid-air when spoken. These four are short enough to survive real time:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Structure</th><th>Spoken example</th></tr>
+          <tr><td class="k">which + comment</td><td class="mono">I work from home three days a week, <b>which</b> saves me about two hours of commuting.</td></tr>
+          <tr><td class="k">the reason … is that</td><td class="mono"><b>The reason</b> I chose that job <b>is that</b> it lets me travel.</td></tr>
+          <tr><td class="k">what … is</td><td class="mono"><b>What</b> I really love about it <b>is</b> the freedom.</td></tr>
+          <tr><td class="k">even though / whereas</td><td class="mono"><b>Even though</b> it's expensive, I think it's worth every penny.</td></tr>
+        </table></div>
+        <ul>
+          <li>The <span class="en">which</span> comment clause is the highest-value trick here <span class="gl">(chiêu đáng giá nhất)</span>: bolt it onto any sentence you have already finished, and a simple statement becomes complex — with almost no planning cost.</li>
+          <li><span class="en">What … is …</span> also buys you thinking time while sounding sophisticated — the first half is pure runway <span class="gl">(đường băng để lấy đà)</span>.</li>
+          <li><strong>Rule of accuracy:</strong> two short accurate complex sentences beat one long broken one. If a sentence starts to collapse, stop, and restart cleanly: <span class="en">…sorry, what I mean is…</span></li>
+        </ul>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Add a "which" comment: <span class="en">"I moved to a smaller flat last year."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I moved to a smaller flat last year, <b>which</b> turned out to be the best financial decision I've ever made.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Rebuild with <span class="en">"What I love about … is …"</span>: <span class="en">"I like my city because it has good food."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en"><b>What I love about</b> my city <b>is</b> the food — you can eat brilliantly for two dollars at any hour of the night.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Why is a 40-word spoken sentence a bad idea even if grammatically ambitious?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì khi nói bạn <b>không có thời gian sửa</b>: câu dài dễ đứt giữa chừng, kéo theo cả Fluency lẫn GRA. Ngắn, đúng, và có <span class="en">which</span> là chiến lược an toàn hơn nhiều.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm 45 giây trả lời <span class="en">"Tell me about a decision you're glad you made"</span> — dùng cả 4 cấu trúc.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lại và đánh dấu từng cấu trúc. Cấu trúc nào khiến bạn vấp thì luyện riêng cấu trúc đó 5 câu, rồi ghi âm lại.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Câu phức khi nói phải ngắn mới sống sót → 4 cấu trúc: which + bình luận, the reason… is that, what… is, even though/whereas → "which" gắn thêm vào câu đã nói xong là chiêu rẻ nhất để thành câu phức → hai câu phức ngắn đúng hơn một câu dài gãy.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b4-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b4-03 -->
+      <article class="lesson" id="sp-b4-03" data-lesson="sp-b4-03" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b4-03</span><h3>Part 3: handling the follow-up challenge</h3><span class="ls-check">✓</span></div>
+        <p>In Part 3 the examiner may push back <span class="gl">(hỏi vặn)</span>: <span class="en">"But some people would say the opposite — what do you think?"</span> This is <mark>not a sign you were wrong</mark>. It is a deliberate stretch to see whether you can handle harder language. How to answer well:</p>
+        <ul>
+          <li><strong>Concede then hold</strong> <span class="gl">(thừa nhận rồi giữ vững)</span> — the Writing technique from wr-b4-03, now spoken: <span class="en">That's a fair point, and I can see why people think that. Still, in my experience…</span></li>
+          <li><strong>Or change your mind openly</strong> — perfectly acceptable and often scores well: <span class="en">Actually, now that you put it that way, I think I'd have to agree with them on that.</span> Flexibility is a language skill, not a weakness.</li>
+          <li><strong>Never</strong> just repeat your first answer louder, and never go silent. Both read as "cannot handle unfamiliar topics" — the exact wording that caps you at band 6.</li>
+          <li><strong>If the question is too abstract:</strong> narrow it yourself. <span class="en">That's quite a big question — I can only really speak for Vietnam, but here…</span></li>
+        </ul>
+        <div class="passage"><b class="ptag">Model exchange</b>
+          <p><span class="lb">Q</span><span class="en">Do you think governments should pay for people's university education?</span></p>
+          <p><span class="lb">A</span><span class="en">I'd say yes, at least partly — an educated workforce benefits the whole economy, so it's an investment rather than a cost.</span></p>
+          <p><span class="lb">Q</span><span class="en">But that money comes from taxpayers who never went to university. Is that fair?</span></p>
+          <p><span class="lb">A</span><span class="en">That's a fair point, and honestly it's the strongest argument against my position. Still, I'd say those taxpayers also rely on doctors, engineers and teachers who were trained with public money, so they do get something back — just indirectly.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Bạn vừa nói mạng xã hội có hại. Giám khảo vặn: <span class="en">"But it also connects families across the world, doesn't it?"</span> — trả lời.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">Absolutely, and that's probably its greatest achievement. <b>Still</b>, I'd argue there's a difference between staying in touch and scrolling for three hours a night — it's the second one I have a problem with.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Câu hỏi quá rộng: <span class="en">"How will work change worldwide in the next fifty years?"</span> — thu hẹp thế nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">That's an enormous question. <b>I can really only speak for</b> office work in my own country, but here I'd expect…</span> — thu hẹp là chiến thuật hợp lệ, không phải né tránh.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao đổi ý giữa chừng lại có thể ăn điểm?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nó buộc bạn dùng <b>ngôn ngữ nhượng bộ và đánh giá lại</b> — đúng loại ngôn ngữ Part 3 muốn thấy. Speaking không chấm sự kiên định của quan điểm, chỉ chấm tiếng Anh.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhờ một người bạn (hoặc tự ghi câu hỏi rồi phát) vặn lại 3 câu trả lời Part 3 của bạn. Ghi âm toàn bộ.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự chấm: có ngừng quá 3 giây khi bị vặn? có lặp lại y nguyên câu cũ? có dùng ít nhất một cụm nhượng bộ (<span class="en">that's a fair point / I can see why</span>)? Đây là bài tập sát thi thật nhất của cả module.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Bị hỏi vặn là dấu hiệu tốt, không phải bạn trả lời sai → công thức: thừa nhận điểm hợp lý rồi giữ lập trường, hoặc thẳng thắn đổi ý (cả hai đều ăn điểm) → câu quá rộng thì tự thu hẹp về nước mình/lĩnh vực mình biết → cấm hai điều: lặp lại câu cũ và im lặng.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b4-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b4-04 -->
+      <article class="lesson" id="sp-b4-04" data-lesson="sp-b4-04" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b4-04</span><h3>Connected speech — why natural English sounds "blurred"</h3><span class="ls-check">✓</span></div>
+        <p>Native speakers do not pronounce words separately; they glue them together <span class="gl">(nối âm)</span>. Learning this improves <em>both</em> your speaking and your listening — the same skill unlocks both papers:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Rule</th><th>Written</th><th>Actually said</th></tr>
+          <tr><td class="k">Consonant → vowel</td><td class="mono">an apple · pick it up</td><td class="mono">a-napple · pi-ki-tup</td></tr>
+          <tr><td class="k">Same sound merges</td><td class="mono">next time · big game</td><td class="mono">nex-time · bi-game</td></tr>
+          <tr><td class="k">/t/ + /j/ → /tʃ/</td><td class="mono">what you · don't you</td><td class="mono">wha-chu · don-chu</td></tr>
+          <tr><td class="k">/d/ + /j/ → /dʒ/</td><td class="mono">did you · would you</td><td class="mono">di-ju · wu-ju</td></tr>
+          <tr><td class="k">Weak forms</td><td class="mono">a cup of tea · I want to go</td><td class="mono">a cuppa tea · I wanna go</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Two-way benefit</b>This is exactly why fast English sounds impossible to catch <span class="gl">(nghe không kịp)</span>: you are listening for separate words that were never pronounced separately. Practising connected speech aloud trains your ear at the same time — the Listening module will build directly on this lesson.</div>
+        <p><strong>Drill:</strong> take any four sentences from the Part 2 model answer (sp-b2-03), mark where words would join, and read them aloud at natural speed. Record, compare, repeat.</p>
+        <div class="quiz"><b>Luyện nhanh — đọc to &amp; ghi âm</b>
+          <div class="q"><p class="qq">1. How would these actually sound? <span class="en">"What do you want to do?"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="mono">"Wha-du-yu wanna do?"</span> — <span class="en">what do you</span> gộp lại, <span class="en">want to → wanna</span>.</p></div></details></div>
+          <div class="q"><p class="qq">2. Mark the joins: <span class="en">"I picked it up on a Friday afternoon."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="mono">"I pick-ti-tup o-na Friday afternoon."</span> — phụ âm cuối nối sang nguyên âm đầu liên tiếp ba lần.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao học nối âm lại giúp Listening chứ không chỉ Speaking?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì tai bạn đang tìm <b>từ rời</b> trong một dòng âm thanh đã dính liền. Khi chính miệng bạn nói dính, tai bạn bắt đầu nhận ra khuôn dạng đó — đây là cầu nối trực tiếp sang module Listening.</p></div></details></div>
+          <div class="q"><p class="qq">4. Ghi âm bản thân đọc 4 câu từ bài mẫu sp-b2-03 ở tốc độ tự nhiên, có nối âm.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tự chấm: có nghe thấy khoảng ngắt <b>giữa từng từ</b> không? Nếu có, bạn đang đọc chứ chưa nói. Đọc lại chậm hơn nhưng <em>dính</em> hơn — dính quan trọng hơn nhanh.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Tiếng Anh tự nhiên nối âm: phụ âm cuối dính vào nguyên âm đầu, âm giống nhau gộp lại, what you → wha-chu, want to → wanna → luyện nói dính giúp tai nghe được tiếng Anh nhanh, nên bài này ăn điểm cả Speaking lẫn Listening → mục tiêu là "dính", không phải "nhanh".</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b4-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.5 → 7.0 ═══════════ -->
+    <section class="chapter" id="b5">
+      <h2><span class="cnum">BAND 6.5 → 7.0</span> Chuẩn giám khảo <span class="ccount" data-chcount="b5">0/3</span></h2>
+      <p class="cintro">Ba bài cuối viết chủ yếu bằng tiếng Anh. Ở chặng này bạn không học thêm chiêu — bạn học nghe bản ghi âm của mình bằng đúng tai giám khảo, và đóng gói mọi thứ thành một quy trình chạy được trong 14 phút phòng thi.</p>
+
+      <!-- sp-b5-01 -->
+      <article class="lesson" id="sp-b5-01" data-lesson="sp-b5-01" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b5-01</span><h3>Anatomy of band 7 — nghe bản ghi bằng tai giám khảo</h3><span class="ls-check">✓</span></div>
+        <p>Band 7 in Speaking is not fluent-like-a-native. It is defined precisely, and every criterion tolerates <span class="gl">(cho phép)</span> errors:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Criterion</th><th>What band 7 sounds like</th></tr>
+          <tr><td class="k">Fluency &amp; Coherence</td><td>Speaks at length <b>without noticeable effort</b>; some hesitation is fine — but it should be to <b>search for ideas</b>, not for basic words; ideas connect logically</td></tr>
+          <tr><td class="k">Lexical Resource</td><td>Flexible vocabulary for a range of topics; <b>some</b> less common and idiomatic items; paraphrases effectively when a word is missing</td></tr>
+          <tr><td class="k">Grammatical Range</td><td>A range of structures with flexibility; <b>frequent error-free sentences</b>; some persistent small errors accepted</td></tr>
+          <tr><td class="k">Pronunciation</td><td><b>Easy to understand throughout</b>; uses stress and intonation to carry meaning; accent has almost no effect on the listener</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">The hesitation distinction — nút thắt của hầu hết người 6.5</b>Band 7 allows hesitation for <strong>ideas</strong> (<span class="en">"Hmm, that's an interesting one — I suppose…"</span>) but is capped by hesitation for <strong>language</strong> (dừng để lục từ hoặc dựng lại câu). Nghe bản ghi của bạn và hỏi đúng một câu: <em>mỗi lần tôi dừng, tôi đang tìm ý hay đang tìm chữ?</em></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Match to criterion: <span class="en">(a) easy to understand throughout · (b) frequent error-free sentences · (c) paraphrases effectively · (d) speaks at length without noticeable effort</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>a = Pronunciation · b = Grammar · c = Lexical · d = Fluency.</b></p></div></details></div>
+          <div class="q"><p class="qq">2. (T/F) Muốn band 7 thì không được ngập ngừng lần nào.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — ngập ngừng để <em>nghĩ ý</em> hoàn toàn được chấp nhận, thậm chí tự nhiên. Chỉ ngập ngừng vì <em>thiếu ngôn ngữ</em> mới chặn trần điểm.</p></div></details></div>
+          <div class="q"><p class="qq">3. Nghe lại mock test gần nhất và đếm: bao nhiêu chỗ dừng là "tìm ý", bao nhiêu là "tìm chữ"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tỉ lệ "tìm chữ" cao → nút thắt là <b>Lexical/Fluency</b>: nạp cụm theo chủ đề (sp-b3-02) và luyện diễn giải (sp-b1-06). Tỉ lệ "tìm ý" cao → luyện <b>ý tưởng</b>: đọc nhanh quan điểm hai phía cho các chủ đề Part 3 hay gặp.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn được Fluency 7 · Lexical 6 · Grammar 6 · Pronunciation 7 (overall 6.5). Kế hoạch 3 tuần?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Dồn vào <b>Lexical + Grammar</b>: mỗi ngày nạp 5 cụm chủ đề và ép dùng khi ghi âm; đồng thời viết ra 5 câu vừa nói rồi soi lỗi để tăng tỉ lệ câu không lỗi. Nói thêm mà không sửa hai chỗ này thì điểm đứng yên.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Band 7 = nói dài không thấy gắng sức, từ linh hoạt có vài cụm idiomatic, nhiều câu không lỗi, người nghe hiểu dễ suốt bài → phân biệt sống còn: dừng để nghĩ ý (được phép) khác dừng để tìm chữ (chặn trần) → nghe lại bản ghi và đếm hai loại dừng này để biết nút thắt của mình.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b5-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b5-02 -->
+      <article class="lesson" id="sp-b5-02" data-lesson="sp-b5-02" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b5-02</span><h3>Naturalness &amp; nuance — sounding like a person, not a script</h3><span class="ls-check">✓</span></div>
+        <p>At 6.5 most answers are correct but flat <span class="gl">(đúng nhưng phẳng)</span>. Band 7 answers carry <strong>attitude</strong>. Three tools:</p>
+        <ul>
+          <li><strong>Precise degree words</strong> instead of "very": <span class="en">absolutely exhausting · slightly annoying · incredibly useful · pretty disappointing · a bit overrated</span>. Notice how each one carries a judgement <span class="gl">(chứa sẵn đánh giá)</span>.</li>
+          <li><strong>Hedging &amp; certainty</strong> — the spoken twin of the Writing lesson: <span class="en">I'd say… · I suppose… · as far as I know… · I'm fairly sure… · to be perfectly honest…</span> These make you sound thoughtful rather than uncertain.</li>
+          <li><strong>Emotional colour</strong>: react to your own story. <span class="en">…and honestly, I still can't believe I did it. · …which, looking back, was a terrible idea.</span> Self-comment is what separates a person talking from a script being read.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Flat → Alive (same content)</b>
+          <p><span class="lb">FLAT</span><span class="en">I went to Da Lat last year. It was very nice. The weather was very good and the food was very cheap. I liked it very much.</span></p>
+          <p><span class="lb">ALIVE</span><span class="en">I went up to Da Lat last year and honestly, it was one of the best trips I've taken. The weather was gloriously cool — which, coming from Hanoi in July, felt almost unreal — and we ate incredibly well for about three dollars a day. I'd go back tomorrow if I could.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh — ghi âm mọi câu</b>
+          <div class="q"><p class="qq">1. Thay hết "very" bằng từ chính xác: <span class="en">"The film was very long and very boring, but the ending was very surprising."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">The film was <b>painfully long</b> and, to be honest, <b>fairly dull</b> — though the ending was <b>genuinely surprising</b>.</span></p></div></details></div>
+          <div class="q"><p class="qq">2. Thêm sắc thái cảm xúc: <span class="en">"I changed my job last year. Now I work in a smaller company."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="en">I changed jobs last year — <b>which was terrifying at the time</b> — and now I'm at a much smaller company. <b>Looking back</b>, it's easily the best decision I've made.</span></p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao hedging lại làm bạn nghe <em>tự tin hơn</em> chứ không phải kém tự tin?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì <span class="en">"I'd say generally…"</span> cho thấy bạn <b>ý thức được giới hạn của điều mình khẳng định</b> — dấu hiệu của người dùng ngôn ngữ trưởng thành. Khẳng định tuyệt đối về mọi thứ mới nghe non.</p></div></details></div>
+          <div class="q"><p class="qq">4. Lấy một bản ghi cũ của bạn, nghe lại và đếm số lần dùng "very" và "nice/good". Nói lại cùng nội dung, cấm hai từ đó.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>So sánh hai bản: bản mới có nghe như <b>một người thật đang kể chuyện</b> chưa? Bài tập cấm-từ này là cách nhanh nhất ép vốn từ chính xác vào phản xạ.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Đúng mà phẳng là chân dung điển hình của 6.5 → thay "very + tính từ" bằng từ chứa sẵn đánh giá (painfully long, genuinely surprising) → hedging làm bạn nghe chín chắn hơn chứ không yếu đi → tự bình luận về câu chuyện của mình (which, looking back, was a terrible idea) là thứ tách người nói khỏi kịch bản.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b5-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- sp-b5-03 -->
+      <article class="lesson" id="sp-b5-03" data-lesson="sp-b5-03" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">sp-b5-03</span><h3>Test-day protocol — 14 phút quyết định</h3><span class="ls-check">✓</span></div>
+        <p>Everything you have practised now has to survive a room, a stranger, and a recording device. Lock the protocol during your last mock tests <span class="gl">(chốt quy trình từ khi luyện, không phải ngày thi)</span>:</p>
+        <ul>
+          <li><strong>Before:</strong> speak English aloud for 10–15 minutes on the way — your first minute of speech is always your worst, so spend it outside the room.</li>
+          <li><strong>Part 1:</strong> answer at conversational length (2–4 sentences). Do not over-perform; save your energy.</li>
+          <li><strong>Part 2:</strong> notes in keywords only; aim to still be talking when the examiner stops you — <mark>being stopped is a good sign</mark>.</li>
+          <li><strong>Part 3:</strong> this is where band 7 is won. Longer answers, hedging, concede-and-hold when challenged.</li>
+          <li><strong>If you mishear a question:</strong> <span class="en">Sorry, could you repeat that?</span> — allowed in Parts 1 and 3, and it costs nothing. Answering the wrong question costs plenty.</li>
+          <li><strong>If your mind goes blank:</strong> say something true and small, then build. <span class="en">To be honest, I've never thought about this. But if I had to guess…</span></li>
+        </ul>
+        <div class="call warn"><b class="tag">Ba điều đừng làm</b>① Học thuộc câu trả lời mẫu — giám khảo được huấn luyện để nhận ra và <strong>không tính điểm</strong> phần đó. ② Cố nói giọng Anh-Anh giả — nghe gượng và làm hỏng nhịp. ③ Xin lỗi liên tục vì tiếng Anh của mình — tốn thời gian và kéo tông cả buổi thi xuống.</div>
+        <p><strong>Two weeks out</strong>: one full recorded mock every 3 days, always the four-criteria self-audit afterwards, plus 15 minutes of daily speaking on random topics. No new techniques in the final week — only repetition of what already works.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Giám khảo cắt lời bạn giữa Part 2. Điều đó nghĩa là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bạn đã nói đủ 2 phút</b> — dấu hiệu tốt, hoàn toàn bình thường. Không phải bạn nói sai hay nói dở.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn nghe không rõ câu hỏi Part 3. Làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Hỏi lại: <span class="en">Sorry, could you say that again?</span> Được phép và không mất điểm. Trả lời lạc câu hỏi mới là thứ trừ điểm thật.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao nên nói tiếng Anh 15 phút trước khi vào phòng thi?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì phút đầu tiên luôn là phút tệ nhất — miệng chưa quen, phản xạ chưa bật. Hãy "đốt" phút đó ở ngoài hành lang, để Part 1 bắt đầu khi bạn đã vào guồng.</p></div></details></div>
+          <div class="q"><p class="qq">4. Lập lịch 2 tuần cuối cho Speaking của riêng bạn.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: mock đầy đủ vào ngày 1–4–7–10–13 (ghi âm + tự chấm 4 tiêu chí); các ngày còn lại 15 phút vòng lặp ghi âm với chủ đề ngẫu nhiên; tuần cuối <b>không nạp kỹ thuật mới</b>. Hoàn thành bài này là bạn đã đi hết lộ trình Speaking của BandUp.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Nói tiếng Anh 15 phút trước khi vào phòng để "đốt" phút tệ nhất → Part 1 vừa đủ, Part 2 nói đến khi bị dừng, Part 3 là nơi giành band 7 → nghe không rõ thì hỏi lại, đầu trống thì thú nhận rồi đoán tiếp → cấm học thuộc câu mẫu, cấm giả giọng, cấm xin lỗi liên tục. Chúc mừng — bạn đã hoàn thành trọn lộ trình Speaking 4.0 → 7.0.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="sp-b5-03">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <div class="coming"><b>Mở rộng theo yêu cầu</b>Lộ trình Speaking 4.0 → 7.0 đã đủ. Nhóm 7.0+ (sp-b6) sẽ được bổ sung khi bạn yêu cầu — tiến độ đã tick luôn được giữ nguyên.</div>
+
+    <div class="endnav">
+      <a class="btn btn-primary" id="nextBtn" href="listening.html" aria-disabled="true" title="Trang đang được xây dựng">Tiếp theo: Listening →</a>
+      <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+    </div>
+
+    </div><!-- /content -->
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v2 · speaking (b1–b5) · 22 bài · giao diện v2 · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══ Thanh tiến trình đọc ══ */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  readbar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* ══ DEV CONTRACT: quét bài học & ghi manifest ══ */
+var PAGE_KEY = "speaking";
+var lessonEls = Array.prototype.slice.call(document.querySelectorAll(".lesson[data-lesson]"));
+var LESSONS = lessonEls.map(function(el){
+  return {
+    id: el.dataset.lesson,
+    band: el.dataset.band,
+    title: el.querySelector("h3") ? el.querySelector("h3").textContent.trim() : el.dataset.lesson
+  };
+});
+try{
+  localStorage.setItem("bandup.manifest." + PAGE_KEY, JSON.stringify({
+    page: PAGE_KEY,
+    title: "Speaking",
+    updated: Date.now(),
+    lessons: LESSONS
+  }));
+}catch(e){}
+
+/* ══ Tiến độ: đọc / ghi bandup.done ══ */
+function loadDone(){
+  try{
+    var raw = localStorage.getItem("bandup.done");
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveDone(set){
+  try{ localStorage.setItem("bandup.done", JSON.stringify(Array.from(set))); }catch(e){}
+}
+var doneSet = loadDone();
+
+function renderState(){
+  var doneCount = 0;
+  lessonEls.forEach(function(el){
+    var id = el.dataset.lesson;
+    var isDone = doneSet.has(id);
+    if(isDone) doneCount++;
+    el.classList.toggle("done", isDone);
+    var btn = el.querySelector("[data-tick]");
+    if(btn) btn.textContent = isDone ? "✓ Đã học — bấm để bỏ đánh dấu" : "Đánh dấu đã học xong";
+    var toc = document.querySelector('[data-toc="' + id + '"]');
+    if(toc){
+      toc.classList.toggle("done", isDone);
+      toc.querySelector(".st").textContent = isDone ? "✓" : "○";
+    }
+  });
+  var pct = LESSONS.length ? Math.round(doneCount / LESSONS.length * 100) : 0;
+  document.getElementById("pgBar").style.width = pct + "%";
+  document.getElementById("pgText").textContent = doneCount + "/" + LESSONS.length + " bài · " + pct + "%";
+  document.querySelectorAll("[data-chcount]").forEach(function(c){
+    var ch = document.getElementById(c.dataset.chcount);
+    if(!ch) return;
+    var inCh = Array.prototype.slice.call(ch.querySelectorAll(".lesson[data-lesson]"));
+    var d = inCh.filter(function(el){ return doneSet.has(el.dataset.lesson); }).length;
+    c.textContent = d + "/" + inCh.length;
+  });
+}
+
+document.addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-tick]");
+  if(!btn) return;
+  var id = btn.getAttribute("data-tick");
+  if(doneSet.has(id)) doneSet.delete(id); else doneSet.add(id);
+  saveDone(doneSet);
+  renderState();
+});
+
+window.addEventListener("focus", function(){ doneSet = loadDone(); renderState(); });
+renderState();
+
+/* ══ Mở khoá nút "Tiếp theo" khi listening.html tồn tại ══ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;
+  var btn = document.getElementById("nextBtn");
+  fetch("listening.html", {method:"HEAD", cache:"no-store"})
+    .then(function(r){
+      if(r.ok){ btn.removeAttribute("aria-disabled"); btn.removeAttribute("title"); }
+    })
+    .catch(function(){});
+})();
+
+/* ══ UI v2: mục lục gọn trên mobile + nút về đầu trang ══ */
+(function(){
+  var toc = document.querySelector(".toc");
+  if(toc){
+    var tg = document.createElement("button");
+    tg.type = "button"; tg.className = "toc-toggle";
+    tg.innerHTML = 'Mục lục <span aria-hidden="true">▾</span>';
+    toc.insertBefore(tg, toc.firstChild);
+    if(window.innerWidth <= 920) toc.classList.add("collapsed");
+    tg.addEventListener("click", function(){
+      toc.classList.toggle("collapsed");
+      tg.querySelector("span").textContent = toc.classList.contains("collapsed") ? "▾" : "▴";
+    });
+    toc.addEventListener("click", function(e){
+      if(e.target.closest("a") && window.innerWidth <= 920){
+        toc.classList.add("collapsed");
+        tg.querySelector("span").textContent = "▾";
+      }
+    });
+  }
+  var tt = document.createElement("button");
+  tt.type = "button"; tt.id = "toTop"; tt.setAttribute("aria-label","Về đầu trang"); tt.textContent = "↑";
+  document.body.appendChild(tt);
+  tt.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+  window.addEventListener("scroll", function(){ tt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
+})();
+</script>
+</body>
+</html>
