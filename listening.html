@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listening — BandUp</title>
+<meta name="description" content="Module IELTS Listening: cấu trúc 4 section, kỹ thuật dự đoán, bẫy tự sửa ý, chép chính tả, các dạng câu hỏi Form/Note Completion, Multiple Choice, Matching, Map — chia theo mốc band từ 4.0 đến 7.0.">
+<!--
+BANDUP · listening.html · v2 (phủ đủ b1 → b5) · giao diện v2
+Tuân theo DEV CONTRACT trong index.html.
+- Page key: listening · Lesson id hiện có:
+    ls-b1-01 → ls-b1-06  (Band 4.0 → 5.0)
+    ls-b2-01 → ls-b2-05  (Band 5.0 → 5.5)
+    ls-b3-01 → ls-b3-04  (Band 5.5 → 6.0)
+    ls-b4-01 → ls-b4-04  (Band 6.0 → 6.5)
+    ls-b5-01 → ls-b5-03  (Band 6.5 → 7.0)
+- Mở rộng sau (7.0+): thêm ls-b6-xx, KHÔNG đổi id cũ
+- Khi load: tự ghi bandup.manifest.listening; tick ghi vào bandup.done
+- Kịch bản/transcript tiếng Anh là văn bản gốc tự soạn cho BandUp
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#E4DFD3; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-fd:#3C6E9C; --c-rd:#0E7C5B; --c-wr:#C05621; --c-sp:#B03A66; --c-ls:#5A4FB5;
+  --done-bg:#FFFBEA;
+  --radius:16px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,sans-serif;
+  --font-mono:"Nunito",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(min-width:640px){html{font-size:17px}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+#readbar{position:fixed;top:0;left:0;height:4px;width:0%;background:var(--accent);z-index:99}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,241,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:22px;height:62px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.62rem;font-weight:700}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--ink-soft);padding:7px 12px;border-radius:8px;transition:background .15s,color .15s}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+.topnav a.cta{background:var(--ink);color:#fff;font-weight:600}
+.topnav a.cta:hover{background:#0C1D2B;color:#fff}
+@media(max-width:720px){.topnav a:not(.cta){display:none}}
+
+.hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-mono);font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:16px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-ls);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--c-ls)}
+.hero p.lead{font-size:1.02rem;color:var(--ink-soft);max-width:46rem;margin-bottom:20px}
+.pageprog{display:flex;align-items:center;gap:14px;flex-wrap:wrap;max-width:34rem}
+.pageprog .track{flex:1;min-width:180px;height:10px;background:var(--card);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.pageprog .track i{display:block;height:100%;width:0%;background:var(--c-ls);border-radius:99px;transition:width .5s ease}
+.pageprog b{font-family:var(--font-mono);font-size:.82rem;white-space:nowrap}
+
+.layout{display:grid;grid-template-columns:262px 1fr;gap:40px;padding:40px 0 20px;align-items:start}
+@media(max-width:920px){.layout{grid-template-columns:1fr;gap:26px}}
+.toc{position:sticky;top:80px;border:1.5px solid var(--line);background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;max-height:calc(100vh - 100px);overflow:auto}
+@media(max-width:920px){.toc{position:static;max-height:none}}
+.toc h2{font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 8px}
+.toc h2:first-child{margin-top:0}
+.toc a{display:flex;gap:8px;align-items:baseline;text-decoration:none;font-size:.88rem;color:var(--ink-soft);padding:5px 8px;border-radius:7px}
+.toc a:hover{background:var(--paper);color:var(--ink)}
+.toc a .st{font-family:var(--font-mono);font-size:.66rem;min-width:15px;color:var(--line)}
+.toc a.done{color:var(--ink)}
+.toc a.done .st{color:var(--accent-deep);font-weight:700}
+.toc .soon{font-size:.76rem;color:var(--ink-soft);padding:5px 8px;font-style:italic}
+
+.content{min-width:0}
+.chapter{padding:6px 0 34px;scroll-margin-top:84px}
+.chapter>h2{font-family:var(--font-display);font-weight:800;font-size:clamp(1.35rem,2.6vw,1.7rem);letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.chapter>h2 .cnum{flex:none;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:6px 10px;border-radius:9px;background:var(--c-ls);color:#fff}
+.chapter>h2 .ccount{margin-left:auto;font-family:var(--font-mono);font-size:.74rem;color:var(--ink-soft);font-weight:400}
+.chapter>p.cintro{color:var(--ink-soft);font-size:.94rem;max-width:66ch;margin-bottom:18px}
+
+.lesson{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px;scroll-margin-top:84px;position:relative}
+.lesson .spine{position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 4px 4px 0;background:var(--c-ls)}
+.lesson.done{background:var(--done-bg)}
+.lesson.done .spine{background:var(--accent-deep)}
+.ls-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ls-id{font-family:var(--font-mono);font-size:.7rem;font-weight:700;color:var(--ink-soft);border:1px solid var(--line);padding:3px 7px;border-radius:6px;background:var(--paper);white-space:nowrap;margin-top:4px}
+.lesson h3{font-family:var(--font-display);font-weight:700;font-size:1.16rem;letter-spacing:-.01em;flex:1}
+.ls-check{flex:none;font-family:var(--font-mono);font-size:.9rem;color:var(--accent-deep);opacity:0;transform:scale(.6);transition:.2s;margin-top:2px}
+.lesson.done .ls-check{opacity:1;transform:scale(1)}
+.lesson p{margin-bottom:12px;max-width:70ch}
+.lesson ul,.lesson ol{margin:0 0 12px 20px;max-width:68ch}
+.lesson li{margin-bottom:7px}
+mark{background:linear-gradient(transparent 58%,var(--accent) 58%);color:inherit;padding:0 2px}
+.en{font-weight:800;font-size:.97em;color:#1F4E68}
+.gl{color:var(--ink-soft);font-style:italic;font-size:.85em;font-weight:400}
+.vs{color:var(--ink-soft);font-size:.86em}
+
+.passage{border:1.5px solid var(--line);border-left:6px solid var(--c-ls);background:var(--paper);border-radius:11px;padding:16px 18px;margin:14px 0;max-width:72ch}
+.passage b.ptag{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ls);display:block;margin-bottom:6px}
+.passage p{font-size:.95rem;line-height:1.8;margin-bottom:10px}
+.passage p:last-child{margin-bottom:0}
+.passage .lb{font-family:var(--font-mono);font-weight:800;font-size:.72rem;color:#fff;background:var(--c-ls);border-radius:5px;padding:1px 6px;margin-right:6px;white-space:nowrap}
+
+.tbl-scroll{overflow-x:auto;margin:14px 0 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--card)}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:480px}
+th{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--ink-soft);padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--paper)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.k{font-weight:700;white-space:nowrap}
+td .mono,.mono{font-family:var(--font-mono);font-size:.84em}
+tr.sub td{background:var(--paper);font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;padding:7px 12px}
+
+.call{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);padding:13px 16px;border-radius:11px;font-size:.9rem;margin:14px 0;max-width:70ch}
+.call.warn{border-left-color:#B23A3A;background:#FCF6F4}
+.call b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--ink-soft)}
+.wrong{color:#B23A3A;text-decoration:line-through;text-decoration-thickness:1.5px}
+.right{color:var(--c-rd);font-weight:700}
+.vn-sum{background:var(--ink);color:#DDE3DA;border-radius:11px;padding:15px 18px;margin:16px 0 4px;max-width:72ch;font-size:.9rem}
+.vn-sum b.tag{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;color:var(--accent)}
+.vn-sum p{margin-bottom:6px;color:#DDE3DA;max-width:none}
+.vn-sum p:last-child{margin-bottom:0}
+
+.quiz{margin-top:18px;border-top:2px dashed var(--line);padding-top:16px}
+.quiz>b{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:10px}
+.q{margin-bottom:12px;max-width:72ch}
+.q .qq{margin-bottom:6px}
+details{border:1.5px solid var(--line);border-radius:9px;background:var(--paper);overflow:hidden}
+summary{cursor:pointer;list-style:none;font-weight:800;font-size:.85rem;padding:10px 14px;color:var(--ink);user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";color:var(--accent-deep)}
+details[open] summary::before{content:"▾ "}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:12px 14px;font-size:.95rem}
+details .ans p{margin-bottom:6px}
+
+.ls-foot{margin-top:16px;display:flex;justify-content:flex-end}
+.tickbtn{font-family:var(--font-body);font-weight:800;font-size:.95rem;padding:12px 20px;border-radius:10px;border:2px solid var(--ink);background:var(--card);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tickbtn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(18,40,58,.4)}
+.lesson.done .tickbtn{background:var(--accent);border-color:var(--ink)}
+
+.coming{border:1.5px dashed var(--line);border-radius:var(--radius);padding:22px;color:var(--ink-soft);font-size:.92rem;background:var(--card);margin-bottom:18px}
+.coming b{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px}
+
+.endnav{display:flex;gap:14px;flex-wrap:wrap;padding:30px 0 10px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);transition:.15s;font-family:var(--font-body)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px -10px rgba(18,40,58,.5)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:#EBEDE4}
+.btn[aria-disabled="true"]{opacity:.45;cursor:not-allowed;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px 0 42px;margin-top:34px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+footer .mono{font-family:var(--font-mono);font-size:.72rem}
+
+/* ── UI v2: mục lục mobile & nút về đầu trang ── */
+.toc-toggle{display:none}
+@media(max-width:920px){
+  .toc-toggle{display:flex;width:100%;justify-content:space-between;align-items:center;background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-family:var(--font-body);font-weight:800;font-size:.95rem;color:var(--ink);cursor:pointer}
+  .toc.collapsed > *:not(.toc-toggle){display:none}
+  .toc:not(.collapsed) .toc-toggle{margin-bottom:8px}
+}
+#toTop{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--accent);color:var(--ink);font-size:1.25rem;font-weight:800;cursor:pointer;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;font-family:var(--font-body)}
+#toTop.show{opacity:1;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="readbar" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <nav class="topnav" aria-label="Điều hướng chính">
+      <a href="reading.html">Reading</a>
+      <a href="speaking.html">Speaking</a>
+      <a class="cta" href="index.html#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Ưu tiên 4 · Kỹ năng Listening</span>
+      <h1>Listening <em>4.0 → 7.0</em></h1>
+      <p class="lead">~30 phút · 4 section · 40 câu — băng chỉ phát <strong>một lần duy nhất</strong>. Nghịch lý của Listening: bạn thua không phải vì tai kém, mà vì mắt không kịp đọc câu hỏi và tay không kịp ghi. Đây cũng là kỹ năng lên điểm nhanh nhất khi luyện đúng cách. Lộ trình đầy đủ 5 nhóm band từ 4.0 đến 7.0; từ nhóm 6.0 trở lên bài học chuyển dần sang tiếng Anh kèm chú thích Việt.</p>
+      <div class="pageprog"><div class="track"><i id="pgBar"></i></div><b id="pgText">0/22 bài · 0%</b></div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+
+    <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Band 4.0 → 5.0</h2>
+      <a href="#ls-b1-01" data-toc="ls-b1-01"><span class="st">○</span>Toàn cảnh 4 section</a>
+      <a href="#ls-b1-02" data-toc="ls-b1-02"><span class="st">○</span>Đọc trước &amp; dự đoán</a>
+      <a href="#ls-b1-03" data-toc="ls-b1-03"><span class="st">○</span>Số, ngày, tên riêng</a>
+      <a href="#ls-b1-04" data-toc="ls-b1-04"><span class="st">○</span>Form &amp; Note Completion</a>
+      <a href="#ls-b1-05" data-toc="ls-b1-05"><span class="st">○</span>Bẫy tự sửa ý</a>
+      <a href="#ls-b1-06" data-toc="ls-b1-06"><span class="st">○</span>Chép chính tả — drill lõi</a>
+      <h2>Band 5.0 → 5.5</h2>
+      <a href="#ls-b2-01" data-toc="ls-b2-01"><span class="st">○</span>Từ tín hiệu — bám dòng</a>
+      <a href="#ls-b2-02" data-toc="ls-b2-02"><span class="st">○</span>Multiple Choice khi nghe</a>
+      <a href="#ls-b2-03" data-toc="ls-b2-03"><span class="st">○</span>Matching &amp; phân loại</a>
+      <a href="#ls-b2-04" data-toc="ls-b2-04"><span class="st">○</span>Map &amp; Plan labelling</a>
+      <a href="#ls-b2-05" data-toc="ls-b2-05"><span class="st">○</span>Section 4 &amp; quy trình full test</a>
+      <h2>Band 5.5 → 6.0</h2>
+      <a href="#ls-b3-01" data-toc="ls-b3-01"><span class="st">○</span>Accent Anh · Úc · Mỹ</a>
+      <a href="#ls-b3-02" data-toc="ls-b3-02"><span class="st">○</span>Weak forms &amp; nối âm</a>
+      <a href="#ls-b3-03" data-toc="ls-b3-03"><span class="st">○</span>Ghi chú tốc ký</a>
+      <a href="#ls-b3-04" data-toc="ls-b3-04"><span class="st">○</span>Sentence &amp; Table Completion</a>
+      <h2>Band 6.0 → 6.5</h2>
+      <a href="#ls-b4-01" data-toc="ls-b4-01"><span class="st">○</span>Section 3: nhiều người nói</a>
+      <a href="#ls-b4-02" data-toc="ls-b4-02"><span class="st">○</span>Thái độ &amp; ý kiến</a>
+      <a href="#ls-b4-03" data-toc="ls-b4-03"><span class="st">○</span>Chọn nhiều đáp án</a>
+      <a href="#ls-b4-04" data-toc="ls-b4-04"><span class="st">○</span>Section 4: bài giảng dày</a>
+      <h2>Band 6.5 → 7.0</h2>
+      <a href="#ls-b5-01" data-toc="ls-b5-01"><span class="st">○</span>Chiến lược 30/40</a>
+      <a href="#ls-b5-02" data-toc="ls-b5-02"><span class="st">○</span>Nghe khi không hiểu hết</a>
+      <a href="#ls-b5-03" data-toc="ls-b5-03"><span class="st">○</span>Giao thức ngày thi</a>
+    </aside>
+
+    <div class="content">
+
+    <!-- ═══════════ BAND 4.0 → 5.0 ═══════════ -->
+    <section class="chapter" id="b1">
+      <h2><span class="cnum">BAND 4.0 → 5.0</span> Bắt kịp băng &amp; ăn chắc câu dễ <span class="ccount" data-chcount="b1">0/6</span></h2>
+      <p class="cintro">Section 1 và 2 là nơi 40% số điểm nằm sẵn chờ bạn nhặt. Nhóm này dạy cách đọc trước câu hỏi, nghe số và tên chính xác, và dựng thói quen chép chính tả — kỹ thuật luyện Listening hiệu quả nhất từng có.</p>
+
+      <!-- ls-b1-01 -->
+      <article class="lesson" id="ls-b1-01" data-lesson="ls-b1-01" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-01</span><h3>Toàn cảnh 4 section &amp; luật chơi</h3><span class="ls-check">✓</span></div>
+        <div class="tbl-scroll"><table>
+          <tr><th>Section</th><th>Bối cảnh</th><th>Độ khó</th></tr>
+          <tr><td class="k">1</td><td>Hội thoại 2 người, đời thường (đặt phòng, đăng ký lớp, thuê nhà)</td><td>Dễ nhất — <b>phải ăn gần trọn</b></td></tr>
+          <tr><td class="k">2</td><td>Độc thoại 1 người, đời thường (giới thiệu tour, thông báo sự kiện)</td><td>Dễ vừa</td></tr>
+          <tr><td class="k">3</td><td>Hội thoại 2–4 người, học thuật (sinh viên bàn bài tập với giảng viên)</td><td>Khó — nhiều giọng xen nhau</td></tr>
+          <tr><td class="k">4</td><td>Độc thoại học thuật (bài giảng)</td><td>Khó nhất — không ai ngắt để bạn kịp</td></tr>
+        </table></div>
+        <ul>
+          <li><strong>Băng chỉ phát MỘT lần</strong> — mất một câu thì buông ngay, đừng ngoái lại. Ngoái lại là mất thêm ba câu sau.</li>
+          <li><strong>Câu hỏi đi đúng theo thứ tự</strong> của băng — luật vàng của Listening (Reading có ngoại lệ, Listening thì không).</li>
+          <li>Không trừ điểm câu sai → <mark>không được để trống ô nào</mark>.</li>
+          <li><strong>Thi trên giấy:</strong> có 10 phút cuối để chép đáp án sang answer sheet. <strong>Thi trên máy:</strong> không có 10 phút này, gõ thẳng — bù lại có 2 phút kiểm tra cuối.</li>
+        </ul>
+        <div class="tbl-scroll"><table>
+          <tr><th>Band</th><th>Số câu đúng /40 (tham khảo)</th></tr>
+          <tr><td class="k">5.0</td><td>~16</td></tr>
+          <tr><td class="k">5.5</td><td>~23</td></tr>
+          <tr><td class="k">6.0</td><td>~26</td></tr>
+          <tr><td class="k">6.5</td><td>~30</td></tr>
+          <tr><td class="k">7.0</td><td>~30–32</td></tr>
+        </table></div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn lỡ mất câu 12 vì đang phân vân câu 11. Làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bỏ luôn câu 12, nhảy ngay sang câu 13</b> và đoán câu 12 vào lúc cuối. Băng không chờ ai — cố cứu một câu thường mất luôn cả cụm câu sau.</p></div></details></div>
+          <div class="q"><p class="qq">2. Section nào bạn <em>bắt buộc</em> không được sai nhiều, và vì sao?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Section 1</b> — dễ nhất, chủ đề đời thường, giọng chậm. Người mục tiêu 5.5+ mà sai 3–4 câu ở Section 1 là dấu hiệu lỗi kỹ thuật (không đọc trước, sai chính tả), không phải lỗi trình độ.</p></div></details></div>
+          <div class="q"><p class="qq">3. (T/F) Trong Listening, thứ tự câu hỏi có thể đảo lộn so với băng.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>False</b> — luôn theo thứ tự. Nhờ vậy bạn biết chính xác mình "đang ở đâu": nghe thấy đáp án câu 5 nghĩa là câu 6 sắp tới ngay sau đó.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn thi trên máy tính. Khác biệt lớn nhất cần chuẩn bị là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Không có 10 phút chép đáp án</b> — phải gõ trực tiếp trong lúc nghe. Cần luyện gõ chính tả nhanh từ sớm; đây là lý do drill chép chính tả (bài ls-b1-06) càng quan trọng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b1-02 -->
+      <article class="lesson" id="ls-b1-02" data-lesson="ls-b1-02" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-02</span><h3>Đọc trước &amp; dự đoán — nửa số điểm nằm ở đây</h3><span class="ls-check">✓</span></div>
+        <p>Trước mỗi section, bạn có 30–45 giây đọc câu hỏi. Đa số thí sinh đọc lướt cho có. Người điểm cao dùng khoảng thời gian đó để <mark>dự đoán trước cái mình sắp nghe</mark> — nghe với một giả thuyết trong đầu dễ gấp nhiều lần nghe từ con số không.</p>
+        <p><strong>Quy trình 3 bước cho mỗi chỗ trống:</strong></p>
+        <ol>
+          <li><strong>Đoán loại thông tin</strong> — số? tên riêng? địa điểm? ngày? danh từ? Nhìn ngữ cảnh xung quanh chỗ trống là ra.</li>
+          <li><strong>Gạch từ khoá đứng ngay trước chỗ trống</strong> — đó là "chuông báo" bạn sắp phải ghi.</li>
+          <li><strong>Đoán vài khả năng cụ thể</strong> — nếu là ngày, các dạng khả dĩ: <span class="en">Monday · 3rd May · next week</span>.</li>
+        </ol>
+        <div class="passage"><b class="ptag">Ví dụ — Form Completion</b>
+          <p><span class="en">Name: Sarah ______ (1)<br>
+          Phone: ______ (2)<br>
+          Course start date: ______ (3)<br>
+          Cost per month: £ ______ (4)<br>
+          Class size: no more than ______ students (5)</span></p>
+          <p><span class="vs">Dự đoán: (1) họ — sẽ được đánh vần · (2) dãy số · (3) ngày tháng · (4) số tiền · (5) một con số nhỏ</span></p>
+        </div>
+        <div class="call"><b class="tag">Thời gian ở đâu ra?</b>Nếu bạn làm xong section trước và thấy dư giây nào, <strong>dùng ngay để đọc trước section sau</strong> thay vì soát lại câu cũ. Băng sẽ đọc phần hướng dẫn — không cần nghe, bạn đã biết luật rồi.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Dự đoán loại từ: <span class="en">"The library is located on ______ Street."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Tên riêng</b> (viết hoa) — vì đứng trước "Street". Có thể sẽ được đánh vần nếu là tên lạ.</p></div></details></div>
+          <div class="q"><p class="qq">2. Dự đoán: <span class="en">"Members can borrow up to ______ books at a time."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Một con số</b> (nhỏ, kiểu 5/8/10). Từ khoá chuông báo: "borrow up to". Nghe thấy "borrow" là chuẩn bị bút.</p></div></details></div>
+          <div class="q"><p class="qq">3. Dự đoán: <span class="en">"You will need to bring a ______ and two passport photos."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Danh từ số ít</b>, chỉ giấy tờ/vật dụng — khả năng cao: <span class="en">passport · ID card · driving licence · form</span>. Đoán trước vài phương án khiến tai nhận ra ngay khi nó xuất hiện.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao dự đoán sai vẫn có lợi?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nó vẫn khiến bạn <b>nghe chủ động</b> với một khung sẵn trong đầu. Đoán "thứ Hai" mà nghe ra "thứ Sáu" thì bạn vẫn bắt được — điều nguy hiểm là nghe mà không biết đang chờ cái gì.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b1-03 -->
+      <article class="lesson" id="ls-b1-03" data-lesson="ls-b1-03" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-03</span><h3>Số, ngày tháng &amp; tên riêng — nơi mất điểm oan nhất</h3><span class="ls-check">✓</span></div>
+        <p>Section 1 gần như luôn có số điện thoại, ngày tháng, giá tiền và một cái tên được đánh vần. Đây là điểm "cho không" — nhưng chỉ khi bạn quen với các bẫy sau:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Hạng mục</th><th>Cần thuộc</th></tr>
+          <tr><td class="k">Số dễ nhầm</td><td class="mono">13 /θɜː<b>TEEN</b>/ nhấn cuối ⇄ 30 /<b>THIR</b>ty/ nhấn đầu — nghe trọng âm, không nghe âm cuối</td></tr>
+          <tr><td class="k">Số điện thoại</td><td class="mono">0 = "oh" hoặc "zero" · 77 = "double seven" · 555 = "triple five"</td></tr>
+          <tr><td class="k">Ngày tháng</td><td class="mono">Anh: 3rd of May · Mỹ: May 3rd — viết dạng nào cũng được, miễn đúng</td></tr>
+          <tr><td class="k">Tiền</td><td class="mono">£15.50 = "fifteen pounds fifty" · $2,500 = "two and a half thousand"</td></tr>
+          <tr><td class="k">Chữ cái dễ lẫn</td><td class="mono">A/E/I · B/P/V · G/J · M/N · S/F · C/T/D</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Luật chính tả sắt</b>Sai một chữ = <strong>mất trọn câu</strong>, dù bạn nghe đúng 100%. Tên riêng phải <mark>viết hoa</mark>; đánh vần sai một ký tự cũng là sai. Khi băng đánh vần, ghi thẳng từng chữ cái thay vì cố nhớ cả từ.</div>
+        <div class="quiz"><b>Luyện nhanh — đọc to phần tiếng Anh rồi tự viết ra</b>
+          <div class="q"><p class="qq">1. Viết ra: <span class="en">"Zero seven double four, one three, oh nine two"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>0744 13 092</b> — "double four" = 44, "oh" = 0.</p></div></details></div>
+          <div class="q"><p class="qq">2. Con số nào: <span class="en">"The course costs three hundred and fifteen pounds"</span> vs <span class="en">"three hundred and fifty pounds"</span>?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>£315</b> và <b>£350</b>. Phân biệt bằng <b>trọng âm</b>: fif<b>TEEN</b> (nhấn cuối) ⇄ <b>FIF</b>ty (nhấn đầu) — đúng kiến thức trọng âm ở bài Speaking sp-b1-05.</p></div></details></div>
+          <div class="q"><p class="qq">3. Viết ra: <span class="en">"My surname is Hartley — that's H-A-R-T-L-E-Y."</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Hartley</b> — viết hoa chữ đầu. Ghi từng chữ cái khi nghe đánh vần, đừng cố "nghe cả từ rồi đoán".</p></div></details></div>
+          <div class="q"><p class="qq">4. Băng nói <span class="en">"the twenty-second of March"</span> — bạn ghi thế nào cho an toàn?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>22 March</b> hoặc <b>22nd March</b> — cả hai đều được chấp nhận. Đừng viết "22 Match" hay quên viết hoa tháng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b1-04 -->
+      <article class="lesson" id="ls-b1-04" data-lesson="ls-b1-04" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-04</span><h3>Form &amp; Note Completion — dạng chiếm nhiều điểm nhất</h3><span class="ls-check">✓</span></div>
+        <p>Điền vào form, bảng ghi chú, hoặc câu tóm tắt — dạng bài phổ biến nhất trong Listening, đặc biệt ở Section 1 và 4. Nguyên tắc giống Reading Completion nhưng khắc nghiệt hơn vì <mark>không được nghe lại</mark>:</p>
+        <ul>
+          <li><strong>Luật đếm từ vẫn là luật sắt</strong> — <span class="en">NO MORE THAN TWO WORDS AND/OR A NUMBER</span>. Viết 3 từ là sai dù đúng ý.</li>
+          <li><strong>Chép nguyên văn</strong> từ băng, không paraphrase lại. Băng nói "leather jacket" thì ghi "leather jacket".</li>
+          <li><strong>Ngữ pháp phải khớp</strong>: chỗ trống cần số nhiều thì phải nghe rõ đuôi <span class="en">-s</span>. Đây là chỗ kỹ năng nghe âm cuối (bài sp-b1-05) trả cổ tức trực tiếp.</li>
+          <li><strong>Viết tắt khi nghe, viết đủ khi chép</strong> (thi giấy): nghe "accommodation" ghi tạm "accom", đến 10 phút cuối viết đầy đủ và đúng chính tả.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Kịch bản mẫu — Section 1</b>
+          <p><span class="lb">A</span><span class="en">Good morning, Riverside Sports Centre.</span><br>
+          <span class="lb">B</span><span class="en">Hi, I'd like to join the swimming class, please.</span><br>
+          <span class="lb">A</span><span class="en">Certainly. The beginners' class runs on Tuesday evenings, from seven until half past eight. It's twelve pounds a session, but if you pay for ten sessions in advance it comes down to a hundred pounds.</span><br>
+          <span class="lb">B</span><span class="en">That's better. And do I need to bring anything?</span><br>
+          <span class="lb">A</span><span class="en">Just a towel and a swimming cap — caps are compulsory in our pool.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (NO MORE THAN TWO WORDS AND/OR A NUMBER)</b>
+          <div class="q"><p class="qq">1. <span class="en">Class day: ______</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Tuesday</b> (hoặc "Tuesday evenings" — vẫn trong giới hạn 2 từ). Viết hoa thứ trong tuần.</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">Class finishes at: ______</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>8.30</b> — "half past eight" = 8.30, không phải 8.5 hay "half eight". Chuyển ngay sang dạng số khi ghi.</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">Cost for ten sessions: £ ______</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>100</b> — bẫy: băng nêu £12 trước rồi mới đến £100. Phải đọc kỹ chỗ trống hỏi <em>mười buổi</em>, không phải một buổi.</p></div></details></div>
+          <div class="q"><p class="qq">4. <span class="en">Items to bring: a towel and a ______</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>swimming cap</b> — số ít vì có "a" đứng trước, dù băng sau đó nói "caps are compulsory". Ngữ pháp của chỗ trống quyết định dạng từ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b1-05 -->
+      <article class="lesson" id="ls-b1-05" data-lesson="ls-b1-05" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-05</span><h3>Bẫy tự sửa ý — đáp án luôn là thông tin CUỐI CÙNG</h3><span class="ls-check">✓</span></div>
+        <p>Đây là cái bẫy đặc trưng nhất của IELTS Listening, và nó gài ở <em>mọi</em> đề: người nói đưa một thông tin, rồi <mark>đổi ý ngay sau đó</mark>. Ai ghi vội đáp án đầu tiên là mất điểm.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Cụm báo hiệu sắp đổi ý</th><th>Nghĩa</th></tr>
+          <tr><td class="mono">Actually, … · Sorry, I mean… · Hang on, …</td><td>Sửa lại thông tin vừa nói</td></tr>
+          <tr><td class="mono">Well, it was X, but now it's Y</td><td>Thông tin cũ đã thay đổi</td></tr>
+          <tr><td class="mono">…or rather… · …let me check that…</td><td>Chuẩn bị đính chính</td></tr>
+          <tr><td class="mono">I was going to say X, but…</td><td>X là đáp án SAI</td></tr>
+        </table></div>
+        <div class="passage"><b class="ptag">Kịch bản mẫu</b>
+          <p><span class="lb">A</span><span class="en">So the meeting is on Wednesday at ten.</span><br>
+          <span class="lb">B</span><span class="en">Hang on — actually, they moved it. It's Thursday now, same time.</span><br>
+          <span class="lb">A</span><span class="en">Right. And it's in Room 12?</span><br>
+          <span class="lb">B</span><span class="en">It was going to be Room 12, but they've switched us to the conference room on the second floor.</span></p>
+        </div>
+        <div class="call warn"><b class="tag">Quy tắc sống còn</b><strong>Nghe hết câu rồi mới ghi.</strong> Khi nghe thấy <span class="en">actually / sorry / but</span>, hãy chuẩn bị gạch bỏ thứ vừa viết. Đáp án gần như luôn là <mark>thông tin xuất hiện sau cùng</mark>.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Ngày họp là thứ mấy?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Thursday</b> — "Wednesday" bị sửa bởi "Hang on — actually, they moved it".</p></div></details></div>
+          <div class="q"><p class="qq">2. Phòng họp ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>The conference room (second floor)</b> — "Room 12" là bẫy, bị phủ định bởi "It was going to be… but they've switched us to…".</p></div></details></div>
+          <div class="q"><p class="qq">3. Băng nói: <span class="en">"The deposit is fifty pounds — sorry, that's for the small room. For the large one it's eighty."</span> Bạn thuê phòng lớn, đáp án?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>£80</b>. Lưu ý đây không hẳn là sửa sai mà là <b>phân biệt hai trường hợp</b> — phải bám đúng trường hợp mà câu hỏi đang hỏi.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao thói quen "ghi ngay khi nghe thấy số" lại nguy hiểm?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì đề <b>cố tình</b> đặt số/thông tin đúng ở phía sau số sai. Ghi ngay = ghi đúng cái bẫy. Nghe trọn câu rồi mới đặt bút là kỹ năng phải luyện thành phản xạ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-05">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b1-06 -->
+      <article class="lesson" id="ls-b1-06" data-lesson="ls-b1-06" data-band="b1">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b1-06</span><h3>Chép chính tả (dictation) — drill lõi của cả module</h3><span class="ls-check">✓</span></div>
+        <p>Làm hết đề này đến đề khác chỉ cho biết bạn <em>sai bao nhiêu</em>, không cho biết <em>vì sao sai</em>. Chép chính tả thì chữa tận gốc: nó ép tai bạn nhận diện từng âm, đặc biệt là những chỗ bị nối âm mà bạn đã học ở Speaking (sp-b4-04).</p>
+        <p><strong>Quy trình 6 bước:</strong></p>
+        <ol>
+          <li>Chọn một đoạn <strong>30–60 giây</strong> (bài nghe bất kỳ có transcript: đề cũ, podcast học tiếng Anh).</li>
+          <li>Nghe lần 1 toàn bộ, không viết — nắm ý.</li>
+          <li>Nghe lại từng câu, <strong>viết ra chính xác từng từ</strong>, tua lại tuỳ ý.</li>
+          <li>Chỗ nào nghe không ra thì để trống, nghe thêm tối đa 3 lần rồi thôi.</li>
+          <li><strong>So với transcript</strong>, tô đỏ mọi chỗ sai.</li>
+          <li><mark>Phân loại lỗi</mark> — bước quan trọng nhất, xem bảng dưới.</li>
+        </ol>
+        <div class="tbl-scroll"><table>
+          <tr><th>Loại lỗi</th><th>Nghĩa là</th><th>Cách chữa</th></tr>
+          <tr><td class="k">Không biết từ</td><td>Nghe đúng âm nhưng không nhận ra từ</td><td>Vấn đề từ vựng → nạp từ, không phải luyện tai</td></tr>
+          <tr><td class="k">Nối âm</td><td>Nghe thành một khối, tách không ra</td><td>Đọc to đoạn đó theo băng 5 lần (shadowing)</td></tr>
+          <tr><td class="k">Âm yếu</td><td>Bỏ sót <span class="mono">a · the · of · to · has</span></td><td>Luyện nghe weak forms — thường không đổi nghĩa nhưng đổi đáp án ngữ pháp</td></tr>
+          <tr><td class="k">Không kịp</td><td>Nghe được nhưng viết không theo kịp</td><td>Luyện viết tắt + tăng tốc gõ/viết</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Liều lượng</b><strong>10–15 phút/ngày, 5 ngày/tuần.</strong> Ít hơn một đề full nhưng hiệu quả gấp nhiều lần ở giai đoạn 4.0–6.0. Sau 3 tuần, đọc lại sổ lỗi: bạn sẽ thấy cùng vài từ/cấu trúc lặp đi lặp lại — đó chính là lỗ hổng thật của bạn.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn chép được <span class="en">"I have to go"</span> nhưng transcript ghi <span class="en">"I've got to go"</span>. Lỗi loại nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Nối âm + âm yếu</b> — "I've got to" nói nhanh thành /aɪv gɒtə/. Chữa bằng shadowing: đọc to theo băng đúng tốc độ đó.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn để trống chỗ transcript ghi "reluctant". Lỗi loại nào và chữa sao?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Không biết từ</b> — tai không có lỗi. Chữa bằng cách nạp từ vào flashcard; nghe thêm 100 lần cũng không ra nếu não chưa có từ đó.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao chép chính tả tốt hơn "nghe podcast thụ động cả ngày"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nghe thụ động chỉ luyện <b>cảm giác quen</b>; chép chính tả buộc bạn <b>đối chiếu với sự thật</b> và lộ ra chính xác chỗ hổng. Đúng nguyên tắc "học chủ động" ở Hướng dẫn tự học mục 03.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: chọn 1 đoạn 40 giây, chạy trọn 6 bước ngay hôm nay, ghi lỗi vào sổ theo 4 loại.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Kết quả cần có: một danh sách lỗi <b>đã phân loại</b>. Nếu 3 ngày liên tiếp bạn toàn lỗi "không biết từ" thì vấn đề của bạn là từ vựng chứ không phải nghe — và kế hoạch học phải đổi theo.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b1-06">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.0 → 5.5 ═══════════ -->
+    <section class="chapter" id="b2">
+      <h2><span class="cnum">BAND 5.0 → 5.5</span> Các dạng bài khó &amp; Section 3–4 <span class="ccount" data-chcount="b2">0/5</span></h2>
+      <p class="cintro">Nhóm này xử lý những dạng câu hỏi khiến người học mất điểm nhiều nhất khi nghe (MCQ, Matching, Map) và bước vào lãnh địa Section 3–4, kết bằng quy trình chạy một đề full.</p>
+
+      <!-- ls-b2-01 -->
+      <article class="lesson" id="ls-b2-01" data-lesson="ls-b2-01" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b2-01</span><h3>Từ tín hiệu — cách biết mình đang ở đâu trong băng</h3><span class="ls-check">✓</span></div>
+        <p>Nỗi sợ lớn nhất khi nghe: "không biết mình đang ở câu mấy". Thuốc chữa là <mark>signposting language</mark> — những cụm mà người nói dùng để báo họ đang chuyển ý:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Chức năng</th><th>Cụm tín hiệu</th></tr>
+          <tr><td class="k">Chuyển chủ đề</td><td class="mono">Now, moving on to… · Let's turn to… · As for…</td></tr>
+          <tr><td class="k">Sắp nêu danh sách</td><td class="mono">There are three main… · Firstly… · The first of these…</td></tr>
+          <tr><td class="k">Nhấn mạnh (đáp án hay nằm đây)</td><td class="mono">The key point is… · What's really important is… · Do remember that…</td></tr>
+          <tr><td class="k">Nêu ví dụ</td><td class="mono">such as · like · take … for instance</td></tr>
+          <tr><td class="k">Đối lập</td><td class="mono">However · On the other hand · Whereas</td></tr>
+          <tr><td class="k">Kết luận</td><td class="mono">So overall… · To sum up…</td></tr>
+        </table></div>
+        <p>Cách dùng: đọc trước câu hỏi (bài ls-b1-02) → khi nghe thấy cụm chuyển chủ đề, <strong>mắt nhảy sang nhóm câu hỏi tiếp theo</strong>. Bạn không cần hiểu mọi từ, chỉ cần luôn biết mình đang ở đâu.</p>
+        <div class="call warn"><b class="tag">Bẫy đồng nghĩa</b>Băng gần như <strong>không đọc nguyên văn từ trong câu hỏi</strong> — cũng paraphrase như Reading. Câu hỏi ghi "problems", băng sẽ nói <span class="en">difficulties / drawbacks / issues</span>. Vốn paraphrase bạn xây ở Reading (rd-b2-04) dùng lại được nguyên vẹn tại đây.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn đang tìm đáp án câu 25–27 và nghe thấy <span class="en">"Now, let's turn to the funding side of the project"</span>. Ý nghĩa?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Người nói vừa <b>chuyển sang chủ đề mới</b> — nếu câu 25 là về thiết kế mà bạn chưa nghe thấy đáp án, coi như đã lỡ; nhảy ngay tới câu về funding.</p></div></details></div>
+          <div class="q"><p class="qq">2. Băng nói <span class="en">"But the really crucial thing to remember is…"</span> — bạn nên làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Tập trung tối đa</b> — cụm nhấn mạnh gần như luôn dẫn tới một đáp án, đặc biệt trong Section 4.</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu hỏi có từ "advantages" — dự đoán băng sẽ dùng những từ nào?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">benefits · the good thing about · the upside · what's useful about it</span>. Chờ nghe <em>ý</em>, đừng chờ nghe đúng chữ "advantages".</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn hoàn toàn mất dấu, không biết đang ở câu nào. Cách lấy lại vị trí?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nghe lấy <b>từ khoá nội dung</b> của băng rồi quét mắt qua các câu hỏi còn lại xem từ đó khớp câu nào — rồi <b>nhảy tới câu SAU câu đó</b>. Đừng cố quay lại câu đã lỡ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b2-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b2-02 -->
+      <article class="lesson" id="ls-b2-02" data-lesson="ls-b2-02" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b2-02</span><h3>Multiple Choice khi nghe — khó hơn Reading nhiều</h3><span class="ls-check">✓</span></div>
+        <p>MCQ trong Listening khó hơn hẳn trong Reading vì bạn phải đọc 3 phương án <em>trong lúc</em> băng đang chạy. Chiến thuật:</p>
+        <ul>
+          <li><strong>Lúc đọc trước:</strong> gạch chân <mark>chỗ khác nhau</mark> giữa 3 phương án, không đọc lại toàn bộ câu. Ba phương án thường chỉ khác nhau một hai từ.</li>
+          <li><strong>Bẫy kinh điển:</strong> băng nhắc đến <em>cả ba</em> phương án — hai cái bị phủ định hoặc thuộc về người khác. Nghe thấy từ trong phương án A không có nghĩa A đúng.</li>
+          <li><strong>Trong hội thoại (Section 3):</strong> phải bám <em>ai nói gì</em>. Câu hỏi "What does the tutor suggest?" mà bạn ghi ý của sinh viên là mất điểm.</li>
+          <li>Chưa chắc thì <strong>khoanh nhanh, đánh dấu, đi tiếp</strong> — dừng lại phân vân là mất luôn câu sau.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Kịch bản mẫu — Section 3</b>
+          <p><span class="lb">SV</span><span class="en">I was thinking of doing the survey online — it'd be much quicker.</span><br>
+          <span class="lb">GV</span><span class="en">Quicker, yes, but you'd get a very narrow group of respondents. And interviewing people face to face takes weeks, which you don't have. Honestly, I'd suggest a mix — put the survey online, but do a small number of phone interviews as well.</span><br>
+          <span class="lb">SV</span><span class="en">That does sound more balanced.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. <span class="en">What does the tutor recommend?</span><br>A. an online survey only &nbsp; B. face-to-face interviews &nbsp; C. a combination of methods</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>C</b> — "I'd suggest a mix". A là ý của <em>sinh viên</em>, B bị chính giảng viên loại vì mất nhiều tuần. Cả ba phương án đều được nhắc — đúng kiểu bẫy điển hình.</p></div></details></div>
+          <div class="q"><p class="qq">2. Vì sao A sai dù băng có nói "online" và "quicker"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì câu hỏi hỏi <b>giảng viên khuyên gì</b>, còn "online only" là đề xuất của sinh viên và bị giảng viên phản biện ngay ("but you'd get a very narrow group").</p></div></details></div>
+          <div class="q"><p class="qq">3. Khi đọc trước 3 phương án, bạn nên gạch chân gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Chỉ gạch <b>phần khác nhau</b>: online / face-to-face / combination. Đọc lại cả ba câu đầy đủ trong lúc băng chạy là bất khả thi.</p></div></details></div>
+          <div class="q"><p class="qq">4. Trong Section 3 có 4 người nói. Bạn nên ghi chú gì lên đề trước khi nghe?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Viết tắt <b>vai trò từng người</b> bên cạnh câu hỏi (T = tutor, S1, S2). Bám đúng người là nửa số điểm của Section 3.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b2-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b2-03 -->
+      <article class="lesson" id="ls-b2-03" data-lesson="ls-b2-03" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b2-03</span><h3>Matching &amp; phân loại — nghe theo nhóm</h3><span class="ls-check">✓</span></div>
+        <p>Đề cho một danh sách (A–F) và yêu cầu ghép với các mục 21–25: ai chọn gì, cái nào ở đâu, ý kiến nào thuộc về ai. Đặc điểm:</p>
+        <ul>
+          <li><strong>Các mục 21–25 đi theo thứ tự băng</strong>, nhưng <mark>đáp án A–F thì không</mark> — và thường có phương án dư.</li>
+          <li>Danh sách A–F ngắn → <strong>học thuộc nó trong lúc đọc trước</strong>, để khi nghe chỉ cần liếc mắt.</li>
+          <li>Nghe <em>ý</em>, không nghe từ: nếu A là <span class="en">"too expensive"</span>, băng sẽ nói <span class="en">"way over our budget"</span>.</li>
+          <li>Có đề cho phép dùng một phương án nhiều lần — <strong>đọc kỹ hướng dẫn</strong>.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Kịch bản mẫu — chọn khoá học</b>
+          <p><span class="lb">A</span><span class="en">I looked at the evening photography course, but it clashes with my shift at the restaurant.</span><br>
+          <span class="lb">B</span><span class="en">And the cookery one?</span><br>
+          <span class="lb">A</span><span class="en">Perfect timing, but three hundred pounds is way over my budget. The pottery class, though — cheap, Saturday mornings, and my flatmate's already signed up. I'm doing that one.</span></p>
+          <p><span class="vs">Lý do: A. giờ không hợp · B. quá đắt · C. có bạn học cùng · D. gần nhà</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (ghép A–D)</b>
+          <div class="q"><p class="qq">1. Photography course → ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>A — giờ không hợp</b>. "It clashes with my shift" = trùng giờ làm.</p></div></details></div>
+          <div class="q"><p class="qq">2. Cookery course → ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B — quá đắt</b>. "Way over my budget" = paraphrase của "too expensive". Bẫy: băng nói "perfect timing" nên rất dễ nhầm sang A.</p></div></details></div>
+          <div class="q"><p class="qq">3. Pottery class → ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>C — có bạn học cùng</b> ("my flatmate's already signed up"). Băng nêu tới ba lý do tích cực, nhưng chỉ C có trong danh sách.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao phương án D (gần nhà) là phương án dư?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì băng <b>không nhắc gì đến khoảng cách</b>. Phương án dư luôn "nghe hợp lý" với chủ đề — đừng chọn nó chỉ vì cảm giác đúng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b2-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b2-04 -->
+      <article class="lesson" id="ls-b2-04" data-lesson="ls-b2-04" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b2-04</span><h3>Map &amp; Plan labelling — nghe theo hướng đi</h3><span class="ls-check">✓</span></div>
+        <p>Dạng bài gắn nhãn cho bản đồ hoặc sơ đồ, hầu như luôn ở Section 2. Người ta không sai vì tiếng Anh khó, mà vì <mark>không tìm được điểm xuất phát</mark>.</p>
+        <ol>
+          <li><strong>Lúc đọc trước:</strong> tìm ngay <span class="en">"You are here"</span> hoặc lối vào, và xác định hướng bắc trên bản đồ.</li>
+          <li>Đặt <strong>ngón tay lên bản đồ</strong> và di chuyển theo lời người nói — đừng chỉ nhìn.</li>
+          <li>Thuộc bộ từ chỉ hướng bên dưới đến mức phản xạ.</li>
+        </ol>
+        <div class="tbl-scroll"><table>
+          <tr><th>Nhóm</th><th>Cụm phải thuộc</th></tr>
+          <tr><td class="k">Hướng đi</td><td class="mono">go straight ahead · turn left/right · take the second turning · go past · carry on until…</td></tr>
+          <tr><td class="k">Vị trí tương đối</td><td class="mono">opposite · next to · between X and Y · behind · in front of · adjacent to</td></tr>
+          <tr><td class="k">Trên bản đồ</td><td class="mono">in the north-east corner · along the river · at the far end · on your left-hand side</td></tr>
+          <tr><td class="k">Bên trong toà nhà</td><td class="mono">on the ground/first floor · at the top of the stairs · through the double doors</td></tr>
+        </table></div>
+        <div class="passage"><b class="ptag">Kịch bản mẫu — tour giới thiệu trung tâm</b>
+          <p><span class="en">You're standing at the main entrance, at the bottom of the map. Go straight ahead past the café, which is on your left. At the end of that corridor you'll find the library — it's the large room directly opposite the stairs. The computer room is next to the library, on its right-hand side as you face it, and the staff office is right behind the reception desk you just walked past.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Thư viện nằm ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Cuối hành lang, đối diện cầu thang</b> — "at the end of that corridor… directly opposite the stairs".</p></div></details></div>
+          <div class="q"><p class="qq">2. Phòng máy tính ở đâu?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Ngay cạnh thư viện, phía bên phải</b> khi bạn đứng đối diện thư viện. Chú ý cụm "as you face it" — hướng phụ thuộc vào chỗ bạn đứng.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao phải đặt ngón tay lên bản đồ khi nghe?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì bạn cần <b>giữ vị trí hiện tại</b> khi băng đi tiếp; chỉ nhìn bằng mắt là lạc ngay sau 2–3 chỉ dẫn. Ngón tay chính là bộ nhớ ngoài của bạn.</p></div></details></div>
+          <div class="q"><p class="qq">4. Băng nói <span class="en">"take the second turning on your left, just past the fountain"</span> — hai thông tin nào bạn phải xử lý cùng lúc?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Đếm ngã rẽ (thứ hai, không phải thứ nhất)</b> và <b>mốc xác nhận (đài phun nước)</b>. Mốc luôn dùng để kiểm chứng bạn đang đi đúng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b2-04">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b2-05 -->
+      <article class="lesson" id="ls-b2-05" data-lesson="ls-b2-05" data-band="b2">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b2-05</span><h3>Section 4 &amp; quy trình chạy một đề full</h3><span class="ls-check">✓</span></div>
+        <p><strong>Section 4</strong> là bài giảng học thuật liên tục, thường không có quãng nghỉ giữa chừng — nghĩa là bạn phải đọc trước cả 10 câu một lượt. Đặc điểm và cách trị:</p>
+        <ul>
+          <li>Hầu như luôn là <strong>Note Completion</strong> theo dàn ý bài giảng → cấu trúc ghi chú chính là dàn ý, dùng nó làm bản đồ.</li>
+          <li>Từ vựng học thuật nặng hơn → đây là chỗ vốn từ Reading trả cổ tức.</li>
+          <li><strong>Nếu lỡ một câu, tuyệt đối không dừng lại</strong> — bài giảng chạy đều và không quay lại chủ đề cũ.</li>
+        </ul>
+        <p><strong>Quy trình chạy một đề full (~30 phút)</strong> — chạy đúng như thi thật, đeo tai nghe, không tạm dừng:</p>
+        <ol>
+          <li>Trước mỗi section: đọc trước + dự đoán (ls-b1-02).</li>
+          <li>Trong lúc nghe: ghi tắt, nghe hết câu mới đặt bút (ls-b1-05), bám từ tín hiệu (ls-b2-01).</li>
+          <li>Lỡ câu nào: khoanh tròn số câu đó, đi tiếp ngay.</li>
+          <li>Hết băng: điền mọi ô trống bằng phỏng đoán hợp lý.</li>
+          <li>Thi giấy: 10 phút chép sang answer sheet — <strong>soát chính tả, số nhiều, viết hoa</strong>. Thi máy: 2 phút kiểm tra tương tự.</li>
+          <li><strong>Sau khi chấm — phần quan trọng nhất:</strong> mở transcript, tìm bằng được <em>đoạn chứa đáp án</em> của từng câu sai và phân loại lỗi.</li>
+        </ol>
+        <div class="tbl-scroll"><table>
+          <tr><th>Loại lỗi khi chấm</th><th>Nghĩa</th><th>Hành động</th></tr>
+          <tr><td class="k">Không nghe ra</td><td>Nghe đoạn đó vẫn không nhận ra</td><td>Chép chính tả đoạn ấy (ls-b1-06)</td></tr>
+          <tr><td class="k">Nghe ra nhưng chọn sai</td><td>Dính bẫy tự sửa ý / sai người nói</td><td>Học lại bài về dạng đó</td></tr>
+          <tr><td class="k">Sai chính tả / số nhiều</td><td>Đúng ý, sai hình thức</td><td>Thêm vào checklist soát 10 phút cuối</td></tr>
+          <tr><td class="k">Không kịp đọc</td><td>Chưa kịp hiểu câu hỏi thì băng đã qua</td><td>Luyện đọc trước nhanh hơn, viết tắt nhiều hơn</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Lịch tuần khuyến nghị cho giai đoạn 5.0–5.5</b><strong>2 đề full/tuần</strong> (có phân tích lỗi đầy đủ) + <strong>3–4 buổi chép chính tả 15 phút</strong>. Làm 5 đề/tuần mà không phân tích lỗi thì tuần nào cũng sai đúng những chỗ ấy.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Section 4 khác 3 section kia ở điểm nào về mặt chiến thuật?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Không có quãng nghỉ giữa chừng</b> — phải đọc trước cả 10 câu trong một lần, và một khi lỡ thì mất hẳn, vì bài giảng không quay lại chủ đề cũ.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn được 21/40. Việc đầu tiên nên làm sau khi chấm?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Mở transcript và phân loại 19 câu sai</b> theo 4 loại ở bảng trên. Con số 21 không nói lên điều gì; phân bố lỗi mới cho biết phải luyện gì tuần sau.</p></div></details></div>
+          <div class="q"><p class="qq">3. Đa số lỗi của bạn là "sai chính tả / số nhiều". Điều đó nghĩa là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tai bạn <b>ổn hơn bạn tưởng</b> — vấn đề nằm ở khâu ghi và soát. Chỉ cần một checklist soát cuối giờ là điểm nhảy ngay, không cần luyện nghe thêm.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ capstone: chạy 1 đề Listening full theo đúng 6 bước trên, rồi lập bảng phân loại lỗi của chính bạn.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Kết quả cần có: bảng 4 dòng với số câu mỗi loại + kế hoạch tuần tới nhắm vào <b>loại lỗi đông nhất</b>. Ghi vào sổ rồi quay lại tick bài này.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b2-05">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 5.5 → 6.0 ═══════════ -->
+    <section class="chapter" id="b3">
+      <h2><span class="cnum">BAND 5.5 → 6.0</span> Nghe được tiếng Anh thật <span class="ccount" data-chcount="b3">0/4</span></h2>
+      <p class="cintro">Ở mức này, vấn đề không còn là "không biết từ" mà là "biết từ nhưng không nhận ra khi nghe". Nhóm này xử lý accent, âm bị nuốt, tốc độ ghi chú, và hai dạng completion khó hơn.</p>
+
+      <!-- ls-b3-01 -->
+      <article class="lesson" id="ls-b3-01" data-lesson="ls-b3-01" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b3-01</span><h3>Accent Anh · Úc · Mỹ — đề thi trộn cả ba</h3><span class="ls-check">✓</span></div>
+        <p>IELTS cố tình dùng nhiều accent trong cùng một đề. Nếu bạn chỉ quen giọng Mỹ (phim ảnh, YouTube), Section 2 giọng Úc sẽ nghe như ngôn ngữ khác. Ba khác biệt đủ để bạn xoay xở:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Đặc điểm</th><th>Anh (RP)</th><th>Úc</th><th>Mỹ</th></tr>
+          <tr><td class="k">/r/ cuối từ (car, park)</td><td>Không đọc</td><td>Không đọc</td><td class="mono">Đọc rõ /kɑːr/</td></tr>
+          <tr><td class="k">Nguyên âm "a" (dance, can't)</td><td class="mono">/ɑː/ "daahns"</td><td class="mono">/ɑː/ hoặc /æ/</td><td class="mono">/æ/ "dæns"</td></tr>
+          <tr><td class="k">/t/ giữa hai nguyên âm (water, better)</td><td class="mono">/t/ rõ</td><td>Nhẹ, gần /d/</td><td class="mono">Thành /d/: "wader"</td></tr>
+          <tr><td class="k">"day / eight" (Úc đặc trưng)</td><td class="mono">/eɪ/</td><td class="mono">Gần /aɪ/ — "die", "ite"</td><td class="mono">/eɪ/</td></tr>
+        </table></div>
+        <div class="call"><b class="tag">Cách luyện — 15 phút/ngày, xoay vòng</b>Đừng nghe một nguồn duy nhất. Xoay vòng 3 nguồn cho cùng chủ đề: bản tin Anh (BBC), podcast Úc, podcast Mỹ. Mục tiêu không phải hiểu 100% mà là <mark>để tai quen với việc cùng một từ có thể vang lên theo ba cách</mark>. Kèm chép chính tả ngắn với nguồn bạn thấy khó nhất.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Băng giọng Mỹ nói /ˈwɔːdər/. Từ đó là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>water</b> — /t/ giữa hai nguyên âm bị đọc thành /d/. Nếu bạn chỉ quen giọng Anh, âm này rất dễ bị "nghe không ra" dù bạn biết thừa từ đó.</p></div></details></div>
+          <div class="q"><p class="qq">2. Người Úc nói câu nghe như <span class="en">"I'm going on Sundie"</span>. Nghĩa là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Sunday</b> — nguyên âm /eɪ/ trong "day" bị kéo gần về /aɪ/. Đây là bẫy hay gặp với đáp án ngày trong tuần ở Section 1–2.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao chỉ luyện nghe phim Mỹ là rủi ro cho IELTS?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì đề trộn cả ba accent — bạn sẽ mất trọn một section chỉ vì giọng lạ, dù trình độ ngôn ngữ đủ. Phải chủ động nạp giọng Anh và Úc.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: chọn 1 đoạn 40 giây giọng Úc, chép chính tả, phân loại lỗi theo bảng ở ls-b1-06.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Kết quả cần thấy: phần lớn lỗi rơi vào <b>nối âm/âm yếu</b> chứ không phải "không biết từ" — bằng chứng rằng vấn đề là accent, và cách chữa là tiếp xúc lặp lại chứ không phải học thêm từ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b3-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b3-02 -->
+      <article class="lesson" id="ls-b3-02" data-lesson="ls-b3-02" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b3-02</span><h3>Weak forms &amp; nối âm — vì sao câu quen thuộc bỗng lạ hoắc</h3><span class="ls-check">✓</span></div>
+        <p>Bạn đã học nối âm từ phía người nói (bài <span class="mono">sp-b4-04</span>). Giờ là phía người nghe — và đây là lý do thật sự khiến tiếng Anh nhanh "nghe không kịp": <mark>bạn đang tìm những từ chưa bao giờ được phát âm rời</mark>.</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Viết</th><th>Nghe thành</th><th>Ghi chú</th></tr>
+          <tr><td class="mono">a cup of tea</td><td class="mono">a cuppa tea</td><td>"of" thành /ə/</td></tr>
+          <tr><td class="mono">I should have known</td><td class="mono">I shoulda known</td><td>"have" thành /əv/ → /ə/</td></tr>
+          <tr><td class="mono">What are you doing?</td><td class="mono">Whatcha doing?</td><td>are + you gộp</td></tr>
+          <tr><td class="mono">He's been to Paris</td><td class="mono">He's bin to Paris</td><td>"been" âm yếu /bɪn/</td></tr>
+          <tr><td class="mono">for a moment</td><td class="mono">fra moment</td><td>"for" thành /fə/</td></tr>
+          <tr><td class="mono">picked it up</td><td class="mono">pi-ki-tup</td><td>nối phụ âm → nguyên âm</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Vì sao điều này ăn điểm trực tiếp</b>Âm yếu thường là <span class="en">a · the · of · has · to · was</span> — chúng không đổi ý chính, nhưng đổi <strong>đáp án ngữ pháp</strong> của bạn. Nghe sót "the" hay "has" là ghi sai dạng từ trong Completion, mất câu dù hiểu trọn nghĩa.</div>
+        <p><strong>Drill shadowing 10 phút:</strong> chọn 30 giây có transcript → nghe 1 câu → <em>đọc to đè lên băng</em>, bắt chước đúng chỗ dính và chỗ nuốt → lặp 5 lần/câu. Miệng học được thì tai nhận ra được.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn nghe /aɪd rɑːðə/. Viết đầy đủ?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>I'd rather</b> — dạng rút gọn + /r/ cuối không đọc (giọng Anh).</p></div></details></div>
+          <div class="q"><p class="qq">2. Nghe /ˈlɒtsəv/ — là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>lots of</b> — "of" thành /əv/ dính liền vào từ trước.</p></div></details></div>
+          <div class="q"><p class="qq">3. Câu hỏi Completion: <span class="en">"The centre has ______ facilities."</span> Băng nói nhanh /hæzə nʌmbərəv/. Đáp án?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Băng nói <b>"has a number of"</b> → chỗ trống điền <b>a number of</b> (nếu luật cho phép 3 từ) hoặc bạn phải nhận ra cấu trúc để chọn đúng dạng số nhiều "facilities". Nghe sót âm yếu là ghi sai ngay.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao shadowing hiệu quả hơn nghe đi nghe lại thụ động?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì bạn <b>tự tạo ra</b> khuôn âm đó bằng miệng mình — não ghi nhận khuôn dạng chủ động, khác hẳn việc nghe lướt qua tai. Cùng nguyên tắc "học chủ động" xuyên suốt BandUp.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b3-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b3-03 -->
+      <article class="lesson" id="ls-b3-03" data-lesson="ls-b3-03" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b3-03</span><h3>Ghi chú tốc ký — tay phải theo kịp tai</h3><span class="ls-check">✓</span></div>
+        <p>Một lỗi phổ biến ở band 5.5: nghe được nhưng <mark>viết chưa xong đã lỡ câu sau</mark>. Cách chữa là hệ thống viết tắt cá nhân, dùng nhất quán đến mức tự động:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Kỹ thuật</th><th>Ví dụ</th></tr>
+          <tr><td class="k">Bỏ nguyên âm giữa</td><td class="mono">accommodation → accm · government → gvt · development → dvlpmt</td></tr>
+          <tr><td class="k">Ký hiệu</td><td class="mono">↑ tăng · ↓ giảm · → dẫn đến · ≈ khoảng · ≠ không phải · &amp; và · @ tại</td></tr>
+          <tr><td class="k">Viết tắt phổ thông</td><td class="mono">b/c vì · w/ với · w/o không có · eg ví dụ · yr năm · pple người</td></tr>
+          <tr><td class="k">Số luôn viết số</td><td class="mono">"fifteen" → 15 · "half past nine" → 9.30</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">Hai luật bắt buộc</b>① <strong>Chỉ dùng ký hiệu bạn giải mã được sau 10 phút</strong> — viết tắt mà lát nữa không đọc nổi thì thà viết đủ. ② <strong>Thi trên máy: không dùng tốc ký</strong> cho ô đáp án — phải gõ đủ và đúng chính tả ngay, vì không có 10 phút chép lại. Tốc ký chỉ dùng cho giấy nháp.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Viết tắt cụm này khi nghe: <span class="en">"the government increased spending on public transport"</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: <span class="mono">gvt ↑ spend @ pub transp</span> — đủ để tái tạo ý sau 10 phút.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn ghi <span class="mono">"accm 25/wk"</span>. 10 phút sau bạn có đọc được không?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>accommodation £25 per week</b> — được, nếu "accm" là ký hiệu bạn dùng nhất quán. Nếu hôm nay viết "accm", hôm sau "acmd" thì hệ thống vô dụng.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn thi trên máy, nghe được "accommodation" cho chỗ trống. Gõ gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Gõ đủ "accommodation", đúng chính tả, ngay lúc đó</b> — đây chính là lý do phải luyện gõ đúng những từ dài hay gặp trước ngày thi.</p></div></details></div>
+          <div class="q"><p class="qq">4. Nhiệm vụ: lập bảng 15 ký hiệu riêng của bạn, dùng nó trong 3 buổi luyện liên tiếp.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Sau 3 buổi, ký hiệu nào bạn vẫn phải nghĩ mới nhớ ra thì <b>loại bỏ</b>. Hệ thống tốc ký tốt là hệ thống nhỏ và tự động, không phải hệ thống đầy đủ.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b3-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b3-04 -->
+      <article class="lesson" id="ls-b3-04" data-lesson="ls-b3-04" data-band="b3">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b3-04</span><h3>Sentence &amp; Table Completion — bẫy ngữ pháp</h3><span class="ls-check">✓</span></div>
+        <p>Hai biến thể khó hơn Form Completion, vì đáp án phải khớp cả <mark>nghĩa lẫn ngữ pháp của câu</mark>:</p>
+        <ul>
+          <li><strong>Sentence Completion:</strong> chỗ trống nằm trong câu hoàn chỉnh → phải đoán loại từ trước khi nghe (danh từ? động từ nguyên mẫu? tính từ?), rồi ghi dạng đúng.</li>
+          <li><strong>Table Completion:</strong> đọc <strong>tiêu đề cột và hàng</strong> trước — chúng cho biết loại thông tin cần điền và thứ tự băng sẽ đi (thường theo hàng, trái sang phải).</li>
+          <li><strong>Bẫy số ít/số nhiều:</strong> băng nói "two hours" nhưng câu là <span class="en">"a ______ break"</span> → phải viết "two-hour". Ngữ pháp của câu quyết định, không phải từ băng nói.</li>
+          <li><strong>Bẫy paraphrase:</strong> câu trong đề đã được viết lại so với băng — chỉ có <em>từ điền vào</em> là nguyên văn.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Kịch bản mẫu</b>
+          <p><span class="en">The workshop runs for six weeks, with sessions every Monday. Each session lasts two hours, and there's a fifteen-minute break in the middle. Participants receive a certificate at the end, though you must attend at least five of the six sessions to qualify.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (ONE WORD AND/OR A NUMBER)</b>
+          <div class="q"><p class="qq">1. <span class="en">The course lasts ______ weeks.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>six</b> (hoặc 6). "Runs for" = "lasts" — câu đề đã paraphrase.</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">There is a ______-minute break during each session.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>fifteen</b> (hoặc 15) — chú ý chỗ trống đã có sẵn "-minute", nên chỉ điền số.</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">To receive a certificate, you must attend a minimum of ______ sessions.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>five</b> (hoặc 5) — "at least" = "a minimum of". Bẫy: băng nhắc cả "six" ngay sau đó ("five of the six").</p></div></details></div>
+          <div class="q"><p class="qq">4. Nếu câu là <span class="en">"Each session includes a ______ break"</span> và băng nói "fifteen minutes" — viết gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>fifteen-minute</b> (danh từ ghép làm tính từ, số ít). Viết "fifteen minutes" là sai ngữ pháp của câu → mất điểm dù nghe đúng.</p></div></details></div>
+        </div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b3-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.0 → 6.5 ═══════════ -->
+    <section class="chapter" id="b4">
+      <h2><span class="cnum">BAND 6.0 → 6.5</span> Section 3 &amp; 4 — nơi điểm thật sự được quyết định <span class="ccount" data-chcount="b4">0/4</span></h2>
+      <p class="cintro">Từ nhóm này, bài học chuyển dần sang tiếng Anh — từ khó có chú thích nghiêng, cuối bài có Tóm tắt nhanh. Hai nửa đầu đề ai cũng làm được; khoảng cách giữa 6.0 và 6.5 nằm gọn trong Section 3 và 4.</p>
+
+      <!-- ls-b4-01 -->
+      <article class="lesson" id="ls-b4-01" data-lesson="ls-b4-01" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b4-01</span><h3>Section 3: tracking multiple speakers</h3><span class="ls-check">✓</span></div>
+        <p>Section 3 usually has two students and a tutor, sometimes three students. The language is not much harder than Section 2 — what makes it difficult is <mark>keeping track of who says what</mark> <span class="gl">(bám được ai nói gì)</span>.</p>
+        <ul>
+          <li><strong>Before listening</strong>, write the speakers' initials next to the questions <span class="gl">(ghi tắt tên người bên cạnh câu hỏi)</span>. The introduction always names them: <span class="en">"So Anna, Tom, how's the project going?"</span></li>
+          <li><strong>Lock the voices in the first ten seconds</strong> — one male, one female, one older voice. After that, identify by voice, not by name.</li>
+          <li><strong>Watch for agreement and disagreement</strong>, because questions often turn on it: <span class="en">"That's true, but…" · "I'm not so sure about that" · "Exactly what I was thinking"</span>.</li>
+          <li><strong>Beware the shared conclusion</strong>: two speakers disagree for twenty seconds, then settle on a third option. As in Section 1, the answer is <strong>what they end up agreeing on</strong>.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Practice script — three speakers</b>
+          <p><span class="lb">TUTOR</span><span class="en">So, how are you planning to present your findings?</span><br>
+          <span class="lb">ANNA</span><span class="en">We thought a poster would work well — it's visual and people can read it at their own pace.</span><br>
+          <span class="lb">TOM</span><span class="en">I'm not so sure. Posters get ignored at these events. A short talk would reach more people.</span><br>
+          <span class="lb">TUTOR</span><span class="en">Both have merits. Have you considered doing a talk with the poster displayed beside you?</span><br>
+          <span class="lb">ANNA</span><span class="en">Oh, that's clever. Yes, let's do that.</span><br>
+          <span class="lb">TOM</span><span class="en">Agreed — best of both.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. <span class="en">What will the students finally do?</span> A. a poster only &nbsp; B. a talk only &nbsp; C. a talk with a poster</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>C</b> — đáp án là <b>điều họ chốt ở cuối</b>, không phải ý ban đầu của ai. A là ý Anna, B là ý Tom, cả hai đều bị vượt qua.</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">What was Tom's original concern about posters?</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bị người ta bỏ qua ở sự kiện</b> ("posters get ignored"). Câu hỏi hỏi riêng ý <em>ban đầu của Tom</em> — nếu bạn không bám được ai nói gì thì mất câu này.</p></div></details></div>
+          <div class="q"><p class="qq">3. Cụm nào báo hiệu Tom sắp phản đối?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">"I'm not so sure."</span> — cụm bất đồng lịch sự kinh điển. Nghe thấy nó là biết một quan điểm khác sắp tới.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn nên ghi gì lên đề trong 30 giây đọc trước?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Tên viết tắt (A / T / Tu) cạnh mỗi câu hỏi có nhắc người, và gạch chân chữ chỉ người trong câu hỏi (<span class="en">"What does <b>the tutor</b> suggest?"</span>) — chữ đó chính là thứ quyết định đúng sai.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Section 3 khó vì phải bám ai nói gì, không phải vì từ khó → ghi tắt tên người cạnh câu hỏi và nhận diện bằng giọng ngay 10 giây đầu → chú ý cụm đồng ý/bất đồng (I'm not so sure / exactly) → khi nhóm tranh luận rồi chốt phương án thứ ba, đáp án luôn là phương án chốt cuối.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b4-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b4-02 -->
+      <article class="lesson" id="ls-b4-02" data-lesson="ls-b4-02" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b4-02</span><h3>Attitude &amp; opinion — hearing what is not said directly</h3><span class="ls-check">✓</span></div>
+        <p>Band-6.5 questions ask <span class="en">"How does the speaker feel about…?"</span> or <span class="en">"What is the tutor's attitude to…?"</span>. Speakers rarely state feelings outright <span class="gl">(hiếm khi nói thẳng cảm xúc)</span> — you infer them from three signals:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Signal</th><th>Example</th><th>Reveals</th></tr>
+          <tr><td class="k">Hedging &amp; understatement</td><td class="mono">It's not <b>entirely</b> convincing… · I suppose it's <b>adequate</b>.</td><td>Polite criticism <span class="gl">(chê lịch sự)</span></td></tr>
+          <tr><td class="k">Praise then "but"</td><td class="mono">The research is thorough, <b>but</b> the sample was tiny.</td><td>The real point is after "but"</td></tr>
+          <tr><td class="k">Tone &amp; stress</td><td class="mono">Well, that's <b>one</b> way of doing it.</td><td>Doubt, mild disapproval</td></tr>
+        </table></div>
+        <div class="call warn"><b class="tag">The politeness trap — bẫy lịch sự</b>Academic English criticises gently. <span class="en">"That's an interesting approach"</span> often means <em>I don't agree</em>. <span class="en">"It's a good start"</span> means <em>it isn't finished</em>. If you take these at face value <span class="gl">(hiểu theo nghĩa đen)</span>, you will answer "positive" where the answer is "doubtful".</div>
+        <div class="passage"><b class="ptag">Practice script</b>
+          <p><span class="lb">TUTOR</span><span class="en">I've read your first draft. The structure is clear, and you've obviously done a lot of reading. Having said that, I did wonder whether ten interviews is really enough to draw the conclusions you're drawing. It's a good start, certainly.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. <span class="en">What is the tutor's overall attitude to the draft?</span> A. fully satisfied &nbsp; B. impressed but concerned &nbsp; C. completely dismissive</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B</b> — khen cấu trúc và công đọc, nhưng "Having said that… I did wonder whether…" là chê lịch sự. C quá mạnh, A bỏ qua nửa sau.</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">"It's a good start, certainly."</span> — nghĩa thật là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Bài chưa xong, còn phải làm nhiều.</b> "A good start" trong giọng học thuật gần như luôn hàm ý "chưa đủ".</p></div></details></div>
+          <div class="q"><p class="qq">3. Điều tutor thật sự lo ngại là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Số lượng phỏng vấn (10) quá ít so với kết luận đưa ra</b> — nằm ngay sau "Having said that", đúng vị trí kinh điển của ý chính.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao người học band 6.0 hay chọn nhầm "positive" ở dạng câu này?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì họ bắt được các <b>từ khen</b> (clear, a lot of reading, good) và bỏ qua các <b>tín hiệu rào đón</b>. Ở Listening cũng như Reading, chỗ sau "but / having said that" mới là quan điểm thật.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Câu hỏi thái độ đòi suy luận, không đòi nghe thẳng → ba tín hiệu: rào đón/nói giảm, khen rồi "but", giọng điệu → tiếng Anh học thuật chê rất lịch sự: "interesting approach" = không đồng ý, "a good start" = chưa xong → quan điểm thật luôn nằm sau "but / having said that".</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b4-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b4-03 -->
+      <article class="lesson" id="ls-b4-03" data-lesson="ls-b4-03" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b4-03</span><h3>Multiple-answer questions — "choose TWO letters"</h3><span class="ls-check">✓</span></div>
+        <p>You get five to seven options and must pick two or three. These carry <mark>one mark each</mark> <span class="gl">(mỗi đáp án một điểm)</span>, so a set of two is worth two questions — and the order you write them in does not matter.</p>
+        <ul>
+          <li><strong>The speaker mentions almost every option</strong> — that is the whole design. Most are raised and then rejected <span class="gl">(nêu ra rồi loại đi)</span>: <span class="en">"We looked at doing X, but in the end we didn't."</span></li>
+          <li><strong>Tick and cross as you listen</strong> rather than waiting: mark ✓ when confirmed, ✗ when rejected, ? when unclear. Deciding at the end is impossible.</li>
+          <li><strong>Options are paraphrased</strong>, never quoted — <span class="en">"free parking"</span> in the paper may be <span class="en">"you won't pay anything to leave your car"</span> on the recording.</li>
+          <li>If you end with three ticks and need two, keep the ones stated <strong>most explicitly</strong> and drop the inferred one.</li>
+        </ul>
+        <div class="passage"><b class="ptag">Practice script — new community centre</b>
+          <p><span class="en">The new centre has been popular for several reasons. People tell us they love the fact that it stays open until ten at night, which suits shift workers. The building is also fully accessible, with ramps and a lift. We did consider a café, but the budget didn't stretch that far, and unfortunately parking is still limited — that's the main complaint we get. What has surprised us is how many people come for the free wifi.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh — <span class="en">Which TWO features do visitors like?</span></b>
+          <div class="q"><p class="qq">Options: A. the café &nbsp; B. the late opening hours &nbsp; C. plenty of parking &nbsp; D. wheelchair access &nbsp; E. the free internet — chọn TWO.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>B và E</b> — mở đến 10 giờ đêm ("people tell us they love") và wifi miễn phí ("how many people come for"). D có thật nhưng băng không nói khách <em>thích</em>; A bị loại (không đủ ngân sách); C bị phủ định (parking hạn chế).</p></div></details></div>
+          <div class="q"><p class="qq">2. Vì sao D là phương án gài tinh vi nhất?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì nó <b>đúng sự thật</b> (toà nhà có ramp và thang máy) nhưng <b>không trả lời câu hỏi</b> (khách <em>thích</em> gì). Luôn kiểm tra phương án chống lại đúng câu hỏi, không chỉ chống lại băng.</p></div></details></div>
+          <div class="q"><p class="qq">3. Cụm nào loại phương án A?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">"We did consider a café, but the budget didn't stretch that far."</span> — cấu trúc "did consider… but" là dấu hiệu loại trừ điển hình của dạng này.</p></div></details></div>
+          <div class="q"><p class="qq">4. Bạn chọn được 3 phương án nhưng chỉ được chọn 2. Xử lý?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Giữ hai phương án được nói <b>rõ ràng và trực tiếp nhất</b>, bỏ phương án bạn phải suy luận. Suy luận trong dạng này thường là bẫy.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Mỗi đáp án một điểm, thứ tự không quan trọng → băng nhắc gần hết các phương án rồi loại dần, nên phải tick/cross ngay khi nghe chứ không đợi cuối → phương án luôn bị paraphrase → phương án "đúng sự thật nhưng không trả lời đúng câu hỏi" là bẫy tinh vi nhất → phân vân thì giữ cái được nói thẳng, bỏ cái phải suy luận.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b4-03">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b4-04 -->
+      <article class="lesson" id="ls-b4-04" data-lesson="ls-b4-04" data-band="b4">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b4-04</span><h3>Section 4: surviving a dense lecture</h3><span class="ls-check">✓</span></div>
+        <p>Section 4 runs for about five minutes with <mark>no break</mark> and no second speaker to slow things down. Three survival tools:</p>
+        <ul>
+          <li><strong>Use the note structure as a map</strong> <span class="gl">(dùng dàn ý ghi chú làm bản đồ)</span>. The headings tell you the lecture's plan, so you always know roughly where you are — and the gaps come in order.</li>
+          <li><strong>Predict word class for all ten gaps</strong> during the preparation time. You will not get another chance to think.</li>
+          <li><strong>Listen for the lecturer's signposts</strong>: <span class="en">"Let's turn now to…" · "The second factor is…" · "What's crucial here is…"</span>. These are your position markers.</li>
+        </ul>
+        <div class="call warn"><b class="tag">The recovery rule — luật cứu bàn thua</b>If you miss a gap, look at the <strong>next</strong> heading in your notes and wait for it <span class="gl">(nhìn tiêu đề kế tiếp và chờ nó)</span>. Do not scan backwards. In a lecture, a missed answer is gone — but the next one is only seconds away, and panic is what turns one lost mark into five.</div>
+        <div class="passage"><b class="ptag">Practice script — urban beekeeping</b>
+          <p><span class="en">Let's turn now to why bees do surprisingly well in cities. The first factor is temperature: urban areas are typically two to three degrees warmer than the surrounding countryside, which extends the flowering season. Second, and this often surprises people, city gardens contain a far greater variety of plants than farmland, where a single crop may cover hundreds of hectares. What's crucial here, though, is pesticide use — city councils simply spray far less than commercial farms do.</span></p>
+        </div>
+        <div class="quiz"><b>Luyện nhanh (ONE WORD AND/OR A NUMBER)</b>
+          <div class="q"><p class="qq">1. <span class="en">Cities are ______ to three degrees warmer than rural areas.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>two</b> (hoặc 2).</p></div></details></div>
+          <div class="q"><p class="qq">2. <span class="en">Warmer temperatures make the ______ season longer.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>flowering</b> — chú ý chỗ trống cần tính từ/danh từ bổ nghĩa, đúng dạng như băng nói.</p></div></details></div>
+          <div class="q"><p class="qq">3. <span class="en">City gardens offer a greater ______ of plants than farmland.</span></p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>variety</b>.</p></div></details></div>
+          <div class="q"><p class="qq">4. Cụm nào báo hiệu ý quan trọng nhất của đoạn, và ý đó là gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><span class="en">"What's crucial here, though, is…"</span> → <b>việc dùng thuốc trừ sâu</b>: thành phố phun ít hơn nông trại nhiều. Cụm nhấn mạnh gần như luôn dẫn tới một đáp án.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Section 4 là bài giảng liền mạch 5 phút, không có quãng nghỉ → dùng dàn ý ghi chú làm bản đồ và dự đoán loại từ cho cả 10 chỗ trống trong thời gian chuẩn bị → bám cụm chuyển ý và cụm nhấn mạnh để biết mình đang ở đâu → lỡ một câu thì nhìn tiêu đề kế tiếp và chờ, tuyệt đối không ngoái lại.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b4-04">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <!-- ═══════════ BAND 6.5 → 7.0 ═══════════ -->
+    <section class="chapter" id="b5">
+      <h2><span class="cnum">BAND 6.5 → 7.0</span> The road to 30/40 <span class="ccount" data-chcount="b5">0/3</span></h2>
+      <p class="cintro">Ba bài cuối viết chủ yếu bằng tiếng Anh. Ở chặng này bạn nghe được gần hết — việc còn lại là quản trị lỗi, giữ bình tĩnh khi không hiểu hết, và đóng gói thành quy trình chạy được trong 30 phút phòng thi.</p>
+
+      <!-- ls-b5-01 -->
+      <article class="lesson" id="ls-b5-01" data-lesson="ls-b5-01" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b5-01</span><h3>The 30/40 strategy — auditing your errors</h3><span class="ls-check">✓</span></div>
+        <p>Band 7 in Listening means roughly <mark>30 correct answers out of 40</mark> — you are allowed to lose ten. At this level, progress comes from error accounting <span class="gl">(kế toán lỗi)</span>, not from doing more tests. Audit every mistake into four boxes:</p>
+        <div class="tbl-scroll"><table>
+          <tr><th>Error type</th><th>Diagnosis</th><th>Fix</th></tr>
+          <tr><td class="k">1 · Didn't hear it</td><td>Even with the transcript open, you cannot catch it in the audio</td><td>Dictation on that exact clip (ls-b1-06) + accent exposure</td></tr>
+          <tr><td class="k">2 · Heard, chose wrong</td><td>Correction trap, wrong speaker, distractor option</td><td>Re-study that question-type lesson — this is technique, not hearing</td></tr>
+          <tr><td class="k">3 · Spelling / form</td><td>Right idea, wrong letters, plural, or word class</td><td>A fixed transfer checklist; a personal spelling list</td></tr>
+          <tr><td class="k">4 · Ran out of reading time</td><td>Still reading the question when the answer went past</td><td>Faster prediction drills; abbreviate more aggressively</td></tr>
+        </table></div>
+        <p><strong>The counter-intuitive finding</strong> <span class="gl">(phát hiện ngược đời)</span>: most learners stuck at 6.5 assume their ears are the problem. When they actually audit, types 2 and 3 dominate — <mark>technique and transfer, not hearing</mark>. Those are the cheapest points in the entire IELTS exam.</p>
+        <div class="call"><b class="tag">Weekly loop</b>Two full tests per week, audited. Count each type. Attack the biggest pile for seven days. Re-count. If type 1 dominates, your plan is dictation and accent work; if type 3 dominates, you may gain a whole band from a checklist alone.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Đáp án là "receipt", bạn viết "reciept". Loại lỗi và cách chữa?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Type 3</b> — thêm vào danh sách chính tả cá nhân và soát ở phút cuối. Không cần luyện nghe thêm một giây nào cho lỗi này.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn ghi ý của sinh viên trong khi câu hỏi hỏi ý giảng viên. Loại lỗi?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Type 2</b> — kỹ thuật bám người nói. Học lại ls-b4-01, không phải vấn đề tai.</p></div></details></div>
+          <div class="q"><p class="qq">3. Bạn được 26/40 và muốn lên 30. Việc đầu tiên?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Kiểm kê 14 câu sai theo 4 nhóm.</b> Nếu 8 câu thuộc type 2 và 3, bạn có thể chạm 30 <em>mà không cần nghe tốt hơn</em> — chỉ cần sửa quy trình.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao "làm thêm 5 đề mỗi tuần" không đưa bạn từ 6.5 lên 7.0?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì làm đề chỉ <b>đo</b> lỗi chứ không <b>chữa</b> lỗi. Không kiểm kê thì tuần nào bạn cũng sai đúng những chỗ ấy, chỉ khác đề bài.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Band 7 = 30/40, được phép mất 10 câu → phân loại mọi lỗi vào 4 nhóm: không nghe ra / nghe ra nhưng chọn sai / sai chính tả–dạng từ / không kịp đọc đề → người kẹt ở 6.5 thường chết vì nhóm 2 và 3, tức là kỹ thuật và khâu ghi, không phải vì tai → mỗi tuần đếm lại và đánh đúng nhóm lớn nhất.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b5-01">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b5-02 -->
+      <article class="lesson" id="ls-b5-02" data-lesson="ls-b5-02" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b5-02</span><h3>Listening without understanding everything</h3><span class="ls-check">✓</span></div>
+        <p>Nobody catches 100% — not even native speakers. The band-7 skill is <mark>staying functional while partly lost</mark> <span class="gl">(vẫn làm được bài dù đang lạc)</span>:</p>
+        <ul>
+          <li><strong>Listen for the gap, not the passage.</strong> You do not need the whole sentence — you need the word that fills the blank. Everything else is scenery.</li>
+          <li><strong>Use grammar to reconstruct</strong> <span class="gl">(dùng ngữ pháp để dựng lại)</span>: if you caught only <span class="en">"…the ___ system was introduced in 1998"</span>, you know the missing word is a noun or adjective before "system", which narrows the guess enormously.</li>
+          <li><strong>Guess phonetically</strong>: if the word sounded like /ˈsɜːveɪ/ but you are unsure, write <strong>survey</strong>. A phonetic guess scores sometimes; a blank scores never.</li>
+          <li><strong>Recover on the beat</strong>: when you realise you are lost, jump to the next question you can still see coming, and let the missed ones go. One missed answer costs one mark; panic costs five.</li>
+        </ul>
+        <div class="call warn"><b class="tag">The unknown-word rule</b>An unfamiliar word is not a stop sign. Write it phonetically as you hear it <span class="gl">(ghi lại theo âm)</span> and move on — you can often reconstruct the spelling later from context, especially with technical terms that the speaker repeats.</div>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Bạn chỉ bắt được <span class="en">"…and that's why the ______ rate has fallen since 2015."</span> Bạn suy được gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Từ cần điền là <b>danh từ/tính từ bổ nghĩa cho "rate"</b> — kiểu <span class="en">birth / unemployment / crime / literacy</span>. Chỉ riêng ngữ pháp đã thu hẹp phạm vi đoán rất mạnh.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn nghe một từ như /ˈbaɪəsɪz/ nhưng không chắc. Làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Ghi "biases"</b> (hoặc ghi âm gần đúng rồi sửa ở phút cuối). Đoán theo âm có xác suất đúng; bỏ trống thì chắc chắn sai.</p></div></details></div>
+          <div class="q"><p class="qq">3. Đang ở Section 4, bạn nhận ra mình đã lạc 3 câu. Phản ứng đúng?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Nhìn <b>tiêu đề tiếp theo</b> trong ghi chú, bỏ hẳn 3 câu đó, bắt lại từ mốc gần nhất. Cứu 3 câu đã mất = mất thêm 5 câu nữa.</p></div></details></div>
+          <div class="q"><p class="qq">4. Vì sao "nghe để tìm chỗ trống" hiệu quả hơn "nghe để hiểu hết"?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì bài thi không chấm mức độ hiểu — chấm 40 mẩu thông tin cụ thể. Nghe có mục tiêu giúp não <b>dồn tài nguyên</b> đúng chỗ thay vì trải mỏng lên toàn bộ băng.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Không ai nghe được 100%; kỹ năng band 7 là vẫn làm bài được khi đang lạc → nghe để tìm chỗ trống chứ không nghe để hiểu hết → dùng ngữ pháp quanh chỗ trống để thu hẹp phạm vi đoán → từ lạ thì ghi theo âm rồi đi tiếp, tuyệt đối không bỏ trống → lạc thì bắt lại ở mốc kế tiếp, hoảng loạn đắt hơn mất một câu.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b5-02">Đánh dấu đã học xong</button></div>
+      </article>
+
+      <!-- ls-b5-03 -->
+      <article class="lesson" id="ls-b5-03" data-lesson="ls-b5-03" data-band="b5">
+        <span class="spine"></span>
+        <div class="ls-top"><span class="ls-id">ls-b5-03</span><h3>Test-day protocol — the last ten minutes matter most</h3><span class="ls-check">✓</span></div>
+        <p>Listening comes first in the exam, so it also sets your mood for the whole morning. Lock this protocol during your final mock tests <span class="gl">(chốt từ khi luyện, không phải ngày thi)</span>:</p>
+        <ul>
+          <li><strong>Before:</strong> listen to five minutes of English on the way in. Your ears, like your mouth in Speaking, need a warm-up you should not spend on Section 1.</li>
+          <li><strong>Ignore the instructions audio</strong> — you already know them. Use that time to read ahead.</li>
+          <li><strong>Write answers straight onto the question paper</strong> as you listen (paper test); type directly into the box (computer test).</li>
+          <li><strong>Never leave a blank</strong>, even a wild guess — there is no penalty.</li>
+          <li><strong>Paper test — the ten-minute transfer</strong> is where band 7 is protected. Run a fixed checklist: ① spelling ② singular/plural ③ capital letters for names, days, months ④ word limit ⑤ question numbers aligned ⑥ no blanks. Computer test: same checklist in the final two minutes.</li>
+        </ul>
+        <div class="call warn"><b class="tag">Three things not to do</b>① Đừng cố nhớ lại câu đã lỡ trong lúc băng vẫn chạy — bạn đang đánh đổi câu hiện tại lấy một câu đã mất. ② Đừng đổi đáp án ở phút chót chỉ vì "cảm giác" — chỉ đổi khi bạn nhớ được bằng chứng cụ thể từ băng. ③ Đừng để một section tệ ảnh hưởng section sau; mỗi section là một ván mới.</div>
+        <p><strong>Two weeks out:</strong> one full test every three days with a complete audit, 15 minutes of daily dictation, and rotating accents. No new techniques in the final week — only repetition of what already works.</p>
+        <div class="quiz"><b>Luyện nhanh</b>
+          <div class="q"><p class="qq">1. Trong 10 phút chép đáp án, bạn phát hiện một ô trống. Làm gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p><b>Điền một phỏng đoán hợp lý</b> dựa trên loại từ và ngữ cảnh câu. Không trừ điểm câu sai — ô trống là điểm chắc chắn mất.</p></div></details></div>
+          <div class="q"><p class="qq">2. Bạn viết "monday" và "15 sessions" cho chỗ trống <span class="en">"a ______ session"</span>. Checklist bắt được gì?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Hai lỗi: <b>thiếu viết hoa</b> ("Monday") và <b>sai dạng số</b> ("a 15-minute session" chứ không phải số nhiều). Đúng hai mục ③ và ② của checklist — hai điểm cứu được trong 10 giây.</p></div></details></div>
+          <div class="q"><p class="qq">3. Vì sao không nên đổi đáp án theo cảm giác ở phút chót?</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Vì trí nhớ âm thanh phai rất nhanh, còn "cảm giác" lúc đó chủ yếu là lo lắng. Chỉ đổi khi bạn <b>nhớ được cụ thể</b> băng đã nói gì.</p></div></details></div>
+          <div class="q"><p class="qq">4. Lập lịch 2 tuần cuối cho Listening của riêng bạn.</p>
+          <details><summary>Xem đáp án</summary><div class="ans"><p>Mẫu: đề full vào ngày 1–4–7–10–13 (kèm kiểm kê 4 nhóm lỗi); các ngày còn lại 15 phút chép chính tả, xoay vòng accent Anh/Úc/Mỹ; tuần cuối không nạp kỹ thuật mới. Hoàn thành bài này là bạn đã đi hết lộ trình Listening — và trọn bộ BandUp.</p></div></details></div>
+        </div>
+        <div class="vn-sum"><b class="tag">Tóm tắt nhanh</b><p>Khởi động tai 5 phút trước khi thi; bỏ qua phần đọc hướng dẫn để đọc trước câu hỏi → ghi đáp án ngay khi nghe, không bao giờ để trống → 10 phút chép đáp án là nơi bảo vệ band 7: soát chính tả, số ít/nhiều, viết hoa, luật đếm từ, số thứ tự, ô trống → không ngoái lại câu đã lỡ, không đổi đáp án theo cảm giác, mỗi section là một ván mới. Chúc mừng — bạn đã hoàn thành trọn lộ trình Listening 4.0 → 7.0.</p></div>
+        <div class="ls-foot"><button type="button" class="tickbtn" data-tick="ls-b5-03">Đánh dấu đã học xong</button></div>
+      </article>
+    </section>
+
+    <div class="coming"><b>Mở rộng theo yêu cầu</b>Lộ trình Listening 4.0 → 7.0 đã đủ — và đây cũng là kỹ năng cuối cùng của BandUp. Nhóm 7.0+ (ls-b6) sẽ được bổ sung khi bạn yêu cầu; tiến độ đã tick luôn được giữ nguyên.</div>
+
+    <div class="endnav">
+      <a class="btn btn-primary" href="index.html#tiendo">Xem tiến độ toàn bộ →</a>
+      <a class="btn btn-ghost" href="index.html#lotrinh">← Về lộ trình</a>
+    </div>
+
+    </div><!-- /content -->
+  </div><!-- /layout -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p class="mono">v2 · listening (b1–b5) · 22 bài · giao diện v2 · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══ Thanh tiến trình đọc ══ */
+var readbar = document.getElementById("readbar");
+function updateReadbar(){
+  var h = document.documentElement;
+  var max = h.scrollHeight - h.clientHeight;
+  readbar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+}
+window.addEventListener("scroll", updateReadbar, {passive:true});
+updateReadbar();
+
+/* ══ DEV CONTRACT: quét bài học & ghi manifest ══ */
+var PAGE_KEY = "listening";
+var lessonEls = Array.prototype.slice.call(document.querySelectorAll(".lesson[data-lesson]"));
+var LESSONS = lessonEls.map(function(el){
+  return {
+    id: el.dataset.lesson,
+    band: el.dataset.band,
+    title: el.querySelector("h3") ? el.querySelector("h3").textContent.trim() : el.dataset.lesson
+  };
+});
+try{
+  localStorage.setItem("bandup.manifest." + PAGE_KEY, JSON.stringify({
+    page: PAGE_KEY,
+    title: "Listening",
+    updated: Date.now(),
+    lessons: LESSONS
+  }));
+}catch(e){}
+
+/* ══ Tiến độ: đọc / ghi bandup.done ══ */
+function loadDone(){
+  try{
+    var raw = localStorage.getItem("bandup.done");
+    return new Set(raw ? JSON.parse(raw) : []);
+  }catch(e){ return new Set(); }
+}
+function saveDone(set){
+  try{ localStorage.setItem("bandup.done", JSON.stringify(Array.from(set))); }catch(e){}
+}
+var doneSet = loadDone();
+
+function renderState(){
+  var doneCount = 0;
+  lessonEls.forEach(function(el){
+    var id = el.dataset.lesson;
+    var isDone = doneSet.has(id);
+    if(isDone) doneCount++;
+    el.classList.toggle("done", isDone);
+    var btn = el.querySelector("[data-tick]");
+    if(btn) btn.textContent = isDone ? "✓ Đã học — bấm để bỏ đánh dấu" : "Đánh dấu đã học xong";
+    var toc = document.querySelector('[data-toc="' + id + '"]');
+    if(toc){
+      toc.classList.toggle("done", isDone);
+      toc.querySelector(".st").textContent = isDone ? "✓" : "○";
+    }
+  });
+  var pct = LESSONS.length ? Math.round(doneCount / LESSONS.length * 100) : 0;
+  document.getElementById("pgBar").style.width = pct + "%";
+  document.getElementById("pgText").textContent = doneCount + "/" + LESSONS.length + " bài · " + pct + "%";
+  document.querySelectorAll("[data-chcount]").forEach(function(c){
+    var ch = document.getElementById(c.dataset.chcount);
+    if(!ch) return;
+    var inCh = Array.prototype.slice.call(ch.querySelectorAll(".lesson[data-lesson]"));
+    var d = inCh.filter(function(el){ return doneSet.has(el.dataset.lesson); }).length;
+    c.textContent = d + "/" + inCh.length;
+  });
+}
+
+document.addEventListener("click", function(ev){
+  var btn = ev.target.closest("[data-tick]");
+  if(!btn) return;
+  var id = btn.getAttribute("data-tick");
+  if(doneSet.has(id)) doneSet.delete(id); else doneSet.add(id);
+  saveDone(doneSet);
+  renderState();
+});
+
+window.addEventListener("focus", function(){ doneSet = loadDone(); renderState(); });
+renderState();
+
+/* ══ UI v2: mục lục gọn trên mobile + nút về đầu trang ══ */
+(function(){
+  var toc = document.querySelector(".toc");
+  if(toc){
+    var tg = document.createElement("button");
+    tg.type = "button"; tg.className = "toc-toggle";
+    tg.innerHTML = 'Mục lục <span aria-hidden="true">▾</span>';
+    toc.insertBefore(tg, toc.firstChild);
+    if(window.innerWidth <= 920) toc.classList.add("collapsed");
+    tg.addEventListener("click", function(){
+      toc.classList.toggle("collapsed");
+      tg.querySelector("span").textContent = toc.classList.contains("collapsed") ? "▾" : "▴";
+    });
+    toc.addEventListener("click", function(e){
+      if(e.target.closest("a") && window.innerWidth <= 920){
+        toc.classList.add("collapsed");
+        tg.querySelector("span").textContent = "▾";
+      }
+    });
+  }
+  var tt = document.createElement("button");
+  tt.type = "button"; tt.id = "toTop"; tt.setAttribute("aria-label","Về đầu trang"); tt.textContent = "↑";
+  document.body.appendChild(tt);
+  tt.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+  window.addEventListener("scroll", function(){ tt.classList.toggle("show", window.scrollY > 600); }, {passive:true});
+})();
+</script>
+</body>
+</html>
