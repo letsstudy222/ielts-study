@@ -311,6 +311,7 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
     </a>
     <nav class="topnav" aria-label="Điều hướng chính">
       <a href="#lotrinh">Lộ trình</a>
+      <a href="placement.html">Kiểm tra đầu vào</a>
       <a href="vocab.html">Từ vựng</a>
       <a href="#tiendo">Tiến độ</a>
       <a href="#hocdung">Cách học</a>
@@ -330,7 +331,11 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
         <p class="lead">Kiến thức chia nhỏ theo từng mốc 0.5 band — học tới đâu chắc tới đó. Web này dạy kiến thức và chiến lược; phần luyện đề bạn làm ở nền tảng ôn thi đã có.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" id="resumeBtn" href="guide.html" data-page="guide">Bắt đầu với Hướng dẫn tự học</a>
-          <a class="btn btn-ghost" href="#lotrinh">Xem lộ trình</a>
+          <a class="btn btn-ghost" href="placement.html">Kiểm tra đầu vào · 25 phút</a>
+        </div>
+        <div id="placeBanner" style="display:none;margin-top:16px;border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--card);border-radius:12px;padding:12px 16px;font-size:.9rem;max-width:34rem">
+          <b style="display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px">Kết quả kiểm tra đầu vào</b>
+          <span id="placeText"></span>
         </div>
       </div>
       <div class="rise d2">
@@ -372,6 +377,18 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
           <h3>Học theo cụm từ</h3>
           <p>Flashcard theo chùm, ba dạng quiz khó dần, lịch ôn giãn cách tự nhắc bạn đúng lúc sắp quên. Học cụm dùng được ngay thay vì từ đơn lẻ.</p>
           <span class="card-meta" id="vocabMeta">Mở kho cụm →</span>
+        </a>
+        <a class="card" href="practice-reading.html" id="prCard">
+          <span class="card-tag" style="background:#0E7C5B;color:#fff">Luyện Reading</span>
+          <h3>Làm bài có chấm điểm</h3>
+          <p>Bài đọc nguyên bản, bấm giờ như thi thật, chấm tự động và quy đổi band. Phần chữa chỉ rõ câu nào trong bài chứa đáp án và cặp paraphrase bạn phải nhận ra.</p>
+          <span class="card-meta" id="prMeta">Mở danh sách bài →</span>
+        </a>
+        <a class="card" href="listening.html#nguon">
+          <span class="card-tag" style="background:#5A4FB5;color:#fff">Luyện nghe</span>
+          <h3>Nguồn nghe hằng ngày</h3>
+          <p>Bốn trang miễn phí đã kiểm tra còn hoạt động — chép chính tả, luyện số và tên riêng, đổi giọng Anh Úc Mỹ — kèm chỉ dẫn nguồn nào dùng cho bài học nào.</p>
+          <span class="card-meta">Xem 4 nguồn →</span>
         </a>
       </div>
     </div>
@@ -440,7 +457,7 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
 <footer>
   <div class="wrap">
     <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
-    <p class="mono">v1.3 · index · +khu vực Luyện tập · 08/2026</p>
+    <p class="mono">v1.6 · index · +nguồn luyện nghe · 08/2026</p>
   </div>
 </footer>
 
@@ -661,7 +678,31 @@ function syncGuideLinks(){
 }
 
 /* ═══════════ KHỞI ĐỘNG ═══════════ */
-function renderAll(){ renderCards(); renderProgress(); updateResume(); updateVocabCard(); }
+function renderAll(){ renderCards(); renderProgress(); updateResume(); updateVocabCard(); updatePracticeCard(); updatePlacement(); }
+
+/* ══ Dải kết quả kiểm tra đầu vào ══ */
+function updatePlacement(){
+  var box = document.getElementById("placeBanner"), txt = document.getElementById("placeText");
+  if(!box || !txt) return;
+  var m = null;
+  try{ m = JSON.parse(localStorage.getItem("bandup.manifest.placement")); }catch(e){}
+  if(!m || !m.start){ box.style.display = "none"; return; }
+  var NAME = {f:"Nền tảng → 4.0", b1:"4.0 → 5.0", b2:"5.0 → 5.5", b3:"5.5 → 6.0", b4:"6.0 → 6.5", b5:"6.5 → 7.0"};
+  txt.innerHTML = "Bạn nên bắt đầu từ bậc <strong>" + (NAME[m.start] || m.start) + "</strong> "
+    + "(đúng " + m.correct + "/" + m.total + " câu). "
+    + '<a href="placement.html" style="font-weight:800">Xem lại kế hoạch →</a>';
+  box.style.display = "block";
+}
+
+/* ══ Thẻ Luyện Reading: đọc manifest do practice-reading.html ghi ══ */
+function updatePracticeCard(){
+  var el = document.getElementById("prMeta");
+  if(!el) return;
+  var m = null;
+  try{ m = JSON.parse(localStorage.getItem("bandup.manifest.practice-reading")); }catch(e){}
+  if(!m || !m.total){ el.textContent = "Mở danh sách bài →"; return; }
+  el.textContent = (m.done ? "Đã làm " + m.done + "/" + m.total + " bài" : m.total + " bài đang chờ") + " →";
+}
 
 /* ══ Thẻ Từ vựng: đọc bandup.manifest.vocab do vocab.html ghi ══ */
 function updateVocabCard(){

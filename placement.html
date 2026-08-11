@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiểm tra đầu vào — BandUp</title>
+<meta name="description" content="Bài kiểm tra 25 phút xác định bậc band xuất phát của bạn, chấm theo tầng độ khó và chỉ đúng chỗ nên bắt đầu trong lộ trình BandUp.">
+<!--
+BANDUP · placement.html · v1 · giao diện v2 · SELF-CONTAINED
+────────────────────────────────────────────────────────────────
+NGUYÊN LÝ CHẤM — "chấm theo tầng", không chấm tổng điểm.
+30 câu chia 6 tầng, mỗi tầng ứng với một bậc band:
+   f (→4.0) · b1 (4.0-5.0) · b2 (5.0-5.5)
+   b3 (5.5-6.0) · b4 (6.0-6.5) · b5 (6.5-7.0)
+Bậc xuất phát = tầng ĐẦU TIÊN (từ thấp lên) mà tỉ lệ đúng < 70%.
+Lý do: tổng điểm 60% có thể là "đều đều yếu" hoặc "nền tảng chắc
+nhưng hụt ở tầng cao" — hai trường hợp cần lộ trình khác hẳn nhau.
+
+localStorage:
+- bandup.placement {date, start, tiers:{f:..,b1:..}, correct, total}
+- bandup.manifest.placement (cho trang chủ đọc)
+- KHÔNG đụng bandup.done / bandup.vocab.srs / bandup.practice.*
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7F1; --card:#FFFFFF; --ink:#12283A; --ink-soft:#4A5D6E;
+  --line:#E4DFD3; --accent:#FFD64D; --accent-deep:#E8B400;
+  --c-pl:#1F6F8B; --ok:#0E7C5B; --no:#B23A3A;
+  --done-bg:#FFFBEA; --radius:16px;
+  --shadow:0 1px 2px rgba(18,40,58,.06),0 10px 28px -18px rgba(18,40,58,.22);
+  --font-display:"Baloo 2",system-ui,sans-serif;
+  --font-body:"Nunito",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(min-width:640px){html{font-size:17px}}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent-deep);outline-offset:3px;border-radius:4px}
+.wrap{max-width:840px;margin:0 auto;padding:0 22px}
+
+.topbar{position:sticky;top:0;z-index:50;background:rgba(250,247,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;height:60px;max-width:1120px}
+.logo{font-family:var(--font-display);font-weight:800;font-size:1.25rem;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo .dot{width:22px;height:22px;border-radius:6px;background:var(--accent);border:2px solid var(--ink);display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700}
+#timer{font-family:var(--font-display);font-weight:800;font-size:1rem;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:3px 11px;margin-left:auto;display:none}
+#timer.on{display:inline-block}
+.topnav{display:flex;gap:4px;margin-left:auto}
+.topnav a{text-decoration:none;font-size:.9rem;font-weight:600;color:var(--ink-soft);padding:7px 12px;border-radius:8px}
+.topnav a:hover{background:#EBEDE4;color:var(--ink)}
+#timer.on ~ .topnav{margin-left:12px}
+@media(max-width:700px){.topnav{display:none}}
+
+.hero{padding:44px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;margin-bottom:12px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--c-pl);border-radius:2px}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.8rem,4vw,2.4rem);line-height:1.1;letter-spacing:-.025em;margin-bottom:10px}
+.hero h1 em{font-style:normal;color:var(--c-pl)}
+.hero p.lead{font-size:1rem;color:var(--ink-soft)}
+
+.view{display:none;padding:26px 0 44px}
+.view.on{display:block}
+.box{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:16px}
+.box h2{font-family:var(--font-display);font-weight:800;font-size:1.2rem;margin-bottom:8px}
+.box p{color:var(--ink-soft);font-size:.94rem;margin-bottom:10px}
+.box ul{margin:0 0 12px 20px;color:var(--ink-soft);font-size:.94rem}
+.box li{margin-bottom:6px}
+
+.prog{height:9px;background:var(--paper);border:1.5px solid var(--line);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.prog i{display:block;height:100%;width:0%;background:var(--c-pl);transition:width .3s}
+.progtxt{font-size:.82rem;font-weight:700;color:var(--ink-soft);margin-bottom:16px}
+
+.qcard{background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+.qtop{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.reading{border:1.5px solid var(--line);border-left:6px solid var(--c-pl);background:var(--paper);border-radius:11px;padding:14px 16px;margin-bottom:14px;font-size:.94rem;line-height:1.8}
+.qtext{font-size:1.1rem;font-weight:700;margin-bottom:14px;line-height:1.6}
+.choices{display:grid;gap:9px}
+.ch{display:flex;gap:10px;align-items:flex-start;font-size:1rem;font-weight:600;padding:13px 16px;border:2px solid var(--line);border-radius:11px;background:var(--card);cursor:pointer;transition:.12s;text-align:left;font-family:var(--font-body);color:var(--ink)}
+.ch:hover{border-color:var(--ink);transform:translateX(2px)}
+.ch .k{font-weight:800;color:var(--c-pl);flex:none}
+.navrow{display:flex;gap:10px;justify-content:space-between;margin-top:18px;flex-wrap:wrap}
+
+/* Kết quả */
+.result-band{text-align:center;padding:8px 0 4px}
+.result-band .lbl{font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.result-band .big{font-family:var(--font-display);font-size:2.8rem;font-weight:800;line-height:1.1;color:var(--c-pl)}
+.result-band .sub{font-size:1rem;color:var(--ink-soft)}
+.tiers{display:grid;gap:8px;margin:16px 0}
+.tier{display:grid;grid-template-columns:120px 1fr 62px;gap:10px;align-items:center;font-size:.88rem}
+@media(max-width:560px){.tier{grid-template-columns:96px 1fr 54px;font-size:.82rem}}
+.tier b{font-weight:800}
+.tbar{height:12px;background:var(--paper);border:1.5px solid var(--line);border-radius:99px;overflow:hidden}
+.tbar i{display:block;height:100%;border-radius:99px}
+.tbar i.pass{background:var(--ok)}
+.tbar i.fail{background:var(--no)}
+.tier .pctxt{text-align:right;font-weight:800;font-family:var(--font-display)}
+.tier.start{background:var(--done-bg);border-radius:8px;padding:4px 6px;margin:0 -6px}
+
+.plan{display:grid;gap:10px}
+.step{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--paper);text-decoration:none}
+.step:hover{border-color:var(--ink);background:var(--card)}
+.step .n{font-family:var(--font-display);font-weight:800;font-size:1.1rem;color:var(--c-pl);flex:none;width:26px}
+.step b{display:block;font-size:.98rem}
+.step span{font-size:.86rem;color:var(--ink-soft)}
+
+.selfq{border-top:1.5px dashed var(--line);padding:12px 0}
+.selfq:first-of-type{border-top:none}
+.selfq p{font-weight:700;color:var(--ink);font-size:.95rem;margin-bottom:8px}
+.yn{display:flex;gap:8px;flex-wrap:wrap}
+.yn button{font-family:var(--font-body);font-weight:800;font-size:.88rem;padding:8px 16px;border-radius:9px;border:2px solid var(--line);background:var(--card);cursor:pointer;color:var(--ink)}
+.yn button.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-body);font-weight:800;font-size:.95rem;padding:13px 22px;border-radius:11px;text-decoration:none;cursor:pointer;border:2px solid var(--ink);background:var(--card);color:var(--ink);transition:.15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-accent{background:var(--accent)}
+.btn-sm{font-size:.84rem;padding:8px 14px;border-width:1.5px}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.note{border:1.5px solid var(--line);border-left:6px solid var(--accent);background:var(--paper);border-radius:11px;padding:12px 15px;font-size:.9rem;margin:14px 0}
+.note b.t{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
+.note.warn{border-left-color:var(--no);background:#FCF6F4}
+
+footer{border-top:1px solid var(--line);padding:26px 0 40px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;max-width:1120px}
+footer p{font-size:.82rem;color:var(--ink-soft)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot">7.0</span> BandUp</a>
+    <span id="timer">00:00</span>
+    <nav class="topnav"><a href="index.html#lotrinh">Lộ trình</a><a href="guide.html">Hướng dẫn</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Bước 0 · Trước khi học bất cứ thứ gì</span>
+      <h1>Bạn đang ở <em>bậc nào</em>?</h1>
+      <p class="lead">30 câu, khoảng 25 phút. Bài này không chấm bạn giỏi hay dở — nó tìm <strong>tầng đầu tiên bạn bắt đầu hụt</strong>, để bạn không phí thời gian học lại thứ đã biết, cũng không nhảy vào bậc quá sức.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ══════ MÀN 1 · GIỚI THIỆU ══════ -->
+    <section class="view on" id="view-intro">
+      <div class="box">
+        <h2>Cách bài này hoạt động</h2>
+        <p>30 câu được chia thành <strong>6 tầng độ khó</strong>, mỗi tầng ứng với một bậc trong lộ trình BandUp. Các câu đi từ dễ đến khó và không quay lại được — giống bài thi thật.</p>
+        <ul>
+          <li>Tầng 1–2: ngữ pháp nền tảng (thì, mạo từ, giới từ cơ bản)</li>
+          <li>Tầng 3–4: cấu trúc câu phức, hoà hợp chủ ngữ động từ, một đoạn đọc ngắn</li>
+          <li>Tầng 5–6: đảo ngữ, giả định, ngôn ngữ học thuật, một đoạn đọc khó</li>
+        </ul>
+        <div class="note"><b class="t">Vì sao không chấm theo tổng điểm</b>Hai người cùng đúng 18/30 có thể cần lộ trình hoàn toàn khác nhau: một người đúng đều rải rác, một người chắc nền tảng nhưng hụt hẳn từ tầng 4. Bài này tìm <strong>điểm gãy</strong> của bạn, không tính trung bình.</div>
+        <div class="note warn"><b class="t">Làm ơn đừng tra cứu</b>Đoán khi không chắc là hoàn toàn bình thường và vẫn cho kết quả đúng. Nhưng nếu bạn tra Google, kết quả sẽ chỉ bạn vào bậc quá sức, và bạn sẽ nản trong hai tuần rồi bỏ.</div>
+        <div class="row">
+          <button class="btn btn-primary" id="startBtn">Bắt đầu · 25 phút</button>
+          <button class="btn btn-sm" id="oldBtn" style="display:none">Xem kết quả lần trước</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ MÀN 2 · LÀM BÀI ══════ -->
+    <section class="view" id="view-quiz">
+      <div class="prog"><i id="progBar"></i></div>
+      <div class="progtxt" id="progTxt"></div>
+      <div class="qcard">
+        <div class="qtop"><span id="qTier"></span><span id="qCount"></span></div>
+        <div id="qReading"></div>
+        <div class="qtext" id="qText"></div>
+        <div class="choices" id="qChoices"></div>
+        <div class="navrow">
+          <span style="font-size:.84rem;color:var(--ink-soft);font-weight:700">Chọn một đáp án để sang câu tiếp theo</span>
+          <button class="btn btn-sm" id="skipBtn">Không biết, bỏ qua →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════ MÀN 3 · KẾT QUẢ ══════ -->
+    <section class="view" id="view-result">
+      <div class="box">
+        <div class="result-band">
+          <div class="lbl">Bậc xuất phát của bạn</div>
+          <div class="big" id="resBand"></div>
+          <div class="sub" id="resSub"></div>
+        </div>
+        <div class="tiers" id="tierList"></div>
+        <p id="resExplain" style="margin-top:6px"></p>
+      </div>
+
+      <div class="box">
+        <h2>Lộ trình dành riêng cho bạn</h2>
+        <p id="planIntro"></p>
+        <div class="plan" id="planList"></div>
+      </div>
+
+      <div class="box">
+        <h2>Writing &amp; Speaking — tự đánh giá</h2>
+        <p>Hai kỹ năng này không thể chấm tự động. Trả lời thật lòng 4 câu dưới đây, tôi sẽ nói bạn nên bắt đầu từ đâu.</p>
+        <div id="selfBody"></div>
+        <div id="selfResult" style="margin-top:12px"></div>
+      </div>
+
+      <div class="box">
+        <h2>Việc cần làm trong 7 ngày tới</h2>
+        <div class="plan" id="weekList"></div>
+        <div class="note"><b class="t">Lời thật lòng</b>Kết quả này chỉ có giá trị nếu bạn bắt đầu học trong vòng 48 giờ tới. Một bài kiểm tra đầu vào làm xong rồi để đó chỉ là một buổi tối bị lãng phí.</div>
+        <div class="row">
+          <button class="btn btn-sm" id="retakeBtn">Làm lại bài kiểm tra</button>
+          <a class="btn btn-sm" href="index.html">← Về trang chủ</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
+    <p style="font-size:.72rem">v1 · placement · 30 câu · 6 tầng · 08/2026</p>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   NGÂN HÀNG CÂU HỎI — 6 tầng × 5 câu
+   ══════════════════════════════════════════════════════════════ */
+var TIERS = ["f","b1","b2","b3","b4","b5"];
+var TIER_NAME = {f:"Nền tảng → 4.0", b1:"4.0 → 5.0", b2:"5.0 → 5.5",
+                 b3:"5.5 → 6.0", b4:"6.0 → 6.5", b5:"6.5 → 7.0"};
+var TIER_SHORT = {f:"Nền tảng", b1:"4.0–5.0", b2:"5.0–5.5", b3:"5.5–6.0", b4:"6.0–6.5", b5:"6.5–7.0"};
+
+var QUESTIONS = [
+/* ── TẦNG f · Nền tảng ── */
+{t:"f", q:"My sister ______ to work by bus every morning.", o:["go","goes","going","gone"], a:1},
+{t:"f", q:"There ______ a lot of people waiting outside.", o:["is","are","was","be"], a:1},
+{t:"f", q:"I need ______ umbrella because it is raining.", o:["a","an","the","some"], a:1},
+{t:"f", q:"She ______ dinner when the phone rang.", o:["cooks","cooked","was cooking","is cooking"], a:2},
+{t:"f", q:"We live ______ a small town near the sea.", o:["on","in","at","by"], a:1},
+
+/* ── TẦNG b1 · 4.0 → 5.0 ── */
+{t:"b1", q:"If it rains tomorrow, we ______ at home.", o:["stay","will stay","stayed","would stay"], a:1},
+{t:"b1", q:"He has worked here ______ 2015.", o:["for","since","from","during"], a:1},
+{t:"b1", q:"This exam was ______ than the last one.", o:["difficult","more difficult","most difficult","difficulter"], a:1},
+{t:"b1", q:"She is interested ______ learning Japanese.", o:["on","at","in","for"], a:2},
+{t:"b1", q:"Although the food was cheap, ______ it was delicious.", o:["but","so","and","không cần từ nào"], a:3},
+
+/* ── TẦNG b2 · 5.0 → 5.5 (gồm 1 đoạn đọc ngắn) ── */
+{t:"b2", q:"I am looking forward ______ you again next month.", o:["to see","to seeing","seeing","see"], a:1},
+{t:"b2", q:"Neither of the two answers ______ correct.", o:["are","is","were","be"], a:1},
+{t:"b2", q:"He suggested ______ the meeting until Friday.", o:["to postpone","postponing","postpone","postponed"], a:1},
+{t:"b2", r:"Bicycle-sharing schemes let people rent a bike for short trips at low cost. Supporters say they cut air pollution and improve public health. Critics, however, point out that bikes are often stolen or damaged, which makes some schemes expensive to run.",
+ q:"Theo đoạn trên, những người phản đối cho rằng vấn đề là gì?", o:["Xe đạp quá đắt để thuê","Xe hay bị mất hoặc hỏng","Người dân không thích đạp xe","Chương trình gây ô nhiễm"], a:1},
+{t:"b2", r:"Bicycle-sharing schemes let people rent a bike for short trips at low cost. Supporters say they cut air pollution and improve public health. Critics, however, point out that bikes are often stolen or damaged, which makes some schemes expensive to run.",
+ q:"Câu \"Bicycle-sharing schemes are free for users\" — đúng, sai, hay không có thông tin?", o:["TRUE","FALSE","NOT GIVEN"], a:1},
+
+/* ── TẦNG b3 · 5.5 → 6.0 ── */
+{t:"b3", q:"Despite ______ very hard, she did not pass the test.", o:["work","worked","working","to work"], a:2},
+{t:"b3", q:"Recent research ______ that sleep affects memory.", o:["show","shows","are showing","have shown"], a:1},
+{t:"b3", q:"The number of applicants ______ risen sharply this year.", o:["have","has","are","were"], a:1},
+{t:"b3", q:"The report, ______ was published last week, caused concern.", o:["that","which","who","what"], a:1},
+{t:"b3", q:"There is little ______ that the policy has worked.", o:["evidences","evidence","an evidence","evidently"], a:1},
+
+/* ── TẦNG b4 · 6.0 → 6.5 (gồm 1 đoạn đọc) ── */
+{t:"b4", q:"Had the government acted sooner, the crisis ______ avoided.", o:["would be","would have been","will be","had been"], a:1},
+{t:"b4", q:"These results ______ the findings of the earlier study.", o:["contradict","refuse","deny","disagree"], a:0},
+{t:"b4", q:"The improvement is largely ______ to a new training programme.", o:["attributed","attributive","attribute","attributing"], a:0},
+{t:"b4", r:"It is often claimed that handwriting is dying. Yet the evidence is thinner than the headlines suggest: stationery sales remain stable, and studies keep finding that writing notes by hand aids memory. Handwriting may be changing its role, but reports of its death seem premature.",
+ q:"Thái độ của tác giả đối với tuyên bố \"handwriting is dying\" là gì?", o:["Hoàn toàn đồng tình","Hoài nghi có chừng mực","Thờ ơ, không quan tâm","Giận dữ phản đối"], a:1},
+{t:"b4", r:"It is often claimed that handwriting is dying. Yet the evidence is thinner than the headlines suggest: stationery sales remain stable, and studies keep finding that writing notes by hand aids memory. Handwriting may be changing its role, but reports of its death seem premature.",
+ q:"Từ \"premature\" trong đoạn trên gần nghĩa nhất với:", o:["quá sớm, vội vàng","chính xác","được chứng minh","phổ biến"], a:0},
+
+/* ── TẦNG b5 · 6.5 → 7.0 ── */
+{t:"b5", q:"Not only ______ expensive, but it is also unreliable.", o:["it is","is it","it was","was it"], a:1},
+{t:"b5", q:"The scheme went ahead, ______ at considerable cost to taxpayers.", o:["albeit","despite","whereas","nevertheless"], a:0},
+{t:"b5", q:"Regulators are ______ to parliament for the decisions they make.", o:["accountable","responsible of","liable with","answerable of"], a:0},
+{t:"b5", q:"These findings run ______ to what most people assume.", o:["counter","against","opposite","across"], a:0},
+{t:"b5", q:"______ for the storm, the harvest would have been excellent.", o:["If not","But","Were it not","Had not"], a:2}
+];
+
+/* ══════════════════════════════════════════════════════════════
+   TRẠNG THÁI
+   ══════════════════════════════════════════════════════════════ */
+var idx = 0, picks = [], tick = null, elapsed = 0;
+var KEY = "bandup.placement";
+
+function esc(s){ return String(s).replace(/[&<>"]/g, function(m){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]; }); }
+function fmt(s){ var m=Math.floor(s/60), x=s%60; return (m<10?"0":"")+m+":"+(x<10?"0":"")+x; }
+function show(id){
+  document.querySelectorAll(".view").forEach(function(v){ v.classList.remove("on"); });
+  document.getElementById(id).classList.add("on");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+function loadSaved(){ try{ return JSON.parse(localStorage.getItem(KEY)); }catch(e){ return null; } }
+
+/* ══════════ LÀM BÀI ══════════ */
+function renderQ(){
+  var q = QUESTIONS[idx];
+  document.getElementById("qTier").textContent = "Tầng " + (TIERS.indexOf(q.t)+1) + "/6";
+  document.getElementById("qCount").textContent = "Câu " + (idx+1) + "/" + QUESTIONS.length;
+  document.getElementById("progBar").style.width = (idx/QUESTIONS.length*100) + "%";
+  document.getElementById("progTxt").textContent = "Đã làm " + idx + "/" + QUESTIONS.length + " câu";
+  document.getElementById("qReading").innerHTML = q.r ? '<div class="reading">' + esc(q.r) + '</div>' : "";
+  document.getElementById("qText").textContent = q.q;
+  var h = "";
+  q.o.forEach(function(o, j){
+    h += '<button class="ch" data-j="' + j + '"><span class="k">' + "ABCD"[j] + '</span><span>' + esc(o) + '</span></button>';
+  });
+  var box = document.getElementById("qChoices");
+  box.innerHTML = h;
+  box.querySelectorAll(".ch").forEach(function(b){
+    b.addEventListener("click", function(){ pick(parseInt(b.getAttribute("data-j"),10)); });
+  });
+}
+function pick(j){
+  picks[idx] = j;
+  idx++;
+  if(idx >= QUESTIONS.length) finish(); else renderQ();
+}
+document.getElementById("skipBtn").addEventListener("click", function(){ pick(-1); });
+document.getElementById("startBtn").addEventListener("click", function(){
+  idx = 0; picks = []; elapsed = 0;
+  document.getElementById("timer").classList.add("on");
+  clearInterval(tick);
+  tick = setInterval(function(){
+    elapsed++;
+    document.getElementById("timer").textContent = fmt(elapsed);
+  }, 1000);
+  renderQ(); show("view-quiz");
+});
+
+/* ══════════ CHẤM THEO TẦNG ══════════ */
+function finish(){
+  clearInterval(tick);
+  document.getElementById("timer").classList.remove("on");
+
+  var tiers = {}, correctAll = 0;
+  TIERS.forEach(function(t){ tiers[t] = {ok:0, n:0}; });
+  QUESTIONS.forEach(function(q, i){
+    tiers[q.t].n++;
+    if(picks[i] === q.a){ tiers[q.t].ok++; correctAll++; }
+  });
+
+  /* Bậc xuất phát = tầng ĐẦU TIÊN có tỉ lệ đúng < 70% */
+  var start = null;
+  for(var i=0; i<TIERS.length; i++){
+    var t = TIERS[i], r = tiers[t];
+    if(r.ok / r.n < 0.7){ start = t; break; }
+  }
+  var mastered = start === null;
+  if(mastered) start = "b5";
+
+  /* Lưu lại */
+  try{
+    localStorage.setItem(KEY, JSON.stringify({
+      date: Date.now(), start: start, mastered: mastered,
+      tiers: tiers, correct: correctAll, total: QUESTIONS.length, seconds: elapsed
+    }));
+    localStorage.setItem("bandup.manifest.placement", JSON.stringify({
+      page:"placement", title:"Kiểm tra đầu vào", updated:Date.now(),
+      start:start, correct:correctAll, total:QUESTIONS.length
+    }));
+  }catch(e){}
+
+  renderResult(start, tiers, correctAll, mastered);
+  show("view-result");
+}
+
+function renderResult(start, tiers, correctAll, mastered){
+  document.getElementById("resBand").textContent = mastered ? "7.0+" : TIER_NAME[start];
+  document.getElementById("resSub").textContent = mastered
+    ? "Bạn làm đúng cả 6 tầng — nền ngôn ngữ đã vững"
+    : "Đúng " + correctAll + "/" + QUESTIONS.length + " câu · làm trong " + fmt(elapsed);
+
+  var html = "";
+  TIERS.forEach(function(t){
+    var r = tiers[t], p = Math.round(r.ok/r.n*100), pass = p >= 70;
+    html += '<div class="tier' + (t === start && !mastered ? " start" : "") + '">'
+      + '<b>' + TIER_SHORT[t] + '</b>'
+      + '<div class="tbar"><i class="' + (pass ? "pass" : "fail") + '" style="width:' + p + '%"></i></div>'
+      + '<span class="pctxt">' + r.ok + "/" + r.n + '</span></div>';
+  });
+  document.getElementById("tierList").innerHTML = html;
+
+  var ex = document.getElementById("resExplain");
+  if(mastered){
+    ex.innerHTML = "Bạn vượt cả sáu tầng, nghĩa là ngữ pháp và từ vựng không còn là nút thắt. "
+      + "Điểm của bạn bây giờ phụ thuộc vào <strong>kỹ thuật làm bài và tốc độ</strong>, chứ không phải kiến thức ngôn ngữ. "
+      + "Hãy vào thẳng nhóm 6.5 → 7.0 của từng kỹ năng và tập trung vào phần chiến lược.";
+  } else {
+    var firstFail = TIERS.indexOf(start);
+    ex.innerHTML = firstFail === 0
+      ? "Bạn hụt ngay ở tầng nền tảng. Đây <strong>không</strong> phải tin xấu — nó có nghĩa là bạn biết chính xác phải bắt đầu từ đâu, "
+        + "và những bài đầu tiên sẽ vá đúng lỗ hổng thay vì dạy bạn thứ mơ hồ. Đừng nhảy sang luyện đề vội."
+      : "Bạn qua được " + firstFail + " tầng đầu và bắt đầu hụt ở tầng <strong>" + TIER_SHORT[start] + "</strong>. "
+        + "Nghĩa là phần dưới bạn đã nắm — <strong>đừng học lại từ đầu</strong>, đó là cách phí thời gian phổ biến nhất. "
+        + "Vào thẳng bậc này và học lên.";
+  }
+
+  /* Kế hoạch cá nhân hoá */
+  var startNum = TIERS.indexOf(start) + 1;
+  document.getElementById("planIntro").innerHTML = mastered
+    ? "Bốn việc theo đúng thứ tự ưu tiên cho người đã vững nền:"
+    : "Bốn việc theo đúng thứ tự. Đừng làm song song cả bốn — làm lần lượt.";
+  var steps = [];
+  if(TIERS.indexOf(start) === 0){
+    steps.push({h:"foundation.html", n:1, b:"Học module Nền tảng trước tiên",
+      s:"17 bài ngữ pháp, từ vựng và phát âm. Có cổng ra ở cuối — đạt 8/10 mới nên sang kỹ năng."});
+  } else {
+    steps.push({h:"foundation.html", n:1, b:"Lướt nhanh module Nền tảng",
+      s:"Bạn không cần học hết. Chỉ làm bài kiểm tra cổng ra ở cuối trang để chắc chắn không có lỗ hổng."});
+  }
+  steps.push({h:"vocab.html", n:2, b:"Mở kho từ vựng, bắt đầu bậc " + TIER_SHORT[start],
+    s:"300 cụm từ có lịch ôn giãn cách. Mỗi ngày 15 phút, bắt đầu ngay hôm nay chứ đừng đợi."});
+  steps.push({h:"reading.html#" + (TIERS.indexOf(start) === 0 ? "b1" : start), n:3,
+    b:"Vào Reading tại nhóm " + TIER_SHORT[start],
+    s:"Reading là kỹ năng lên điểm nhanh nhất và nuôi từ vựng cho ba kỹ năng còn lại."});
+  steps.push({h:"practice-reading.html", n:4, b:"Làm bài luyện Reading có chấm điểm",
+    s:"Sau khi học xong vài bài lý thuyết, làm ngay bài luyện để biết mình thật sự nắm được bao nhiêu."});
+
+  var ph = "";
+  steps.forEach(function(s){
+    ph += '<a class="step" href="' + s.h + '"><span class="n">' + s.n + '</span>'
+       + '<span><b>' + esc(s.b) + '</b><span>' + esc(s.s) + '</span></span></a>';
+  });
+  document.getElementById("planList").innerHTML = ph;
+
+  var wk = [
+    {n:"1", b:"Đặt ngày thi dự kiến", s:"Chưa cần đăng ký, chỉ cần ghi ra một ngày. Không có mốc thì mọi lộ trình đều trôi."},
+    {n:"2", b:"Chốt khung giờ học cố định", s:"Ví dụ 21:00–21:45 các ngày trong tuần. Giờ cố định thắng ý chí mạnh."},
+    {n:"3", b:"Đọc Hướng dẫn tự học, mục 01–03", s:"Cách tự đo band, đặt mục tiêu thực tế và bốn nguyên tắc học chủ động."},
+    {n:"4", b:"Lập sổ lỗi sai", s:"Một cuốn vở hoặc một file. Mọi lỗi bạn gặp từ hôm nay đều ghi vào đó — đây là tài sản quý nhất."}
+  ];
+  var wh = "";
+  wk.forEach(function(s){
+    var href = s.n === "3" ? "guide.html" : null;
+    var inner = '<span class="n">' + s.n + '</span><span><b>' + esc(s.b) + '</b><span>' + esc(s.s) + '</span></span>';
+    wh += href ? '<a class="step" href="' + href + '">' + inner + '</a>' : '<div class="step">' + inner + '</div>';
+  });
+  document.getElementById("weekList").innerHTML = wh;
+
+  renderSelf();
+}
+
+/* ══════════ TỰ ĐÁNH GIÁ WRITING & SPEAKING ══════════ */
+var SELF = [
+  {q:"Bạn đã từng viết trọn một bài Task 2 (250 từ) trong 40 phút chưa?", k:"w1"},
+  {q:"Bạn có biết bài Writing được chấm theo bốn tiêu chí nào không?", k:"w2"},
+  {q:"Bạn có thể nói liên tục 2 phút về một chủ đề bất kỳ mà không dừng quá 3 giây không?", k:"s1"},
+  {q:"Bạn đã từng nghe lại bản ghi âm giọng nói tiếng Anh của chính mình chưa?", k:"s2"}
+];
+var selfAns = {};
+function renderSelf(){
+  var h = "";
+  SELF.forEach(function(s, i){
+    h += '<div class="selfq"><p>' + esc(s.q) + '</p><div class="yn">'
+      + '<button data-k="' + s.k + '" data-v="1">Rồi / Có</button>'
+      + '<button data-k="' + s.k + '" data-v="0">Chưa / Không</button></div></div>';
+  });
+  var el = document.getElementById("selfBody");
+  el.innerHTML = h;
+  el.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var k = b.getAttribute("data-k");
+      el.querySelectorAll('button[data-k="' + k + '"]').forEach(function(x){ x.classList.remove("sel"); });
+      b.classList.add("sel");
+      selfAns[k] = b.getAttribute("data-v") === "1";
+      showSelfResult();
+    });
+  });
+}
+function showSelfResult(){
+  if(Object.keys(selfAns).length < SELF.length) return;
+  var w = (selfAns.w1 ? 1 : 0) + (selfAns.w2 ? 1 : 0);
+  var s = (selfAns.s1 ? 1 : 0) + (selfAns.s2 ? 1 : 0);
+  var h = '<div class="note"><b class="t">Writing</b>';
+  if(w === 0) h += "Bạn chưa thật sự bắt đầu Writing. Vào <a href='writing.html'>module Writing</a> từ bài đầu tiên — đặc biệt bài về 4 tiêu chí chấm, vì viết mà không biết luật chấm là viết mù.";
+  else if(w === 1) h += "Bạn có nền nhưng còn lỗ hổng. Đọc lại bài <em>4 tiêu chí chấm</em> và <em>Khung Task 2 bốn đoạn</em>, rồi viết một bài hoàn chỉnh có bấm giờ trong tuần này.";
+  else h += "Bạn đã quen với Task 2. Hãy nhảy tới nhóm bậc tương ứng với kết quả bài kiểm tra và tập trung vào phát triển ý sâu cùng câu phức có kiểm soát.";
+  h += '</div><div class="note"><b class="t">Speaking</b>';
+  if(s === 0) h += "Đây là điểm yếu lớn nhất của bạn lúc này. Việc đầu tiên: mở <a href='speaking.html#sp-b1-02'>bài về vòng lặp tự ghi âm</a> và ghi âm 60 giây ngay hôm nay. Khó chịu, nhưng không có cách nào khác.";
+  else if(s === 1) h += "Bạn đã bắt đầu nhưng chưa thành thói quen. Đặt lịch 15 phút ghi âm mỗi ngày, 5 ngày một tuần — đó là toàn bộ phương pháp của module Speaking.";
+  else h += "Bạn đã có thói quen tự luyện đúng cách. Tập trung vào Part 2 nói đủ 2 phút và Part 3 trả lời câu hỏi trừu tượng.";
+  h += "</div>";
+  document.getElementById("selfResult").innerHTML = h;
+}
+
+/* ══════════ KHỞI ĐỘNG ══════════ */
+document.getElementById("retakeBtn").addEventListener("click", function(){
+  if(!confirm("Làm lại từ đầu? Kết quả cũ sẽ bị ghi đè.")) return;
+  document.getElementById("startBtn").click();
+});
+(function init(){
+  var old = loadSaved();
+  if(old && old.start){
+    var b = document.getElementById("oldBtn");
+    b.style.display = "inline-flex";
+    b.textContent = "Xem kết quả lần trước (" + old.correct + "/" + old.total + ")";
+    b.addEventListener("click", function(){
+      elapsed = old.seconds || 0;
+      renderResult(old.start, old.tiers, old.correct, old.mastered);
+      show("view-result");
+    });
+  }
+})();
+</script>
+</body>
+</html>

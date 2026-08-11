@@ -160,6 +160,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 footer p{font-size:.82rem;color:var(--ink-soft)}
 footer .mono{font-family:var(--font-mono);font-size:.72rem}
 
+/* ── Khối nguồn luyện nghe ngoài ── */
+.srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:14px;margin:16px 0}
+.srccard{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1.5px solid var(--line);border-left:6px solid var(--c-ls);border-radius:12px;padding:16px 18px;text-decoration:none;transition:.15s}
+.srccard:hover{transform:translateY(-2px);border-color:var(--ink);border-left-color:var(--c-ls);box-shadow:var(--shadow)}
+.srccard .nm{font-family:var(--font-display);font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:7px}
+.srccard .nm .ext{font-size:.75rem;color:var(--ink-soft);font-weight:700}
+.srccard .use{font-size:.88rem;color:var(--ink-soft)}
+.srccard .tie{font-size:.78rem;font-weight:800;color:var(--c-ls);border-top:1px dashed var(--line);padding-top:6px;margin-top:2px}
+.srctag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 8px;background:var(--paper);border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap}
+
 /* ── UI v2: mục lục mobile & nút về đầu trang ── */
 .toc-toggle{display:none}
 @media(max-width:920px){
@@ -199,6 +209,8 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
   <div class="wrap layout">
 
     <aside class="toc" aria-label="Mục lục bài học">
+      <h2>Công cụ</h2>
+      <a href="#nguon"><span class="st">→</span>Nơi luyện nghe hằng ngày</a>
       <h2>Band 4.0 → 5.0</h2>
       <a href="#ls-b1-01" data-toc="ls-b1-01"><span class="st">○</span>Toàn cảnh 4 section</a>
       <a href="#ls-b1-02" data-toc="ls-b1-02"><span class="st">○</span>Đọc trước &amp; dự đoán</a>
@@ -229,6 +241,46 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
     </aside>
 
     <div class="content">
+
+    <!-- ═══════════ NGUỒN LUYỆN NGHE ═══════════ -->
+    <section class="chapter" id="nguon">
+      <h2><span class="cnum">CÔNG CỤ</span> Nơi luyện nghe hằng ngày</h2>
+      <p class="cintro">Trang này dạy bạn <em>kỹ thuật</em>. Còn tai thì phải luyện bằng âm thanh thật, mỗi ngày. Dưới đây là bốn nguồn miễn phí tôi đã kiểm tra còn hoạt động, kèm chỉ dẫn dùng nguồn nào cho bài học nào — đừng mở cả bốn, chọn một và đi đều.</p>
+
+      <div class="srcgrid">
+        <a class="srccard" href="https://dailydictation.com/exercises/ielts-listening" target="_blank" rel="noopener">
+          <span class="srctag">Ưu tiên số 1</span>
+          <span class="nm">DailyDictation <span class="ext">↗</span></span>
+          <span class="use">Nghe và gõ lại từng câu, hệ thống tự chấm từng chữ. Có sẵn mục IELTS Listening theo bộ Cambridge, giọng Anh và Úc.</span>
+          <span class="tie">Dùng cho bài ls-b1-06 · Chép chính tả</span>
+        </a>
+
+        <a class="srccard" href="https://dailydictation.com/exercises/numbers" target="_blank" rel="noopener">
+          <span class="srctag">Drill ngắn</span>
+          <span class="nm">DailyDictation · Số &amp; Tên riêng <span class="ext">↗</span></span>
+          <span class="use">Hai mục riêng để luyện nghe số điện thoại, ngày tháng, giá tiền và tên người được đánh vần — đúng thứ Section 1 luôn hỏi.</span>
+          <span class="tie">Dùng cho bài ls-b1-03 · Số, ngày tháng, tên riêng</span>
+        </a>
+
+        <a class="srccard" href="https://elllo.org/english/levels/index.htm" target="_blank" rel="noopener">
+          <span class="srctag">Đa giọng</span>
+          <span class="nm">ELLLO <span class="ext">↗</span></span>
+          <span class="use">Hơn 2.500 bài nghe chia theo 7 cấp độ, có transcript và câu hỏi. Điểm mạnh nhất: người nói đến từ khắp thế giới, nhiều giọng khác nhau.</span>
+          <span class="tie">Dùng cho bài ls-b3-01 · Accent Anh · Úc · Mỹ</span>
+        </a>
+
+        <a class="srccard" href="https://www.bbc.co.uk/learningenglish/english/features/6-minute-english" target="_blank" rel="noopener">
+          <span class="srctag">Nghe đều mỗi tuần</span>
+          <span class="nm">BBC 6 Minute English <span class="ext">↗</span></span>
+          <span class="use">Sáu phút mỗi tập, hai người nói giọng Anh chuẩn, có transcript đầy đủ. Hợp để luyện bám mạch hội thoại và nghe từ nối.</span>
+          <span class="tie">Dùng cho bài ls-b3-02 · Weak forms &amp; nối âm</span>
+        </a>
+      </div>
+
+      <div class="call warn"><b class="tag">Cách dùng sai mà ai cũng mắc</b>Mở một trang lên rồi <em>nghe thụ động</em> trong lúc làm việc khác. Nghe kiểu đó chỉ tạo cảm giác quen, không tăng điểm. Luật của module này: <strong>mỗi buổi chỉ 10–15 phút, nhưng phải gõ lại hoặc chép lại từng câu, rồi đối chiếu với transcript và phân loại lỗi</strong> theo bảng bốn nhóm ở bài ls-b1-06.</div>
+
+      <div class="call"><b class="tag">Lịch gợi ý</b>Ba đến bốn buổi mỗi tuần trên DailyDictation (mục IELTS Listening nếu bạn đã ở band 5.0+, mục Short Stories nếu chưa), cộng một buổi ELLLO hoặc BBC để đổi giọng. Đề full thì làm trên nền tảng ôn thi bạn đang dùng, mỗi tuần hai đề, và luôn phân tích lỗi sau khi chấm.</div>
+    </section>
 
     <!-- ═══════════ BAND 4.0 → 5.0 ═══════════ -->
     <section class="chapter" id="b1">
@@ -939,7 +991,7 @@ footer .mono{font-family:var(--font-mono);font-size:.72rem}
 <footer>
   <div class="wrap">
     <p><strong>BandUp</strong> — tự học IELTS theo từng bậc band.</p>
-    <p class="mono">v2 · listening (b1–b5) · 22 bài · giao diện v2 · 08/2026</p>
+    <p class="mono">v2.1 · listening · 22 bài + nguồn luyện nghe · 08/2026</p>
   </div>
 </footer>
 
